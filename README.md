@@ -1,2 +1,4 @@
 # ba-gestures
-Code for bachelor project at interaction design zhdk
+# Bachelor Project in Interaction Design at ZHdK
+
+Code for tryouts, prototypes and final project
