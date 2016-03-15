@@ -3,18 +3,26 @@ import de.voidplus.leapmotion.*;
 
 LeapMotion leap;
 
-int            frame_count = 0;
-PVector        position_middle_finger;
-PVector        position_ring_finger;
-FloatList      distances = new FloatList(); // array with dist values for the last 30 frames
-boolean        merge_gesture_active = false;
+int             CANVAS_WIDTH = 800;
+int             CANVAS_HEIGHT = 500;
+int             ANIMATION_STEP = 5; // = speed (px per frame)
+
+int             frame_count = 0;
+int             rect_small_width = 30;
+PVector         position_middle_finger;
+PVector         position_ring_finger;
+FloatList       distances = new FloatList(); // array with dist values for the last 30 frames
+boolean         merge_gesture_active = false;
+boolean         animation_on = false;
+
+
 
 
 // Note the HashMap's "key" is a String and "value" is an Integer
 // HashMap<Integer,Float> hm = new HashMap<Integer,Float>();
 
 void setup(){
-    size(800, 500);
+    surface.setSize(CANVAS_WIDTH, CANVAS_HEIGHT);
     background(255);
     // ...
 
@@ -36,6 +44,24 @@ void draw(){
 
     // add to make hands visible and update screen
     int fps = leap.getFrameRate();
+
+    // draw two rectangles moving together if merge gesture is active
+    fill(236, 216, 27, 255);
+    noStroke();
+    rect(0, 0, rect_small_width, CANVAS_HEIGHT);
+    rect(CANVAS_WIDTH - rect_small_width, 0, rect_small_width, CANVAS_HEIGHT);
+
+    // animate rectangles if merge gesture was registered
+    if (animation_on) {
+        rect_small_width += ANIMATION_STEP;
+        if (rect_small_width > CANVAS_WIDTH/2) {
+            animation_on = false;
+        }
+    } else {
+        if (rect_small_width > 30) {
+            rect_small_width -= ANIMATION_STEP;
+        }
+    }
 
 
 
@@ -179,6 +205,7 @@ void draw(){
                 if (past_value > 90 && merge_gesture_active != true) {
                     println("HOORAY we registered a gesture right now");
                     merge_gesture_active = true;
+                    animation_on = true; // start animation
                 }
             }
         } else {
@@ -187,9 +214,16 @@ void draw(){
 
         // ========= TEXT ==========
         // write text with current distance to canvas
-        textSize(14);
+        textSize(12);
         String distance_text = "distance: " + finger_distance;
         text(distance_text, 30, 30);
+        String gesture_text;
+        if (merge_gesture_active){
+            gesture_text = "Merge Gesture: Active";
+        } else {
+            gesture_text = "Merge Gesture: Not Active";
+        }
+        text(gesture_text , 30, 50);
 
 
 
