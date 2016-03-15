@@ -4,10 +4,10 @@ import de.voidplus.leapmotion.*;
 LeapMotion leap;
 
 int            frame_count = 0;
-int            frame_count_hand = 0;
 PVector        position_middle_finger;
 PVector        position_ring_finger;
 FloatList      distances = new FloatList(); // array with dist values for the last 30 frames
+boolean        merge_gesture_active = false;
 
 
 // Note the HashMap's "key" is a String and "value" is an Integer
@@ -63,7 +63,6 @@ void draw(){
         float   sphere_radius    = hand.getSphereRadius();
 
 
-        frame_count_hand ++;
 
 
 
@@ -164,19 +163,33 @@ void draw(){
         // use distance to determine if merge gesture is executed
         distances.append(finger_distance);
 
-        // save distances into array
-        if ((frame_count_hand % 30) == 0){
-            System.out.println(distances.size());
-            println(distances);
-        }
 
         // delete older distance values from list
         if (distances.size() > 35) {
             distances.remove(0); // remove first
         }
 
-        // System.out.println("FRAMECOUNT HAND: " +frame_count_hand);
 
+        // check if distance is lower than 40 (finger touching)
+        if (finger_distance < 37) {
+            // then check if the distance was above 100 in the past 0.5s
+            for (int i = 0; i < distances.size(); ++i) {
+                float past_value = distances.get(i);
+                // check if the value was > 100
+                if (past_value > 90 && merge_gesture_active != true) {
+                    println("HOORAY we registered a gesture right now");
+                    merge_gesture_active = true;
+                }
+            }
+        } else {
+            merge_gesture_active = false;
+        }
+
+        // ========= TEXT ==========
+        // write text with current distance to canvas
+        textSize(14);
+        String distance_text = "distance: " + finger_distance;
+        text(distance_text, 30, 30);
 
 
 
@@ -199,6 +212,8 @@ void draw(){
             // ----- DRAWING -----
 
             // tool.draw();
+
+
 
 
             // ----- TOUCH EMULATION -----
@@ -230,96 +245,8 @@ void draw(){
 
 
 
+
+
+
 }
-
-
-// // ----- SWIPE GESTURE -----
-
-// void leapOnSwipeGesture(SwipeGesture g, int state){
-//   int     id               = g.getId();
-//   Finger  finger           = g.getFinger();
-//   PVector position         = g.getPosition();
-//   PVector position_start   = g.getStartPosition();
-//   PVector direction        = g.getDirection();
-//   float   speed            = g.getSpeed();
-//   long    duration         = g.getDuration();
-//   float   duration_seconds = g.getDurationInSeconds();
-
-//   switch(state){
-//     case 1:  // Start
-//       break;
-//     case 2: // Update
-//       break;
-//     case 3: // Stop
-//       println("SwipeGesture: "+id);
-//       break;
-//   }
-// }
-
-
-// // ----- CIRCLE GESTURE -----
-
-// void leapOnCircleGesture(CircleGesture g, int state){
-//   int     id               = g.getId();
-//   Finger  finger           = g.getFinger();
-//   PVector position_center  = g.getCenter();
-//   float   radius           = g.getRadius();
-//   float   progress         = g.getProgress();
-//   long    duration         = g.getDuration();
-//   float   duration_seconds = g.getDurationInSeconds();
-//   int     direction        = g.getDirection();
-
-//   switch(state){
-//     case 1:  // Start
-//       break;
-//     case 2: // Update
-//       break;
-//     case 3: // Stop
-//       println("CircleGesture: "+id);
-//       break;
-//   }
-
-//   switch(direction){
-//     case 0: // Anticlockwise/Left gesture
-//       break;
-//     case 1: // Clockwise/Right gesture
-//       break;
-//   }
-// }
-
-
-// // ----- SCREEN TAP GESTURE -----
-
-// void leapOnScreenTapGesture(ScreenTapGesture g){
-//   int     id               = g.getId();
-//   Finger  finger           = g.getFinger();
-//   PVector position         = g.getPosition();
-//   PVector direction        = g.getDirection();
-//   long    duration         = g.getDuration();
-//   float   duration_seconds = g.getDurationInSeconds();
-
-//   println("ScreenTapGesture: "+id);
-// }
-
-
-// // ----- KEY TAP GESTURE -----
-
-// void leapOnKeyTapGesture(KeyTapGesture g){
-//   int     id               = g.getId();
-//   Finger  finger           = g.getFinger();
-//   PVector position         = g.getPosition();
-//   PVector direction        = g.getDirection();
-//   long    duration         = g.getDuration();
-//   float   duration_seconds = g.getDurationInSeconds();
-
-//   println("KeyTapGesture: "+id);
-// }
-
-
-
-
-
-
-
-
 
