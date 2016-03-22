@@ -2,3 +2,5 @@
 *.scssc
 node_modules/**
 bower_components/**
+object-wizard/bower_components/**
+object-wizard/node_modules/**
