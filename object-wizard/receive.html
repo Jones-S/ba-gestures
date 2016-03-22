@@ -40,22 +40,22 @@
 
 <body>
     <div id="messages">Here will be a message.</div>
-    <canvas id="canvas" width="550" height="300"></canvas>
-    <script src="/socket.io/socket.io.js"></script>
+<!--     <canvas id="canvas"></canvas>
+ -->    <script src="/socket.io/socket.io.js"></script>
     <script src="http://code.jquery.com/jquery-1.11.1.js"></script>
     <script src="bower_components/typed.js/dist/typed.min.js"></script>
     <script>
     var socket = io();
 
     var $el = $('#messages');
-    // get context returns drawing context on the canvas
-    var ctx = document.getElementById('canvas').getContext('2d');
 
 
     socket.on('chat message', function(msg) {
         console.log("receiving a chat message.");
-        if ($el) {
-            $el.remove();
+        // check if body is empty
+        if ($('body').children().length > 0) {
+            // if not empty it
+            $('body').empty();
         }
 
         $el = $('<div id="messages"></div>');
@@ -71,6 +71,12 @@
     socket.on("image", function(info) {
         console.log("image receiving");
         if (info.image) {
+            // empty body tag
+            $( 'body' ).empty();
+            // and add image in canvas
+            $('body').append('<canvas id="canvas"></canvas>');
+            // reassign ctx
+            var ctx = document.getElementById('canvas').getContext('2d');
             var img = new Image();
             img.src = 'data:image/jpeg;base64,' + info.buffer;
             ctx.drawImage(img, 0, 0);
