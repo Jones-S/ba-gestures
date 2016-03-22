@@ -40,17 +40,17 @@
 
 <body>
     <div id="messages">Here will be a message.</div>
+    <canvas id="canvas" width="550" height="600"></canvas>
     <script src="/socket.io/socket.io.js"></script>
     <script src="http://code.jquery.com/jquery-1.11.1.js"></script>
     <script src="bower_components/typed.js/dist/typed.min.js"></script>
     <script>
     var socket = io();
-    // $('form').submit(function() {
-    //     socket.emit('chat message', $('#m').val());
-    //     $('#m').val('');
-    //     return false;
-    // });
+
     var $el = $('#messages');
+    // get context returns drawing context on the canvas
+    var ctx = document.getElementById('canvas').getContext('2d');
+
 
     socket.on('chat message', function(msg) {
         if ($el) {
@@ -66,7 +66,14 @@
         });
     });
 
-
+    // receive image
+    socket.on("image", function(info) {
+        if (info.image) {
+            var img = new Image();
+            img.src = 'data:image/jpeg;base64,' + info.buffer;
+            ctx.drawImage(img, 0, 0);
+        }
+    });
     </script>
 </body>
 
