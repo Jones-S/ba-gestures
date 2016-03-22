@@ -9,7 +9,9 @@
 
 <body>
     <ul class="gestures">
-        <li><img id="gesture--ok" src="img/ok_gesture.jpg"></li>
+        <li><img class="gesture" src="img/ok_gesture.jpg"></li>
+        <li><img class="gesture" src="img/poke_gesture.png"></li>
+        <li><img class="gesture" src="img/swipe_gesture.png"></li>
     </ul>
     <ul id="messages"></ul>
     <form class="form-img" action="">
@@ -44,9 +46,9 @@
     });
 
     // emit image if button is pressed
-    $('#gesture--ok').on( "click", function() {
-        console.log('send that gesture');
-        socket.emit('image');
+    $('.gesture').on( "click", function() {
+        console.log('send that gesture: ' + this.getAttribute('src'));
+        socket.emit('image', this.getAttribute('src'));
     });
 
 

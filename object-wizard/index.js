@@ -34,14 +34,16 @@ io.on('connection', function(socket){
     console.log('message: ' + msg);
   });
 
-  socket.on('image', function(info) {
+  socket.on('image', function(source) {
     // fs = fileSystem in Node: https://nodejs.org/api/fs.html#fs_fs_readfile_file_options_callback
-    fs.readFile(__dirname + '/img/ok_gesture.jpg', function(err, buf) {
+    var img_source = __dirname + '/' + source;
+    console.log("img_source: " + img_source);
+    fs.readFile(img_source, function(err, buf) {
         io.emit('image', {
             image: true,
             buffer: buf.toString('base64')
         });
-        console.log('image file is initialized');
+        console.log('image sent: ' + source);
     });
   });
 });
