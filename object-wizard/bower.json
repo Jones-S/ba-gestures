@@ -1,0 +1,23 @@
+{
+  "name": "object-wizard",
+  "description": "Socket IO integration for Object Wizard of Oz",
+  "main": "index.js",
+  "authors": [
+    "Jonas Scheiwiller"
+  ],
+  "license": "ISC",
+  "homepage": "https://github.com/Jones-S/ba-gestures",
+  "moduleType": [
+    "node"
+  ],
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "typed.js": "^1.1.1"
+  }
+}

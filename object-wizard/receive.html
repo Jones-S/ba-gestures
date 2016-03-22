@@ -1,0 +1,73 @@
+<!doctype html>
+<html>
+
+<head>
+    <title>Socket.IO chat</title>
+    <link href='https://fonts.googleapis.com/css?family=Fira+Mono:400,700' rel='stylesheet' type='text/css'>
+    <style>
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+
+    body {
+        font: 80px 'Fira Mono', Helvetica, Arial;
+        min-height: 600px;
+    }
+
+    #messages {
+        list-style-type: none;
+        margin: 0;
+        padding: 30px;
+        padding-right: 100px;
+        padding-top: 70px;
+    }
+
+    #messages li {
+        padding: 5px 10px;
+    }
+
+    #messages li:nth-child(odd) {
+        background: #eee;
+    }
+
+    .typed-cursor {
+        display: none;
+    }
+    </style>
+</head>
+
+<body>
+    <div id="messages">Here will be a message.</div>
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="http://code.jquery.com/jquery-1.11.1.js"></script>
+    <script src="bower_components/typed.js/dist/typed.min.js"></script>
+    <script>
+    var socket = io();
+    // $('form').submit(function() {
+    //     socket.emit('chat message', $('#m').val());
+    //     $('#m').val('');
+    //     return false;
+    // });
+    var $el = $('#messages');
+
+    socket.on('chat message', function(msg) {
+        if ($el) {
+            $el.remove();
+        }
+
+        $el = $('<div id="messages"></div>');
+        $('body').append($el);
+        // $el.text(msg);
+        $el.typed({
+            strings: [msg],
+            typeSpeed: 0
+        });
+    });
+
+
+    </script>
+</body>
+
+</html>
