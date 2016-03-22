@@ -13,6 +13,7 @@ app.get('/', function(req, res){
 
 // add static for serving files
 app.use('/bower_components', express.static('bower_components'));
+app.use('/css', express.static('css'));
 
 app.get('/send', function(req, res){
     res.sendFile(__dirname + '/send.html');
@@ -31,18 +32,20 @@ io.on('connection', function(socket){
     io.emit('chat message', msg);
     console.log('message: ' + msg);
   });
-});
 
-// try to emit image file
-io.on('connection', function(socket){
+  socket.on('image', function(info) {
     // fs = fileSystem in Node: https://nodejs.org/api/fs.html#fs_fs_readfile_file_options_callback
-  fs.readFile(__dirname + '/img/ok_gesture.jpg', function(err, buf){
-    // it's possible to embed binary data
-    // within arbitrarily-complex objects
-    socket.emit('image', { image: true, buffer: buf.toString('base64') });
-    console.log('image file is initialized');
+    fs.readFile(__dirname + '/img/ok_gesture.jpg', function(err, buf) {
+        io.emit('image', {
+            image: true,
+            buffer: buf.toString('base64')
+        });
+        console.log('image file is initialized');
+    });
   });
 });
+
+
 
 
 http.listen(3000, function(){

@@ -40,7 +40,7 @@
 
 <body>
     <div id="messages">Here will be a message.</div>
-    <canvas id="canvas" width="550" height="600"></canvas>
+    <canvas id="canvas" width="550" height="300"></canvas>
     <script src="/socket.io/socket.io.js"></script>
     <script src="http://code.jquery.com/jquery-1.11.1.js"></script>
     <script src="bower_components/typed.js/dist/typed.min.js"></script>
@@ -53,6 +53,7 @@
 
 
     socket.on('chat message', function(msg) {
+        console.log("receiving a chat message.");
         if ($el) {
             $el.remove();
         }
@@ -68,6 +69,7 @@
 
     // receive image
     socket.on("image", function(info) {
+        console.log("image receiving");
         if (info.image) {
             var img = new Image();
             img.src = 'data:image/jpeg;base64,' + info.buffer;
