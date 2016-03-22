@@ -9,6 +9,10 @@
         font-size: 20px;
     }
 
+    .gestures li img{
+        max-width: 150px;
+    }
+
     .form-input {
         background: white;
         padding: 3px;

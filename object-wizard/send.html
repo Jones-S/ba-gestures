@@ -2,19 +2,22 @@
 <html>
 
 <head>
-    <title>Socket.IO chat</title>
+    <title>Send Socket.io</title>
     <link href='https://fonts.googleapis.com/css?family=Fira+Mono:400,700' rel='stylesheet' type='text/css'>
     <link rel="stylesheet" type="text/css" href="css/send.css" />
 </head>
 
 <body>
+    <ul class="gestures">
+        <li><img id="gesture--ok" src="img/ok_gesture.jpg"></li>
+    </ul>
     <ul id="messages"></ul>
+    <form class="form-img" action="">
+        <button class="button--img">Img</button>
+    </form>
     <form class="form-input" action="">
         <input id="m" autocomplete="off" />
         <button>Send</button>
-    </form>
-    <form class="form-img" action="">
-        <button class="button--img">Img</button>
     </form>
 
     <script src="/socket.io/socket.io.js"></script>
@@ -37,6 +40,12 @@
     // emit image if button is pressed
     $('.form-img').submit(function() {
         console.log('read a file');
+        socket.emit('image');
+    });
+
+    // emit image if button is pressed
+    $('#gesture--ok').on( "click", function() {
+        console.log('send that gesture');
         socket.emit('image');
     });
 
