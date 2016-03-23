@@ -18,7 +18,7 @@
 
         $el = $('<div id="messages"></div>');
         $('body').append($el);
-        // $el.text(msg);
+        set_msg_clr(); // set color of messages
         $el.typed({
             strings: [msg],
             typeSpeed: 0
@@ -43,11 +43,8 @@
         console.log("cmd: " + cmd);
         calc_alpha(cmd); // calc new alpha
         calc_font_clr(alpha);
-        $('body').css('background-color', 'rgba( 0, 0 ,0, ' + alpha + ')');
-        if(('#messages').length) { // if message container exists
-            // set a new hsl value for the textcolor
-            $('#messages').css('color', 'hsl(0, 0%, ' + hsl_brightness + '%)');
-        }
+        set_body_bg();
+        set_msg_clr();
     });
 
 
@@ -66,6 +63,17 @@
     function calc_font_clr(_alpha) {
         hsl_brightness = 100 * easeInOutExpo(_alpha, 0, 1, 1);
         console.log("hsl_brightness: " + hsl_brightness);
+    }
+
+    function set_body_bg() {
+        $('body').css('background-color', 'rgba( 0, 0 ,0, ' + alpha + ')');
+    }
+
+    function set_msg_clr() {
+        if(('#messages').length) { // if message container exists
+            // set a new hsl value for the textcolor
+            $('#messages').css('color', 'hsl(0, 0%, ' + hsl_brightness + '%)');
+        }
     }
 
     function easeInOutExpo(t, b, c, d) {
