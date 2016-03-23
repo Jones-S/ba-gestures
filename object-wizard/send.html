@@ -8,11 +8,13 @@
 </head>
 
 <body>
-    <ul class="gestures">
+    <ul class="gestures clearfix">
         <li><img class="gesture" src="img/gesture_ok_cancel.png"></li>
         <li><img class="gesture" src="img/gesture_2fswipe.png"></li>
+        <li class="brightness" data-cmd="increase">Helligkeit: +</li>
+        <li class="brightness" data-cmd="decrease">Helligkeit: -</li>
     </ul>
-    <ul id="messages"></ul>
+    <ul id="messages" class="messages"></ul>
 
     <form class="form-input" action="">
         <input id="m" autocomplete="off" />
@@ -23,7 +25,8 @@
     <script src="http://code.jquery.com/jquery-1.11.1.js"></script>
     <script>
     var socket = io();
-
+    var int00;
+    var command;
 
     // send message if send button is pressed
     $('.form-input').submit(function() {
@@ -41,6 +44,21 @@
         console.log('send that gesture: ' + this.getAttribute('src'));
         socket.emit('image', this.getAttribute('src'));
     });
+
+    // emit order to increase or decrease brightness
+    $('.brightness').mousedown(function(){
+        // save cmd
+        command = $(this).data('cmd');
+        int00 = setInterval(function() { emit_brightness(); }, 50);
+    }).mouseup(function() {
+        clearInterval(int00);
+    });
+
+    function emit_brightness() {
+        console.log('increase or decrease: ' + command);
+        socket.emit('brightness', command);
+    }
+
 
 
     </script>

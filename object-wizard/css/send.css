@@ -9,9 +9,23 @@ body {
   font-size: 20px;
 }
 
+.clearfix:after {
+   content: ".";
+   visibility: hidden;
+   display: block;
+   height: 0;
+   clear: both;
+}
+
+.gestures {
+    display: flex; /* establish flex container */
+    /*flex-direction: column;*/
+}
+
 .gestures li {
   float: left;
   width: 150px;
+  height: 90px;
   margin-right: 4px;
   list-style: none;
 }
@@ -19,6 +33,15 @@ body {
 .gestures li img {
   width: 150px;
   border: 1px solid #E2E2E2;
+}
+
+.brightness {
+    font-size: 13px;
+    display: flex;
+    flex: 1; /* distribute all available space evenly among flex items */
+    align-items: center; /* center text vertically (in this case) */
+    justify-content: center;  /* center text horizontally (in this case) */
+    max-width: 150px;
 }
 
 .form-input {
@@ -65,16 +88,16 @@ button {
   margin-right: 3px;
 }
 
-#messages {
+.messages {
   list-style-type: none;
   margin: 0;
   padding: 0;
 }
 
-#messages li {
+.messages li {
   padding: 5px 10px;
 }
 
-#messages li:nth-child(odd) {
+.messages li:nth-child(odd) {
   background: #eee;
 }

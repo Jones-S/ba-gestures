@@ -34,10 +34,17 @@ io.on('connection', function(socket){
     console.log('message: ' + msg);
   });
 
+  // send an image - or rather the command to load a url
   socket.on('image', function(source) {
     console.log("source: " + source);
     // dont send image but rather the file path
     io.emit('image', source);
+  });
+
+  // send cmd to increase or decrease screen brightness
+  socket.on('brightness', function(cmd) {
+    console.log("cmd: " + cmd);
+    io.emit('brightness', cmd);
   });
 });
 
