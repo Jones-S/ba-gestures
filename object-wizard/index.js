@@ -35,16 +35,9 @@ io.on('connection', function(socket){
   });
 
   socket.on('image', function(source) {
-    // fs = fileSystem in Node: https://nodejs.org/api/fs.html#fs_fs_readfile_file_options_callback
-    var img_source = __dirname + '/' + source;
-    console.log("img_source: " + img_source);
-    fs.readFile(img_source, function(err, buf) {
-        io.emit('image', {
-            image: true,
-            buffer: buf.toString('base64')
-        });
-        console.log('image sent: ' + source);
-    });
+    console.log("source: " + source);
+    // dont send image but rather the file path
+    io.emit('image', source);
   });
 });
 
