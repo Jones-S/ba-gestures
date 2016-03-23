@@ -18,6 +18,7 @@
 
     var $el = $('#messages');
     var alpha = 0;
+    var hsl_brightness = 0;
 
 
     socket.on('chat message', function(msg) {
@@ -54,17 +55,17 @@
     socket.on("brightness", function(cmd) {
         console.log("cmd: " + cmd);
         calc_alpha(cmd); // calc new alpha
-        if(cmd == "increase") {
-            $('body').css('background-color', 'rgba( 0, 0 ,0, ' + alpha + ')');
-        } else {
-            $('body').css('background-color', 'rgba( 0, 0 ,0, ' + alpha + ')');
+        calc_font_clr(alpha);
+        $('body').css('background-color', 'rgba( 0, 0 ,0, ' + alpha + ')');
+        if(('#messages').length) { // if message container exists
+            // set a new hsl value for the textcolor
+            $('#messages').css('color', 'hsl(0, 0%, ' + hsl_brightness + '%)');
         }
-
     });
 
 
-    function calc_alpha(cmd) {
-        if (cmd == "decrease") {
+    function calc_alpha(_cmd) {
+        if (_cmd == "decrease") {
             if (alpha < 1) {
                 alpha += 0.05;
             }
@@ -74,6 +75,28 @@
             }
         }
     }
+
+    function calc_font_clr(_alpha) {
+        hsl_brightness = 100 * easeInOutExpo(_alpha, 0, 1, 1);
+        console.log("hsl_brightness: " + hsl_brightness);
+    }
+
+    function easeInOutExpo(t, b, c, d) {
+        /*
+        t is current time
+        b is start value
+        c is change in value
+        d is duration
+         */
+        t /= d/2;
+        if (t < 1) {
+            return (c/2 * Math.pow( 2, 10 * (t - 1) ) + b);
+        }
+        t--;
+        return c/2 * ( -Math.pow( 2, -10 * t) + 2 ) + b;
+    };
+
+
     </script>
 </body>
 
