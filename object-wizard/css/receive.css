@@ -1,0 +1,34 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font: 80px 'Fira Mono', Helvetica, Arial;
+  min-height: 600px;
+}
+
+#messages {
+  list-style-type: none;
+  margin: 0;
+  padding: 30px;
+  padding-right: 100px;
+  padding-top: 70px;
+}
+
+#messages li {
+  padding: 5px 10px;
+}
+
+#messages li:nth-child(odd) {
+  background: #eee;
+}
+
+.typed-cursor {
+  display: none;
+}
+
+.img-fullscreen {
+  width: 100%;
+}

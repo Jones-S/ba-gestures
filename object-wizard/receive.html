@@ -4,38 +4,7 @@
 <head>
     <title>Receive Socket.io</title>
     <link href='https://fonts.googleapis.com/css?family=Fira+Mono:400,700' rel='stylesheet' type='text/css'>
-    <style>
-    * {
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
-    }
-
-    body {
-        font: 80px 'Fira Mono', Helvetica, Arial;
-        min-height: 600px;
-    }
-
-    #messages {
-        list-style-type: none;
-        margin: 0;
-        padding: 30px;
-        padding-right: 100px;
-        padding-top: 70px;
-    }
-
-    #messages li {
-        padding: 5px 10px;
-    }
-
-    #messages li:nth-child(odd) {
-        background: #eee;
-    }
-
-    .typed-cursor {
-        display: none;
-    }
-    </style>
+    <link rel="stylesheet" type="text/css" href="css/receive.css" />
 </head>
 
 <body>
@@ -74,26 +43,12 @@
         $( 'body' ).empty();
         // add container for div
         $('body').append('<div id="img-container"></div>');
-        $('<img src="'+ img_source +'">').load(function() {
+        $('<img class="img-fullscreen" src="'+ img_source +'">').load(function() {
             $(this).appendTo('#img-container');
         });
 
 
 
-        // if (info.image) {
-        //     // empty body tag
-        //     $( 'body' ).empty();
-        //     // get width and height of window to draw canvas fullscreen
-        //     var w_width = $( window ).width();
-        //     var w_height = $( window ).height();
-        //     // and add image in canvas
-        //     $('body').append('<canvas id="canvas" width="' + w_width + '" height="' + w_height + '"></canvas>');
-        //     // reassign ctx
-        //     var ctx = document.getElementById('canvas').getContext('2d');
-        //     var img = new Image();
-        //     img.src = 'data:image/jpeg;base64,' + info.buffer;
-        //     ctx.drawImage(img, 0, 0, w_width, w_width * img.height / img.width);
-        // }
     });
     </script>
 </body>

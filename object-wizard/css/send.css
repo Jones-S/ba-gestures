@@ -1,71 +1,72 @@
 * {
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
-    }
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
 
-    body {
-        font-family: 'Fira Mono', Helvetica, Arial;
-        font-size: 20px;
-    }
+body {
+  font-family: 'Fira Mono', Helvetica, Arial;
+  font-size: 20px;
+}
 
-    .gestures li img{
-        max-width: 150px;
-    }
+.gestures li img {
+  max-width: 150px;
+}
 
-    .form-input {
-        background: white;
-        padding: 3px;
-        width: 100%;
-        position: fixed;
-        bottom: 30px;
-        display: -ms-flex;
-        display: -webkit-flex;
-        display: flex;
-    }
+.form-input {
+  background: white;
+  padding: 3px;
+  width: 100%;
+  position: fixed;
+  bottom: 30px;
+  display: -ms-flex;
+  display: -webkit-flex;
+  display: flex;
+}
 
-    .form-img {
-        position: fixed;
-        top: 30px;
-        right: 0;
-    }
+.form-img {
+  position: fixed;
+  top: 30px;
+  right: 0;
+}
 
-    .form-input input {
-        border: 1px solid #BFBFBF;
-        padding: 10px;
-        width: 90%;
-        margin-right: .5%;
-        font-family: 'Fira Mono', Helvetica, Arial;
-        font-size: 20px;
-        float: left;
-    }
+.form-input input {
+  border: 1px solid #BFBFBF;
+  padding: 10px;
+  width: 90%;
+  margin-right: .5%;
+  font-family: 'Fira Mono', Helvetica, Arial;
+  font-size: 20px;
+  float: left;
+}
 
-    button {
-        font-family: 'Fira Mono', Helvetica, Arial;
-        font-weight: 700;
-        font-size: 15px;
-        color: black;
-        width: 9%;
-        border: 1px solid black;
-        background-color: white;
-        padding: 10px;
-        flex: 1;
-    }
-    .button--img {
-        width: auto;
-        margin-right: 3px;
-    }
+button {
+  font-family: 'Fira Mono', Helvetica, Arial;
+  font-weight: 700;
+  font-size: 15px;
+  color: black;
+  width: 9%;
+  border: 1px solid black;
+  background-color: white;
+  padding: 10px;
+  flex: 1;
+}
 
-    #messages {
-        list-style-type: none;
-        margin: 0;
-        padding: 0;
-    }
+.button--img {
+  width: auto;
+  margin-right: 3px;
+}
 
-    #messages li {
-        padding: 5px 10px;
-    }
+#messages {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
 
-    #messages li:nth-child(odd) {
-        background: #eee;
-    }
+#messages li {
+  padding: 5px 10px;
+}
+
+#messages li:nth-child(odd) {
+  background: #eee;
+}
