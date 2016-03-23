@@ -14,6 +14,7 @@ app.get('/', function(req, res){
 // add static for serving files
 app.use('/bower_components', express.static('bower_components'));
 app.use('/css', express.static('css'));
+app.use('/js', express.static('js'));
 app.use('/img', express.static('img'));
 
 app.get('/send', function(req, res){

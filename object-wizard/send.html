@@ -5,6 +5,9 @@
     <title>Send Socket.io</title>
     <link href='https://fonts.googleapis.com/css?family=Fira+Mono:400,700' rel='stylesheet' type='text/css'>
     <link rel="stylesheet" type="text/css" href="css/send.css" />
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="http://code.jquery.com/jquery-1.11.1.js"></script>
+    <script src="js/send.js"></script>
 </head>
 
 <body>
@@ -21,47 +24,8 @@
         <button>Send</button>
     </form>
 
-    <script src="/socket.io/socket.io.js"></script>
-    <script src="http://code.jquery.com/jquery-1.11.1.js"></script>
-    <script>
-    var socket = io();
-    var int00;
-    var command;
-
-    // send message if send button is pressed
-    $('.form-input').submit(function() {
-        socket.emit('chat message', $('#m').val());
-        $('#m').val('');
-        return false;
-    });
-    // append the sent message to the history
-    socket.on('chat message', function(msg) {
-        $('#messages').append($('<li>').text(msg));
-    });
-
-    // emit image if button is pressed
-    $('.gesture').on( "click", function() {
-        console.log('send that gesture: ' + this.getAttribute('src'));
-        socket.emit('image', this.getAttribute('src'));
-    });
-
-    // emit order to increase or decrease brightness
-    $('.brightness').mousedown(function(){
-        // save cmd
-        command = $(this).data('cmd');
-        int00 = setInterval(function() { emit_brightness(); }, 50);
-    }).mouseup(function() {
-        clearInterval(int00);
-    });
-
-    function emit_brightness() {
-        console.log('increase or decrease: ' + command);
-        socket.emit('brightness', command);
-    }
 
 
-
-    </script>
 </body>
 
 </html>
