@@ -9,8 +9,16 @@ body {
   font-size: 20px;
 }
 
+.gestures li {
+  float: left;
+  width: 150px;
+  margin-right: 4px;
+  list-style: none;
+}
+
 .gestures li img {
-  max-width: 150px;
+  width: 150px;
+  border: 1px solid #E2E2E2;
 }
 
 .form-input {
