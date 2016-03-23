@@ -73,13 +73,16 @@
         if (info.image) {
             // empty body tag
             $( 'body' ).empty();
+            // get width and height of window to draw canvas fullscreen
+            var w_width = $( window ).width();
+            var w_height = $( window ).height();
             // and add image in canvas
-            $('body').append('<canvas id="canvas"></canvas>');
+            $('body').append('<canvas id="canvas" width="' + w_width + '" height="' + w_height + '"></canvas>');
             // reassign ctx
             var ctx = document.getElementById('canvas').getContext('2d');
             var img = new Image();
             img.src = 'data:image/jpeg;base64,' + info.buffer;
-            ctx.drawImage(img, 0, 0);
+            ctx.drawImage(img, 0, 0, w_width, w_width * img.height / img.width);
         }
     });
     </script>
