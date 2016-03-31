@@ -4,3 +4,5 @@ node_modules/**
 bower_components/**
 object-wizard/bower_components/**
 object-wizard/node_modules/**
+leap-gestures/bower_components/**
+leap-gestures/node_modules/**
