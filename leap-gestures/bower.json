@@ -1,0 +1,28 @@
+{
+  "name": "leap-gestures",
+  "homepage": "https://github.com/Jones-S/ba-gestures",
+  "authors": [
+    "Jones <jonas.scheiwiller@zhdk.ch>"
+  ],
+  "description": "",
+  "main": "leap-gestures.js",
+  "moduleType": [
+    "node"
+  ],
+  "keywords": [
+    "leap",
+    "motion",
+    "gesture",
+    "interaction",
+    "virtual",
+    "reality"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}
