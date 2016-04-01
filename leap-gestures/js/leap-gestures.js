@@ -28,11 +28,23 @@
             }
 
             // check if thumb gesture is made
-            checkThumbUp(frame);
+            checkThumbUpGesture(frame);
+            // check cancel gesture
+            // checkCancelGesture(frame);
 
         });
 
-        function checkThumbUp(frame) {
+        function checkCancelGesture(frame) {
+
+            for (var i = frame.hands.length -1; i >= 0; i--) {
+                var hand = frame.hands[i];
+                var direction = hand.direction;
+                console.log(direction[0]);
+            }
+
+        }
+
+        function checkThumbUpGesture(frame) {
             /**
              * check for both hands
              if fingers are not extended and thumb is extended
@@ -80,9 +92,10 @@
                     }
                     /*
                      if not moving fast (and fingers are in the right position, check above)
+                     and if grabStrength == 1 (more ore less closed hand)
                      assign thumb up gesture
                      */
-                    if (!moving_fast) {
+                    if (!moving_fast && hand.grabStrength == 1) {
                         thumb_up = true;
                     }
                 } else {
