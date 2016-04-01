@@ -5,7 +5,9 @@
         var w = 1024, h = 768;
         var canvas;
         var thumb_up = false, cancel_gesture = false;
+        var change_count = 0; // counting direction change of cancel gesture
         var controller = new Leap.Controller({ frameEventName: 'animationFrame' });
+        var timeout;
 
         var last_frame = {
             l_velocity : 0
@@ -42,6 +44,7 @@
 
             for (var i = frame.hands.length -1; i >= 0; i--) {
                 var hand = frame.hands[i];
+
                 /**
                  * velocity of palm in three directions
                  * in millimeters/second [vx,vy,vz]
@@ -52,18 +55,45 @@
                  * @type {vector, vector, vector}
                  */
                 var velocity = hand.palmVelocity;
+                var min_movement = 75;
                 // save last frames velocity in var for quicker access (faster writing)
                 var lv = last_frame['l_velocity'];
-                // check if change from - to + which indicates a direction change
-                // in x direction (velocity[0])
-                // and in z direction (velocity[2])
-                if (((velocity[0] > 0 && lv[0] < 0) || (velocity[0] < 0 && lv[0] > 0)) ||
-                    ((velocity[2] > 0 && lv[2] < 0) || (velocity[2] < 0 && lv[2] > 0)))
+
+
+                // console.log("lv[0]: " + lv[0] + "\t\t\t\tvelocity[0]: " + velocity[0] );
+                //
+                /**
+                 * check if change from - to + which indicates a direction change
+                 * in x direction (velocity[0])
+                 * and in z direction (velocity[2])
+                 * also check if direction change is big enough (bigger than min_movement)
+                 * to exclude random direction changes when holding still
+                 */
+                if (
+                        (velocity[0] > 0 && lv[0] < 0 && ((velocity[0] - lv[0]) >   min_movement))    ||
+                        (velocity[0] < 0 && lv[0] > 0 && ((velocity[0] - lv[0]) < - min_movement))    ||
+                        (velocity[2] > 0 && lv[2] < 0 && ((velocity[2] - lv[2]) >   min_movement))    ||
+                        (velocity[2] < 0 && lv[2] > 0 && ((velocity[2] - lv[2]) < - min_movement))
+                    )
                 {
+                    // // check if direction change is big enough
+                    // var delta = velocity
+                    // if () {}
                     console.log("Direction Changed");
+                    change_count++;
+
+                    // set timeOut. if 1s is over without a direction change
+                    // count is reset.
+                    clearTimeout(timeout);
+                    timeout = setTimeout(function(){
+                        change_count = 0;
+                    }, 1000);
                 }
                 // save velocity to last_frame for change detection in next frame
                 last_frame['l_velocity'] = velocity;
+
+                // check if change_count is high enough
+
 
             }
 
