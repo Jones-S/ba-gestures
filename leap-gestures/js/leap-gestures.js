@@ -58,7 +58,7 @@
                  */
                 loop:
                 for (var i = veloc.length - 1; i >= 0; i--) {
-                    if (Math.abs(veloc[i]) > 500) {
+                    if (Math.abs(veloc[i]) > 600) {
                         return true;
                         break loop;
                     }
@@ -93,12 +93,13 @@
                     clearTimeout(fast_mov_timout);
                     fast_mov_timout = setTimeout(function(){
                         recent_fast_moves = false;
-                    }, 500);
+                    }, 900);
                 }
 
-
+                // debug log
                 console.log("lv[0]: " + lv[0] + "\t\t\t\tvelocity[0]: " + velocity[0] + "\t\t\t\tlv[2]: " + lv[2] + "\t\t\t\tvelocity[2]: " + velocity[2] );
-                //
+
+
                 /**
                  * check if change from - to + which indicates a direction change
                  * in x direction (velocity[0])
@@ -111,24 +112,25 @@
                         (velocity[0] < 0 && lv[0] > 0 && ((velocity[0] - lv[0]) < - min_movement))    ||
                         (velocity[2] > 0 && lv[2] < 0 && ((velocity[2] - lv[2]) >   min_movement))    ||
                         (velocity[2] < 0 && lv[2] > 0 && ((velocity[2] - lv[2]) < - min_movement))
-                    )
-                {
-                    // // check if direction change is big enough
-                    // var delta = velocity
-                    // if () {}
+                    ) {
+
                     console.log("Direction Changed");
                     change_count++;
 
-                    // if change count is big enough
-                    // trigger cancel gesture
-                    if (change_count > 4) {
+                    /**
+                     * if change count is big enough
+                     * and if no fast moves registered recently
+                     * (which would mean somebody could be swiping)
+                     * then trigger cancel gesture
+                     */
+                    if (change_count > 4 && !recent_fast_moves) {
                         cancel_gesture = true;
                     }
 
                     // set timeOut. if 1s is over without a direction change
                     // count is reset.
                     clearTimeout(dir_change_timeout);
-                    dir_change_timeout = setTimeout(function(){
+                    dir_change_timeout = setTimeout(function() {
                         change_count = 0;
                         // also reset gesture
                         cancel_gesture = false;
