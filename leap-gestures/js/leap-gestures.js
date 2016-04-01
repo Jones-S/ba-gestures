@@ -58,7 +58,7 @@
                  */
                 loop:
                 for (var i = veloc.length - 1; i >= 0; i--) {
-                    if(Math.abs(veloc[i]) > 500) {
+                    if (Math.abs(veloc[i]) > 500) {
                         return true;
                         break loop;
                     }
@@ -87,7 +87,7 @@
                  * check if very fast movement is in one of the 3 vectors
                  * @return {boolean}
                  */
-                if(detectFastMovement(velocity)) {
+                if (detectFastMovement(velocity)) {
                     // set timer to reset fastMovement boolean
                     recent_fast_moves = true;
                     clearTimeout(fast_mov_timout);
@@ -142,6 +142,13 @@
                     $('body').addClass('cancel');
                 } else {
                     $('body').removeClass('cancel');
+                }
+
+                // show hint in browser
+                if (recent_fast_moves) {
+                    $('body').addClass('fast-moves');
+                } else {
+                    $('body').removeClass('fast-moves');
                 }
 
             }

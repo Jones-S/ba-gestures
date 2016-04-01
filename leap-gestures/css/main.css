@@ -17,3 +17,7 @@ body.thumb-up {
 body.cancel {
     background-color: #6BB9FF;
 }
+
+body.fast-moves {
+    border: 10px solid #FF0C00;
+}
