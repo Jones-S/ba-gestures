@@ -4,6 +4,7 @@
         var ctx; // canvas 2d drawing context
         var w = 1024, h = 768;
         var canvas;
+        var thumb_up = false;
         var controller = new Leap.Controller({ frameEventName: 'animationFrame' });
         controller.connect();
 
@@ -27,28 +28,48 @@
             }
 
 
-            /*
-            check if thumb is extended and all other fingers are folded
+            /**
+             * check for both hands
+             if fingers are not extended and thumb is extended
+             then trigger thumb up gesture
              */
             var hands = frame.hand;
             for (var i = frame.hands.length -1; i >= 0; i--) {
-                var thumb = frame.hands[i].thumb;
                 var hand = frame.hands[i];
-                // fif thumb is extended check other fingers
-                if (thumb.extended) {
-                    console.log("thumb extended");
-                    // for each finger check if extended, otherwise break
-                    var j = hand.fingers.length - 1;
-                    while (j >= 0) {
-                        if(hand.fingers[j].extended) {
-                            break; // break while loop if one finger is extended
-                        }
-                        j--;
+                // generate names for fingers 0 = thumb, 1 = index etc.
+                var name_map = ["thumb", "index", "middle", "ring", "pinky"];
+                var folded_fingers = 0;
+
+                /**
+                 * make loop to check if fingers are extended.
+                 * if yes, break loop. no further checking required
+                 * because thumb up gesture needs all fingers except thumb to be folded
+                 */
+                outer_loop:
+                for (var j = hand.fingers.length - 1; j >= 0; j--) {
+                    // save each fingers name
+                    var finger = hand.fingers[j];
+                    var finger_name = name_map[finger.type];
+                    // check if extended, otherwise break loop
+                    if(finger.extended && finger_name !== "thumb") {
+                        break outer_loop;
+                    } else {
+                        folded_fingers++;
                     }
-                    // check if 0 fingers except thumb is extended
-                    if(j == 1) {
-                        console.log("THUMB UP");
-                    }
+                }
+                // if 4 fingers are folded and thumb extended -> trigger gesture
+                if (folded_fingers > 3 && hand.thumb.extended) {
+                    console.log("THUMB UP");
+                    thumb_up = true;
+                } else {
+                    thumb_up = false;
+                }
+
+                // show thumb up gesture in browser
+                if (thumb_up) {
+                    $('body').addClass('thumb-up');
+                } else {
+                    $('body').removeClass('thumb-up');
                 }
             }
         });
