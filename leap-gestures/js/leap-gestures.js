@@ -34,13 +34,20 @@
             for (var i = frame.hands.length -1; i >= 0; i--) {
                 var thumb = frame.hands[i].thumb;
                 var hand = frame.hands[i];
+                // fif thumb is extended check other fingers
                 if (thumb.extended) {
                     console.log("thumb extended");
-                    for (var j = hand.fingers.length - 1; j >= 0; j--) {
+                    // for each finger check if extended, otherwise break
+                    var j = hand.fingers.length - 1;
+                    while (j >= 0) {
                         if(hand.fingers[j].extended) {
-                            break;
+                            break; // break while loop if one finger is extended
                         }
-                        console.log("finger folded");
+                        j--;
+                    }
+                    // check if 0 fingers except thumb is extended
+                    if(j == 1) {
+                        console.log("THUMB UP");
                     }
                 }
             }
@@ -57,7 +64,6 @@
                 // do we know where the tip of the finger or tool is
                 // located?
                 var tip = pointable.tipPosition;
-                console.log("tip: " + tip);
                 if (!tip) return;
                 // get x/y/z coordinates of pointable tips
                 // and convert to coordinates that roughly
