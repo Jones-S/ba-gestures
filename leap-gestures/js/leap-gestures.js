@@ -82,18 +82,30 @@
                     console.log("Direction Changed");
                     change_count++;
 
+                    // if change count is big enough
+                    // trigger cancel gesture
+                    if (change_count > 4) {
+                        cancel_gesture = true;
+                    }
+
                     // set timeOut. if 1s is over without a direction change
                     // count is reset.
                     clearTimeout(timeout);
                     timeout = setTimeout(function(){
                         change_count = 0;
+                        // also reset gesture
+                        cancel_gesture = false;
                     }, 1000);
                 }
                 // save velocity to last_frame for change detection in next frame
                 last_frame['l_velocity'] = velocity;
 
-                // check if change_count is high enough
-
+                // change browser window
+                if (cancel_gesture) {
+                    $('body').addClass('cancel');
+                } else {
+                    $('body').removeClass('cancel');
+                }
 
             }
 

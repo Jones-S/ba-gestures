@@ -10,6 +10,10 @@
     -webkit-tap-highlight-color: rgba(0,0,0,0);
 }
 
-.thumb-up {
+body.thumb-up {
     background-color: #FFE05A;
+}
+
+body.cancel {
+    background-color: #6BB9FF;
 }
