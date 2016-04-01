@@ -39,6 +39,7 @@
                 // generate names for fingers 0 = thumb, 1 = index etc.
                 var name_map = ["thumb", "index", "middle", "ring", "pinky"];
                 var folded_fingers = 0;
+                console.log("hand.fingers.length: " + hand.fingers.length);
 
                 /**
                  * make loop to check if fingers are extended.
@@ -59,8 +60,27 @@
                 }
                 // if 4 fingers are folded and thumb extended -> trigger gesture
                 if (folded_fingers > 3 && hand.thumb.extended) {
-                    console.log("THUMB UP");
-                    thumb_up = true;
+                    var moving_fast = false;
+                    /**
+                     * speed indicates velocity of palm in three directions
+                     * in millimeters/second [vx,vy,vz]
+                     * check if speed is faster than 100mm/s
+                     * @type {vector, vector, vector}
+                     */
+                    var speed = hand.palmVelocity;
+                    for (var i = speed.length - 1; i >= 0; i--) {
+                        if ((speed[i] > 100) || (speed[i] < -100)) {
+                            moving_fast = true;
+                            break; // break from loop, because if one direction is too fast thats enough
+                        }
+                    }
+                    /*
+                     if not moving fast (and fingers are in the right position, check above)
+                     assign thumb up gesture
+                     */
+                    if (!moving_fast) {
+                        thumb_up = true;
+                    }
                 } else {
                     thumb_up = false;
                 }
