@@ -5,9 +5,10 @@
         var w = 1024, h = 768;
         var canvas;
         var thumb_up = false, cancel_gesture = false;
+        var recent_fast_moves = false;
         var change_count = 0; // counting direction change of cancel gesture
         var controller = new Leap.Controller({ frameEventName: 'animationFrame' });
-        var timeout;
+        var dir_change_timeout, fast_mov_timout; // timeouts
 
         var last_frame = {
             l_velocity : 0
@@ -34,13 +35,36 @@
             }
 
             // check if thumb gesture is made
-            // checkThumbUpGesture(frame);
+            checkThumbUpGesture(frame);
             // check cancel gesture
             checkCancelGesture(frame);
 
         });
 
         function checkCancelGesture(frame) {
+
+            /**
+             * function to check if velocity is higher
+             * than a certain threshold
+             * @param  {object} veloc [with x,y,z vectors]
+             * @return {boolean}
+             */
+            var detectFastMovement = function (veloc) {
+                /**
+                 * loop through all vectors in velocity (x,y,z)
+                 * compare absolute value of number with a threshold-speed
+                 * if value is bigger, return true (fast Movement detected)
+                 * and break the loop
+                 */
+                loop:
+                for (var i = veloc.length - 1; i >= 0; i--) {
+                    if(Math.abs(veloc[i]) > 500) {
+                        return true;
+                        break loop;
+                    }
+                }
+                return false;
+            }
 
             for (var i = frame.hands.length -1; i >= 0; i--) {
                 var hand = frame.hands[i];
@@ -59,8 +83,21 @@
                 // save last frames velocity in var for quicker access (faster writing)
                 var lv = last_frame['l_velocity'];
 
+                /**
+                 * check if very fast movement is in one of the 3 vectors
+                 * @return {boolean}
+                 */
+                if(detectFastMovement(velocity)) {
+                    // set timer to reset fastMovement boolean
+                    recent_fast_moves = true;
+                    clearTimeout(fast_mov_timout);
+                    fast_mov_timout = setTimeout(function(){
+                        recent_fast_moves = false;
+                    }, 500);
+                }
 
-                // console.log("lv[0]: " + lv[0] + "\t\t\t\tvelocity[0]: " + velocity[0] );
+
+                console.log("lv[0]: " + lv[0] + "\t\t\t\tvelocity[0]: " + velocity[0] + "\t\t\t\tlv[2]: " + lv[2] + "\t\t\t\tvelocity[2]: " + velocity[2] );
                 //
                 /**
                  * check if change from - to + which indicates a direction change
@@ -90,8 +127,8 @@
 
                     // set timeOut. if 1s is over without a direction change
                     // count is reset.
-                    clearTimeout(timeout);
-                    timeout = setTimeout(function(){
+                    clearTimeout(dir_change_timeout);
+                    dir_change_timeout = setTimeout(function(){
                         change_count = 0;
                         // also reset gesture
                         cancel_gesture = false;
@@ -108,6 +145,8 @@
                 }
 
             }
+
+
 
         }
 
