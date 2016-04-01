@@ -43,6 +43,9 @@
 
         function checkCancelGesture(frame) {
 
+            // TODO: Maybe need to check for fingers.extended
+            // so that a shaking fist is not registered as cancel
+
             /**
              * function to check if velocity is higher
              * than a certain threshold
