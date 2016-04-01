@@ -27,7 +27,12 @@
                 drawFingerTips(frame.pointables);
             }
 
+            // check if thumb gesture is made
+            checkThumbUp(frame);
 
+        });
+
+        function checkThumbUp(frame) {
             /**
              * check for both hands
              if fingers are not extended and thumb is extended
@@ -91,8 +96,7 @@
                     $('body').removeClass('thumb-up');
                 }
             }
-        });
-
+        }
 
 
         function drawFingerTips(pointables) {
