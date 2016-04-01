@@ -33,14 +33,13 @@
              if fingers are not extended and thumb is extended
              then trigger thumb up gesture
              */
-            var hands = frame.hand;
             for (var i = frame.hands.length -1; i >= 0; i--) {
                 var hand = frame.hands[i];
+                var speed = hand.palmVelocity;
+
                 // generate names for fingers 0 = thumb, 1 = index etc.
                 var name_map = ["thumb", "index", "middle", "ring", "pinky"];
                 var folded_fingers = 0;
-                console.log("hand.fingers.length: " + hand.fingers.length);
-
                 /**
                  * make loop to check if fingers are extended.
                  * if yes, break loop. no further checking required
@@ -67,9 +66,9 @@
                      * check if speed is faster than 100mm/s
                      * @type {vector, vector, vector}
                      */
-                    var speed = hand.palmVelocity;
-                    for (var i = speed.length - 1; i >= 0; i--) {
-                        if ((speed[i] > 100) || (speed[i] < -100)) {
+
+                    for (var y = speed.length - 1; y >= 0; y--) {
+                        if ((speed[y] > 100) || (speed[y] < -100)) {
                             moving_fast = true;
                             break; // break from loop, because if one direction is too fast thats enough
                         }
