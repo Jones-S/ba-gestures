@@ -4,8 +4,12 @@
         var ctx; // canvas 2d drawing context
         var w = 1024, h = 768;
         var canvas;
-        var thumb_up = false;
+        var thumb_up = false, cancel_gesture = false;
         var controller = new Leap.Controller({ frameEventName: 'animationFrame' });
+
+        var last_frame = {
+            l_velocity : 0
+        }
         controller.connect();
 
         // assigns the info of the current frame to the var 'frame'.
@@ -28,9 +32,9 @@
             }
 
             // check if thumb gesture is made
-            checkThumbUpGesture(frame);
+            // checkThumbUpGesture(frame);
             // check cancel gesture
-            // checkCancelGesture(frame);
+            checkCancelGesture(frame);
 
         });
 
@@ -38,8 +42,29 @@
 
             for (var i = frame.hands.length -1; i >= 0; i--) {
                 var hand = frame.hands[i];
-                var direction = hand.direction;
-                console.log(direction[0]);
+                /**
+                 * velocity of palm in three directions
+                 * in millimeters/second [vx,vy,vz]
+                 * x is parallel to leap motion device, y is up and down,
+                 * z is closer and further away from user.
+                 * check a lot of direction changes are registered
+                 * for winking = cancel gesture
+                 * @type {vector, vector, vector}
+                 */
+                var velocity = hand.palmVelocity;
+                // save last frames velocity in var for quicker access (faster writing)
+                var lv = last_frame['l_velocity'];
+                // check if change from - to + which indicates a direction change
+                // in x direction (velocity[0])
+                // and in z direction (velocity[2])
+                if (((velocity[0] > 0 && lv[0] < 0) || (velocity[0] < 0 && lv[0] > 0)) ||
+                    ((velocity[2] > 0 && lv[2] < 0) || (velocity[2] < 0 && lv[2] > 0)))
+                {
+                    console.log("Direction Changed");
+                }
+                // save velocity to last_frame for change detection in next frame
+                last_frame['l_velocity'] = velocity;
+
             }
 
         }
