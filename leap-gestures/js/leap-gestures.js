@@ -12,7 +12,7 @@
 
         var last_frame = {
             l_velocity : 0
-        }
+        };
         controller.connect();
 
         // assigns the info of the current frame to the var 'frame'.
@@ -57,20 +57,22 @@
                  * loop through all vectors in velocity (x,y,z)
                  * compare absolute value of number with a threshold-speed
                  * if value is bigger, return true (fast Movement detected)
-                 * and break the loop
                  */
                 loop:
                 for (var i = veloc.length - 1; i >= 0; i--) {
                     if (Math.abs(veloc[i]) > 600) {
                         return true;
-                        break loop;
                     }
                 }
                 return false;
-            }
+
+
+            };
 
             for (var i = frame.hands.length -1; i >= 0; i--) {
                 var hand = frame.hands[i];
+
+
 
                 /**
                  * velocity of palm in three directions
