@@ -1,0 +1,57 @@
+html {
+
+}
+
+body {
+
+}
+
+//clearfix for floating elements -> http://css-tricks.com/all-about-floats/
+.clearfix:after {
+  content: " ";
+  visibility: hidden;
+  display: block;
+  height: 0px;
+  clear: both;
+  font-size: 0;
+}
+
+/* apply a natural box layout model to all elements, but allowing components to change */
+html {
+    box-sizing: border-box;
+}
+*, *:before, *:after {
+    box-sizing: inherit;
+}
+
+
+// distance to previous elements
+.dist-to-prev-base      { margin-top: $baseline-grid-unit; }// 6px = 1 unit of baseline grid
+.dist-to-prev-double    { margin-top: 2 * $baseline-grid-unit; } // 12px = 2 units of baseline grid
+.dist-to-prev-triple    { margin-top: 3 * $baseline-grid-unit; }
+.dist-to-prev-quad      { margin-top: 4 * $baseline-grid-unit; }
+// distance to following element
+.dist-to-next-base      { margin-bottom: $baseline-grid-unit; }
+.dist-to-next-double    { margin-bottom: 2 * $baseline-grid-unit; }
+.dist-to-next-triple    { margin-bottom: 3 * $baseline-grid-unit; }
+.dist-to-next-quad      { margin-bottom: 4 * $baseline-grid-unit; }
+
+
+
+
+
+/* ==========================================================================
+   Gesture specific styling
+   ========================================================================== */
+
+body.thumb-up {
+    background-color: #FFE05A;
+}
+
+body.cancel {
+    background-color: #6BB9FF;
+}
+
+body.fast-moves {
+    border: 10px solid #FF0C00;
+}
