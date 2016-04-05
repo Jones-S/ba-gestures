@@ -27,10 +27,12 @@ function onError(err) {
 
 // browsersync task
 gulp.task('browsersync', function(cb) {
-   return browsersync({
-       server: {
+    return browsersync({
+        server: {
            baseDir:'./dist/'
-    } }, cb);
+        },
+        browser: 'google chrome'
+    }, cb);
    console.log("css injected");
 });
 
