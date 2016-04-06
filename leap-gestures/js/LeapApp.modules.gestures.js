@@ -38,6 +38,9 @@
             // check cancel gesture
             checkCancelGesture(frame);
 
+            // execute executor function to execute segment code in the end
+
+
         });
 
         function checkCancelGesture(frame) {
