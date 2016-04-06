@@ -6,7 +6,7 @@
             fns: {
                 checkAnyGesture: function () {
                     if (LEAPAPP.gestures.thumb_up) {
-                        say("Oh I registered the first gesture.");
+                        this.say("Oh I registered the first gesture.");
                     }
                 },
                 setNewSeg: function () {
@@ -16,16 +16,18 @@
         },
         seg1: {
             fns: {
-                echoSomething: function() {
-                    console.log("Ok second segment reached");
-                }
+                // this.say("Oh thats cool and its the text of seg1");
             }
         }
     };
 
-
-    var myLeapApp = Object.create(LEAPAPP.Controller.prototype);
-    myLeapApp.init();
+    // Object.create > creates an object without going through its constructor
+    // Only the prototype is used
+    var myLeapApp = Object.create(LEAPAPP.Controller.prototype, {
+        //value properties
+        name: {writable: true, configurable:true, value: 'myLeapAppController'}
+    });
+    myLeapApp.init(flow);
     myLeapApp.startTracking();
 
     });

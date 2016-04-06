@@ -4,16 +4,25 @@ LEAPAPP.Controller = function() {
 
 
 LEAPAPP.Controller.prototype = {
-    init: function() {
+    init: function(flow) {
         console.log("controller initialized");
+
         // populate variables
         this.currentSeg = "seg0";
+
+        // loop through all passed segments in flow
+        // and create a new segment object for it
+        for (var i in flow){
+            if (hasOwn.call(flow, i)) {
+                // create a new Segment
+                var segment = new LEAPAPP.Segment();
+                LEAPAPP.segments.push(segment);
+            }
+        }
+
     },
 
     startTracking: function() {
         console.log("tracking started");
-        console.log("this: " + this);
-        console.log(JSON.stringify(this,null, 4));
-
     }
 };
