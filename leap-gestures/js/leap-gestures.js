@@ -4,7 +4,6 @@
         var ctx; // canvas 2d drawing context
         var w = 1024, h = 768;
         var canvas;
-        var thumb_up = false, cancel_gesture = false;
         var recent_fast_moves = false;
         var change_count = 0; // counting direction change of cancel gesture
         var controller = new Leap.Controller({ frameEventName: 'animationFrame' });
@@ -102,7 +101,7 @@
                 }
 
                 // debug log
-                console.log("lv[0]: " + lv[0] + "\t\t\t\tvelocity[0]: " + velocity[0] + "\t\t\t\tlv[2]: " + lv[2] + "\t\t\t\tvelocity[2]: " + velocity[2] );
+                // console.log("lv[0]: " + lv[0] + "\t\t\t\tvelocity[0]: " + velocity[0] + "\t\t\t\tlv[2]: " + lv[2] + "\t\t\t\tvelocity[2]: " + velocity[2] );
 
 
                 /**
@@ -119,7 +118,7 @@
                         (velocity[2] < 0 && lv[2] > 0 && ((velocity[2] - lv[2]) < - min_movement))
                     ) {
 
-                    console.log("Direction Changed");
+                    // console.log("Direction Changed");
                     change_count++;
 
                     /**
@@ -227,6 +226,11 @@
                     $('body').addClass('thumb-up');
                 } else {
                     $('body').removeClass('thumb-up');
+                }
+
+
+                if (thumb_up) {
+                    o.thumb_up = 3;
                 }
             }
         }

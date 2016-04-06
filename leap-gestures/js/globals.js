@@ -15,17 +15,43 @@ LMGBA.gestures = {
     cancel_gesture:     false
 };
 
+LMGBA.currentSeg = 'seg0'; // initial setup segment
+
 // holds all segments with their specs
 LMGBA.segments = {
     seg0: {
-        conditions: ['any_gesture'], // conditions to ask for
-        triggers:    ['seg1'] // will trigger that
+        fns: {
+            checkAnyGesture: function () {
+                if (LMGBA.gestures.thumb_up) {
+                    say("Oh I registered the first gesture.");
+                }
+            },
+            setNewSeg: function () {
+                LMGBA.currentSeg = 'seg1';
+            }
+        }
     },
     seg1: {
-        say: "Oh I registered the first gesture.",
-
+        fns: {
+            echoSomething: function() {
+                console.log("Ok second segment reached");
+            }
+        }
     }
 };
 
-LMGBA.currentSeg = 'seg0'; // initial setup segment
+/**
+ * executor is called on every frame and
+ * triggers the segments code fragments
+ * @type {Object}
+ */
+LMGBA.executor = {
+    subscriber_segs: [], // subscribed segments
+    execute: function (seg) {
+        for (var i = seg.fns.length - 1; i >= 0; i--) {
+            seg.fns[i]();
+        }
+    }
+};
+
 
