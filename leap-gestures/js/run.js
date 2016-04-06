@@ -24,7 +24,6 @@
     };
 
 
-    // var myLeapApp = new LEAPAPP.Controller();
     var myLeapApp = Object.create(LEAPAPP.Controller.prototype);
     myLeapApp.init();
     myLeapApp.startTracking();
