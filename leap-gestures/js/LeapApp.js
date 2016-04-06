@@ -11,6 +11,7 @@ var LEAPAPP     = LEAPAPP || {}; // ~same as: if(typeof LEAPAPP === 'undefined')
 
 var hasOwn      = Object.prototype.hasOwnProperty;
 
+
 // Object container for modules
 LEAPAPP.modules = {};
 LEAPAPP.segments = [];
@@ -22,6 +23,7 @@ LEAPAPP.flags = {
 };
 
 LEAPAPP.currentSeg = ""; // initial setup segment
+LEAPAPP.draw = true; // true: draw finger, false: don't
 
 
 

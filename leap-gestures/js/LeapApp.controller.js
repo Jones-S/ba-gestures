@@ -9,6 +9,7 @@ LEAPAPP.Controller.prototype = {
 
         // populate variables
         this.currentSeg = "seg0";
+        this.gestureChecker = {};
 
         // loop through all passed segments in flow
         // and create a new segment object for it
@@ -23,6 +24,8 @@ LEAPAPP.Controller.prototype = {
     },
 
     startTracking: function() {
-        console.log("tracking started");
+        // create new Tracker
+        gestureChecker = new LEAPAPP.GestureChecker("gestureChecker");
+        gestureChecker.init(LEAPAPP.draw);
     }
 };
