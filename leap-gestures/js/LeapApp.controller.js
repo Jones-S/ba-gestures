@@ -1,52 +1,34 @@
-LEAPAPP.Controller = function() {
-    this.function_name = "controller";
-};
+(function() {
+
+    LEAPAPP.Controller = function() {
+        this.name = "LeapApp controller";
+    };
 
 
-LEAPAPP.Controller.prototype = {
-    init: function(flow) {
-        console.log("controller initialized");
+    LEAPAPP.Controller.prototype.init = function() {
+        // save this in var uber for consistency
+        var uber = this;
 
-        // populate variables
-        LEAPAPP.currentSeg = "seg0";
-        this.gestureChecker = {};
+        // initiate Mediator, Statemachine and GestureChecker
+        uber.intermediary   = new LEAPAPP.Mediator();
+        uber.machine        = new LEAPAPP.StateMachine();
+        uber.tracker        = new LEAPAPP.GestureChecker();
 
-        // loop through all passed segments in flow
-        // and create a new segment object for it
-        for (var i = 0; i < flow.length; i++) {
-            flow[i]
-        }
-        for (var i in flow){
-            if (hasOwn.call(flow, i)) {
-                // create a new Segment
-                var segment = new LEAPAPP.Segment(flow[i]);
+        // execute onEnter of first segment
+        uber.machine.callNextSeg('seg0');
 
-                // use jQuery extend method to deep copy the object from flow into new Segment
-                $.extend( true, segment,  );
-                LEAPAPP.segments.push(segment);
-            }
-        }
-
-    },
-
-    startTracking: function() {
-        // create new Tracker
-        gestureChecker = new LEAPAPP.GestureChecker("gestureChecker");
-        gestureChecker.init(LEAPAPP.draw, function callbackFunction(data) {
-            Mediator.publish("gesture", data);
+        /**
+         * the callback function says what is called each frame
+         * within the leap frame controller
+         * @param  {object} gesture_data: the gesture_data will pass an object with the gesture flags
+         * @param  {object} data: will pass the leap frame object
+         * @return {[type]}       [description]
+         */
+        uber.tracker.startTracking(LEAPAPP.draw, function callbackFunction(gesture_data, data) {
+            uber.intermediary.publish("gesture", gesture_data, data);
         });
-    },
+    };
 
-    /**
-     * go through all functions of the current segment and execute them
-     * @return {[type]} [description]
-     */
-    execSegments: function(currentSeg) {
-        console.log("Execute!");
-        console.log("currentSeg: " + currentSeg);
-        var cs = LEAPAPP.segments[0];
-        for (var i = cs.fns.length - 1; i >= 0; i--) {
-            seg.fns[i]();
-        }
-    }
-};
+
+
+}());

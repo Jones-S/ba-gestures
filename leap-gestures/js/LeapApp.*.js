@@ -7,10 +7,11 @@
 // create everything in 1 object to keep global namespace free
 // LEAPAPP = Leap Micro Gestures Bachelor of Arts
 
-var LEAPAPP = LEAPAPP || {}; // ~same as: if(typeof LEAPAPP === 'undefined'){ var LEAPAPP = {}; }
+var LEAPAPP     = LEAPAPP || {}; // ~same as: if(typeof LEAPAPP === 'undefined'){ var LEAPAPP = {}; }
 
 // Object container for modules
 LEAPAPP.modules = {};
+LEAPAPP.segments = [];
 
 // container for all the gesture flags
 LEAPAPP.flags = {
@@ -19,6 +20,7 @@ LEAPAPP.flags = {
 };
 
 LEAPAPP.currentSeg = ""; // initial setup segment
+LEAPAPP.draw = true; // true: draw finger, false: don't
 
 
 

@@ -1,49 +1,65 @@
-LEAPAPP.GestureChecker = function (instance_name) {
-    // dependecies:
-    //  jQuery
-    //  leap.js
-    this.name = instance_name;
-};
+(function(){
 
-LEAPAPP.GestureChecker.prototype = {
-    /**
-     * init intializes the gesture tracker
-     * and creates a new Leap controller object
-     * to receive the info provided by leap.js
-     * @param  {[boolean]} draw [if true the fingers are drawn on the canvas]
-     * @return {[type]}      [description]
-     */
-    ctx: undefined, // canvas 2d drawing context
-    canvas: undefined,
-    w: undefined,
-    h: undefined,
-    dir_change_timeout: undefined,
-    fast_mov_timout: undefined, // timeouts
-    last_frame: {
-        l_velocity: 0
-    },
-    recent_fast_moves: false,
-    dir_change_count: 0, // counting direction change of cancel gesture
-    // gesture flags
-    cancel_gesture: false,
-    thumb_up_gesture: false,
+    var detectFastMovement = function (movementVelocity) {
+        /**
+         * loop through all vectors in velocity (x,y,z)
+         * compare absolute value of number with a threshold-speed
+         * if value is bigger, return true (fast Movement detected)
+         */
+        for (var i = veloc.length - 1; i >= 0; i--) {
+            if (Math.abs(veloc[i]) > 600) {
+                return true;
+            }
+        }
+        return false;
+    };
 
+    LEAPAPP.GestureChecker = function (instance_name) {
+        // dependecies:
+        //  jQuery
+        //  leap.js
+        this.name = instance_name;
 
-    init: function (draw) {
+            /**
+         * init intializes the gesture tracker
+         * and creates a new Leap controller object
+         * to receive the info provided by leap.js
+         * @param  {[boolean]} draw [if true the fingers are drawn on the canvas]
+         * @return {[type]}      [description]
+         */
+        this.ctx = undefined; // canvas 2d drawing context
+        this.canvas = undefined;
+        this.w = undefined;
+        this.h = undefined;
+        this.dir_change_timeout = undefined;
+        this.fast_mov_timout = undefined; // timeouts
+        this.last_frame = {
+                l_velocity: 0
+            };
+        this.recent_fast_moves = false;
+        this.dir_change_count = 0; // counting direction change of cancel gesture
+        // gesture flags
+        this.cancel_gesture = false;
+        this.thumb_up_gesture = false;
+    };
+
+    LEAPAPP.GestureChecker.prototype.startTracking = function(draw, callback) {
+
         // save reference to GestureChecker (this)
         // for nested functions which don't have acces to this
         var uber = this;
 
         // if canvas draw is necessary
         if (draw) {
-            w = 1024;
-            h = 768;
+            uber.w = 1024;
+            uber.h = 768;
         }
 
-
+        // if callback (param) is a function set uber.callback to it, otherwise make an empty function
+        uber.callback = typeof callback === 'function' ? callback : function(){};
 
         // create a new Leap Controller
-        var controller = new Leap.Controller({ frameEventName: 'animationFrame' });
+        uber.controller = new Leap.Controller({ frameEventName: 'animationFrame' });
 
         controller.connect();
         // assigns the info of the current frame to the var 'frame'.
@@ -54,14 +70,14 @@ LEAPAPP.GestureChecker.prototype = {
                 // get 2d drawing context for our canvas if
                 // it hasn't been set up yet
                 if (!uber.ctx) {
-                    canvas = document.getElementById("drawing");
-                    ctx = canvas.getContext('2d');
+                    uber.canvas = document.getElementById("drawing");
+                    uber.ctx = uber.canvas.getContext('2d');
                 }
 
                 // if fingers detected draw them on canvas
                 if (frame.pointables.length) {
                     // blank out canvas
-                    ctx.clearRect(0, 0, w, h);
+                    uber.ctx.clearRect(0, 0, uber.w, uber.h);
                     uber.drawFingerTips(frame.pointables);
                 }
             }
@@ -69,12 +85,15 @@ LEAPAPP.GestureChecker.prototype = {
             uber.checkThumbUpGesture(frame);
             // // check cancel gesture
             uber.checkCancelGesture(frame);
+
+            // inform all subscribers
+            uber.callback(normalizeFrame(frame), frame);
+
         });
+    };
 
+    LEAPAPP.GestureChecker.prototype.checkCancelGesture = function(frame) {
 
-    },
-
-    checkCancelGesture: function (frame) {
         var uber = this;
         // TODO: Maybe need to check for fingers.extended
         // so that a shaking fist is not registered as cancel
@@ -85,24 +104,6 @@ LEAPAPP.GestureChecker.prototype = {
          * @param  {object} veloc [with x,y,z vectors]
          * @return {boolean}
          */
-        var detectFastMovement = function (veloc) {
-            /**
-             * loop through all vectors in velocity (x,y,z)
-             * compare absolute value of number with a threshold-speed
-             * if value is bigger, return true (fast Movement detected)
-             */
-            loop:
-            for (var i = veloc.length - 1; i >= 0; i--) {
-                if (Math.abs(veloc[i]) > 600) {
-                    return true;
-                }
-            }
-            return false;
-
-
-        };
-
-
 
         for (var i = frame.hands.length -1; i >= 0; i--) {
             var hand = frame.hands[i];
@@ -194,9 +195,10 @@ LEAPAPP.GestureChecker.prototype = {
                 return true;
             }
         }
-    },
+    };
 
-    checkThumbUpGesture: function (frame) {
+    LEAPAPP.GestureChecker.prototype.checkThumbUpGesture = function(frame) {
+
         /**
          * check for both hands
          if fingers are not extended and thumb is extended
@@ -265,9 +267,10 @@ LEAPAPP.GestureChecker.prototype = {
                 return true;
             }
         }
-    },
+    };
 
-    drawFingerTips: function(pointables) {
+    LEAPAPP.GestureChecker.prototype.checkThumbUpGesture = function(pointables) {
+
         for (var i = pointables.length - 1; i >= 0; i--) {
             var pointable = pointables[i];
 
@@ -296,8 +299,12 @@ LEAPAPP.GestureChecker.prototype = {
             // draw circle
             ctx.stroke();
         }
-    }
-};
+
+    };
+
+
+
+}());
 
 
 
