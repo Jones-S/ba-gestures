@@ -81,13 +81,10 @@
                     uber.drawFingerTips(frame.pointables);
                 }
             }
-            // check if thumb gesture is made
-            uber.checkThumbUpGesture(frame);
-            // // check cancel gesture
-            uber.checkCancelGesture(frame);
+
 
             // inform all subscribers
-            uber.callback(normalizeFrame(frame), frame);
+            uber.callback(uber.extractGestures(frame), frame);
 
         });
     };
@@ -301,6 +298,19 @@
         }
 
     };
+
+    LEAPAPP.GestureChecker.prototype.extractGestures = function(frame) {
+        var gestures = {};
+        var uber = this;
+        // check for gestures and save it in the gesture objects
+        gestures.thumb_up   = uber.checkThumbUpGesture(frame);
+        gestures.cancel     = uber.checkCancelGesture(frame);
+
+        return gestures;
+
+    };
+
+
 
 
 
