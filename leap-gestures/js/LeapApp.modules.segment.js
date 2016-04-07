@@ -3,6 +3,6 @@ LEAPAPP.Segment = function () {
 };
 
 LEAPAPP.Segment.prototype.say = function(text) {
-        console.log("Object says (text): " + text);
-    };
+    console.log("Object says (text): " + text);
+};
 

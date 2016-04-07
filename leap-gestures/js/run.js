@@ -30,7 +30,5 @@
         myLeapApp.init(flow);
         myLeapApp.startTracking();
 
-        return myLeapApp;
-
     });
 }(jQuery, LEAPAPP));

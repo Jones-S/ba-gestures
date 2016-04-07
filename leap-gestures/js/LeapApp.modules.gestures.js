@@ -169,7 +169,6 @@ LEAPAPP.GestureChecker.prototype = {
                 clearTimeout(this.dir_change_timeout);
                 this.dir_change_timeout = setTimeout(function() {
                     uber.dir_change_count = 0;
-                    console.log("RESET & " + "dir_change_count: " + uber.dir_change_count);
                     // also reset gesture
                     uber.cancel_gesture = false;
                 }, 1000);
@@ -192,12 +191,8 @@ LEAPAPP.GestureChecker.prototype = {
             }
 
             if (this.cancel_gesture) {
-                console.log("Cancel!");
+                return true;
             }
-
-            console.log("this.cancel_gesture: " + this.cancel_gesture);
-            console.log("this.dir_change_count: " + this.dir_change_count);
-
         }
     },
 
@@ -267,7 +262,7 @@ LEAPAPP.GestureChecker.prototype = {
             }
 
             if (this.thumb_up_gesture) {
-                console.log("Thumb Up!");
+                return true;
             }
         }
     },
