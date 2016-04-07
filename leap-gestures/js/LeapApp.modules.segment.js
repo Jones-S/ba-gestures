@@ -1,10 +1,8 @@
 (function() {
 
     LEAPAPP.Segment = function (segment) {
-        var uber = this;
         // constructor
-        // set the name of the instance to the passed objects name e.g 'seg1'
-        uber.name = 'segment';
+        var uber = this;
 
         /**
          * this for Each loop iterates over the functions
@@ -24,6 +22,10 @@
         if (typeof uber.onEnter !== 'function') {
             uber.onEnter = function() {};
         }
+
+        // register segment instance as subscriber
+        // TODO: bind uber/this context correctly
+        myLeapApp.intermediary.subscribe(uber, "gesture");
     };
 
     LEAPAPP.Segment.prototype.say = function(text) {

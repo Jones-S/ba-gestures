@@ -30,7 +30,6 @@
         // execute onEnter();
         segment.onEnter();
 
-
         // execute onLeave of old segment (= last element in array)
         // if there is an older segment in the array
         if (uber.segment_instances > 0) {

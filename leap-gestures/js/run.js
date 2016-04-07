@@ -9,7 +9,6 @@
             seg0: {
                 onEnter: function() {
                     // subscribe to topic "gesture"
-                    this.say("hi");
                 },
                 onGestureCheck: function(gesture_data, data) {
                     // check if thumb flag is in the object sent and if it's set to true
@@ -18,7 +17,7 @@
                     }
                 },
                 onLeave: function() {
-
+                    this.say('Bye machine');
                 }
             },
             seg1: {
@@ -29,13 +28,11 @@
 
                 },
                 onLeave: function() {
-
+                    this.say('Bye human');
                 },
             }
         };
 
-        // assign the flow to a globally accessable variable
-        LEAPAPP.flow = flow;
 
         // Object.create > creates an object without going through its constructor
         // Only the prototype is used

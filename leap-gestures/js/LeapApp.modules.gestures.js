@@ -190,6 +190,8 @@
 
             if (this.cancel_gesture) {
                 return true;
+            } else {
+                return false;
             }
         }
     };
@@ -262,6 +264,8 @@
 
             if (this.thumb_up_gesture) {
                 return true;
+            } else {
+                return false;
             }
         }
     };

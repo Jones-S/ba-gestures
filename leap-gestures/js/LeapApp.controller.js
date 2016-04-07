@@ -16,7 +16,7 @@
         uber.tracker        = new LEAPAPP.GestureChecker();
 
         // execute onEnter of first segment
-        uber.machine.callNextSeg('seg0');
+        uber.machine.callNextSeg(uber.flow.seg0);
 
         /**
          * the callback function says what is called each frame

@@ -25,6 +25,8 @@
             uber.topics[topic] = [];
         }
 
+        console.log("listener: ", listener);
+
         // Add the listener to queue and store the positoin in index
         var index = uber.topics[topic].push(listener) - 1;
 
@@ -47,13 +49,15 @@
     LEAPAPP.Mediator.prototype.publish = function(topic, gesture_data, data) {
         // If the topic doesn't exist, or there's no listeners in queue, just leave
         var uber = this;
+
         if (!uber.topics.hasOwnProperty(topic)) return;
 
         // Cycle through topics queue, fire!
-        for (var i = 0; i < topics[topic].length; i++) {
+        for (var i = 0; i < uber.topics[topic].length; i++) {
+            console.log("uber.topics[topic][i]: ", uber.topics[topic][i]);
             // take the subscribers (= instances of Segment())
             // and execute their functions while passing the gesture data
-            topics[topic][i].onGestureCheck(gesture_data, data);
+            uber.topics[topic][i].onGestureCheck(gesture_data, data);
         }
 
     };
