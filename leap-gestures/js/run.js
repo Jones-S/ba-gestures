@@ -37,7 +37,9 @@
 
         // Object.create > creates an object without going through its constructor
         // Only the prototype is used
-        var myLeapApp = new LEAPAPP.Controller();
+        var first_context = this;
+        console.log("this: ", this);
+        var myLeapApp = new LEAPAPP.Controller(first_context);
         window.myLeapApp = myLeapApp;
         myLeapApp.init();
         console.log(myLeapApp.name + " initialized.");
