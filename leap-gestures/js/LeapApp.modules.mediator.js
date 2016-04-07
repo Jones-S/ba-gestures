@@ -15,16 +15,18 @@
     };
 
     LEAPAPP.Mediator.prototype.subscribe = function(listener, topic) {
+        var uber = this;
+
         // check if topic was sent, otherwise set it to 'any'
         topic = topic || 'any';
         // Create the topic's object if not yet created
         // and store the new listener in it
-        if (!topics.hasOwnProperty(topic)) {
-            topics[topic] = [];
+        if (!uber.topics.hasOwnProperty(topic)) {
+            uber.topics[topic] = [];
         }
 
         // Add the listener to queue and store the positoin in index
-        var index = topics[topic].push(listener) - 1;
+        var index = uber.topics[topic].push(listener) - 1;
 
     };
 
@@ -44,7 +46,8 @@
 
     LEAPAPP.Mediator.prototype.publish = function(topic, gesture_data, data) {
         // If the topic doesn't exist, or there's no listeners in queue, just leave
-        if (!topics.hasOwnProperty(topic)) return;
+        var uber = this;
+        if (!uber.topics.hasOwnProperty(topic)) return;
 
         // Cycle through topics queue, fire!
         for (var i = 0; i < topics[topic].length; i++) {

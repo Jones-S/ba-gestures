@@ -1,6 +1,6 @@
 (function(){
 
-    var detectFastMovement = function (movementVelocity) {
+    var detectFastMovement = function (veloc) {
         /**
          * loop through all vectors in velocity (x,y,z)
          * compare absolute value of number with a threshold-speed
@@ -266,7 +266,8 @@
         }
     };
 
-    LEAPAPP.GestureChecker.prototype.checkThumbUpGesture = function(pointables) {
+    LEAPAPP.GestureChecker.prototype.drawFingerTips = function(pointables) {
+        var uber = this;
 
         for (var i = pointables.length - 1; i >= 0; i--) {
             var pointable = pointables[i];
@@ -279,22 +280,22 @@
             // get x/y/z coordinates of pointable tips
             // and convert to coordinates that roughly
             // live inside of the canvas dimensions.
-            var x = tip[0]*2 + w/2;
-            var y = -tip[1] + h/2;
+            var x = tip[0]*2 + uber.w/2;
+            var y = -tip[1] + uber.h/2;
             // use depth to control the radius of the circle
             // being drawn
             var radius = (-tip[2] + 100) / 6;  // random numbers lol
             if (radius < 10) radius = 10;      // not too small!
             // begin drawing circle
-            ctx.beginPath();
+            uber.ctx.beginPath();
             // centered at (x,y) with radius scaled by depth, in a full arc
-            ctx.arc(x, y, radius, 0 , 2 * Math.PI, false);
-            ctx.lineWidth = 5;
+            uber.ctx.arc(x, y, radius, 0 , 2 * Math.PI, false);
+            uber.ctx.lineWidth = 5;
             // color based on which hand it is
             var g = i % 2 ? 200 : 0;
-            ctx.strokeStyle = "rgb(120," + g + ",35)";
+            uber.ctx.strokeStyle = "rgb(120," + g + ",35)";
             // draw circle
-            ctx.stroke();
+            uber.ctx.stroke();
         }
 
     };
