@@ -1,8 +1,7 @@
 (function() {
 
-    LEAPAPP.Controller = function(uber) {
+    LEAPAPP.Controller = function() {
         this.name = "LeapApp controller";
-        console.log("uber: ", uber);
     };
 
 

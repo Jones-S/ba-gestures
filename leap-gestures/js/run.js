@@ -9,8 +9,8 @@
             seg0: {
                 onEnter: function() {
                     // subscribe to topic "gesture"
-
-                    uber.say("I am ready");
+                    console.log("onEnter");
+                    // this.say("I am ready");
                 },
                 onGestureCheck: function(gesture_data, data) {
                     // check if thumb flag is in the object sent and if it's set to true
@@ -21,6 +21,7 @@
                 onLeave: function() {
 
                 },
+                evaluate: 'uber.say("I am ready");'
             },
             seg1: {
                 onEnter: function() {
@@ -35,11 +36,12 @@
             }
         };
 
+        // assign the flow to a globally accessable variable
+        LEAPAPP.flow = flow;
+
         // Object.create > creates an object without going through its constructor
         // Only the prototype is used
-        var first_context = this;
-        console.log("this: ", this);
-        var myLeapApp = new LEAPAPP.Controller(first_context);
+        var myLeapApp = new LEAPAPP.Controller();
         window.myLeapApp = myLeapApp;
         myLeapApp.init();
         console.log(myLeapApp.name + " initialized.");

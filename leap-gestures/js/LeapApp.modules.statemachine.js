@@ -24,7 +24,8 @@
         // make a new instance of the segment class of the given segment
         var segment = new LEAPAPP.Segment(segment_name);
         // execute onEnter();
-        segment.onEnter();
+        eval(segment.functions.evaluate);
+        segment.functions.onEnter();
         // execute onLeave of old segment (= last element in array)
         uber.segment_instances[segment_instances.length - 1].onLeave();
 
