@@ -9,7 +9,8 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "leapjs": "^0.6.4"
+    "leapjs": "^0.6.4",
+    "lodash": "^4.8.2"
   },
   "devDependencies": {
     "browser-sync": "^2.11.2",

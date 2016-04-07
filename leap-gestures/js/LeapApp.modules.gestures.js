@@ -61,10 +61,10 @@
         // create a new Leap Controller
         uber.controller = new Leap.Controller({ frameEventName: 'animationFrame' });
 
-        controller.connect();
+        uber.controller.connect();
         // assigns the info of the current frame to the var 'frame'.
         // frame(1) would call the second last frame info and so on
-        controller.on('frame', function(frame){
+        uber.controller.on('frame', function(frame){
 
             if(draw){
                 // get 2d drawing context for our canvas if

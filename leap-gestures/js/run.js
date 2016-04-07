@@ -9,23 +9,21 @@
             seg0: {
                 onEnter: function() {
                     // subscribe to topic "gesture"
-                    console.log("onEnter");
-                    // this.say("I am ready");
+                    this.say("hi");
                 },
                 onGestureCheck: function(gesture_data, data) {
                     // check if thumb flag is in the object sent and if it's set to true
                     if(gesture_data.hasOwnProperty('thumb_up') && gesture_data.thumb_up) {
-                        machine.callNextSeg('seg1');
+                        myLeapApp.machine.callNextSeg('seg1');
                     }
                 },
                 onLeave: function() {
 
-                },
-                evaluate: 'uber.say("I am ready");'
+                }
             },
             seg1: {
                 onEnter: function() {
-                    uber.say('Hi Human');
+                    this.say('Hi Human');
                 },
                 onGestureCheck: function(gesture_data, data) {
 
@@ -41,7 +39,7 @@
 
         // Object.create > creates an object without going through its constructor
         // Only the prototype is used
-        var myLeapApp = new LEAPAPP.Controller();
+        var myLeapApp = new LEAPAPP.Controller(flow);
         window.myLeapApp = myLeapApp;
         myLeapApp.init();
         console.log(myLeapApp.name + " initialized.");

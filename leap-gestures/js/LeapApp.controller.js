@@ -1,7 +1,8 @@
 (function() {
 
-    LEAPAPP.Controller = function() {
+    LEAPAPP.Controller = function(flow) {
         this.name = "LeapApp controller";
+        this.flow = flow;
     };
 
 
@@ -11,7 +12,7 @@
 
         // initiate Mediator, Statemachine and GestureChecker
         uber.intermediary   = new LEAPAPP.Mediator();
-        uber.machine        = new LEAPAPP.StateMachine();
+        uber.machine        = new LEAPAPP.StateMachine(uber.flow);
         uber.tracker        = new LEAPAPP.GestureChecker();
 
         // execute onEnter of first segment
