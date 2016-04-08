@@ -14,7 +14,7 @@
         uber.intermediary   = new LEAPAPP.Mediator();
         uber.machine        = new LEAPAPP.StateMachine(uber.flow);
         uber.tracker        = new LEAPAPP.GestureChecker();
-
+        uber.typer          = new LEAPAPP.Typewriter();
         // execute onEnter of first segment
         uber.machine.callNextSeg('seg0');
 

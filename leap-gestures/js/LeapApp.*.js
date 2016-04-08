@@ -21,7 +21,7 @@ LEAPAPP.flags = {
 
 LEAPAPP.flow = {};
 LEAPAPP.currentSeg = ""; // initial setup segment
-LEAPAPP.draw = true; // true: draw finger, false: don't
+LEAPAPP.draw = false; // true: draw finger, false: don't
 
 
 

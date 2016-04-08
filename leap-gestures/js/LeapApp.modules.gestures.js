@@ -67,6 +67,10 @@
         uber.controller.on('frame', function(frame){
 
             if(draw){
+                // add a canvas to the DOM-tree
+                var canvas_string = '<canvas id="drawing" width="' + uber.w + '" height="' + uber.h + '"></canvas>';
+                $('body').append(canvas_string);
+
                 // get 2d drawing context for our canvas if
                 // it hasn't been set up yet
                 if (!uber.ctx) {
