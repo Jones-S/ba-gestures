@@ -30,8 +30,10 @@
 
         // check if current segment exists
         if (uber.current_segment) {
-            console.log("uber.current_segment: ", uber.current_segment);
             uber.current_segment.onLeave();
+            // unsubscribe current segment from mediator
+            myLeapApp.intermediary.unsubscribe(uber.current_segment, "gesture");
+
         }
         // execute onEnter();
         new_segment.onEnter();

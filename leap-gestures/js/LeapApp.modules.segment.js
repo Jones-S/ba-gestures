@@ -23,12 +23,13 @@
             uber.onEnter = function() {};
         }
         // register segment instance as subscriber
-        // TODO: bind uber/this context correctly
         myLeapApp.intermediary.subscribe(uber, "gesture");
     };
 
     LEAPAPP.Segment.prototype.say = function(text) {
         console.log("Object says (text): " + text);
+        // type it to the screen using typewriter class
+        myLeapApp.typer.write(text);
     };
 
 
