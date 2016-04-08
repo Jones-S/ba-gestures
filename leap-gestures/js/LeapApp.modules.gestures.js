@@ -87,10 +87,25 @@
             }
 
 
-            // inform all subscribers
-            uber.callback(uber.extractGestures(frame), frame);
+            /**
+             * callback function:
+             * uber.intermediary.publish("gesture", gesture_data, data);
+             * publishes the frame and gesture info to the mediator
+             */
+            var gesture_data = uber.extractGestures(frame);
+            uber.callback(gesture_data, frame);
+
+            myLeapApp.painter.paint(gesture_data);
 
         });
+    };
+
+    LEAPAPP.GestureChecker.prototype.checkForAnyInteraction = function(frame) {
+        // to check for any interaction see if a hand is
+        // visible in leaps interaction box.
+        if(frame.hands.length > 0) {
+            return true;
+        }
     };
 
     LEAPAPP.GestureChecker.prototype.checkCancelGesture = function(frame) {
@@ -178,20 +193,6 @@
             // save velocity to last_frame for change detection in next frame
             this.last_frame['l_velocity'] = velocity;
 
-            // change browser window
-            if (this.cancel_gesture) {
-                $('body').addClass('cancel');
-            } else {
-                $('body').removeClass('cancel');
-            }
-
-            // show hint in browser
-            if (this.recent_fast_moves) {
-                $('body').addClass('fast-moves');
-            } else {
-                $('body').removeClass('fast-moves');
-            }
-
             if (this.cancel_gesture) {
                 return true;
             } else {
@@ -259,13 +260,6 @@
                 this.thumb_up_gesture = false;
             }
 
-            // show thumb up gesture in browser
-            if (this.thumb_up_gesture) {
-                $('body').addClass('thumb-up');
-            } else {
-                $('body').removeClass('thumb-up');
-            }
-
             if (this.thumb_up_gesture) {
                 return true;
             } else {
@@ -312,8 +306,9 @@
         var gestures = {};
         var uber = this;
         // check for gestures and save it in the gesture objects
-        gestures.thumb_up   = uber.checkThumbUpGesture(frame);
-        gestures.cancel     = uber.checkCancelGesture(frame);
+        gestures.interaction    = uber.checkForAnyInteraction(frame);
+        gestures.thumb_up       = uber.checkThumbUpGesture(frame);
+        gestures.cancel         = uber.checkCancelGesture(frame);
 
         return gestures;
 

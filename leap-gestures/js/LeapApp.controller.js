@@ -15,6 +15,7 @@
         uber.machine        = new LEAPAPP.StateMachine(uber.flow);
         uber.tracker        = new LEAPAPP.GestureChecker();
         uber.typer          = new LEAPAPP.Typewriter();
+        uber.painter        = new LEAPAPP.CSSPainter();
         // execute onEnter of first segment
         uber.machine.callNextSeg('seg0');
 
