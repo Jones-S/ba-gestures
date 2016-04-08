@@ -30,18 +30,28 @@
             $('body').removeClass();
         }
 
-        // if any interaction is detected indicate that
-        if (gesture_data.fast_moves) {
-            if (!$('.hint').length) {
-                $('body').prepend('<div class="hint"></div>');
-            }
-        } else {
-            if ($('.hint').length) {
-                // select children of body, because
-                // dynamically added element is otherwise not found
-                $('body').children('.hint').remove();
+
+        /*
+        DEBUG Mode
+         */
+
+        if (LEAPAPP.debug) {
+
+            // if any interaction is detected indicate that
+            if (gesture_data.fast_moves) {
+                if (!$('.hint').length) {
+                    $('body').prepend('<div class="hint"></div>');
+                }
+            } else {
+                if ($('.hint').length) {
+                    // select children of body, because
+                    // dynamically added element is otherwise not found
+                    $('body').children('.hint').remove();
+                }
             }
         }
+
+
     };
 
 }());
