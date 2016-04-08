@@ -8,28 +8,69 @@
         var flow = {
             seg0: {
                 onEnter: function() {
-                    this.say('First segment starts off');
+                    this.say("hi there");
                 },
+                /**
+                 * checks for gestures
+                 * possible gesture booleans are
+                 * [ gestures.interaction
+                 *   gestures.thumb_up
+                 *   gestures.cancel
+                 *   gestures.fast_moves ]
+                 * @param  {[type]} gesture_data holds the gesture booleans
+                 * @param  {[type]} data         holds the frame data from leap
+                 */
                 onGestureCheck: function(gesture_data, data) {
                     // check if thumb flag is in the object sent and if it's set to true
-                    if(gesture_data.hasOwnProperty('thumb_up') && gesture_data.thumb_up) {
+                    if(gesture_data.hasOwnProperty('interaction') && gesture_data.interaction) {
                         myLeapApp.machine.callNextSeg('seg1');
                     }
                 },
                 onLeave: function() {
-                    this.say('Bye machine');
                 }
             },
             seg1: {
                 onEnter: function() {
-                    this.say('Hi Human');
+                    this.say('Hey. Kontrolliere mich doch per Gesten.');
+                },
+                onGestureCheck: function(gesture_data, data) {
+                    if (this.returnValidationQuery('thumb_up')) {
+                        this.say("oh a thumb");
+                    }
+                    // else if(this.returnValidationQuery('interaction')) {
+                    //     myLeapApp.machine.callNextSeg('seg2');
+                    // }
+                },
+                onLeave: function() {
+                }
+            },
+            seg2: {
+                onEnter: function() {
+                    this.say("")
                 },
                 onGestureCheck: function(gesture_data, data) {
 
                 },
                 onLeave: function() {
-                    this.say('Bye human');
+                }
+            },
+
+
+
+
+
+
+
+
+
+            seg99: {
+                onEnter: function() {
                 },
+                onGestureCheck: function(gesture_data, data) {
+
+                },
+                onLeave: function() {
+                }
             }
         };
 

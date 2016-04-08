@@ -32,6 +32,10 @@
         myLeapApp.typer.write(text);
     };
 
+    LEAPAPP.Segment.prototype.returnValidationQuery = function(gesture) {
+        return 'gesture_data.hasOwnProperty("' + gesture + '") && gesture_data[' + gesture + ']';
+    };
+
 
 }());
 
