@@ -8,7 +8,7 @@
         var flow = {
             seg0: {
                 onEnter: function() {
-                    // subscribe to topic "gesture"
+                    this.say('First segment starts off');
                 },
                 onGestureCheck: function(gesture_data, data) {
                     // check if thumb flag is in the object sent and if it's set to true

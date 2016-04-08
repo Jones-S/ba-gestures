@@ -15,7 +15,6 @@
          */
 
         _.forEach(segment, function(fn, fn_name){
-            console.log("fn_name: ", fn_name);
             uber[fn_name] = _.bind(fn, uber);
         });
 
