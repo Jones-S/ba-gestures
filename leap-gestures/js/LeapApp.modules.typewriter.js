@@ -29,7 +29,7 @@
             // if not empty it
             $el.remove();
         }
-        $el = $('<div id="messages"></div>');
+        $el = $('<div id="messages" class="messages"></div>');
         $('body').append($el);
         set_msg_clr(); // set color of messages
         $el.typed({
