@@ -3,6 +3,11 @@
     LEAPAPP.Segment = function (segment) {
         // constructor
         var uber = this;
+        uber.played_fns = {
+            on_enter: false,
+            on_gesture_check: false,
+            on_leave: false
+        };
         /**
          * this for Each loop iterates over the functions
          * defined in the segment and
@@ -13,7 +18,6 @@
          * @param  {Function} fn         the function
          * @param  {string}   fn_name    functionname
          */
-
         _.forEach(segment, function(fn, fn_name){
             uber[fn_name] = _.bind(fn, uber);
         });
@@ -32,8 +36,13 @@
         myLeapApp.typer.write(text);
     };
 
-    LEAPAPP.Segment.prototype.returnValidationQuery = function(gesture) {
-        return 'gesture_data.hasOwnProperty("' + gesture + '") && gesture_data[' + gesture + ']';
+    LEAPAPP.Segment.prototype.try = function(gesture_data, gesture) {
+        if (gesture_data.hasOwnProperty(gesture) && gesture_data[gesture]) {
+            return true;
+        } else {
+            return false;
+        }
+
     };
 
 

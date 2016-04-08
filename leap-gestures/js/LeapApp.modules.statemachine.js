@@ -21,6 +21,7 @@
      */
     LEAPAPP.StateMachine.prototype.callNextSeg = function(segment_name) {
         var uber = this;
+        console.log("Segment ", segment_name, " init");
 
         // get object of segment_name
         var seg_object = uber.flow[segment_name];
@@ -37,6 +38,7 @@
         }
         // execute onEnter();
         new_segment.onEnter();
+        new_segment.played_fns.on_enter = true;
 
         // make new segment the current segment
         uber.current_segment = new_segment;

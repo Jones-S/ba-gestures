@@ -22,7 +22,7 @@
                  */
                 onGestureCheck: function(gesture_data, data) {
                     // check if thumb flag is in the object sent and if it's set to true
-                    if(gesture_data.hasOwnProperty('interaction') && gesture_data.interaction) {
+                    if(this.try(gesture_data, 'interaction')) {
                         myLeapApp.machine.callNextSeg('seg1');
                     }
                 },
@@ -34,8 +34,8 @@
                     this.say('Hey. Kontrolliere mich doch per Gesten.');
                 },
                 onGestureCheck: function(gesture_data, data) {
-                    if (this.returnValidationQuery('thumb_up')) {
-                        this.say("oh a thumb");
+                    if (this.try(gesture_data, 'thumb_up')) {
+                        myLeapApp.machine.callNextSeg('seg2');
                     }
                     // else if(this.returnValidationQuery('interaction')) {
                     //     myLeapApp.machine.callNextSeg('seg2');
@@ -46,7 +46,7 @@
             },
             seg2: {
                 onEnter: function() {
-                    this.say("")
+                    this.say('Oh I registered a thumb.');
                 },
                 onGestureCheck: function(gesture_data, data) {
 
