@@ -7,26 +7,33 @@
         //  leap.js
         this.name = instance_name;
 
-            /**
+        /**
          * init intializes the gesture tracker
          * and creates a new Leap controller object
          * to receive the info provided by leap.js
          * @param  {[boolean]} draw [if true the fingers are drawn on the canvas]
          * @return {[type]}      [description]
          */
+
+        // for drawing fingers in drawing mode
         this.ctx = undefined; // canvas 2d drawing context
         this.canvas = undefined;
         this.w = undefined;
         this.h = undefined;
+
+        // provide an array (object – because retrieving hand info via string id '22') for saving hands
+        this.last_hands= {};
+
+
         this.dir_change_timeout = undefined;
         this.fast_mov_timout = undefined; // timeouts
         this.last_frame = {
-                l_velocity: 0
+                l_velocity: 0,
+                stab_palm_pos: 0
             };
         this.recent_fast_moves = false;
         this.dir_change_count = 0; // counting direction change of cancel gesture
         // gesture flags
-        this.cancel_gesture = false;
         this.thumb_up_gesture = false;
     };
 
@@ -95,9 +102,34 @@
         }
     };
 
+    LEAPAPP.GestureChecker.prototype.checkForDistinctInteraction = function(frame) {
+        var uber = this;
+        var distinct_interaction;
+
+        for (var i = frame.hands.length -1; i >= 0; i--) {
+            var hand = frame.hands[i];
+            // check if hand id is saved in hands_info array
+            if (!uber.last_hands_info.hasOwnProperty(hand.id)) {
+            uber.topics[topic] = [];
+        }
+
+            // check stabilized palm position to previous value
+            console.log("hand.stabilizedPalmPosition: ", hand.stabilizedPalmPosition);
+            console.log("hand.palmPosition: ", hand.palmPosition);
+
+
+            if (distinct_interaction) {
+                return true;
+            } else {
+                return false;
+            }
+        }
+    };
+
     LEAPAPP.GestureChecker.prototype.checkCancelGesture = function(frame) {
 
         var uber = this;
+        var cancel_gesture = false;
         // TODO: Maybe need to check for fingers.extended
         // so that a shaking fist is not registered as cancel
 
@@ -115,6 +147,7 @@
          */
         for (var i = frame.hands.length -1; i >= 0; i--) {
             var hand = frame.hands[i];
+
             /**
              * velocity of palm in three directions
              * in millimeters/second [vx,vy,vz]
@@ -126,12 +159,15 @@
              */
             var velocity = hand.palmVelocity;
             var min_movement = 75;
+
+            // add hand (id) to hands object if not existing yet
+            if (!uber.last_hands.hasOwnProperty(hand.id)) {
+                uber.last_hands[hand.id] = {
+                    l_velocity: 0
+                };
+            }
             // save last frames velocity in var for quicker access (faster writing)
-            var lv = uber.last_frame['l_velocity'];
-
-            // debug log
-            // console.log("lv[0]: " + lv[0] + "\t\t\t\tvelocity[0]: " + velocity[0] + "\t\t\t\tlv[2]: " + lv[2] + "\t\t\t\tvelocity[2]: " + velocity[2] );
-
+            var lv = uber.last_hands[hand.id].l_velocity;
 
             /**
              * check if change from - to + which indicates a direction change
@@ -157,7 +193,7 @@
                  * then trigger cancel gesture
                  */
                 if (uber.dir_change_count > 4 && !uber.recent_fast_moves) {
-                    uber.cancel_gesture = true;
+                    cancel_gesture = true;
                 }
 
                 // set timeOut. if 1s is over without a direction change
@@ -166,13 +202,13 @@
                 uber.dir_change_timeout = setTimeout(function() {
                     uber.dir_change_count = 0;
                     // also reset gesture
-                    uber.cancel_gesture = false;
+                    cancel_gesture = false;
                 }, 1000);
             }
             // save velocity to last_frame for change detection in next frame
-            uber.last_frame['l_velocity'] = velocity;
+            uber.last_hands[hand.id].l_velocity = velocity;
 
-            if (uber.cancel_gesture) {
+            if (cancel_gesture) {
                 return true;
             } else {
                 return false;
@@ -275,8 +311,6 @@
              */
             var velocity = hand.palmVelocity; // three vectors
             var min_movement = 75;
-            // save last frames velocity in var for quicker access (faster writing)
-            var lv = this.last_frame['l_velocity'];
 
             for (var j = velocity.length - 1; j >= 0; j--) {
                 if (Math.abs(velocity[j]) > 600) {
@@ -323,21 +357,21 @@
             // draw circle
             uber.ctx.stroke();
         }
-
     };
 
     LEAPAPP.GestureChecker.prototype.extractGestures = function(frame) {
         var gestures = {};
         var uber = this;
         // check for gestures and save it in the gesture objects
-        gestures.interaction    = uber.checkForAnyInteraction(frame);
-        gestures.thumb_up       = uber.checkThumbUpGesture(frame);
-        gestures.cancel         = uber.checkCancelGesture(frame);
-        gestures.fast_moves     = uber.detectFastMovement(frame);
+        gestures.interaction            = uber.checkForAnyInteraction(frame);
+        // gestures.distinct_interaction   = uber.checkForDistinctInteraction(frame);
+        gestures.thumb_up               = uber.checkThumbUpGesture(frame);
+        gestures.cancel                 = uber.checkCancelGesture(frame);
+        gestures.fast_moves             = uber.detectFastMovement(frame);
 
         return gestures;
-
     };
+
 
 
 

@@ -26,6 +26,12 @@
                         myLeapApp.machine.callNextSeg('seg1');
                     }
                 },
+                // TODO: write interpreter for simplified language
+                // gestures: {
+                //     thumb_up: {
+                //         next: 4
+                //     }
+                // },
                 onLeave: function() {
                 }
             },
@@ -37,6 +43,9 @@
                     if (this.try(gesture_data, 'thumb_up')) {
                         myLeapApp.machine.callNextSeg('seg2');
                     }
+                    // else if (this.try(gesture_data, 'interaction')) {
+                    //         myLeapApp.machine.callNextSeg('seg3');
+                    // }
                     // else if(this.returnValidationQuery('interaction')) {
                     //     myLeapApp.machine.callNextSeg('seg2');
                     // }
@@ -47,6 +56,16 @@
             seg2: {
                 onEnter: function() {
                     this.say('Oh I registered a thumb.');
+                },
+                onGestureCheck: function(gesture_data, data) {
+
+                },
+                onLeave: function() {
+                }
+            },
+            seg3: {
+                onEnter: function() {
+                    this.say('Oh irgendwas');
                 },
                 onGestureCheck: function(gesture_data, data) {
 

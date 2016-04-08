@@ -141,7 +141,7 @@ html {
    Gesture specific styling
    ========================================================================== */
 body.any-interaction {
-  background-color: #FAEECE; }
+  background-color: #DBF9FF; }
 
 body.gesture {
   background-color: #C3FAC4; }
@@ -150,7 +150,7 @@ body.fast-moves {
   border: 10px solid #FF0C00; }
 
 .hint {
-  height: 50px;
+  height: 7px;
   width: 100%;
   background-color: #FAAF6E; }
 
