@@ -66,7 +66,7 @@
         // frame(1) would call the second last frame info and so on
         uber.controller.on('frame', function(frame){
 
-            if(draw){
+            if (draw){
                 // add a canvas to the DOM-tree
                 var canvas_string = '<canvas id="drawing" width="' + uber.w + '" height="' + uber.h + '"></canvas>';
                 $('body').append(canvas_string);
@@ -103,7 +103,7 @@
     LEAPAPP.GestureChecker.prototype.checkForAnyInteraction = function(frame) {
         // to check for any interaction see if a hand is
         // visible in leaps interaction box.
-        if(frame.hands.length > 0) {
+        if (frame.hands.length > 0) {
             return true;
         }
     };
@@ -226,7 +226,7 @@
                 var finger = hand.fingers[j];
                 var finger_name = name_map[finger.type];
                 // check if extended, otherwise break loop
-                if(finger.extended && finger_name !== "thumb") {
+                if (finger.extended && finger_name !== "thumb") {
                     break outer_loop;
                 } else {
                     folded_fingers++;
@@ -309,6 +309,7 @@
         gestures.interaction    = uber.checkForAnyInteraction(frame);
         gestures.thumb_up       = uber.checkThumbUpGesture(frame);
         gestures.cancel         = uber.checkCancelGesture(frame);
+        gestures.fast_moves     = uber.detectFastMovement(frame);
 
         return gestures;
 
