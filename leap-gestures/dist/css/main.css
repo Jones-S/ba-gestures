@@ -95,6 +95,9 @@ table {
   border-collapse: separate;
   border-spacing: 0; }
 
+body {
+  border: 10px solid transparent; }
+
 .clearfix:after {
   content: " ";
   visibility: hidden;
@@ -137,11 +140,11 @@ html {
 /* ==========================================================================
    Gesture specific styling
    ========================================================================== */
-body.thumb-up {
-  background-color: #FFE05A; }
+body.any-interaction {
+  background-color: #FAEECE; }
 
-body.cancel {
-  background-color: #6BB9FF; }
+body.gesture {
+  background-color: #C3FAC4; }
 
 body.fast-moves {
   border: 10px solid #FF0C00; }

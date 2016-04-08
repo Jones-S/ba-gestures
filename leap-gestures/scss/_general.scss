@@ -3,7 +3,7 @@ html {
 }
 
 body {
-
+    border: 10px solid rgba(0,0,0,0);
 }
 
 //clearfix for floating elements -> http://css-tricks.com/all-about-floats/
@@ -44,12 +44,12 @@ html {
    Gesture specific styling
    ========================================================================== */
 
-body.thumb-up {
-    background-color: #FFE05A;
+body.any-interaction {
+    background-color: #FAEECE;
 }
 
-body.cancel {
-    background-color: #6BB9FF;
+body.gesture {
+    background-color: #C3FAC4;
 }
 
 body.fast-moves {
