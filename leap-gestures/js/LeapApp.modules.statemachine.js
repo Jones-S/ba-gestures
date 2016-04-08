@@ -17,15 +17,13 @@
     /**
      * makes an instance of Segment for the passed segment
      * and deletes the old segment instance
-     * @param  {string} segment_name [e.g. "seg1"]
+     * @param  {object} segment_obj
      */
-    LEAPAPP.StateMachine.prototype.callNextSeg = function(segment_name) {
+    LEAPAPP.StateMachine.prototype.callNextSeg = function(segment_obj) {
         var uber = this;
 
-        var segment_object = uber.flow[segment_name];
-
         // make a new instance of the segment class of the given segment
-        var segment = new LEAPAPP.Segment(segment_object);
+        var segment = new LEAPAPP.Segment(segment_obj);
 
         // execute onEnter();
         segment.onEnter();

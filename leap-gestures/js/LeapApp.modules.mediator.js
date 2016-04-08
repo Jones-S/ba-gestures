@@ -25,7 +25,7 @@
             uber.topics[topic] = [];
         }
 
-        console.log("listener: ", listener);
+        // console.log("listener: ", listener);
 
         // Add the listener to queue and store the positoin in index
         var index = uber.topics[topic].push(listener) - 1;
@@ -54,7 +54,6 @@
 
         // Cycle through topics queue, fire!
         for (var i = 0; i < uber.topics[topic].length; i++) {
-            console.log("uber.topics[topic][i]: ", uber.topics[topic][i]);
             // take the subscribers (= instances of Segment())
             // and execute their functions while passing the gesture data
             uber.topics[topic][i].onGestureCheck(gesture_data, data);

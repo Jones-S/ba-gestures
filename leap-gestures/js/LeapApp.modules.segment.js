@@ -3,7 +3,6 @@
     LEAPAPP.Segment = function (segment) {
         // constructor
         var uber = this;
-
         /**
          * this for Each loop iterates over the functions
          * defined in the segment and
@@ -14,7 +13,9 @@
          * @param  {Function} fn         the function
          * @param  {string}   fn_name    functionname
          */
+
         _.forEach(segment, function(fn, fn_name){
+            console.log("fn_name: ", fn_name);
             uber[fn_name] = _.bind(fn, uber);
         });
 
@@ -22,7 +23,6 @@
         if (typeof uber.onEnter !== 'function') {
             uber.onEnter = function() {};
         }
-
         // register segment instance as subscriber
         // TODO: bind uber/this context correctly
         myLeapApp.intermediary.subscribe(uber, "gesture");
