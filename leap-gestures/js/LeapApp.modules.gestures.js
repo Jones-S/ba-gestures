@@ -1,18 +1,5 @@
 (function(){
 
-    var detectFastMovement = function (veloc) {
-        /**
-         * loop through all vectors in velocity (x,y,z)
-         * compare absolute value of number with a threshold-speed
-         * if value is bigger, return true (fast Movement detected)
-         */
-        for (var i = veloc.length - 1; i >= 0; i--) {
-            if (Math.abs(veloc[i]) > 600) {
-                return true;
-            }
-        }
-        return false;
-    };
 
     LEAPAPP.GestureChecker = function (instance_name) {
         // dependecies:
@@ -114,13 +101,18 @@
         // TODO: Maybe need to check for fingers.extended
         // so that a shaking fist is not registered as cancel
 
+
+        // check for fast movements first
+        // further calculations depend on it
+        // and set timer
+        uber.detectFastMovement(frame);
+
         /**
          * function to check if velocity is higher
          * than a certain threshold
          * @param  {object} veloc [with x,y,z vectors]
          * @return {boolean}
          */
-
         for (var i = frame.hands.length -1; i >= 0; i--) {
             var hand = frame.hands[i];
             /**
@@ -135,20 +127,7 @@
             var velocity = hand.palmVelocity;
             var min_movement = 75;
             // save last frames velocity in var for quicker access (faster writing)
-            var lv = this.last_frame['l_velocity'];
-
-            /**
-             * check if very fast movement is in one of the 3 vectors
-             * @return {boolean}
-             */
-            if (detectFastMovement(velocity)) {
-                // set timer to reset fastMovement boolean
-                this.recent_fast_moves = true;
-                clearTimeout(this.fast_mov_timout);
-                this.fast_mov_timout = setTimeout(function(){
-                    uber.recent_fast_moves = false;
-                }, 900);
-            }
+            var lv = uber.last_frame['l_velocity'];
 
             // debug log
             // console.log("lv[0]: " + lv[0] + "\t\t\t\tvelocity[0]: " + velocity[0] + "\t\t\t\tlv[2]: " + lv[2] + "\t\t\t\tvelocity[2]: " + velocity[2] );
@@ -169,7 +148,7 @@
                 ) {
 
                 // console.log("Direction Changed");
-                this.dir_change_count++;
+                uber.dir_change_count++;
 
                 /**
                  * if change count is big enough
@@ -177,23 +156,23 @@
                  * (which would mean somebody could be swiping)
                  * then trigger cancel gesture
                  */
-                if (this.dir_change_count > 4 && !this.recent_fast_moves) {
-                    this.cancel_gesture = true;
+                if (uber.dir_change_count > 4 && !uber.recent_fast_moves) {
+                    uber.cancel_gesture = true;
                 }
 
                 // set timeOut. if 1s is over without a direction change
                 // count is reset.
-                clearTimeout(this.dir_change_timeout);
-                this.dir_change_timeout = setTimeout(function() {
+                clearTimeout(uber.dir_change_timeout);
+                uber.dir_change_timeout = setTimeout(function() {
                     uber.dir_change_count = 0;
                     // also reset gesture
                     uber.cancel_gesture = false;
                 }, 1000);
             }
             // save velocity to last_frame for change detection in next frame
-            this.last_frame['l_velocity'] = velocity;
+            uber.last_frame['l_velocity'] = velocity;
 
-            if (this.cancel_gesture) {
+            if (uber.cancel_gesture) {
                 return true;
             } else {
                 return false;
@@ -266,6 +245,51 @@
                 return false;
             }
         }
+    };
+
+    LEAPAPP.GestureChecker.prototype.detectFastMovement = function(frame) {
+        var uber = this;
+        var setTimer = function() {
+            // set timeout to reset the flag
+            clearTimeout(uber.fast_mov_timout);
+            uber.fast_mov_timout = setTimeout(function(){
+                uber.recent_fast_moves = false;
+            }, 900);
+        };
+        /**
+         * loop through all vectors in velocity (x,y,z)
+         * compare absolute value of number with a threshold-speed
+         * if value is bigger, return true (fast Movement detected)
+         */
+
+        for (var i = frame.hands.length -1; i >= 0; i--) {
+            var hand = frame.hands[i];
+            /**
+             * velocity of palm in three directions
+             * in millimeters/second [vx,vy,vz]
+             * x is parallel to leap motion device, y is up and down,
+             * z is closer and further away from user.
+             * check a lot of direction changes are registered
+             * for winking = cancel gesture
+             * @type {vector, vector, vector}
+             */
+            var velocity = hand.palmVelocity; // three vectors
+            var min_movement = 75;
+            // save last frames velocity in var for quicker access (faster writing)
+            var lv = this.last_frame['l_velocity'];
+
+            for (var j = velocity.length - 1; j >= 0; j--) {
+                if (Math.abs(velocity[j]) > 600) {
+                    // set flag to true
+                    this.recent_fast_moves = true;
+                    // set timeout to reset the flag
+                    setTimer();
+                    return true;
+                }
+            }
+        }
+        // return false if no hands detected or if no fast movements detected
+        return false;
     };
 
     LEAPAPP.GestureChecker.prototype.drawFingerTips = function(pointables) {
