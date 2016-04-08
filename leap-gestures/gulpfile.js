@@ -75,7 +75,8 @@ gulp.task('concatthirdparty', function() {
     return gulp.src([
                 'bower_components/jquery/dist/jquery.min.js',
                 'node_modules/leapjs/leap-0.6.4.min.js',
-                'node_modules/lodash/lodash.js'
+                'node_modules/lodash/lodash.js',
+                'node_modules/typed.js/dist/typed.min.js'
                 // ,'further 3rd comapany js files.js'
             ])
         .pipe(plumber({
