@@ -3,6 +3,7 @@
     // private functions go here
     function set_msg_clr() {
         var uber = this;
+        // TODO: check if this is the correct context
         if(('#messages').length) { // if message container exists
             // set a new hsl value for the textcolor
             $('#messages').css('color', 'hsl(0, 0%, ' + uber.hsl_brightness + '%)');

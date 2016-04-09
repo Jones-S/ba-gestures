@@ -1,22 +1,5 @@
 (function(){
 
-    /**
-     * set a Timer to reset a flag after some time
-     * private function
-     * @param {object}  timer
-     * @param {boolean} flag
-     * @param {number}  duration
-     */
-    var setTimer = function(timer, flag, duration) {
-        // set timeout to reset the flag
-        clearTimeout(timer);
-        timer = setTimeout(function() {
-            // reset flag
-            flag = false;
-        }, duration);
-    };
-
-
 
     LEAPAPP.GestureChecker = function (instance_name) {
         // dependecies:
@@ -41,9 +24,12 @@
         // provide an array (object – because retrieving hand info via string id '22') for saving hands
         this.last_hands= {};
 
+        // Timeouts
+        this.timeouts = {
+            dir_change_timeout_id:  null,
+            fast_mov_timout_id:     null
+        };
 
-        this.dir_change_timeout = undefined;
-        this.fast_mov_timout = undefined; // timeouts
         this.last_frame = {
                 l_velocity: 0,
                 stab_palm_pos: 0
@@ -216,8 +202,9 @@
 
                 // set timeOut. if 1s is over without a direction change
                 // count is reset.
-                setTimer(uber.dir_change_timeout, uber.dir_change_count, 1000);
+                uber.setTimer(uber.timeouts.dir_change_timeout_id, uber.dir_change_count, 1000);
             }
+
             // save velocity to last_frame for change detection in next frame
             uber.last_hands[hand.id].l_velocity = velocity;
 
@@ -322,17 +309,35 @@
                 if (Math.abs(velocity[j]) > 600) {
                     // set flag to true
                     uber.recent_fast_moves = true;
-                    // set timeout to reset the flag
-                    /**
-                     * setTimer(timeout, flag to reset, time in ms)
-                     */
-                    setTimer(uber.fast_mov_timout, uber.recent_fast_moves, 900);
+
+                    // set timeout to reset the flag: uber.setTimer(timeout, flag to reset, time in ms)
+                    uber.setTimer(uber.timeouts.fast_mov_timout_id, uber.recent_fast_moves, 900, uber);
                     return true;
                 }
             }
         }
         // return false if no hands detected or if no fast movements detected
         return false;
+    };
+
+    /**
+     * set a Timer to reset a flag after some time
+     * @param {object}  timer
+     * @param {boolean} flag
+     * @param {number}  duration
+     * @return {number} timer_id is return and passed to the variable of the classes scope
+     */
+    LEAPAPP.GestureChecker.prototype.setTimer = function(timer_id, flag, duration) {
+        var uber = this;
+        // set timeout to reset the flag
+        if (uber.timeouts[timer_id]) {
+            clearTimeout(uber.timeouts[timer_id]);
+        }
+        uber.timeouts[timer_id] = setTimeout(function() {
+            // reset flag
+            flag = false;
+            console.log("Timer timed out");
+        }, duration);
     };
 
     LEAPAPP.GestureChecker.prototype.drawFingerTips = function(pointables) {
