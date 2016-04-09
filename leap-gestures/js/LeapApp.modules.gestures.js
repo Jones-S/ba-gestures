@@ -1,5 +1,22 @@
 (function(){
 
+    /**
+     * set a Timer to reset a flag after some time
+     * private function
+     * @param {object}  timer
+     * @param {boolean} flag
+     * @param {number}  duration
+     */
+    var setTimer = function(timer, flag, duration) {
+        // set timeout to reset the flag
+        clearTimeout(timer);
+        timer = setTimeout(function() {
+            // reset flag
+            flag = false;
+        }, duration);
+    };
+
+
 
     LEAPAPP.GestureChecker = function (instance_name) {
         // dependecies:
@@ -146,6 +163,7 @@
          * @return {boolean}
          */
         for (var i = frame.hands.length -1; i >= 0; i--) {
+
             var hand = frame.hands[i];
 
             /**
@@ -198,12 +216,7 @@
 
                 // set timeOut. if 1s is over without a direction change
                 // count is reset.
-                clearTimeout(uber.dir_change_timeout);
-                uber.dir_change_timeout = setTimeout(function() {
-                    uber.dir_change_count = 0;
-                    // also reset gesture
-                    cancel_gesture = false;
-                }, 1000);
+                setTimer(uber.dir_change_timeout, uber.dir_change_count, 1000);
             }
             // save velocity to last_frame for change detection in next frame
             uber.last_hands[hand.id].l_velocity = velocity;
@@ -285,13 +298,6 @@
 
     LEAPAPP.GestureChecker.prototype.detectFastMovement = function(frame) {
         var uber = this;
-        var setTimer = function() {
-            // set timeout to reset the flag
-            clearTimeout(uber.fast_mov_timout);
-            uber.fast_mov_timout = setTimeout(function(){
-                uber.recent_fast_moves = false;
-            }, 900);
-        };
         /**
          * loop through all vectors in velocity (x,y,z)
          * compare absolute value of number with a threshold-speed
@@ -315,9 +321,12 @@
             for (var j = velocity.length - 1; j >= 0; j--) {
                 if (Math.abs(velocity[j]) > 600) {
                     // set flag to true
-                    this.recent_fast_moves = true;
+                    uber.recent_fast_moves = true;
                     // set timeout to reset the flag
-                    setTimer();
+                    /**
+                     * setTimer(timeout, flag to reset, time in ms)
+                     */
+                    setTimer(uber.fast_mov_timout, uber.recent_fast_moves, 900);
                     return true;
                 }
             }
