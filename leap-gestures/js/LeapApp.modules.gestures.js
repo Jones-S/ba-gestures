@@ -20,6 +20,8 @@
         this.canvas = undefined;
         this.w = undefined;
         this.h = undefined;
+        this.q = 1;
+
 
         // provide an array (object – because retrieving hand info via string id '22') for saving hands
         this.last_hands= {};
@@ -29,6 +31,9 @@
             dir_change_timeout_id:  null,
             fast_mov_timout_id:     null
         };
+
+        // save hands in array to save last frame infos for each hand
+        this.last_hands_info = {};
 
         this.last_frame = {
                 l_velocity: 0,
@@ -113,12 +118,61 @@
             var hand = frame.hands[i];
             // check if hand id is saved in hands_info array
             if (!uber.last_hands_info.hasOwnProperty(hand.id)) {
-            uber.topics[topic] = [];
-        }
+                uber.last_hands_info[hand.id] = hand;
+            }
 
-            // check stabilized palm position to previous value
-            console.log("hand.stabilizedPalmPosition: ", hand.stabilizedPalmPosition);
-            console.log("hand.palmPosition: ", hand.palmPosition);
+            // save last hand in a temp variable
+            var last_hand = uber.last_hands_info[hand.id];
+
+            // only check for the following if the confidence value is high enough
+            // confidence = "How well the internal hand model fits the observed data."
+            var confidence = hand.confidence;
+
+            if (confidence > 0.7) {
+
+                ////////////////////////////
+                // DISTINCT PALM MOVEMENT //
+                ////////////////////////////
+
+                var min_move_distinct = 6;
+                // check stabilized palm position to previous value (absolute value of difference bigger than x)
+                if (
+                    (Math.abs(last_hand.stabilizedPalmPosition[0] - hand.stabilizedPalmPosition[0]) > min_move_distinct) ||
+                    (Math.abs(last_hand.stabilizedPalmPosition[1] - hand.stabilizedPalmPosition[1]) > min_move_distinct) ||
+                    (Math.abs(last_hand.stabilizedPalmPosition[2] - hand.stabilizedPalmPosition[2]) > min_move_distinct)
+
+                ) {
+                    distinct_interaction = true;
+                }
+
+
+                ////////////////////
+                // FINGER POSTURE //
+                ////////////////////
+
+                // iterate through fingers and check their posture to previous posture
+                for (var j = hand.fingers.length - 1; j >= 0; j--) {
+                    // if one finger was extended and bent the frame after a distinct gesture is detected
+                    if (last_hand.fingers[j].extended != hand.fingers[j].extended ) {
+                        distinct_interaction = true;
+                        console.log("FINGER POSTURE CHANGED ");
+                    }
+                }
+            }
+
+
+
+
+
+
+
+            // and set current hand to last_hand object
+            uber.last_hands_info[hand.id] = hand;
+
+
+
+            // console.log("hand.stabilizedPalmPosition: ", hand.stabilizedPalmPosition);
+            // console.log("hand.palmPosition: ", hand.palmPosition);
 
 
             if (distinct_interaction) {
@@ -378,7 +432,7 @@
         var uber = this;
         // check for gestures and save it in the gesture objects
         gestures.interaction            = uber.checkForAnyInteraction(frame);
-        // gestures.distinct_interaction   = uber.checkForDistinctInteraction(frame);
+        gestures.distinct_interaction   = uber.checkForDistinctInteraction(frame);
         gestures.thumb_up               = uber.checkThumbUpGesture(frame);
         gestures.cancel                 = uber.checkCancelGesture(frame);
         gestures.fast_moves             = uber.detectFastMovement(frame);
