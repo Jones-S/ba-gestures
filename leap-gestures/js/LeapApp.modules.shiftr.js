@@ -5,29 +5,29 @@
         this.name = "Shiftr";
         this.mqtt = data.mqtt_uri;
         this.client_id = data.client_id;
+        var uber = this;
 
-        var client = mqtt.connect(this.mqtt, {
+        this.client = mqtt.connect(this.mqtt, {
             clientId: this.client_id
         });
 
-        client.on('connect', function() {
+        this.client.on('connect', function() {
             console.log('client has connected!');
 
-            client.subscribe('/example');
+            // uber.client.subscribe('/lamp');
             // client.unsubscribe('/example');
 
-            // setInterval(function() {
-            //     client.publish('/hello', 'world');
-            // }, 1000);
         });
 
-        client.on('message', function(topic, message) {
+       this.client.on('message', function(topic, message) {
             console.log('new message:', topic, message.toString());
         });
 
     };
 
-    LEAPAPP.Shiftr.prototype.method = function() {
+    LEAPAPP.Shiftr.prototype.publish = function(topic, message) {
+        var uber = this;
+        uber.client.publish('/lamp', 'on');
 
     };
 
