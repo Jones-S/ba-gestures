@@ -17,13 +17,13 @@ void setup() {
 
 void connect() {
   Serial.print("connecting...");
-  while (!client.connect("jonas-arduino-sender", "e0b7ded5", "04f776d89819bfdb")) {
+  while (!client.connect("arduino", "e0b7ded5", "04f776d89819bfdb")) {
     Serial.print(".");
   }
 
   Serial.println("\nconnected!");
 
-  client.subscribe("/example");
+  client.subscribe("/lamp");
   // client.unsubscribe("/example");
 }
 
@@ -35,10 +35,10 @@ void loop() {
   }
 
   // publish a message roughly every second.
-  if(millis() - lastMillis > 1000) {
-    lastMillis = millis();
-    client.publish("/hello", "world");
-  }
+//  if(millis() - lastMillis > 1000) {
+//    lastMillis = millis();
+//    client.publish("/hello", "world");
+//  }
 }
 
 void messageReceived(String topic, String payload, char * bytes, unsigned int length) {
