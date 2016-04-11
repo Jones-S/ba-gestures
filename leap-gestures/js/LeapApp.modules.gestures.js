@@ -142,14 +142,28 @@
                 ////////////////////////////
 
                 var min_move_distinct = 6;
-                // check stabilized palm position to previous value (absolute value of difference bigger than x)
+                // check palm position to previous value (absolute value of difference bigger than x)
                 if (
-                    (Math.abs(last_hand.stabilizedPalmPosition[0] - hand.stabilizedPalmPosition[0]) > min_move_distinct) ||
-                    (Math.abs(last_hand.stabilizedPalmPosition[1] - hand.stabilizedPalmPosition[1]) > min_move_distinct) ||
-                    (Math.abs(last_hand.stabilizedPalmPosition[2] - hand.stabilizedPalmPosition[2]) > min_move_distinct)
+                    (Math.abs(last_hand.palmPosition[0] - hand.palmPosition[0]) > min_move_distinct) ||
+                    (Math.abs(last_hand.palmPosition[1] - hand.palmPosition[1]) > min_move_distinct) ||
+                    (Math.abs(last_hand.palmPosition[2] - hand.palmPosition[2]) > min_move_distinct)
 
                 ) {
-                    distinct_interaction = true;
+                    /**
+                     * make sure that the movement is not a withdrawal
+                     * z-value (palmPosition[2]) is getting bigger when withdrawing
+                     * so if last hands z pos is smaller it should be ok.
+                     * also check for a distinct movement again (only in z direction)
+                     */
+                    if (
+                        (last_hand.palmPosition[2] < hand.palmPosition[2]) &&
+                        (Math.abs(last_hand.palmPosition[2] - hand.palmPosition[2]) > min_move_distinct)
+                    ) {
+                        // console.log("last_hand.palmPosition[2]: ", last_hand.palmPosition[2], "        hand.palmPosition[2]: ", hand.palmPosition[2]);
+                        console.log("ONLY WITHDRAWAL .....................");
+                    } else {
+                        distinct_interaction = true;
+                    }
                 }
 
 
@@ -162,7 +176,7 @@
                     // if one finger was extended and bent the frame after a distinct gesture is detected
                     if (last_hand.fingers[j].extended != hand.fingers[j].extended ) {
                         distinct_interaction = true;
-                        console.log("FINGER POSTURE CHANGED ");
+                        // console.log("FINGER POSTURE CHANGED ");
                     }
                     // use three.js to make vector calculations
                     /**
