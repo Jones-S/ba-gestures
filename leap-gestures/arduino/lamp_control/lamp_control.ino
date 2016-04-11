@@ -1,9 +1,50 @@
+#include <Bridge.h>
+#include <BridgeClient.h>
+#include <MQTTClient.h>
+
+BridgeClient net;
+MQTTClient client;
+
+unsigned long lastMillis = 0;
+
 void setup() {
-  // put your setup code here, to run once:
-  Serial.begin(9600);      // open the serial port at 9600 bps:    
+  Bridge.begin();
+  Serial.begin(9600);
+  client.begin("broker.shiftr.io", net);
+
+  connect();
+}
+
+void connect() {
+  Serial.print("connecting...");
+  while (!client.connect("jonas-arduino-sender", "e0b7ded5", "04f776d89819bfdb")) {
+    Serial.print(".");
+  }
+
+  Serial.println("\nconnected!");
+
+  client.subscribe("/example");
+  // client.unsubscribe("/example");
 }
 
 void loop() {
-  // put your main code here, to run repeatedly:
-  Serial.print("YUN is born");
+  client.loop();
+
+  if(!client.connected()) {
+    connect();
+  }
+
+  // publish a message roughly every second.
+  if(millis() - lastMillis > 1000) {
+    lastMillis = millis();
+    client.publish("/hello", "world");
+  }
+}
+
+void messageReceived(String topic, String payload, char * bytes, unsigned int length) {
+  Serial.print("incoming: ");
+  Serial.print(topic);
+  Serial.print(" - ");
+  Serial.print(payload);
+  Serial.println();
 }
