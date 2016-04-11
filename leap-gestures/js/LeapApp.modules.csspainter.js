@@ -12,6 +12,7 @@
         // constructor
         this.name = "CSS Painter";
         this.css_classes = [];
+        this.old_css_classes = [];
 
     };
 
@@ -20,30 +21,39 @@
 
         // if specific gesture is triggered
         if (gesture_data.thumb_up || gesture_data.cancel) {
-            // overwrite class attribute with one class
-            uber.css_classes.push('gesture');
+            uber.addToCSSClasses('gesture');
         } else {
-            uber.css_classes.splice(_.indexOf(uber.css_classes, "gesture"), 1);
+            uber.removeFromCSSClasses('gesture');
         }
 
         // if any interaction is detected indicate that
         if (gesture_data.interaction) {
-            uber.css_classes.push('any-interaction');
+            uber.addToCSSClasses('any-interaction');
         } else {
-            uber.css_classes.splice(_.indexOf(uber.css_classes, "any-interaction"), 1);
+            uber.removeFromCSSClasses('any-interaction');
         }
 
         // if a distinct interaction is seen
         if (gesture_data.distint_interaction) {
-            uber.css_classes.push('distinct-interaction');
+            uber.addToCSSClasses('distint-interaction');
         } else {
-            // $('body').removeClass('distinct-interaction');
+            uber.removeFromCSSClasses('distint-interaction');
         }
 
-        console.log("uber.css_classes: ", uber.css_classes);
+        // if arrays are not equal change the dom tree
+        if (! _.isEqual(uber.css_classes.sort(), uber.old_css_classes.sort())) {
+            var classes = "";
+            for (var i = uber.css_classes.length - 1; i >= 0; i--) {
+                classes += uber.css_classes[i] + " ";
+            }
+            console.log("classes: ", classes);
+            $('body').attr('class', classes);
+        }
+
+        // save current array to old_css_classes (copy via slice)
+        uber.old_css_classes = uber.css_classes.slice();
 
 
-            $('body').attr('class', 'gesture');
 
         /*
         DEBUG Mode
@@ -66,6 +76,25 @@
         }
 
 
+    };
+
+    LEAPAPP.CSSPainter.prototype.addToCSSClasses = function(class_name) {
+        var uber = this;
+        // check if the class is not already in the css class array
+        // indexOf returns -1 if the array does not contain the string
+        if (_.indexOf(uber.css_classes, class_name) == -1) {
+            uber.css_classes.push(class_name);
+        }
+    };
+
+    LEAPAPP.CSSPainter.prototype.removeFromCSSClasses = function(class_name) {
+        var uber = this;
+        var index_of_string = _.indexOf(uber.css_classes, class_name);
+
+        // if an index is given, splice it
+        if (index_of_string > -1) {
+            uber.css_classes.splice(index_of_string, 1);
+        }
     };
 
 }());

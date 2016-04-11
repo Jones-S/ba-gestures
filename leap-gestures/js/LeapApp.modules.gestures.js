@@ -104,7 +104,10 @@
             var gesture_data = uber.extractGestures(frame);
             uber.callback(gesture_data, frame);
 
-            myLeapApp.painter.paint(gesture_data);
+            // check if last frames hand exist to paint one last time
+            if (uber.controller.frame(1).hands.length) {
+                myLeapApp.painter.paint(gesture_data);
+            }
 
 
         });
