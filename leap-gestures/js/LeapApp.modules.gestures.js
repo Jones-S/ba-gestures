@@ -165,6 +165,7 @@
                     ) {
                         // console.log("last_hand.palmPosition[2]: ", last_hand.palmPosition[2], "        hand.palmPosition[2]: ", hand.palmPosition[2]);
                         distinct_interaction = true;
+                        console.log("DISTINCT:     PALM POSITION");
                     } else {
                         console.log("ONLY WITHDRAWAL .....................");
                     }
@@ -180,7 +181,7 @@
                     // if one finger was extended and bent the frame after a distinct gesture is detected
                     if (last_hand.fingers[j].extended != hand.fingers[j].extended ) {
                         distinct_interaction = true;
-                        // console.log("FINGER POSTURE CHANGED ");
+                        console.log("DISTINCT:     FINGER POSTURE CHANGED ");
                     }
                     // use three.js to make vector calculations
                     /**
