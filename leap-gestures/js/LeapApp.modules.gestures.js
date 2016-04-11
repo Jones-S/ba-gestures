@@ -1,10 +1,17 @@
 (function(){
 
+    function makeTHREEVector(vector) {
+        var three_vector = new THREE.Vector3(vector[0], vector[1], vector[2]);
+        return three_vector;
+    }
+
+
 
     LEAPAPP.GestureChecker = function (instance_name) {
         // dependecies:
         //  jQuery
         //  leap.js
+        //  three.js
         this.name = instance_name;
 
         /**
@@ -157,6 +164,21 @@
                         distinct_interaction = true;
                         console.log("FINGER POSTURE CHANGED ");
                     }
+                    // use three.js to make vector calculations
+                    if (hand.fingers[j].type == 1) {
+                        // direction vectors are normalized already
+                        var dir_distal = hand.fingers[j].proximal.direction();
+                        var dir_medial = hand.fingers[j].medial.direction();
+
+                        // transform them to a THREE.js vector
+                        dir_distal = makeTHREEVector(dir_distal);
+                        dir_medial = makeTHREEVector(dir_medial);
+
+                        // and call angleTo method to determine angle
+                        var angle_between   = dir_distal.angleTo(dir_medial);
+                        console.log("angle_between: ", angle_between * 180 / Math.PI);
+                    }
+
                 }
             }
 
