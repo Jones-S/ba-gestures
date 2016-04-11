@@ -11,34 +11,39 @@
     LEAPAPP.CSSPainter = function() {
         // constructor
         this.name = "CSS Painter";
+        this.css_classes = [];
 
     };
 
     LEAPAPP.CSSPainter.prototype.paint = function(gesture_data) {
+        var uber = this;
+
         // if specific gesture is triggered
         if (gesture_data.thumb_up || gesture_data.cancel) {
             // overwrite class attribute with one class
-            $('body').attr('class', 'gesture');
+            uber.css_classes.push('gesture');
+        } else {
+            uber.css_classes.splice(_.indexOf(uber.css_classes, "gesture"), 1);
         }
 
         // if any interaction is detected indicate that
-        else if (gesture_data.interaction) {
-            $('body').attr('class', 'any-interaction');
-        }
-        else {
-            // remove all classes if no interaction
-            $('body').removeClass();
+        if (gesture_data.interaction) {
+            uber.css_classes.push('any-interaction');
+        } else {
+            uber.css_classes.splice(_.indexOf(uber.css_classes, "any-interaction"), 1);
         }
 
         // if a distinct interaction is seen
         if (gesture_data.distint_interaction) {
-            console.log("gesture_data.distint_interaction: ", gesture_data.distint_interaction);
-            $('body').addClass('distinct-interaction');
+            uber.css_classes.push('distinct-interaction');
         } else {
             // $('body').removeClass('distinct-interaction');
         }
 
+        console.log("uber.css_classes: ", uber.css_classes);
 
+
+            $('body').attr('class', 'gesture');
 
         /*
         DEBUG Mode
