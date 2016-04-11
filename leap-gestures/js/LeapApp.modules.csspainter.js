@@ -3,10 +3,8 @@
     // private functions go here
 
     /**
-     * Typewriter makes the necessary
-     * DOM-Tree manipulations and writing
-     * the output text to the screen with typed.js
-     * Dependency: typed.js, jQuery
+     * CSS Painter parses gesture data
+     * and changes DOM-Tree elements accordingly.
      */
     LEAPAPP.CSSPainter = function() {
         // constructor
@@ -46,7 +44,6 @@
             for (var i = uber.css_classes.length - 1; i >= 0; i--) {
                 classes += uber.css_classes[i] + " ";
             }
-            console.log("classes: ", classes);
             $('body').attr('class', classes);
         }
 
