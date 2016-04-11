@@ -15,4 +15,8 @@ Need to install the Arduino IDE and the library
 https://github.com/256dpi/arduino-mqtt
 (easiest via the library manager in the Arduino IDE)
 
+#### WiFi
+Wifi: BRIDGE
+PW: ARPANet but new name, all lowercase.
+
 
