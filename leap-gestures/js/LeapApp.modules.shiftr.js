@@ -16,9 +16,9 @@
             client.subscribe('/example');
             // client.unsubscribe('/example');
 
-            setInterval(function() {
-                client.publish('/hello', 'world');
-            }, 1000);
+            // setInterval(function() {
+            //     client.publish('/hello', 'world');
+            // }, 1000);
         });
 
         client.on('message', function(topic, message) {
