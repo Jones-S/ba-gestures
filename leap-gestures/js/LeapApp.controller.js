@@ -3,6 +3,10 @@
     LEAPAPP.Controller = function(flow) {
         this.name = "LeapApp controller";
         this.flow = flow;
+        this.shiftr_info = {
+            mqtt_uri:   'mqtt://e0b7ded5:04f776d89819bfdb@broker.shiftr.io',
+            client_id:  'jonas laptop'
+        };
     };
 
 
@@ -16,6 +20,7 @@
         uber.tracker        = new LEAPAPP.GestureChecker();
         uber.typer          = new LEAPAPP.Typewriter();
         uber.painter        = new LEAPAPP.CSSPainter();
+        uber.shiftr         = new LEAPAPP.Shiftr(uber.shiftr_info);
         // execute onEnter of first segment
         uber.machine.callNextSeg('seg0');
 
