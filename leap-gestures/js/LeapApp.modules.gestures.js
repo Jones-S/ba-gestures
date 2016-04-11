@@ -165,19 +165,25 @@
                         console.log("FINGER POSTURE CHANGED ");
                     }
                     // use three.js to make vector calculations
-                    if (hand.fingers[j].type == 1) {
-                        // direction vectors are normalized already
-                        var dir_distal = hand.fingers[j].proximal.direction();
-                        var dir_medial = hand.fingers[j].medial.direction();
+                    /**
+                     * Check angle between proximal medial
+                     * Because of inaccuracy I check for 2 fingers and more to change
+                     * @param  {[type]} hand.fingers[j].type [description]
+                     * @return {[type]}                      [description]
+                     */
+                    // if (hand.fingers[j].type == 2) {
+                    //     // direction vectors are normalized already
+                    //     var dir_proximal = hand.fingers[j].proximal.direction();
+                    //     var dir_medial = hand.fingers[j].medial.direction();
 
-                        // transform them to a THREE.js vector
-                        dir_distal = makeTHREEVector(dir_distal);
-                        dir_medial = makeTHREEVector(dir_medial);
+                    //     // transform them to a THREE.js vector
+                    //     dir_proximal = makeTHREEVector(dir_proximal);
+                    //     dir_medial = makeTHREEVector(dir_medial);
 
-                        // and call angleTo method to determine angle
-                        var angle_between   = dir_distal.angleTo(dir_medial);
-                        console.log("angle_between: ", angle_between * 180 / Math.PI);
-                    }
+                    //     // and call angleTo method to determine angle
+                    //     var angle_between   = dir_proximal.angleTo(dir_medial);
+                    //     console.log("angle_between: ", angle_between * 180 / Math.PI);
+                    // }
 
                 }
             }
