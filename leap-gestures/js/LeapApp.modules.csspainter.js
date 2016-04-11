@@ -30,6 +30,15 @@
             $('body').removeClass();
         }
 
+        // if a distinct interaction is seen
+        if (gesture_data.distint_interaction) {
+            console.log("gesture_data.distint_interaction: ", gesture_data.distint_interaction);
+            $('body').addClass('distinct-interaction');
+        } else {
+            // $('body').removeClass('distinct-interaction');
+        }
+
+
 
         /*
         DEBUG Mode

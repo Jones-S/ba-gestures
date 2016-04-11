@@ -48,6 +48,14 @@ body.any-interaction {
     background-color: #DBF9FF;
 }
 
+body.distinct-interaction {
+    background:
+        radial-gradient(circle at 100% 50%, transparent 20%, rgba(255,255,255,.3) 21%, rgba(255,255,255,.3) 34%, transparent 35%, transparent),
+        radial-gradient(circle at 0% 50%, transparent 20%, rgba(255,255,255,.3) 21%, rgba(255,255,255,.3) 34%, transparent 35%, transparent) 0 -50px;
+        background-color: slategray;
+        background-size:75px 100px;
+}
+
 body.gesture {
     background-color: #C3FAC4;
 }

@@ -106,6 +106,7 @@
 
             myLeapApp.painter.paint(gesture_data);
 
+
         });
     };
 
@@ -156,13 +157,13 @@
                      * also check for a distinct movement again (only in z direction)
                      */
                     if (
-                        (last_hand.palmPosition[2] < hand.palmPosition[2]) &&
+                        (last_hand.palmPosition[2] > hand.palmPosition[2]) &&
                         (Math.abs(last_hand.palmPosition[2] - hand.palmPosition[2]) > min_move_distinct)
                     ) {
                         // console.log("last_hand.palmPosition[2]: ", last_hand.palmPosition[2], "        hand.palmPosition[2]: ", hand.palmPosition[2]);
-                        console.log("ONLY WITHDRAWAL .....................");
-                    } else {
                         distinct_interaction = true;
+                    } else {
+                        console.log("ONLY WITHDRAWAL .....................");
                     }
                 }
 
