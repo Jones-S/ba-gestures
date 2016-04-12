@@ -5,14 +5,20 @@
 BridgeClient net;
 MQTTClient client;
 
+int RELAYPIN = 2;                 // LED connected to digital pin 2
+boolean running = false;
+
 unsigned long lastMillis = 0;
 
 void setup() {
   Bridge.begin();
   Serial.begin(9600);
+
   client.begin("broker.shiftr.io", net);
 
   connect();
+
+  pinMode(RELAYPIN, OUTPUT);      // sets the digital pin as output
 }
 
 void connect() {
@@ -35,10 +41,19 @@ void loop() {
   }
 
   // publish a message roughly every second.
-//  if(millis() - lastMillis > 1000) {
-//    lastMillis = millis();
-//    client.publish("/hello", "world");
-//  }
+ if(millis() - lastMillis > 1000) {
+   lastMillis = millis();
+
+    if(running) {
+         running = false;
+         digitalWrite(RELAYPIN, LOW);   // sets the relay off
+    } else {
+         running = true;
+         digitalWrite(RELAYPIN, HIGH);
+    }
+
+   // client.publish("/hello", "world");
+ }
 }
 
 void messageReceived(String topic, String payload, char * bytes, unsigned int length) {
