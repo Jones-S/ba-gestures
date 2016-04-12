@@ -46,14 +46,6 @@ void loop() {
  if(millis() - lastMillis > 1000) {
    lastMillis = millis();
 
-//    if(running) {
-//         running = false;
-//         digitalWrite(RELAYPIN, LOW);   // sets the relay off
-//    } else {
-//         running = true;
-//         digitalWrite(RELAYPIN, HIGH);
-//    }
-
    // client.publish("/hello", "world");
  }
 }
@@ -66,5 +58,14 @@ void messageReceived(String topic, String payload, char * bytes, unsigned int le
   Serial.println();
   // save message (payload) in string
   message = payload;
-  Serial.println(message);
+  // change lamp accordingly
+  if (message == "on") {
+    running = true;
+    digitalWrite(RELAYPIN, HIGH);
+    Serial.println("ON");
+  } else if (message == "off") {
+    running = false;
+    digitalWrite(RELAYPIN, LOW);
+    Serial.println("OFF");
+  }
 }
