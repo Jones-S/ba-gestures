@@ -7,6 +7,8 @@ MQTTClient client;
 
 int RELAYPIN = 2;                 // LED connected to digital pin 2
 boolean running = false;
+String message = "";
+
 
 unsigned long lastMillis = 0;
 
@@ -44,13 +46,13 @@ void loop() {
  if(millis() - lastMillis > 1000) {
    lastMillis = millis();
 
-    if(running) {
-         running = false;
-         digitalWrite(RELAYPIN, LOW);   // sets the relay off
-    } else {
-         running = true;
-         digitalWrite(RELAYPIN, HIGH);
-    }
+//    if(running) {
+//         running = false;
+//         digitalWrite(RELAYPIN, LOW);   // sets the relay off
+//    } else {
+//         running = true;
+//         digitalWrite(RELAYPIN, HIGH);
+//    }
 
    // client.publish("/hello", "world");
  }
@@ -62,4 +64,7 @@ void messageReceived(String topic, String payload, char * bytes, unsigned int le
   Serial.print(" - ");
   Serial.print(payload);
   Serial.println();
+  // save message (payload) in string
+  message = payload;
+  Serial.println(message);
 }
