@@ -5,7 +5,7 @@
         this.name = "Shiftr";
         this.mqtt = data.mqtt_uri;
         this.client_id = data.client_id;
-        this.lamp_on = false;
+
         var uber = this;
 
         this.client = mqtt.connect(this.mqtt, {
@@ -24,24 +24,11 @@
             console.log('new message:', topic, message.toString());
         });
 
-        $("body").on( "click", function() {
-            if (!uber.lamp_on) {
-                uber.client.publish('/lamp', 'on');
-                uber.lamp_on = true;
-                console.log("on");
-            } else {
-                uber.client.publish('/lamp', 'off');
-                uber.lamp_on = false;
-                console.log("off");
-            }
-        });
-
-
     };
 
     LEAPAPP.Shiftr.prototype.publish = function(topic, message) {
         var uber = this;
-        // uber.client.publish('/lamp', 'on');
+        uber.client.publish(topic, message);
 
     };
 

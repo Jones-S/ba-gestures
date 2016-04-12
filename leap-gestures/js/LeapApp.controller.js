@@ -24,10 +24,6 @@
         // execute onEnter of first segment
         uber.machine.callNextSeg('seg0');
 
-        setInterval(function() {
-            uber.shiftr.publish('/lamp', 'on');
-        }, 1000);
-
         /**
          * the callback function says what is called each frame
          * within the leap frame controller

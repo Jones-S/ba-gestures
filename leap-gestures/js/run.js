@@ -100,5 +100,18 @@
         window.myLeapApp = myLeapApp;
         myLeapApp.init();
         console.log(myLeapApp.name + " initialized.");
+
+
+        $("body").on( "click", function() {
+            if (!myLeapApp.lamp_on) {
+                myLeapApp.shiftr.publish('/lamp', 'on');
+                myLeapApp.lamp_on = true;
+                console.log("on");
+            } else {
+                myLeapApp.shiftr.publish('/lamp', 'off');
+                myLeapApp.lamp_on = false;
+                console.log("off");
+            }
+        });
     });
 }(jQuery, LEAPAPP));

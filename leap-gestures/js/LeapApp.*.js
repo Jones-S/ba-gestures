@@ -26,6 +26,8 @@ LEAPAPP.currentSeg      = ""; // initial setup segment
 // LEAPAPP.draw            = true; // true: draw finger, false: don't
 LEAPAPP.draw            = false; // true: draw finger, false: don't
 
+
+LEAPAPP.lamp_on         = false;
+
 // one line function to add F12 pause script functionality
 $(window).keydown(function(e) { if (e.keyCode == 123) debugger; });
-
