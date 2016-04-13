@@ -51,7 +51,7 @@
 
         // save hands in array to save last frame infos for each hand
         this.last_hands_info = {};
-        this.last_pinch = {};
+        this.last_pinch = [];
 
         this.last_frame = {
                 l_velocity: 0,
@@ -260,19 +260,38 @@
             // save last hand in a temp variable
             var last_hand = uber.last_hands_info[hand.id];
 
-            // check if hand id is saved in last pinch object
-            if (!uber.last_pinch.hasOwnProperty(hand.id)) {
-                uber.last_pinch[hand.id] = { time: 0 };
+            // check if last pinch array contains an object with id = hand.id
+            // findIndex returns -1 if no index is found
+            if (_.findIndex(uber.last_pinch, ['id', hand.id]) === -1) {
+                var new_last_pinch = { id: hand.id, time: 0 };
+                uber.last_pinch.push(new_last_pinch);
             }
 
-            // save the time when the hand showed a pinchStrenght of more than 0.9 the last time
-            if (hand.pinchStrength > 0.9) {
-                uber.last_pinch[hand.id].time = hand.timeVisible;
-            }
+
+            // if (!uber.last_pinch.hasOwnProperty(hand.id)) {
+            //     uber.last_pinch[hand.id] = { time: 0 };
+            //     // now check if last pinch object has more than two objects (old hands)
+            //     // if so delete them
+            //     console.log("uber.last_pinch: ", uber.last_pinch);
+            //     console.log("uber.last_pinch.length > 2: ", uber.last_pinch.length);
+            //     if (uber.last_pinch.length > 2) {
+            //         for (var prop in uber.last_pinch) {
+            //             delete uber.last_pinch[prop];
+            //             console.log("- - - - - - - - -  - LAST PINCH deleted");
+            //             console.log("uber.last_pinch: ", uber.last_pinch);
+            //             break;
+            //         }
+            //     }
+            // }
+
+            // // save the time when the hand showed a pinchStrenght of more than 0.9 the last time
+            // if (hand.pinchStrength > 0.9) {
+            //     uber.last_pinch[hand.id].time = hand.timeVisible;
+            // }
 
             // compare pinch strength between last and current frame
             // and also check if all fingers are extended
-            console.log("lHpS , hpS, lastP: ", last_hand.pinchStrength , hand.pinchStrength, uber.last_pinch[hand.id].time);
+            // console.log("lHpS , hpS, lastP: ", last_hand.pinchStrength , hand.pinchStrength, uber.last_pinch[hand.id].time);
             if (last_hand.pinchStrength > 0.05 && hand.pinchStrength < 0.05 ) {
                 console.log("EXPLODE");
                 console.log("EXPLODE");
@@ -534,7 +553,6 @@
         gestures.thumb_up               = uber.checkThumbUpGesture(frame);
         gestures.cancel                 = uber.checkCancelGesture(frame);
         gestures.fast_moves             = uber.detectFastMovement(frame);
-
         // save hand to last hand object
         uber.saveLastHand(frame);
 
