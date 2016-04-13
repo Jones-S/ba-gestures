@@ -267,31 +267,25 @@
                 uber.last_pinch.push(new_last_pinch);
             }
 
+            // and delete older hands in last pinch array
+            if (uber.last_pinch.length > 2) {
+                uber.last_pinch.splice(0, 1); //splice(indexToRemove, amountToRemove)
+            }
 
-            // if (!uber.last_pinch.hasOwnProperty(hand.id)) {
-            //     uber.last_pinch[hand.id] = { time: 0 };
-            //     // now check if last pinch object has more than two objects (old hands)
-            //     // if so delete them
-            //     console.log("uber.last_pinch: ", uber.last_pinch);
-            //     console.log("uber.last_pinch.length > 2: ", uber.last_pinch.length);
-            //     if (uber.last_pinch.length > 2) {
-            //         for (var prop in uber.last_pinch) {
-            //             delete uber.last_pinch[prop];
-            //             console.log("- - - - - - - - -  - LAST PINCH deleted");
-            //             console.log("uber.last_pinch: ", uber.last_pinch);
-            //             break;
-            //         }
-            //     }
-            // }
-
-            // // save the time when the hand showed a pinchStrenght of more than 0.9 the last time
-            // if (hand.pinchStrength > 0.9) {
-            //     uber.last_pinch[hand.id].time = hand.timeVisible;
-            // }
+            // save the time when the hand showed a pinchStrenght of more than 0.9 the last time
+            if (hand.pinchStrength > 0.9) {
+                for (var j = uber.last_pinch.length - 1; j >= 0; j--) {
+                    // save time to lastpinch array in the object with the right hand id
+                    if (uber.last_pinch[j].id === hand.id) {
+                        uber.last_pinch[j].time = hand.timeVisible;
+                        break;
+                    }
+                }
+            }
 
             // compare pinch strength between last and current frame
             // and also check if all fingers are extended
-            // console.log("lHpS , hpS, lastP: ", last_hand.pinchStrength , hand.pinchStrength, uber.last_pinch[hand.id].time);
+            console.log("lHpS , hpS, lastP: ", last_hand.pinchStrength , hand.pinchStrength, uber.last_pinch[uber.last_pinch.length-1]);
             if (last_hand.pinchStrength > 0.05 && hand.pinchStrength < 0.05 ) {
                 console.log("EXPLODE");
                 console.log("EXPLODE");
