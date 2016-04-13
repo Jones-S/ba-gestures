@@ -15,6 +15,12 @@
         return extendedFingers;
     }
 
+    function doesLastHandExist(uber, hand) {
+        if (!uber.last_hands_info.hasOwnProperty(hand.id)) {
+            uber.last_hands_info[hand.id] = hand;
+        }
+    }
+
 
 
     LEAPAPP.GestureChecker = function (instance_name) {
@@ -139,9 +145,7 @@
         for (var i = frame.hands.length -1; i >= 0; i--) {
             var hand = frame.hands[i];
             // check if hand id is saved in hands_info array
-            if (!uber.last_hands_info.hasOwnProperty(hand.id)) {
-                uber.last_hands_info[hand.id] = hand;
-            }
+            doesLastHandExist(uber, hand);
 
             // save last hand in a temp variable
             var last_hand = uber.last_hands_info[hand.id];
@@ -253,9 +257,7 @@
             var hand = frame.hands[i];
 
             // check if hand id is saved in hands_info array
-            if (!uber.last_hands_info.hasOwnProperty(hand.id)) {
-                uber.last_hands_info[hand.id] = hand;
-            }
+            doesLastHandExist(uber, hand);
 
             // save last hand in a temp variable
             var last_hand = uber.last_hands_info[hand.id];
@@ -286,15 +288,25 @@
             // compare pinch strength between last and current frame
             // and check if passed time since last strong pinch is lower than a 1/4s (0.25s)
             if (last_hand.pinchStrength > 0.05 && hand.pinchStrength < 0.05 && time_passed < 0.25) {
-                console.log("                                        EXPLODE");
-                console.log("                                        EXPLODE");
-                console.log("                                        EXPLODE");
-                console.log("                                        EXPLODE");
-                console.log("time_passed: ", time_passed);
+                console.log("EPLOSE");
+                return true;
+            } else {
+                return false;
             }
 
 
         }
+    };
+
+    /**
+     * [checkforCollapse]
+     * checking for a collapse-like gesture,
+     * describing a bending of all 5 fingers into a pinch
+     * @param  {object} frame
+     * @return {boolean] describing if gesture was detected
+     */
+    LEAPAPP.GestureChecker.prototype.checkforCollapse = function(frame) {
+
     };
 
     LEAPAPP.GestureChecker.prototype.checkCancelGesture = function(frame) {
@@ -476,9 +488,8 @@
         var uber = this;
         for (var i = frame.hands.length - 1; i >= 0; i--) {
             var hand = frame.hands[i];
-            if (uber.last_hands_info.hasOwnProperty(hand.id)) {
-                uber.last_hands_info[hand.id] = hand;
-            }
+            // check if hand id is saved in hands_info array
+            doesLastHandExist(uber, hand);
         }
     };
 
@@ -544,6 +555,7 @@
         gestures.interaction            = uber.checkForAnyInteraction(frame);
         gestures.distinct_interaction   = uber.checkForDistinctInteraction(frame);
         gestures.on                     = uber.checkForExplosion(frame);
+        gestures.off                    = uber.checkforCollapse(frame);
         gestures.thumb_up               = uber.checkThumbUpGesture(frame);
         gestures.cancel                 = uber.checkCancelGesture(frame);
         gestures.fast_moves             = uber.detectFastMovement(frame);
