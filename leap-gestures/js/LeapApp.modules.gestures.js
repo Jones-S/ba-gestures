@@ -252,20 +252,8 @@
             // save last hand in a temp variable
             var last_hand = uber.last_hands_info[hand.id];
 
-            // check if last pinch array contains an object with id = hand.id
-            // findIndex returns -1 if no index is found
-            var index = _.findIndex(uber.last_pinch, ['id', hand.id]);
-            if ( index === -1) {
-                var new_last_pinch = { id: hand.id, time: 0 };
-                uber.last_pinch.push(new_last_pinch);
-
-                // and delete older hands in last pinch array
-                if (uber.last_pinch.length > 2) {
-                    uber.last_pinch.splice(0, 1); //splice(indexToRemove, amountToRemove)
-                }
-                // save new index for later reference
-                index = uber.last_pinch.length - 1;
-            }
+            // call function to get and save last pinch info
+            var index = uber.saveAndGetLast("last_pinch", hand);
 
             // save the time when the hand showed a pinchStrenght of more than 0.9 the last time
             if (hand.pinchStrength > 0.9) {
@@ -278,6 +266,7 @@
             // compare pinch strength between last and current frame
             // and check if passed time since last strong pinch is lower than a 1/4s (0.25s)
             if (last_hand.pinchStrength > 0.05 && hand.pinchStrength < 0.05 && time_passed < 0.25) {
+                // console.log("- - - - - - - GESTURE:                                    Explosion");
                 return true;
             } else {
                 return false;
@@ -303,8 +292,22 @@
             // save last hand in a temp variable
             var last_hand = uber.last_hands_info[hand.id];
 
+            // compare the pinch strength
+            // console.log("hand.pinchStrength: ", hand.pinchStrength);
+
+            // // call function to get and save last pinch info
+            // var index = uber.saveAndGetLast(uber.last_open_hand, hand);
+
+            // // save the time when the hand showed a pinchStrenght of more than 0.9 the last time
+            // if (hand.pinchStrength < 0.003) {
+            //     uber.last_pinch[index].time = hand.timeVisible;
+            // }
+
+            // // check for time passed since the last strong pinch
+            // var time_passed = hand.timeVisible - uber.last_pinch[index].time;
+
             // if (true) {
-            //     console.log("COLLAPSE");
+            // console.log("- - - - - - - GESTURE:                                    Collapse");
             //     return true;
             // } else {
             //     return false;
@@ -487,6 +490,25 @@
         }
         // return false if no hands detected or if no fast movements detected
         return false;
+    };
+
+    LEAPAPP.GestureChecker.prototype.saveAndGetLast = function(array, hand) {
+        var uber = this;
+        // check if last pinch array contains an object with id = hand.id
+        // findIndex returns -1 if no index is found
+        var index = _.findIndex(uber[array], ['id', hand.id]);
+        if ( index === -1) {
+            var new_last_moment = { id: hand.id, time: 0 };
+            uber[array].push(new_last_moment);
+
+            // and delete older hands in last pinch array
+            if (uber[array].length > 2) {
+                uber[array].splice(0, 1); //splice(indexToRemove, amountToRemove)
+            }
+            // save new index for later reference
+            index = uber[array].length - 1;
+        }
+        return index;
     };
 
 
