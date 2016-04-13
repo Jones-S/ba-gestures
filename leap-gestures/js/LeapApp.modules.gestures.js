@@ -271,10 +271,12 @@
 
             // compare pinch strength between last and current frame
             // and check if passed time since last strong pinch is lower than a 1/4s (0.25s)
-            if ((last_hand.pinchStrength > 0.05) &&
-                (hand.pinchStrength < 0.05) &&
-                (time_passed < 0.25) &&
-                (time_between_gestures > 0.9)
+
+
+            if ((last_hand.pinchStrength > 0.05)
+                && (hand.pinchStrength < 0.05)
+                // && (time_passed < 0.25)
+                // && (time_between_gestures > 0.9)
              ) {
                 console.log("- - - - - - - GESTURE:                                    Explosion");
                 // save time of the last explosion
@@ -320,10 +322,12 @@
             // check for last collapse time
             var time_between_gestures = hand.timeVisible - uber.last_explosion;
 
-            if ((last_hand.pinchStrength < 0.95) &&
-                (hand.pinchStrength > 0.95) &&
-                (time_passed < 0.25) &&
-                (time_between_gestures > 0.9)
+
+
+            if ((last_hand.pinchStrength < 0.95)
+                && (hand.pinchStrength > 0.95)
+                // && (time_passed < 0.25) &&
+                // && (time_between_gestures > 0.9)
              ) {
                 console.log("- - - - - - - GESTURE:                                    Collapse");
                 uber.last_collapse = hand.timeVisible;

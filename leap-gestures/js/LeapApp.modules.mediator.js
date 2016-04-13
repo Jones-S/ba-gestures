@@ -57,7 +57,11 @@
             // take the subscribers (= instances of Segment())
             // and execute their functions while passing the gesture data
             uber.topics[topic][i].onGestureCheck(gesture_data, data);
+
+            // and do the stuff that has to be checked everytime
+            uber.topics[topic][i].doAlways(gesture_data);
         }
+
 
     };
 

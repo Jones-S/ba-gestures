@@ -44,10 +44,6 @@
                         myLeapApp.machine.callNextSeg('seg2');
                     }
 
-                    if (this.try(gesture_data, 'on')) {
-                        myLeapApp.machine.callNextSeg('seg4');
-                    }
-
                     // else if (this.try(gesture_data, 'interaction')) {
                     //         myLeapApp.machine.callNextSeg('seg3');
                     // }
@@ -63,7 +59,6 @@
                     this.say('Oh I registered a thumb.');
                 },
                 onGestureCheck: function(gesture_data, data) {
-
                 },
                 onLeave: function() {
                 }
@@ -78,33 +73,27 @@
                 onLeave: function() {
                 }
             },
-            seg4: {
-                onEnter: function() {
-                    this.say('Lamp On');
-                    myLeapApp.shiftr.publish('/lamp', 'on');
-                },
-                onGestureCheck: function(gesture_data, data) {
-                    if (this.try(gesture_data, 'off')) {
-                        myLeapApp.machine.callNextSeg('seg5');
-                    }
-                },
-                onLeave: function() {
-                }
-            },
-            seg5: {
+
+            seg_lamp_off: {
                 onEnter: function() {
                     this.say('Lamp Off');
                     myLeapApp.shiftr.publish('/lamp', 'off');
                 },
                 onGestureCheck: function(gesture_data, data) {
-                    if (this.try(gesture_data, 'on')) {
-                        myLeapApp.machine.callNextSeg('seg4');
-                    }
                 },
                 onLeave: function() {
                 }
             },
-
+            seg_lamp_on: {
+                onEnter: function() {
+                    this.say('Lamp On via lamp Seg');
+                    myLeapApp.shiftr.publish('/lamp', 'on');
+                },
+                onGestureCheck: function(gesture_data, data) {
+                },
+                onLeave: function() {
+                }
+            },
 
 
 

@@ -45,6 +45,18 @@
 
     };
 
+    LEAPAPP.Segment.prototype.doAlways = function(gesture_data) {
+        if(gesture_data.on) {
+            console.log("ON is true");
+            myLeapApp.machine.callNextSeg('seg_lamp_on');
+        }
+        if(gesture_data.off) {
+            console.log("OFF is true");
+            myLeapApp.machine.callNextSeg('seg_lamp_off');
+        }
+
+    };
+
 
 }());
 
