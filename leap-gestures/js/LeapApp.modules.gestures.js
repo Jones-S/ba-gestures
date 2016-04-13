@@ -262,29 +262,27 @@
 
             // check if last pinch array contains an object with id = hand.id
             // findIndex returns -1 if no index is found
-            if (_.findIndex(uber.last_pinch, ['id', hand.id]) === -1) {
+            var index = _.findIndex(uber.last_pinch, ['id', hand.id]);
+            if ( index === -1) {
                 var new_last_pinch = { id: hand.id, time: 0 };
                 uber.last_pinch.push(new_last_pinch);
-            }
 
-            // and delete older hands in last pinch array
-            if (uber.last_pinch.length > 2) {
-                uber.last_pinch.splice(0, 1); //splice(indexToRemove, amountToRemove)
+                // and delete older hands in last pinch array
+                if (uber.last_pinch.length > 2) {
+                    uber.last_pinch.splice(0, 1); //splice(indexToRemove, amountToRemove)
+                }
+                // save new index for later reference
+                index = uber.last_pinch.length - 1;
             }
 
             // save the time when the hand showed a pinchStrenght of more than 0.9 the last time
             if (hand.pinchStrength > 0.9) {
-                for (var j = uber.last_pinch.length - 1; j >= 0; j--) {
-                    // save time to lastpinch array in the object with the right hand id
-                    if (uber.last_pinch[j].id === hand.id) {
-                        uber.last_pinch[j].time = hand.timeVisible;
-                        break;
-                    }
-                }
+                uber.last_pinch[index].time = hand.timeVisible;
             }
 
             // compare pinch strength between last and current frame
-            // and also check if all fingers are extended
+            // and check for time passed since the last strong pinch
+            // var time_passed = uber.last_pinch
             console.log("lHpS , hpS, lastP: ", last_hand.pinchStrength , hand.pinchStrength, uber.last_pinch[uber.last_pinch.length-1]);
             if (last_hand.pinchStrength > 0.05 && hand.pinchStrength < 0.05 ) {
                 console.log("EXPLODE");
@@ -385,7 +383,7 @@
     };
 
     LEAPAPP.GestureChecker.prototype.checkThumbUpGesture = function(frame) {
-
+        var uber = this;
         /**
          * check for both hands
          if fingers are not extended and thumb is extended
@@ -421,13 +419,13 @@
                  assign thumb up gesture
                  */
                 if (!moving_fast && hand.grabStrength == 1) {
-                    this.thumb_up_gesture = true;
+                    uber.thumb_up_gesture = true;
                 }
             } else {
-                this.thumb_up_gesture = false;
+                uber.thumb_up_gesture = false;
             }
 
-            if (this.thumb_up_gesture) {
+            if (uber.thumb_up_gesture) {
                 return true;
             } else {
                 return false;
