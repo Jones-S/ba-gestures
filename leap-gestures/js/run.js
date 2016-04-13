@@ -43,6 +43,11 @@
                     if (this.try(gesture_data, 'thumb_up')) {
                         myLeapApp.machine.callNextSeg('seg2');
                     }
+
+                    if (this.try(gesture_data, 'on')) {
+                        myLeapApp.machine.callNextSeg('seg4');
+                    }
+
                     // else if (this.try(gesture_data, 'interaction')) {
                     //         myLeapApp.machine.callNextSeg('seg3');
                     // }
@@ -69,6 +74,32 @@
                 },
                 onGestureCheck: function(gesture_data, data) {
 
+                },
+                onLeave: function() {
+                }
+            },
+            seg4: {
+                onEnter: function() {
+                    this.say('Lamp On');
+                    myLeapApp.shiftr.publish('/lamp', 'on');
+                },
+                onGestureCheck: function(gesture_data, data) {
+                    if (this.try(gesture_data, 'off')) {
+                        myLeapApp.machine.callNextSeg('seg5');
+                    }
+                },
+                onLeave: function() {
+                }
+            },
+            seg5: {
+                onEnter: function() {
+                    this.say('Lamp Off');
+                    myLeapApp.shiftr.publish('/lamp', 'off');
+                },
+                onGestureCheck: function(gesture_data, data) {
+                    if (this.try(gesture_data, 'on')) {
+                        myLeapApp.machine.callNextSeg('seg4');
+                    }
                 },
                 onLeave: function() {
                 }

@@ -51,8 +51,11 @@
         };
 
         // save hands in array to save last frame infos for each hand
-        this.last_hands_info = {};
-        this.last_pinch = [];
+        this.last_hands_info    = {};
+        this.last_pinch         = [];
+        this.last_open_hand     = [];
+
+        this.last_explosion = this.last_collapse = 0;
 
         this.last_frame = {
                 l_velocity: 0,
@@ -263,10 +266,19 @@
             // check for time passed since the last strong pinch
             var time_passed = hand.timeVisible - uber.last_pinch[index].time;
 
+            // check for last collapse time
+            var time_between_gestures = hand.timeVisible - uber.last_collapse;
+
             // compare pinch strength between last and current frame
             // and check if passed time since last strong pinch is lower than a 1/4s (0.25s)
-            if (last_hand.pinchStrength > 0.05 && hand.pinchStrength < 0.05 && time_passed < 0.25) {
-                // console.log("- - - - - - - GESTURE:                                    Explosion");
+            if ((last_hand.pinchStrength > 0.05) &&
+                (hand.pinchStrength < 0.05) &&
+                (time_passed < 0.25) &&
+                (time_between_gestures > 0.9)
+             ) {
+                console.log("- - - - - - - GESTURE:                                    Explosion");
+                // save time of the last explosion
+                uber.last_explosion = hand.timeVisible;
                 return true;
             } else {
                 return false;
@@ -292,26 +304,33 @@
             // save last hand in a temp variable
             var last_hand = uber.last_hands_info[hand.id];
 
-            // compare the pinch strength
+            // call function to get and save last pinch info
+            var index = uber.saveAndGetLast("last_open_hand", hand);
             // console.log("hand.pinchStrength: ", hand.pinchStrength);
+            if (hand.pinchStrength < 0.003) {
+                uber.last_open_hand[index].time = hand.timeVisible;
+            }
 
-            // // call function to get and save last pinch info
-            // var index = uber.saveAndGetLast(uber.last_open_hand, hand);
+            // check for time passed since the last open hand
+            var time_passed = hand.timeVisible - uber.last_open_hand[index].time;
 
-            // // save the time when the hand showed a pinchStrenght of more than 0.9 the last time
-            // if (hand.pinchStrength < 0.003) {
-            //     uber.last_pinch[index].time = hand.timeVisible;
-            // }
+            // check time since last explosion gesture
+            // normally after making an explosion gesture
+            // a collapse gesture follows automatically
+            // check for last collapse time
+            var time_between_gestures = hand.timeVisible - uber.last_explosion;
 
-            // // check for time passed since the last strong pinch
-            // var time_passed = hand.timeVisible - uber.last_pinch[index].time;
-
-            // if (true) {
-            // console.log("- - - - - - - GESTURE:                                    Collapse");
-            //     return true;
-            // } else {
-            //     return false;
-            // }
+            if ((last_hand.pinchStrength < 0.95) &&
+                (hand.pinchStrength > 0.95) &&
+                (time_passed < 0.25) &&
+                (time_between_gestures > 0.9)
+             ) {
+                console.log("- - - - - - - GESTURE:                                    Collapse");
+                uber.last_collapse = hand.timeVisible;
+                return true;
+            } else {
+                return false;
+            }
 
 
         }
@@ -549,7 +568,7 @@
         uber.timeouts[timer_id] = setTimeout(function() {
             // reset flag
             flag = false;
-            console.log("Timer timed out");
+            // console.log("Timer timed out");
         }, duration);
     };
 
