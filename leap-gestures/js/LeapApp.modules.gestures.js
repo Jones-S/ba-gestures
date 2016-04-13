@@ -280,15 +280,17 @@
                 uber.last_pinch[index].time = hand.timeVisible;
             }
 
+            // check for time passed since the last strong pinch
+            var time_passed = hand.timeVisible - uber.last_pinch[index].time;
+
             // compare pinch strength between last and current frame
-            // and check for time passed since the last strong pinch
-            // var time_passed = uber.last_pinch
-            console.log("lHpS , hpS, lastP: ", last_hand.pinchStrength , hand.pinchStrength, uber.last_pinch[uber.last_pinch.length-1]);
-            if (last_hand.pinchStrength > 0.05 && hand.pinchStrength < 0.05 ) {
-                console.log("EXPLODE");
-                console.log("EXPLODE");
-                console.log("EXPLODE");
-                console.log("EXPLODE");
+            // and check if passed time since last strong pinch is lower than a 1/4s (0.25s)
+            if (last_hand.pinchStrength > 0.05 && hand.pinchStrength < 0.05 && time_passed < 0.25) {
+                console.log("                                        EXPLODE");
+                console.log("                                        EXPLODE");
+                console.log("                                        EXPLODE");
+                console.log("                                        EXPLODE");
+                console.log("time_passed: ", time_passed);
             }
 
 
