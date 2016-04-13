@@ -376,26 +376,10 @@
 
             // generate names for fingers 0 = thumb, 1 = index etc.
             var name_map = ["thumb", "index", "middle", "ring", "pinky"];
-            var folded_fingers = 0;
-            /**
-             * make loop to check if fingers are extended.
-             * if yes, break loop. no further checking required
-             * because thumb up gesture needs all fingers except thumb to be folded
-             */
-            outer_loop:
-            for (var j = hand.fingers.length - 1; j >= 0; j--) {
-                // save each fingers name
-                var finger = hand.fingers[j];
-                var finger_name = name_map[finger.type];
-                // check if extended, otherwise break loop
-                if (finger.extended && finger_name !== "thumb") {
-                    break outer_loop;
-                } else {
-                    folded_fingers++;
-                }
-            }
+            var extendedFingers = countExtendedFingers(hand);
+
             // if 4 fingers are folded and thumb extended -> trigger gesture
-            if (folded_fingers > 3 && hand.thumb.extended) {
+            if (extendedFingers < 2 && hand.thumb.extended) {
                 var moving_fast = false;
                 /**
                  * speed indicates velocity of palm in three directions
