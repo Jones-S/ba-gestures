@@ -5,6 +5,16 @@
         return three_vector;
     }
 
+    function countExtendedFingers(hand) {
+        // count extended finger
+        var extendedFingers = 0;
+            for (var f = 0; f < hand.fingers.length; f++){
+                var finger = hand.fingers[f];
+                if (finger.extended) extendedFingers++;
+        }
+        return extendedFingers;
+    }
+
 
 
     LEAPAPP.GestureChecker = function (instance_name) {
@@ -165,9 +175,9 @@
                     ) {
                         // console.log("last_hand.palmPosition[2]: ", last_hand.palmPosition[2], "        hand.palmPosition[2]: ", hand.palmPosition[2]);
                         distinct_interaction = true;
-                        console.log("DISTINCT:     PALM POSITION");
+                        // console.log("DISTINCT:     PALM POSITION");
                     } else {
-                        console.log("ONLY WITHDRAWAL .....................");
+                        // console.log("ONLY WITHDRAWAL .....................");
                     }
                 }
 
@@ -181,7 +191,7 @@
                     // if one finger was extended and bent the frame after a distinct gesture is detected
                     if (last_hand.fingers[j].extended != hand.fingers[j].extended ) {
                         distinct_interaction = true;
-                        console.log("DISTINCT:     FINGER POSTURE CHANGED ");
+                        // console.log("DISTINCT:     FINGER POSTURE CHANGED ");
                     }
                     // use three.js to make vector calculations
                     /**
@@ -213,8 +223,6 @@
 
 
 
-            // and set current hand to last_hand object
-            uber.last_hands_info[hand.id] = hand;
 
 
 
@@ -227,6 +235,44 @@
             } else {
                 return false;
             }
+        }
+    };
+
+    /**
+     * [checkForExplosion]
+     * A gesture which could be used to switch something on. Especially light.
+     * The hand shape goes from a 5-finger pinch into a fully extended hand.
+     * @param  {object} frame with leap motion info
+     * @return {boolean} saying if gesture was made or not
+     */
+    LEAPAPP.GestureChecker.prototype.checkForExplosion = function(frame) {
+        var uber = this;
+
+        for (var i = frame.hands.length -1; i >= 0; i--) {
+            var hand = frame.hands[i];
+            // check if hand id is saved in hands_info array
+            if (!uber.last_hands_info.hasOwnProperty(hand.id)) {
+                uber.last_hands_info[hand.id] = hand;
+            }
+
+            // save last hand in a temp variable
+            var last_hand = uber.last_hands_info[hand.id];
+
+            // check how many fingers are extended
+            var extendedFingers = countExtendedFingers(hand);
+            // console.log("extendedFingers: ", extendedFingers);
+
+            // compare pinch strength between last and current frame
+            // and also check if all fingers are extended
+            console.log("lHpS , hpS, extF: ", last_hand.pinchStrength , hand.pinchStrength, extendedFingers);
+            if (last_hand.pinchStrength > 0.15 && hand.pinchStrength < 0.05 && extendedFingers >= 5) {
+                console.log("EXPLODE");
+                console.log("EXPLODE");
+                console.log("EXPLODE");
+                console.log("EXPLODE");
+            }
+
+
         }
     };
 
@@ -421,6 +467,16 @@
         return false;
     };
 
+    LEAPAPP.GestureChecker.prototype.saveLastHand = function(frame) {
+        var uber = this;
+        for (var i = frame.hands.length - 1; i >= 0; i--) {
+            var hand = frame.hands[i];
+            if (uber.last_hands_info.hasOwnProperty(hand.id)) {
+                uber.last_hands_info[hand.id] = hand;
+            }
+        }
+    };
+
     /**
      * set a Timer to reset a flag after some time
      * @param {object}  timer
@@ -477,12 +533,18 @@
     LEAPAPP.GestureChecker.prototype.extractGestures = function(frame) {
         var gestures = {};
         var uber = this;
+        // save last handinfo if no value exists
+
         // check for gestures and save it in the gesture objects
         gestures.interaction            = uber.checkForAnyInteraction(frame);
         gestures.distinct_interaction   = uber.checkForDistinctInteraction(frame);
+        gestures.on                     = uber.checkForExplosion(frame);
         gestures.thumb_up               = uber.checkThumbUpGesture(frame);
         gestures.cancel                 = uber.checkCancelGesture(frame);
         gestures.fast_moves             = uber.detectFastMovement(frame);
+
+        // save hand to last hand object
+        uber.saveLastHand(frame);
 
         return gestures;
     };
