@@ -51,6 +51,7 @@
 
         // save hands in array to save last frame infos for each hand
         this.last_hands_info = {};
+        this.last_pinch = {};
 
         this.last_frame = {
                 l_velocity: 0,
@@ -250,6 +251,7 @@
 
         for (var i = frame.hands.length -1; i >= 0; i--) {
             var hand = frame.hands[i];
+
             // check if hand id is saved in hands_info array
             if (!uber.last_hands_info.hasOwnProperty(hand.id)) {
                 uber.last_hands_info[hand.id] = hand;
@@ -258,14 +260,20 @@
             // save last hand in a temp variable
             var last_hand = uber.last_hands_info[hand.id];
 
-            // check how many fingers are extended
-            var extendedFingers = countExtendedFingers(hand);
-            // console.log("extendedFingers: ", extendedFingers);
+            // check if hand id is saved in last pinch object
+            if (!uber.last_pinch.hasOwnProperty(hand.id)) {
+                uber.last_pinch[hand.id] = { time: 0 };
+            }
+
+            // save the time when the hand showed a pinchStrenght of more than 0.9 the last time
+            if (hand.pinchStrength > 0.9) {
+                uber.last_pinch[hand.id].time = hand.timeVisible;
+            }
 
             // compare pinch strength between last and current frame
             // and also check if all fingers are extended
-            console.log("lHpS , hpS, extF: ", last_hand.pinchStrength , hand.pinchStrength, extendedFingers);
-            if (last_hand.pinchStrength > 0.15 && hand.pinchStrength < 0.05 && extendedFingers >= 5) {
+            console.log("lHpS , hpS, lastP: ", last_hand.pinchStrength , hand.pinchStrength, uber.last_pinch[hand.id].time);
+            if (last_hand.pinchStrength > 0.05 && hand.pinchStrength < 0.05 ) {
                 console.log("EXPLODE");
                 console.log("EXPLODE");
                 console.log("EXPLODE");
