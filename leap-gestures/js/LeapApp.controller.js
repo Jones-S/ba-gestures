@@ -21,8 +21,11 @@
         uber.typer          = new LEAPAPP.Typewriter();
         uber.painter        = new LEAPAPP.CSSPainter();
         uber.shiftr         = new LEAPAPP.Shiftr(uber.shiftr_info);
+        // subscribe 'doAlways'-Segment to the publisher
+        var new_segment = new LEAPAPP.Segment(uber.flow.doAlways);
         // execute onEnter of first segment
         uber.machine.callNextSeg('seg0');
+
 
         /**
          * the callback function says what is called each frame

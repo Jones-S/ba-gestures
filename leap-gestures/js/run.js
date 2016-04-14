@@ -6,6 +6,32 @@
     $(function() { // Shorthand for $( document ).ready()
 
         var flow = {
+            doAlways: {
+                onEnter: function() {
+                    this.say('Oh irgendwas');
+                },
+                onGestureCheck: function(gesture_data, data) {
+                    if (gesture_data.swipe == "up") {
+                        // myLeapApp.machine.callNextSeg('seg_lamp_on');
+                        myLeapApp.shiftr.publish('/lamp', 'on');
+                        console.log("go up but no segment");
+
+                    } else if(gesture_data.swipe == "down") {
+                        myLeapApp.shiftr.publish('/lamp', 'off');
+
+                    } else if(gesture_data.on) {
+                        console.log("ON is true");
+                        myLeapApp.shiftr.publish('/lamp', 'on');
+
+                    } else if(gesture_data.off) {
+                        console.log("OFF is true");
+                        myLeapApp.shiftr.publish('/lamp', 'off');
+                    }
+                },
+                onLeave: function() {
+                }
+
+            },
             seg0: {
                 onEnter: function() {
                     this.say("hi there");
@@ -74,26 +100,26 @@
                 }
             },
 
-            seg_lamp_off: {
-                onEnter: function() {
-                    this.say('Lamp Off');
-                    myLeapApp.shiftr.publish('/lamp', 'off');
-                },
-                onGestureCheck: function(gesture_data, data) {
-                },
-                onLeave: function() {
-                }
-            },
-            seg_lamp_on: {
-                onEnter: function() {
-                    this.say('Lamp On');
-                    myLeapApp.shiftr.publish('/lamp', 'on');
-                },
-                onGestureCheck: function(gesture_data, data) {
-                },
-                onLeave: function() {
-                }
-            },
+            // seg_lamp_off: {
+            //     onEnter: function() {
+            //         this.say('Lamp Off');
+            //         myLeapApp.shiftr.publish('/lamp', 'off');
+            //     },
+            //     onGestureCheck: function(gesture_data, data) {
+            //     },
+            //     onLeave: function() {
+            //     }
+            // },
+            // seg_lamp_on: {
+            //     onEnter: function() {
+            //         this.say('Lamp On');
+            //         myLeapApp.shiftr.publish('/lamp', 'on');
+            //     },
+            //     onGestureCheck: function(gesture_data, data) {
+            //     },
+            //     onLeave: function() {
+            //     }
+            // },
 
 
 

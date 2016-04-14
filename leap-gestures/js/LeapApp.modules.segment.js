@@ -45,26 +45,5 @@
 
     };
 
-    LEAPAPP.Segment.prototype.doAlways = function(gesture_data) {
-        if (gesture_data.swipe == "up") {
-            // myLeapApp.machine.callNextSeg('seg_lamp_on');
-            myLeapApp.shiftr.publish('/lamp', 'on');
-            console.log("go up but no segment");
-
-        } else if(gesture_data.swipe == "down") {
-            myLeapApp.machine.callNextSeg('seg_lamp_off');
-
-        } else if(gesture_data.on) {
-            console.log("ON is true");
-            myLeapApp.machine.callNextSeg('seg_lamp_on');
-
-        } else if(gesture_data.off) {
-            console.log("OFF is true");
-            myLeapApp.machine.callNextSeg('seg_lamp_off');
-        }
-
-    };
-
-
 }());
 
