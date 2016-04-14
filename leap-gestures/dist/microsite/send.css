@@ -1,0 +1,60 @@
+/* http://meyerweb.com/eric/tools/css/reset/
+   v2.0 | 20110126
+   License: none (public domain)
+*/
+html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, b, u, i, center, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td, article, aside, canvas, details, embed, figure, figcaption, footer, header, hgroup, menu, nav, output, ruby, section, summary, time, mark, audio, video {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-size: 100%;
+  font: inherit;
+  vertical-align: baseline; }
+
+.buttons {
+    width: 100%;
+    margin-top: 05%;
+}
+
+button {
+    background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #ADE2ED), color-stop(1, #94C9DF) );
+    background:-moz-linear-gradient( center top, #ADE2ED 5%, #dfdfdf 100% );
+    background-color:#ededed;
+    -webkit-border-top-left-radius:6px;
+        -moz-border-radius-topleft:6px;
+            border-top-left-radius:6px;
+    -webkit-border-top-right-radius:6px;
+        -moz-border-radius-topright:6px;
+            border-top-right-radius:6px;
+    -webkit-border-bottom-right-radius:6px;
+        -moz-border-radius-bottomright:6px;
+            border-bottom-right-radius:6px;
+    -webkit-border-bottom-left-radius:6px;
+        -moz-border-radius-bottomleft:6px;
+            border-bottom-left-radius:6px;
+    border: none;
+    text-indent:0;
+    display: block;
+    color:#777777;
+    font-family:arial;
+    font-size:15px;
+    font-weight:bold;
+    font-style:normal;
+    height:50px;
+    line-height:50px;
+    width:100px;
+    text-decoration:none;
+    text-align:center;
+    /*text-shadow:1px 1px 0px #ffffff;*/
+    margin: 0 auto 2% auto;
+}
+
+button:hover {
+    background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #A3ECF9), color-stop(1, #92EDBB) );
+    background:-moz-linear-gradient( center top, #A3ECF9 5%, #92EDBB 100%  );
+    filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#dfdfdf', endColorstr='#ededed');
+    background-color:#dfdfdf;
+}
+
+button:active {
+    position:relative;
+    top:1px;
