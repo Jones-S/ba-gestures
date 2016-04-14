@@ -340,6 +340,43 @@
         }
     };
 
+    LEAPAPP.GestureChecker.prototype.checkSwipe = function(frame) {
+        var uber = this;
+        var swipeDirection = "";
+
+        // Display Gesture object data
+        if (frame.gestures.length > 0) {
+            for (var i = 0; i < frame.gestures.length; i++) {
+                var gesture = frame.gestures[i];
+                if (gesture.type == "swipe") {
+                    //Classify swipe as either horizontal or vertical
+                    var isHorizontal = Math.abs(gesture.direction[0]) > Math.abs(gesture.direction[1]);
+                    //Classify as right-left or up-down
+                    if (isHorizontal) {
+                        if (gesture.direction[0] > 0) {
+                            swipeDirection = "right";
+                        } else {
+                            swipeDirection = "left";
+                        }
+                    } else { //vertical
+                        if (gesture.direction[1] > 0) {
+                            swipeDirection = "up";
+                        } else {
+                            swipeDirection = "down";
+                        }
+                    }
+
+                    if (swipeDirection !== "") {
+                        console.log("- - - - - - - GESTURE:                                    Swipe: " + swipeDirection);
+                        return swipeDirection;
+                    } else {
+                        return false;
+                    }
+                }
+            }
+        }
+    };
+
     LEAPAPP.GestureChecker.prototype.checkCancelGesture = function(frame) {
 
         var uber = this;
@@ -620,6 +657,7 @@
         gestures.distinct_interaction   = uber.checkForDistinctInteraction(frame);
         gestures.on                     = uber.checkForExplosion(frame);
         gestures.off                    = uber.checkforCollapse(frame);
+        gestures.swipe                  = uber.checkSwipe(frame);
         gestures.thumb_up               = uber.checkThumbUpGesture(frame);
         gestures.cancel                 = uber.checkCancelGesture(frame);
         gestures.fast_moves             = uber.detectFastMovement(frame);
