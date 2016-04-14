@@ -47,7 +47,9 @@
 
     LEAPAPP.Segment.prototype.doAlways = function(gesture_data) {
         if (gesture_data.swipe == "up") {
-            myLeapApp.machine.callNextSeg('seg_lamp_on');
+            // myLeapApp.machine.callNextSeg('seg_lamp_on');
+            myLeapApp.shiftr.publish('/lamp', 'on');
+            console.log("go up but no segment");
 
         } else if(gesture_data.swipe == "down") {
             myLeapApp.machine.callNextSeg('seg_lamp_off');

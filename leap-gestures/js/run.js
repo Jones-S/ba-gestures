@@ -86,7 +86,7 @@
             },
             seg_lamp_on: {
                 onEnter: function() {
-                    this.say('Lamp On via lamp Seg');
+                    this.say('Lamp On');
                     myLeapApp.shiftr.publish('/lamp', 'on');
                 },
                 onGestureCheck: function(gesture_data, data) {
