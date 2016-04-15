@@ -69,13 +69,6 @@
                     if (this.try(gesture_data, 'thumb_up')) {
                         myLeapApp.machine.callNextSeg('seg2');
                     }
-
-                    // else if (this.try(gesture_data, 'interaction')) {
-                    //         myLeapApp.machine.callNextSeg('seg3');
-                    // }
-                    // else if(this.returnValidationQuery('interaction')) {
-                    //     myLeapApp.machine.callNextSeg('seg2');
-                    // }
                 },
                 onLeave: function() {
                 }
@@ -99,27 +92,6 @@
                 onLeave: function() {
                 }
             },
-
-            // seg_lamp_off: {
-            //     onEnter: function() {
-            //         this.say('Lamp Off');
-            //         myLeapApp.shiftr.publish('/lamp', 'off');
-            //     },
-            //     onGestureCheck: function(gesture_data, data) {
-            //     },
-            //     onLeave: function() {
-            //     }
-            // },
-            // seg_lamp_on: {
-            //     onEnter: function() {
-            //         this.say('Lamp On');
-            //         myLeapApp.shiftr.publish('/lamp', 'on');
-            //     },
-            //     onGestureCheck: function(gesture_data, data) {
-            //     },
-            //     onLeave: function() {
-            //     }
-            // },
 
 
 
