@@ -1,0 +1,25 @@
+    {
+        "seg1": {
+            "onEnter": {
+                "say": "Seg1"
+            },
+            "onCheck": {
+                "condition1": "seg2",
+                "condition2": "seg3"
+            },
+            "onLeave": {
+
+            }
+        },
+        "seg2": {
+            "onEnter": {
+                "say": "Seg2"
+            },
+            "onCheck": {
+
+            },
+            "onLeave": {
+
+            }
+        }
+    }
