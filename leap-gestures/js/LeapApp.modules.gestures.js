@@ -65,9 +65,13 @@
         this.flags = {
             recent_fast_moves:  false,
             recent_swipes:      false,
-            dir_change_count:   false   // counting direction change of cancel gesture
+            dir_change_count:   false,   // counting direction change of cancel gesture
+            thumb_up_gesture:   false
         };
-        this.thumb_up_gesture   = false;
+        this.counts = {
+            thumb_up_frames:    0
+        }
+
         // gesture flags
     };
 
@@ -523,13 +527,15 @@
                      assign thumb up gesture
                      */
                     if (!moving_fast && hand.grabStrength == 1) {
-                        uber.thumb_up_gesture = true;
+                        uber.flags.thumb_up_gesture = true;
+                        // increase frame counts at which thumb was up
+                        uber.counts.thumb_up_frames++;
                     }
                 } else {
-                    uber.thumb_up_gesture = false;
+                    uber.flags.thumb_up_gesture = false;
                 }
 
-                if (uber.thumb_up_gesture) {
+                if (uber.flags.thumb_up_gesture && uber.counts.thumb_up_frames > 20) {
                     if (LEAPAPP.debug) {
                         console.log("- - - - - - - GESTURE:                                    Thumb Up:");
                     }
