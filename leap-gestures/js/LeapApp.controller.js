@@ -1,12 +1,13 @@
 (function() {
 
-    LEAPAPP.Controller = function(flow) {
+    LEAPAPP.Controller = function(options) {
         this.name = "LeapApp controller";
-        this.flow = flow;
+        this.flow = options.flow;
         this.shiftr_info = {
-            mqtt_uri:   'mqtt://e0b7ded5:04f776d89819bfdb@broker.shiftr.io',
-            client_id:  'jonas laptop'
+            mqtt_uri:   options.mqtt_uri,
+            client_id:  options.client_id
         };
+        this.start_seg = options.start_seg;
     };
 
 
@@ -25,7 +26,7 @@
         var new_segment = new LEAPAPP.Segment(uber.flow.doAlways);
         new_segment.onEnter(); // execute onEnter to skip that (otherwise onGestureCheck won't be executed)
         // execute onEnter of first segment
-        uber.machine.callNextSeg('seg0');
+        uber.machine.callNextSeg(uber.start_seg);
 
 
         /**
