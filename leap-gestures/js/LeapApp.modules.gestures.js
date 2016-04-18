@@ -65,12 +65,12 @@
         this.flags = {
             recent_fast_moves:  false,
             recent_swipes:      false,
-            dir_change_count:   false,   // counting direction change of cancel gesture
             thumb_up_gesture:   false
         };
         this.counts = {
-            thumb_up_frames:    0
-        }
+            dir_change_count:   0,   // counting direction change of cancel gesture
+            thumb_up_frames:    0    // counting frames of thumb up gesture
+        };
 
         // gesture flags
     };
@@ -386,7 +386,8 @@
                         // set flag for recent swipes to true (will be reset by timer)
                         uber.flags.recent_swipes = true;
                         // set timer to enable next swipe
-                        uber.setTimer(uber.timeouts.recent_swipes_timout_id, "recent_swipes", 500);
+                        uber.setTimer({ timeout_id: uber.timeouts.recent_swipes_timout_id, flag: "recent_swipes", duration: 500 });
+
                         return swipeDirection;
                     } else {
                         return false;
@@ -455,7 +456,7 @@
                 ) {
 
                 // console.log("Direction Changed");
-                uber.dir_change_count++;
+                uber.counts.dir_change_count++;
 
                 /**
                  * if change count is big enough
@@ -463,14 +464,14 @@
                  * (which would mean somebody could be swiping)
                  * then trigger cancel gesture
                  */
-                if (uber.dir_change_count > 4 && !uber.flags.recent_fast_moves) {
+                if (uber.counts.dir_change_count > 4 && !uber.flags.recent_fast_moves) {
                     cancel_gesture = true;
                 }
 
                 // set timeOut. if 1s is over without a direction change
                 // count is reset.
-                uber.setTimer(uber.timeouts.dir_change_timeout_id, "dir_change_count", 1000);
-                // TODO: flag is a integer instead of boolean
+                uber.setTimer({ timeout_id: uber.timeouts.dir_change_timeout_id, flag: undefined, duration: 5000, counter: "dir_change_count"});
+
             }
 
             // save velocity to last_frame for change detection in next frame
@@ -577,7 +578,7 @@
                     uber.flags.recent_fast_moves = true;
 
                     // set timeout to reset the flag: uber.setTimer(timeout, flag to reset, time in ms)
-                    uber.setTimer(uber.timeouts.fast_mov_timout_id, "recent_fast_moves", 900);
+                    uber.setTimer({ timeout_id: uber.timeouts.fast_mov_timout_id, flag: "recent_fast_moves", duration: 900 });
                     return true;
                 }
             }
@@ -634,15 +635,25 @@
      * @param {number}  duration
      * @return {number} timer_id is return and passed to the variable of the classes scope
      */
-    LEAPAPP.GestureChecker.prototype.setTimer = function(timer_id, flag, duration) {
+    LEAPAPP.GestureChecker.prototype.setTimer = function(options) {
         var uber = this;
+        // populate necessary arguments
+        var timer_id    = options.timeout_id;
+        var flag        = options.flag;
+        var duration    = options.duration;
+        var counter     = options.counter;
+
         // set timeout to reset the flag
         if (uber.timeouts[timer_id]) {
             clearTimeout(uber.timeouts[timer_id]);
         }
         uber.timeouts[timer_id] = setTimeout(function() {
-            // reset flag
-            uber.flags[flag] = false;
+            if (flag) {
+                uber.flags[flag]        = false; // reset flag
+            }
+            if (counter) {
+                uber.counts[counter]    = 0; // reset counter
+            }
         }, duration);
     };
 
