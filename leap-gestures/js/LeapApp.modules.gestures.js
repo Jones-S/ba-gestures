@@ -467,6 +467,7 @@
             uber.last_hands[hand.id].l_velocity = velocity;
 
             if (cancel_gesture) {
+                console.log("- - - - - - - GESTURE:                                    Cancel:");
                 return true;
             } else {
                 return false;

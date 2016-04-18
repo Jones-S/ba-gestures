@@ -18,7 +18,6 @@
                         // myLeapApp.machine.callNextSeg('seg_lamp_on');
                         myLeapApp.shiftr.publish('/lamp', 'on');
                         myLeapApp.flow.on_off_count++;
-                        console.log("myLeapApp.flow.on_off_count: ", myLeapApp.flow.on_off_count);
 
                     } else if(gesture_data.swipe == "down") {
                         myLeapApp.shiftr.publish('/lamp', 'off');
@@ -95,7 +94,7 @@
             },
             seg2: {
                 onEnter: function() {
-                    this.say('Oh I registered a thumb.');
+                    this.say('Ok, dann ist ja alles in Ordnung. Ich lass dich weiter spielen.');
                     this.played_fns.on_enter = true;
                 },
                 onGestureCheck: function(gesture_data, data) {
