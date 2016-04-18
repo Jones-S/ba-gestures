@@ -4,45 +4,6 @@
      * LEAPAPP = app for shorter compiling result
      */
     $(function() { // Shorthand for $( document ).ready()
-        var object = { start: "test"};
-
-        function parseJSON(json_data){
-            var temp_data = {};
-            $.each(json_data, function(key, val) {
-                // check if val is object
-                if (typeof val === 'object') {
-                    // do some rewriting
-                    if (key === "onEnter") {
-                        var function_body = "";
-                        var cond_count = 0;
-                        $.each(val, function(condition, dest_segment){
-                            if(cond_count > 0) {
-                                function_body += "else ";
-                            }
-                            function_body += "if (gesture_data." + condition + ") { my}";
-                            cond_count++;
-                        });
-
-                        temp_data.onEnter = new Function(gesture_data, data, )
-                    } else {
-                        temp_data[key] = parseJSON(val);
-
-                    }
-                } else {
-                    temp_data[key] = val;
-                }
-            });
-            return temp_data;
-        }
-
-
-        // load json file first
-        $.getJSON("/js/flow.json", function(data) {
-            object = parseJSON(data);
-            console.log("£OObjectli: ", object);
-
-        });
-
 
         var flow = {
             doAlways: {
