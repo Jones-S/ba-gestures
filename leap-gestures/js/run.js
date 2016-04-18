@@ -4,14 +4,23 @@
      * LEAPAPP = app for shorter compiling result
      */
     $(function() { // Shorthand for $( document ).ready()
-        var object = {};
+        var object = { start: "test"};
 
-        function parseJSON(nested_obj){
-            var temp_object = {};
-            $.each(nested_obj, function(key, val) {
-                temp_object[key] = val;
+        function parseJSON(json_data){
+            var temp_data = {};
+            $.each(json_data, function(key, val) {
+                // do some rewriting
+                if (key === "onEnter") {
+                    console.log("onenterli");
+                }
+                // check if val is object
+                if (typeof val === 'object') {
+                    temp_data[key] = parseJSON(val);
+                } else {
+                    temp_data[key] = val;
+                }
             });
-            return temp_object;
+            return temp_data;
         }
 
 
