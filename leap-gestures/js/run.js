@@ -5,6 +5,16 @@
      */
     $(function() { // Shorthand for $( document ).ready()
 
+        // load json file
+        $.getJSON("/js/flow.json", function(data) {
+            var items = [];
+            $.each(data, function(key, val) {
+                items.push("<li id='" + key + "'>" + val + "</li>");
+            });
+            console.log("items: ", items);
+        });
+
+
         var flow = {
             doAlways: {
                 onEnter: function() {
