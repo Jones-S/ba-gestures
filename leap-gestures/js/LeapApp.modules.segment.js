@@ -31,7 +31,6 @@
     };
 
     LEAPAPP.Segment.prototype.say = function(text) {
-        console.log("Object says (text): " + text);
         // type it to the screen using typewriter class
         myLeapApp.typer.write(text);
     };

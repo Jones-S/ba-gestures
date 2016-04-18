@@ -52,7 +52,7 @@
                  */
                 onGestureCheck: function(gesture_data, data) {
                     // if gesture count is high enough aks user
-                    if (flow.on_off_count > 20) {
+                    if (flow.on_off_count > 5) {
                         myLeapApp.machine.callNextSeg('seg1');
                     }
                     // // check if thumb flag is in the object sent and if it's set to true
@@ -71,7 +71,10 @@
             },
             seg1: {
                 onEnter: function() {
-                    this.say('Ich habe gesehen, dass du schon sehr oft ein und ausgeschaltet hast.');
+                    var uber = this;
+                    this.say('Ich habe gesehen, dass du schon sehr oft ein- und ausgeschaltet hast.');
+                    setTimeout(function() { uber.say('next thing to say'); }, 3500);
+
                 },
                 onGestureCheck: function(gesture_data, data) {
                     if (this.try(gesture_data, 'thumb_up')) {
