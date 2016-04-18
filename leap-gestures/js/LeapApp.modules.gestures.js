@@ -46,8 +46,9 @@
 
         // Timeouts
         this.timeouts = {
-            dir_change_timeout_id:  null,
-            fast_mov_timout_id:     null
+            dir_change_timeout_id:      null,
+            fast_mov_timout_id:         null,
+            recent_swipes_timout_id:    null
         };
 
         // save hands in array to save last frame infos for each hand
@@ -58,13 +59,16 @@
         this.last_explosion = this.last_collapse = 0;
 
         this.last_frame = {
-                l_velocity: 0,
-                stab_palm_pos: 0
-            };
-        this.recent_fast_moves = false;
-        this.dir_change_count = 0; // counting direction change of cancel gesture
+            l_velocity: 0,
+            stab_palm_pos: 0
+        };
+        this.flags = {
+            recent_fast_moves:  false,
+            recent_swipes:      false,
+            dir_change_count:   false   // counting direction change of cancel gesture
+        };
+        this.thumb_up_gesture   = false;
         // gesture flags
-        this.thumb_up_gesture = false;
     };
 
     LEAPAPP.GestureChecker.prototype.startTracking = function(draw, callback) {
@@ -366,8 +370,13 @@
                         }
                     }
 
-                    if (swipeDirection !== "") {
+                    // if no recent swipes and dirction is defined
+                    if (!uber.flags.recent_swipes && swipeDirection !== "") {
                         console.log("- - - - - - - GESTURE:                                    Swipe: " + swipeDirection);
+                        // set flag for recent swipes to true (will be reset by timer)
+                        uber.flags.recent_swipes = true;
+                        // set timer to enable next swipe
+                        uber.setTimer(uber.timeouts.recent_swipes_timout_id, "recent_swipes", 500);
                         return swipeDirection;
                     } else {
                         return false;
@@ -444,13 +453,14 @@
                  * (which would mean somebody could be swiping)
                  * then trigger cancel gesture
                  */
-                if (uber.dir_change_count > 4 && !uber.recent_fast_moves) {
+                if (uber.dir_change_count > 4 && !uber.flags.recent_fast_moves) {
                     cancel_gesture = true;
                 }
 
                 // set timeOut. if 1s is over without a direction change
                 // count is reset.
-                uber.setTimer(uber.timeouts.dir_change_timeout_id, uber.dir_change_count, 1000);
+                uber.setTimer(uber.timeouts.dir_change_timeout_id, "dir_change_count", 1000);
+                // TODO: flag is a integer instead of boolean
             }
 
             // save velocity to last_frame for change detection in next frame
@@ -540,10 +550,10 @@
             for (var j = velocity.length - 1; j >= 0; j--) {
                 if (Math.abs(velocity[j]) > 600) {
                     // set flag to true
-                    uber.recent_fast_moves = true;
+                    uber.flags.recent_fast_moves = true;
 
                     // set timeout to reset the flag: uber.setTimer(timeout, flag to reset, time in ms)
-                    uber.setTimer(uber.timeouts.fast_mov_timout_id, uber.recent_fast_moves, 900, uber);
+                    uber.setTimer(uber.timeouts.fast_mov_timout_id, "recent_fast_moves", 900);
                     return true;
                 }
             }
@@ -608,8 +618,7 @@
         }
         uber.timeouts[timer_id] = setTimeout(function() {
             // reset flag
-            flag = false;
-            // console.log("Timer timed out");
+            uber.flags[flag] = false;
         }, duration);
     };
 
@@ -655,12 +664,12 @@
         // check for gestures and save it in the gesture objects
         gestures.interaction            = uber.checkForAnyInteraction(frame);
         gestures.distinct_interaction   = uber.checkForDistinctInteraction(frame);
-        gestures.on                     = uber.checkForExplosion(frame);
-        gestures.off                    = uber.checkforCollapse(frame);
+        // gestures.on                     = uber.checkForExplosion(frame);
+        // gestures.off                    = uber.checkforCollapse(frame);
         gestures.swipe                  = uber.checkSwipe(frame);
         gestures.thumb_up               = uber.checkThumbUpGesture(frame);
-        gestures.cancel                 = uber.checkCancelGesture(frame);
-        gestures.fast_moves             = uber.detectFastMovement(frame);
+        // gestures.cancel                 = uber.checkCancelGesture(frame);
+        // gestures.fast_moves             = uber.detectFastMovement(frame);
         // save hand to last hand object
         uber.saveLastHand(frame);
 
