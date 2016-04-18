@@ -72,9 +72,13 @@
             seg1: {
                 onEnter: function() {
                     var uber = this;
-                    this.say('Ich habe gesehen, dass du schon sehr oft ein- und ausgeschaltet hast.');
-                    setTimeout(function() { uber.say('next thing to say'); }, 3500);
-
+                    this.say('Ich erkenne sehr viele Eingaben.');
+                    setTimeout(function() {
+                        uber.say('Ist alles in Ordnung, oder verstehst du etwas nicht?');
+                        setTimeout(function() {
+                            uber.say('Gib mir doch ein Zeichen, falls alles OK ist.');
+                        }, 4000);
+                    }, 3000);
                 },
                 onGestureCheck: function(gesture_data, data) {
                     if (this.try(gesture_data, 'thumb_up')) {
