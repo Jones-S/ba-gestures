@@ -93,8 +93,9 @@
                         myLeapApp.machine.callNextSeg('seg3');
                     }
                     else if (this.try(gesture_data, 'distinct_interaction')) {
-                        this.distinct_count++;
-                        if (this.distinct_count > 10) {
+                        myLeapApp.flow.distinct_count++;
+                        console.log("%c myLeapApp.flow.distinct_count", "background: #0D0B07; color: #FAFBFF", myLeapApp.flow.distinct_count);
+                        if (myLeapApp.flow.distinct_count > 10) {
                             myLeapApp.machine.callNextSeg('seg6');
                         }
                     }
