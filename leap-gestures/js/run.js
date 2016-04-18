@@ -7,6 +7,7 @@
 
         var flow = {
             on_off_count: 0,    // save count and increase if on off
+            distinct_count: 0,
 
 
             doAlways: {
@@ -88,9 +89,16 @@
                     if (this.try(gesture_data, 'thumb_up')) {
                         myLeapApp.machine.callNextSeg('seg2');
                     }
-                    if (this.try(gesture_data, 'cancel')) {
+                    else if (this.try(gesture_data, 'cancel')) {
                         myLeapApp.machine.callNextSeg('seg3');
                     }
+                    else if (this.try(gesture_data, 'distinct_interaction')) {
+                        this.distinct_count++;
+                        if (this.distinct_count > 10) {
+                            myLeapApp.machine.callNextSeg('seg6');
+                        }
+                    }
+
                 },
                 onLeave: function() {
                 }
@@ -109,6 +117,45 @@
                 onEnter: function() {
                     this.say('Ist für dich nicht klar, mit welcher Geste du das Objekt steuerst?');
                     this.played_fns.on_enter = true;
+                },
+                onGestureCheck: function(gesture_data, data) {
+
+                },
+                onLeave: function() {
+                }
+            },
+            seg4: {
+                onEnter: function() {
+                    this.played_fns.on_enter = true;
+                },
+                onGestureCheck: function(gesture_data, data) {
+
+                },
+                onLeave: function() {
+                }
+            },
+            seg5: {
+                onEnter: function() {
+                    this.played_fns.on_enter = true;
+                },
+                onGestureCheck: function(gesture_data, data) {
+
+                },
+                onLeave: function() {
+                }
+            },
+            seg6: {
+                onEnter: function() {
+                    var uber = this;
+                    this.say('Ich verstehe nicht ganz, was Du mir sagen willst.');
+                    setTimeout(function() {
+                        uber.say('Falls alles Ok ist, nutze doch Deinen Daumen.');
+                        setTimeout(function() {
+                            uber.say('Falls nicht, schüttle Deine Hand, als würdest Du etwas ablehnen.');
+                            // set flag that onEnter is finished playing
+                            uber.played_fns.on_enter = true;
+                        }, 4000);
+                    }, 3000);
                 },
                 onGestureCheck: function(gesture_data, data) {
 
@@ -141,7 +188,13 @@
 
         // Object.create > creates an object without going through its constructor
         // Only the prototype is used
-        var myLeapApp = new LEAPAPP.Controller(flow);
+        var controller_options = {
+            flow:       flow,
+            start_seg:  'seg1',
+            mqtt_uri:   'mqtt://e0b7ded5:04f776d89819bfdb@broker.shiftr.io',
+            client_id:  'jonas laptop'
+        };
+        var myLeapApp = new LEAPAPP.Controller(controller_options);
         window.myLeapApp = myLeapApp;
         myLeapApp.init();
         console.log(myLeapApp.name + " initialized.");
