@@ -49,7 +49,8 @@
             timeout_id_dir_change:      1,
             timeout_id_fast_move:       2,
             timeout_id_recent_swipes:   3,
-            timeout_id_thumb_up:        4
+            timeout_id_thumb_up:        4,
+            timeout_id_recent_distinct: 5
 
         };
 
@@ -67,6 +68,7 @@
         this.flags = {
             recent_fast_moves:  false,
             recent_swipes:      false,
+            recent_distinct:    false,
             thumb_up_gesture:   false
         };
         this.counts = {
@@ -180,14 +182,24 @@
                      * also check for a distinct movement again (only in z direction)
                      */
                     if (
-                        (last_hand.palmPosition[2] > hand.palmPosition[2]) &&
-                        (Math.abs(last_hand.palmPosition[2] - hand.palmPosition[2]) > min_move_distinct)
+                        (last_hand.palmPosition[2] > hand.palmPosition[2])
+                        && (Math.abs(last_hand.palmPosition[2] - hand.palmPosition[2]) > min_move_distinct)
+                        && (!uber.flags.recent_distinct)
                     ) {
                         // console.log("last_hand.palmPosition[2]: ", last_hand.palmPosition[2], "        hand.palmPosition[2]: ", hand.palmPosition[2]);
                         distinct_interaction = true;
-                        console.log("DISTINCT:     PALM POSITION");
+                        // set a flag for recent distinct interaction
+                        uber.flags.recent_distinct = true;
+                        console.log("%c - - - - - - - GESTURE:                                    Distinct Palm", 'background: #75C94B; color: #F7FFF8');
+                        if (LEAPAPP.debug) {
+                            console.log("%c - - - - - - - GESTURE:                                    Distinct Palm", 'background: #75C94B; color: #F7FFF8');
+                        }
+                        // set timer to enable next swipe
+                        uber.setTimer({ timeout_id: uber.timeouts.timeout_id_recent_distinct, flag: "recent_distinct", duration: 500 });
+                        return true;
                     } else {
                         console.log("ONLY WITHDRAWAL .....................");
+                        return false;
                     }
                 }
 
@@ -231,22 +243,17 @@
 
 
 
-
-
-
-
-
-            // console.log("hand.stabilizedPalmPosition: ", hand.stabilizedPalmPosition);
-            // console.log("hand.palmPosition: ", hand.palmPosition);
-
-
-            if (distinct_interaction) {
-                return true;
-            } else {
-                return false;
-            }
+            // if (distinct_interaction) {
+            //     return true;
+            // } else {
+            //     return false;
+            // }
         }
     };
+
+
+
+
 
     /**
      * [checkForExplosion]
@@ -288,7 +295,7 @@
                 // && (time_between_gestures > 0.9)
              ) {
                 if (LEAPAPP.debug) {
-                    console.log("- - - - - - - GESTURE:                                    Explosion");
+                    console.log("%c - - - - - - - GESTURE:                                    Explosion", 'background: #75C94B; color: #F7FFF8');
                 }
                 // save time of the last explosion
                 uber.last_explosion = hand.timeVisible;
@@ -341,7 +348,7 @@
                 // && (time_between_gestures > 0.9)
              ) {
                 if (LEAPAPP.debug) {
-                    console.log("- - - - - - - GESTURE:                                    Collapse");
+                    console.log("%c - - - - - - - GESTURE:                                    Collapse", 'background: #75C94B; color: #F7FFF8');
                 }
                 uber.last_collapse = hand.timeVisible;
                 return true;
@@ -382,7 +389,7 @@
                     // if no recent swipes and dirction is defined
                     if (!uber.flags.recent_swipes && swipeDirection !== "") {
                         if (LEAPAPP.debug) {
-                            console.log("- - - - - - - GESTURE:                                    Swipe: " + swipeDirection);
+                            console.log("%c - - - - - - - GESTURE:                                    Swipe: " + swipeDirection, 'background: #75C94B; color: #F7FFF8');
                         }
                         // set flag for recent swipes to true (will be reset by timer)
                         uber.flags.recent_swipes = true;
@@ -480,7 +487,7 @@
 
             if (cancel_gesture) {
                 if (LEAPAPP.debug) {
-                    console.log("- - - - - - - GESTURE:                                    Cancel:");
+                    console.log("%c - - - - - - - GESTURE:                                    Cancel:", 'background: #75C94B; color: #F7FFF8');
                 }
                 return true;
             } else {
@@ -542,7 +549,7 @@
 
                 if (uber.flags.thumb_up_gesture && uber.counts.thumb_up_frames > 20) {
                     if (LEAPAPP.debug) {
-                        console.log("- - - - - - - GESTURE:                                    Thumb Up:");
+                        console.log("%c - - - - - - - GESTURE:                                    Thumb Up:", 'background: #75C94B; color: #F7FFF8');
                     }
                     return true;
                 } else {
