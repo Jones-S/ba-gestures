@@ -44,11 +44,13 @@
         // provide an array (object – because retrieving hand info via string id '22') for saving hands
         this.last_hands= {};
 
-        // Timeouts
+        // Timeouts (Ids for resetting timers)
         this.timeouts = {
-            dir_change_timeout_id:      1,
-            fast_mov_timout_id:         2,
-            recent_swipes_timout_id:    3
+            timeout_id_dir_change:      1,
+            timeout_id_fast_move:       2,
+            timeout_id_recent_swipes:   3,
+            timeout_id_thumb_up:        4
+
         };
 
         // save hands in array to save last frame infos for each hand
@@ -386,7 +388,7 @@
                         // set flag for recent swipes to true (will be reset by timer)
                         uber.flags.recent_swipes = true;
                         // set timer to enable next swipe
-                        uber.setTimer({ timeout_id: uber.timeouts.recent_swipes_timout_id, flag: "recent_swipes", duration: 500 });
+                        uber.setTimer({ timeout_id: uber.timeouts.timeout_id_recent_swipes, flag: "recent_swipes", duration: 500 });
 
                         return swipeDirection;
                     } else {
@@ -470,7 +472,7 @@
 
                 // set timeOut. if 1s is over without a direction change
                 // count is reset.
-                uber.setTimer({ timeout_id: uber.timeouts.dir_change_timeout_id, flag: undefined, duration: 5000, counter: "dir_change_count"});
+                uber.setTimer({ timeout_id: uber.timeouts.timeout_id_dir_change, flag: undefined, duration: 5000, counter: "dir_change_count"});
 
             }
 
@@ -531,6 +533,9 @@
                         uber.flags.thumb_up_gesture = true;
                         // increase frame counts at which thumb was up
                         uber.counts.thumb_up_frames++;
+                        // and set timer to reset frame count
+                        uber.setTimer({ timeout_id: uber.timeouts.timeout_id_thumb_up, counter: "thumb_up_frames", duration: 900 });
+
                     }
                 } else {
                     uber.flags.thumb_up_gesture = false;
@@ -578,7 +583,7 @@
                     uber.flags.recent_fast_moves = true;
 
                     // set timeout to reset the flag: uber.setTimer(timeout, flag to reset, time in ms)
-                    uber.setTimer({ timeout_id: uber.timeouts.fast_mov_timout_id, flag: "recent_fast_moves", duration: 900 });
+                    uber.setTimer({ timeout_id: uber.timeouts.timeout_id_fast_move, flag: "recent_fast_moves", duration: 900 });
                     return true;
                 }
             }
