@@ -6,26 +6,31 @@
     $(function() { // Shorthand for $( document ).ready()
 
         var flow = {
+            on_off_count: 0,    // save count and increase if on off
+
+
             doAlways: {
                 onEnter: function() {
-                    this.say('Oh irgendwas');
                 },
                 onGestureCheck: function(gesture_data, data) {
                     if (gesture_data.swipe == "up") {
                         // myLeapApp.machine.callNextSeg('seg_lamp_on');
                         myLeapApp.shiftr.publish('/lamp', 'on');
-                        console.log("go up but no segment");
+                        myLeapApp.flow.on_off_count++;
 
                     } else if(gesture_data.swipe == "down") {
                         myLeapApp.shiftr.publish('/lamp', 'off');
+                        myLeapApp.flow.on_off_count++;
 
                     } else if(gesture_data.on) {
                         console.log("ON is true");
                         myLeapApp.shiftr.publish('/lamp', 'on');
+                        myLeapApp.flow.on_off_count++;
 
                     } else if(gesture_data.off) {
                         console.log("OFF is true");
                         myLeapApp.shiftr.publish('/lamp', 'off');
+                        myLeapApp.flow.on_off_count++;
                     }
                 },
                 onLeave: function() {
@@ -34,7 +39,6 @@
             },
             seg0: {
                 onEnter: function() {
-                    this.say("hi there");
                 },
                 /**
                  * checks for gestures
@@ -47,10 +51,14 @@
                  * @param  {[type]} data         holds the frame data from leap
                  */
                 onGestureCheck: function(gesture_data, data) {
-                    // check if thumb flag is in the object sent and if it's set to true
-                    if(this.try(gesture_data, 'interaction')) {
+                    // if gesture count is high enough aks user
+                    if (flow.on_off_count > 20) {
                         myLeapApp.machine.callNextSeg('seg1');
                     }
+                    // // check if thumb flag is in the object sent and if it's set to true
+                    // if(this.try(gesture_data, 'interaction')) {
+                    //     myLeapApp.machine.callNextSeg('seg1');
+                    // }
                 },
                 // TODO: write interpreter for simplified language
                 // gestures: {
@@ -63,7 +71,7 @@
             },
             seg1: {
                 onEnter: function() {
-                    this.say('Hey. Kontrolliere mich doch per Gesten.');
+                    this.say('Ich habe gesehen, dass du schon sehr oft ein und ausgeschaltet hast.');
                 },
                 onGestureCheck: function(gesture_data, data) {
                     if (this.try(gesture_data, 'thumb_up')) {
