@@ -46,9 +46,9 @@
 
         // Timeouts
         this.timeouts = {
-            dir_change_timeout_id:      null,
-            fast_mov_timout_id:         null,
-            recent_swipes_timout_id:    null
+            dir_change_timeout_id:      1,
+            fast_mov_timout_id:         2,
+            recent_swipes_timout_id:    3
         };
 
         // save hands in array to save last frame infos for each hand
@@ -664,12 +664,13 @@
         // check for gestures and save it in the gesture objects
         gestures.interaction            = uber.checkForAnyInteraction(frame);
         gestures.distinct_interaction   = uber.checkForDistinctInteraction(frame);
-        // gestures.on                     = uber.checkForExplosion(frame);
-        // gestures.off                    = uber.checkforCollapse(frame);
+        gestures.on                     = uber.checkForExplosion(frame);
+        gestures.off                    = uber.checkforCollapse(frame);
         gestures.swipe                  = uber.checkSwipe(frame);
         gestures.thumb_up               = uber.checkThumbUpGesture(frame);
-        // gestures.cancel                 = uber.checkCancelGesture(frame);
-        // gestures.fast_moves             = uber.detectFastMovement(frame);
+        gestures.cancel                 = uber.checkCancelGesture(frame);
+        gestures.fast_moves             = uber.detectFastMovement(frame);
+        // console.log("uber.flags: ", uber.flags);
         // save hand to last hand object
         uber.saveLastHand(frame);
 
