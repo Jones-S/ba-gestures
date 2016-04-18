@@ -6,37 +6,19 @@
     $(function() { // Shorthand for $( document ).ready()
         var object = {};
 
-        function returnObj(nested_obj){
-            var _object = {};
+        function parseJSON(nested_obj){
+            var temp_object = {};
             $.each(nested_obj, function(key, val) {
-                _object[key] = val;
+                temp_object[key] = val;
             });
-            return _object;
+            return temp_object;
         }
 
-        function parseJSON(temp_obj, destination_object) {
-            console.log("destination_object BGINN: ", destination_object);
-            // console.log("object: ", object);
-            $.each(temp_obj, function(key, val) {
-                // console.log("key, val: ", key, val);
-                if (typeof val === 'object') {
-                    // call the same function again
-                    destination_object[key] = returnObj(val);
-                    // destination_object[key] = parseJSON(val, destination_object[key]);
-                    // console.log("object[key]: ", destination_object[key]);
-                    // destination_object[key] = { anothreObect: "another" };
-                } else {
-                    // return val;
-                }
-            });
-
-        }
 
         // load json file
         $.getJSON("/js/flow.json", function(data) {
-            parseJSON(data, object);
+            object = parseJSON(data);
             console.log("£OObjectli: ", object);
-            console.log(JSON.stringify(object,null, 4));
         });
 
 
