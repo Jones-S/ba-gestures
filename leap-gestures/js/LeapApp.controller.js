@@ -23,6 +23,7 @@
         uber.shiftr         = new LEAPAPP.Shiftr(uber.shiftr_info);
         // subscribe 'doAlways'-Segment to the publisher
         var new_segment = new LEAPAPP.Segment(uber.flow.doAlways);
+        new_segment.onEnter();
         // execute onEnter of first segment
         uber.machine.callNextSeg('seg0');
 

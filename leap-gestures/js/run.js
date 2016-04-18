@@ -11,12 +11,14 @@
 
             doAlways: {
                 onEnter: function() {
+                    this.played_fns.on_enter = true;
                 },
                 onGestureCheck: function(gesture_data, data) {
                     if (gesture_data.swipe == "up") {
                         // myLeapApp.machine.callNextSeg('seg_lamp_on');
                         myLeapApp.shiftr.publish('/lamp', 'on');
                         myLeapApp.flow.on_off_count++;
+                        console.log("myLeapApp.flow.on_off_count: ", myLeapApp.flow.on_off_count);
 
                     } else if(gesture_data.swipe == "down") {
                         myLeapApp.shiftr.publish('/lamp', 'off');
@@ -39,6 +41,7 @@
             },
             seg0: {
                 onEnter: function() {
+                    this.played_fns.on_enter = true;
                 },
                 /**
                  * checks for gestures
@@ -77,6 +80,8 @@
                         uber.say('Ist alles in Ordnung, oder verstehst du etwas nicht?');
                         setTimeout(function() {
                             uber.say('Gib mir doch ein Zeichen, falls alles OK ist.');
+                            // set flag that onEnter is finished playing
+                            uber.played_fns.on_enter = true;
                         }, 4000);
                     }, 3000);
                 },
@@ -91,6 +96,7 @@
             seg2: {
                 onEnter: function() {
                     this.say('Oh I registered a thumb.');
+                    this.played_fns.on_enter = true;
                 },
                 onGestureCheck: function(gesture_data, data) {
                 },
@@ -100,6 +106,7 @@
             seg3: {
                 onEnter: function() {
                     this.say('Oh irgendwas');
+                    this.played_fns.on_enter = true;
                 },
                 onGestureCheck: function(gesture_data, data) {
 
@@ -119,6 +126,7 @@
 
             seg99: {
                 onEnter: function() {
+                    this.played_fns.on_enter = true;
                 },
                 onGestureCheck: function(gesture_data, data) {
 

@@ -54,9 +54,12 @@
 
         // Cycle through topics queue, fire!
         for (var i = 0; i < uber.topics[topic].length; i++) {
-            // take the subscribers (= instances of Segment())
-            // and execute their functions while passing the gesture data
-            uber.topics[topic][i].onGestureCheck(gesture_data, data);
+            // check if on Enter is finished and then call onGestureCheck
+            if (uber.topics[topic][i].played_fns.on_enter) {
+                // take the subscribers (= instances of Segment())
+                // and execute their functions while passing the gesture data
+                uber.topics[topic][i].onGestureCheck(gesture_data, data);
+            }
         }
 
 

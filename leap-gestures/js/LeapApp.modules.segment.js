@@ -26,6 +26,12 @@
         if (typeof uber.onEnter !== 'function') {
             uber.onEnter = function() {};
         }
+        if (typeof uber.onGestureCheck !== 'function') {
+            uber.onGestureCheck = function() {};
+        }
+        if (typeof uber.onLeave !== 'function') {
+            uber.onLeave = function() {};
+        }
         // register segment instance as subscriber
         myLeapApp.intermediary.subscribe(uber, "gesture");
     };
