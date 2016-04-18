@@ -165,7 +165,6 @@
                 ////////////////////////////
                 // DISTINCT PALM MOVEMENT //
                 ////////////////////////////
-
                 var min_move_distinct = 6;
                 // check palm position to previous value (absolute value of difference bigger than x)
                 if (
@@ -186,9 +185,9 @@
                     ) {
                         // console.log("last_hand.palmPosition[2]: ", last_hand.palmPosition[2], "        hand.palmPosition[2]: ", hand.palmPosition[2]);
                         distinct_interaction = true;
-                        // console.log("DISTINCT:     PALM POSITION");
+                        console.log("DISTINCT:     PALM POSITION");
                     } else {
-                        // console.log("ONLY WITHDRAWAL .....................");
+                        console.log("ONLY WITHDRAWAL .....................");
                     }
                 }
 

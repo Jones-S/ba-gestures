@@ -88,13 +88,16 @@
                     if (this.try(gesture_data, 'thumb_up')) {
                         myLeapApp.machine.callNextSeg('seg2');
                     }
+                    if (this.try(gesture_data, 'cancel')) {
+                        myLeapApp.machine.callNextSeg('seg3');
+                    }
                 },
                 onLeave: function() {
                 }
             },
             seg2: {
                 onEnter: function() {
-                    this.say('Ok, dann ist ja alles in Ordnung. Ich lass dich weiter spielen.');
+                    this.say('Ok, dann ist ja alles in Ordnung. Ich lass dich weiter rumprobieren.');
                     this.played_fns.on_enter = true;
                 },
                 onGestureCheck: function(gesture_data, data) {
@@ -104,7 +107,7 @@
             },
             seg3: {
                 onEnter: function() {
-                    this.say('Oh irgendwas');
+                    this.say('Ist für dich nicht klar, mit welcher Geste du das Objekt steuerst?');
                     this.played_fns.on_enter = true;
                 },
                 onGestureCheck: function(gesture_data, data) {
