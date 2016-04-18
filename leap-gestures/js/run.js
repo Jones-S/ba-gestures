@@ -4,7 +4,15 @@
      * LEAPAPP = app for shorter compiling result
      */
     $(function() { // Shorthand for $( document ).ready()
-        var object = { start: "startWert"};
+        var object = {};
+
+        function returnObj(nested_obj){
+            var _object = {};
+            $.each(nested_obj, function(key, val) {
+                _object[key] = val;
+            });
+            return _object;
+        }
 
         function parseJSON(temp_obj, destination_object) {
             console.log("destination_object BGINN: ", destination_object);
@@ -13,11 +21,12 @@
                 // console.log("key, val: ", key, val);
                 if (typeof val === 'object') {
                     // call the same function again
-                    destination_object[key] = parseJSON(val, destination_object);
-                    console.log("object[key]: ", destination_object[key]);
+                    destination_object[key] = returnObj(val);
+                    // destination_object[key] = parseJSON(val, destination_object[key]);
+                    // console.log("object[key]: ", destination_object[key]);
+                    // destination_object[key] = { anothreObect: "another" };
                 } else {
-                    destination_object.test = 1;
-                    return val;
+                    // return val;
                 }
             });
 
@@ -27,6 +36,7 @@
         $.getJSON("/js/flow.json", function(data) {
             parseJSON(data, object);
             console.log("£OObjectli: ", object);
+            console.log(JSON.stringify(object,null, 4));
         });
 
 
