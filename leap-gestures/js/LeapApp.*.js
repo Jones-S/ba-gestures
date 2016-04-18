@@ -9,7 +9,7 @@
 
 var LEAPAPP     = LEAPAPP || {}; // ~same as: if(typeof LEAPAPP === 'undefined'){ var LEAPAPP = {}; }
 
-LEAPAPP.debug           = false;
+LEAPAPP.debug           = true;
 
 // Object container for modules
 LEAPAPP.modules = {};

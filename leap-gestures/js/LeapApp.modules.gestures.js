@@ -282,7 +282,9 @@
                 // && (time_passed < 0.25)
                 // && (time_between_gestures > 0.9)
              ) {
-                console.log("- - - - - - - GESTURE:                                    Explosion");
+                if (LEAPAPP.debug) {
+                    console.log("- - - - - - - GESTURE:                                    Explosion");
+                }
                 // save time of the last explosion
                 uber.last_explosion = hand.timeVisible;
                 return true;
@@ -333,7 +335,9 @@
                 // && (time_passed < 0.25) &&
                 // && (time_between_gestures > 0.9)
              ) {
-                console.log("- - - - - - - GESTURE:                                    Collapse");
+                if (LEAPAPP.debug) {
+                    console.log("- - - - - - - GESTURE:                                    Collapse");
+                }
                 uber.last_collapse = hand.timeVisible;
                 return true;
             } else {
@@ -372,7 +376,9 @@
 
                     // if no recent swipes and dirction is defined
                     if (!uber.flags.recent_swipes && swipeDirection !== "") {
-                        console.log("- - - - - - - GESTURE:                                    Swipe: " + swipeDirection);
+                        if (LEAPAPP.debug) {
+                            console.log("- - - - - - - GESTURE:                                    Swipe: " + swipeDirection);
+                        }
                         // set flag for recent swipes to true (will be reset by timer)
                         uber.flags.recent_swipes = true;
                         // set timer to enable next swipe
@@ -467,7 +473,9 @@
             uber.last_hands[hand.id].l_velocity = velocity;
 
             if (cancel_gesture) {
-                console.log("- - - - - - - GESTURE:                                    Cancel:");
+                if (LEAPAPP.debug) {
+                    console.log("- - - - - - - GESTURE:                                    Cancel:");
+                }
                 return true;
             } else {
                 return false;
@@ -490,37 +498,46 @@
             var name_map = ["thumb", "index", "middle", "ring", "pinky"];
             var extendedFingers = countExtendedFingers(hand);
 
-            // if 4 fingers are folded and thumb extended -> trigger gesture
-            if (extendedFingers < 2 && hand.thumb.extended) {
-                var moving_fast = false;
-                /**
-                 * speed indicates velocity of palm in three directions
-                 * in millimeters/second [vx,vy,vz]
-                 * check if speed is faster than 100mm/s
-                 * @type {vector, vector, vector}
-                 */
+            var confidence = hand.confidence;
+            if (confidence > 0.5) {
 
-                for (var y = speed.length - 1; y >= 0; y--) {
-                    if ((speed[y] > 100) || (speed[y] < -100)) {
-                        moving_fast = true;
-                        break; // break from loop, because if one direction is too fast thats enough
+                // if 4 fingers are folded and thumb extended -> trigger gesture
+                if (extendedFingers < 2 && hand.thumb.extended) {
+                    var moving_fast = false;
+                    /**
+                     * speed indicates velocity of palm in three directions
+                     * in millimeters/second [vx,vy,vz]
+                     * check if speed is faster than 100mm/s
+                     * @type {vector, vector, vector}
+                     */
+
+                    for (var y = speed.length - 1; y >= 0; y--) {
+                        if ((speed[y] > 100) || (speed[y] < -100)) {
+                            moving_fast = true;
+                            break; // break from loop, because if one direction is too fast thats enough
+                        }
                     }
+                    /*
+                     if not moving fast (and fingers are in the right position, check above)
+                     and if grabStrength == 1 (more ore less closed hand)
+                     assign thumb up gesture
+                     */
+                    if (!moving_fast && hand.grabStrength == 1) {
+                        uber.thumb_up_gesture = true;
+                    }
+                } else {
+                    uber.thumb_up_gesture = false;
                 }
-                /*
-                 if not moving fast (and fingers are in the right position, check above)
-                 and if grabStrength == 1 (more ore less closed hand)
-                 assign thumb up gesture
-                 */
-                if (!moving_fast && hand.grabStrength == 1) {
-                    uber.thumb_up_gesture = true;
-                }
-            } else {
-                uber.thumb_up_gesture = false;
-            }
 
-            if (uber.thumb_up_gesture) {
-                return true;
-            } else {
+                if (uber.thumb_up_gesture) {
+                    if (LEAPAPP.debug) {
+                        console.log("- - - - - - - GESTURE:                                    Thumb Up:");
+                    }
+                    return true;
+                } else {
+                    return false;
+                }
+            } else { // if confidence level was to low
                 return false;
             }
         }
