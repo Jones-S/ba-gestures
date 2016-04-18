@@ -4,14 +4,29 @@
      * LEAPAPP = app for shorter compiling result
      */
     $(function() { // Shorthand for $( document ).ready()
+        var object = { start: "startWert"};
+
+        function parseJSON(temp_obj, destination_object) {
+            console.log("destination_object BGINN: ", destination_object);
+            // console.log("object: ", object);
+            $.each(temp_obj, function(key, val) {
+                // console.log("key, val: ", key, val);
+                if (typeof val === 'object') {
+                    // call the same function again
+                    destination_object[key] = parseJSON(val, destination_object);
+                    console.log("object[key]: ", destination_object[key]);
+                } else {
+                    destination_object.test = 1;
+                    return val;
+                }
+            });
+
+        }
 
         // load json file
         $.getJSON("/js/flow.json", function(data) {
-            var items = [];
-            $.each(data, function(key, val) {
-                items.push("<li id='" + key + "'>" + val + "</li>");
-            });
-            console.log("items: ", items);
+            parseJSON(data, object);
+            console.log("£OObjectli: ", object);
         });
 
 
