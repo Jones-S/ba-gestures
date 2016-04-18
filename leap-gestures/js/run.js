@@ -9,13 +9,25 @@
         function parseJSON(json_data){
             var temp_data = {};
             $.each(json_data, function(key, val) {
-                // do some rewriting
-                if (key === "onEnter") {
-                    console.log("onenterli");
-                }
                 // check if val is object
                 if (typeof val === 'object') {
-                    temp_data[key] = parseJSON(val);
+                    // do some rewriting
+                    if (key === "onEnter") {
+                        var function_body = "";
+                        var cond_count = 0;
+                        $.each(val, function(condition, dest_segment){
+                            if(cond_count > 0) {
+                                function_body += "else ";
+                            }
+                            function_body += "if (gesture_data." + condition + ") { my}";
+                            cond_count++;
+                        });
+
+                        temp_data.onEnter = new Function(gesture_data, data, )
+                    } else {
+                        temp_data[key] = parseJSON(val);
+
+                    }
                 } else {
                     temp_data[key] = val;
                 }
@@ -24,10 +36,11 @@
         }
 
 
-        // load json file
+        // load json file first
         $.getJSON("/js/flow.json", function(data) {
             object = parseJSON(data);
             console.log("£OObjectli: ", object);
+
         });
 
 
