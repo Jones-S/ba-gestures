@@ -15,21 +15,24 @@
                     this.played_fns.on_enter = true;
                 },
                 onGestureCheck: function(gesture_data, data) {
-                    if (gesture_data.swipe == "up") {
-                        // myLeapApp.machine.callNextSeg('seg_lamp_on');
-                        myLeapApp.shiftr.publish('/lamp', 'on');
-                        myLeapApp.flow.on_off_count++;
+                    if (this.try(gesture_data, 'swipe')) {
+                        if (gesture_data.swipe == 'up') {
+                            myLeapApp.shiftr.publish('/lamp', 'on');
+                            myLeapApp.flow.on_off_count++;
+                        }
+                        else if(gesture_data.swipe == "down") {
+                            myLeapApp.shiftr.publish('/lamp', 'off');
+                            myLeapApp.flow.on_off_count++;
 
-                    } else if(gesture_data.swipe == "down") {
-                        myLeapApp.shiftr.publish('/lamp', 'off');
-                        myLeapApp.flow.on_off_count++;
-
-                    } else if(gesture_data.on) {
+                        }
+                    }
+                    else if(this.try(gesture_data, 'on')) {
                         console.log("ON is true");
                         myLeapApp.shiftr.publish('/lamp', 'on');
                         myLeapApp.flow.on_off_count++;
 
-                    } else if(gesture_data.off) {
+                    }
+                    else if(this.try(gesture_data, 'off')) {
                         console.log("OFF is true");
                         myLeapApp.shiftr.publish('/lamp', 'off');
                         myLeapApp.flow.on_off_count++;
@@ -92,13 +95,14 @@
                     else if (this.try(gesture_data, 'cancel')) {
                         myLeapApp.machine.callNextSeg('seg3');
                     }
-                    else if (this.try(gesture_data, 'distinct_interaction')) {
-                        myLeapApp.flow.distinct_count++;
-                        console.log("%c myLeapApp.flow.distinct_count", "background: #0D0B07; color: #FAFBFF", myLeapApp.flow.distinct_count);
-                        if (myLeapApp.flow.distinct_count > 6) {
-                            myLeapApp.machine.callNextSeg('seg6');
-                        }
-                    }
+                    // TODO: all distinct interactions should count
+                    // else if (this.try(gesture_data, 'distinct_interaction') || this.try(gesture_data, 'swipe')) {
+                    //     myLeapApp.flow.distinct_count++;
+                    //     console.log("%c myLeapApp.flow.distinct_count", "background: #0D0B07; color: #FAFBFF", myLeapApp.flow.distinct_count);
+                    //     if (myLeapApp.flow.distinct_count > 6) {
+                    //         myLeapApp.machine.callNextSeg('seg6');
+                    //     }
+                    // }
 
                 },
                 onLeave: function() {
