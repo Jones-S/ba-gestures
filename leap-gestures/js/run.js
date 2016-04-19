@@ -66,12 +66,6 @@
                     //     myLeapApp.machine.callNextSeg('seg1');
                     // }
                 },
-                // TODO: write interpreter for simplified language
-                // gestures: {
-                //     thumb_up: {
-                //         next: 4
-                //     }
-                // },
                 onLeave: function() {
                 }
             },
@@ -95,14 +89,18 @@
                     else if (this.try(gesture_data, 'cancel')) {
                         myLeapApp.machine.callNextSeg('seg3');
                     }
-                    // TODO: all distinct interactions should count
-                    // else if (this.try(gesture_data, 'distinct_interaction') || this.try(gesture_data, 'swipe')) {
-                    //     myLeapApp.flow.distinct_count++;
-                    //     console.log("%c myLeapApp.flow.distinct_count", "background: #0D0B07; color: #FAFBFF", myLeapApp.flow.distinct_count);
-                    //     if (myLeapApp.flow.distinct_count > 6) {
-                    //         myLeapApp.machine.callNextSeg('seg6');
-                    //     }
-                    // }
+                    else if (
+                               (this.try(gesture_data, 'distinct_interaction'))
+                            || (this.try(gesture_data, 'swipe'))
+                            || (this.try(gesture_data, 'on'))
+                            || (this.try(gesture_data, 'off'))
+                        ) {
+                        myLeapApp.flow.distinct_count++;
+                        console.log("%c myLeapApp.flow.distinct_count", "background: #0D0B07; color: #FAFBFF", myLeapApp.flow.distinct_count);
+                        if (myLeapApp.flow.distinct_count > 8) {
+                            myLeapApp.machine.callNextSeg('seg6');
+                        }
+                    }
 
                 },
                 onLeave: function() {
