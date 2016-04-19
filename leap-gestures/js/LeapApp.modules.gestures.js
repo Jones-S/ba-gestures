@@ -563,14 +563,15 @@
 
     LEAPAPP.GestureChecker.prototype.checkOKGesture = function(frame) {
         var uber = this;
+        var all_finger_ok = true; // save info if all fingers are in the correct position
 
         for (var i = frame.hands.length -1; i >= 0; i--) {
             var hand = frame.hands[i];
 
             // save last hand in a temp variable
             var last_hand = uber.last_hands_info[hand.id];
-            var thumb_pos = Leap.vec3.create();;
-            var index_pos = Leap.vec3.create();;
+            var thumb_pos = Leap.vec3.create();
+            var index_pos = Leap.vec3.create();
 
             for (var j = hand.fingers.length - 1; j >= 0; j--) {
                 var finger = hand.fingers[j];
@@ -580,35 +581,42 @@
                 // check if specific fingers are extended or not
                 switch(finger.type) {
                     case 0: // thumb
-                        $('#leap-info-1').html('Thumb Extended:  ' + finger.extended + ' and Tip Position: ' + x_pos + ', ' + y_pos + ', ' + z_pos);
+                        // needs to be !extended
+                        if (finger.extended) {
+                            all_finger_ok = false;
+                        }
                         thumb_pos = finger.tipPosition;
                         break;
                     case 1: // index
-                        $('#leap-info-2').html('Index Extended: ' + finger.extended + ' and Tip Position: ' + x_pos + ', ' + y_pos + ', ' + z_pos);
                         index_pos = finger.tipPosition;
                         break;
                     case 2: // middle
-                        $('#leap-info-3').html('Middle Extended: ' + finger.extended);
+                        if (!finger.extended) {
+                            all_finger_ok = false; // needs to be extended
+                        }
                         break;
                     case 3: // ring
-                        $('#leap-info-4').html('Ring Extended: ' + finger.extended);
+                        if (!finger.extended) {
+                            all_finger_ok = false; // needs to be extended
+                        }
                         break;
                     case 4: // pinky
-
+                        if (!finger.extended) {
+                            all_finger_ok = false; // needs to be extended
+                        }
                         break;
                     default:
 
                 }
 
-                // calculate distance of two vectors
+                /**
+                 * distance between thumb and index
+                 * normally during Ok gesture between 5 – 30
+                 * extended index & thumb > distance about 120
+                 */
                 var distance = Leap.vec3.distance(thumb_pos, index_pos);
                 $('#leap-info-5').html('Distance: ' + distance);
 
-                // if (j === 0) {
-                //     $('#leap-info-1').html("Pos X: " + Math.round((finger.tipPosition[0]) * 100) / 100);
-                //     $('#leap-info-2').html("Pos Y: " + Math.round((finger.tipPosition[1]) * 100) / 100);
-                //     $('#leap-info-3').html("Pos Z: " + Math.round((finger.tipPosition[2]) * 100) / 100);
-                // }
             }
 
             if (true) {
