@@ -9,8 +9,6 @@
 
 var LEAPAPP     = LEAPAPP || {}; // ~same as: if(typeof LEAPAPP === 'undefined'){ var LEAPAPP = {}; }
 
-LEAPAPP.debug           = true;
-
 // Object container for modules
 LEAPAPP.modules = {};
 LEAPAPP.segments = [];
@@ -21,7 +19,6 @@ LEAPAPP.flags = {
     cancel_gesture:     false
 };
 
-LEAPAPP.flow            = {};
 LEAPAPP.currentSeg      = ""; // initial setup segment
 // LEAPAPP.draw            = true; // true: draw finger, false: don't
 LEAPAPP.draw            = false; // true: draw finger, false: don't

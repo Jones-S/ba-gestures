@@ -1,13 +1,16 @@
 (function() {
 
     LEAPAPP.Controller = function(options) {
-        this.name = "LeapApp controller";
-        this.flow = options.flow;
+        this.name       = "LeapApp controller";
+        this.flow       = options.flow;
+        this.start_seg  = options.start_seg;
+        this.debug      = options.debug;
+
         this.shiftr_info = {
             mqtt_uri:   options.mqtt_uri,
             client_id:  options.client_id
         };
-        this.start_seg = options.start_seg;
+
     };
 
 
@@ -23,7 +26,7 @@
         uber.painter        = new LEAPAPP.CSSPainter();
         uber.shiftr         = new LEAPAPP.Shiftr(uber.shiftr_info);
         // subscribe 'doAlways'-Segment to the publisher
-        var new_segment = new LEAPAPP.Segment(uber.flow.doAlways);
+        var new_segment     = new LEAPAPP.Segment(uber.flow.doAlways);
         new_segment.onEnter(); // execute onEnter to skip that (otherwise onGestureCheck won't be executed)
         // execute onEnter of first segment
         uber.machine.callNextSeg(uber.start_seg);

@@ -191,7 +191,7 @@
                         // set a flag for recent distinct interaction
                         uber.flags.recent_distinct = true;
                         console.log("%c - - - - - - - GESTURE:                                    Distinct Palm", 'background: #75C94B; color: #F7FFF8');
-                        if (LEAPAPP.debug) {
+                        if (myLeapApp.debug) {
                             console.log("%c - - - - - - - GESTURE:                                    Distinct Palm", 'background: #75C94B; color: #F7FFF8');
                         }
                         // set timer to enable next swipe
@@ -294,7 +294,7 @@
                 // && (time_passed < 0.25)
                 // && (time_between_gestures > 0.9)
              ) {
-                if (LEAPAPP.debug) {
+                if (myLeapApp.debug) {
                     console.log("%c - - - - - - - GESTURE:                                    Explosion", 'background: #75C94B; color: #F7FFF8');
                 }
                 // save time of the last explosion
@@ -347,7 +347,7 @@
                 // && (time_passed < 0.25) &&
                 // && (time_between_gestures > 0.9)
              ) {
-                if (LEAPAPP.debug) {
+                if (myLeapApp.debug) {
                     console.log("%c - - - - - - - GESTURE:                                    Collapse", 'background: #75C94B; color: #F7FFF8');
                 }
                 uber.last_collapse = hand.timeVisible;
@@ -388,7 +388,7 @@
 
                     // if no recent swipes and dirction is defined
                     if (!uber.flags.recent_swipes && swipeDirection !== "") {
-                        if (LEAPAPP.debug) {
+                        if (myLeapApp.debug) {
                             console.log("%c - - - - - - - GESTURE:                                    Swipe: " + swipeDirection, 'background: #75C94B; color: #F7FFF8');
                         }
                         // set flag for recent swipes to true (will be reset by timer)
@@ -486,7 +486,7 @@
             uber.last_hands[hand.id].l_velocity = velocity;
 
             if (cancel_gesture) {
-                if (LEAPAPP.debug) {
+                if (myLeapApp.debug) {
                     console.log("%c - - - - - - - GESTURE:                                    Cancel:", 'background: #75C94B; color: #F7FFF8');
                 }
                 return true;
@@ -548,7 +548,7 @@
                 }
 
                 if (uber.flags.thumb_up_gesture && uber.counts.thumb_up_frames > 20) {
-                    if (LEAPAPP.debug) {
+                    if (myLeapApp.debug) {
                         console.log("%c - - - - - - - GESTURE:                                    Thumb Up:", 'background: #75C94B; color: #F7FFF8');
                     }
                     return true;
