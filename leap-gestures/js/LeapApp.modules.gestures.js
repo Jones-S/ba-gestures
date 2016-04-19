@@ -569,6 +569,8 @@
 
             // save last hand in a temp variable
             var last_hand = uber.last_hands_info[hand.id];
+            var thumb_pos = Leap.vec3.create();;
+            var index_pos = Leap.vec3.create();;
 
             for (var j = hand.fingers.length - 1; j >= 0; j--) {
                 var finger = hand.fingers[j];
@@ -579,9 +581,11 @@
                 switch(finger.type) {
                     case 0: // thumb
                         $('#leap-info-1').html('Thumb Extended:  ' + finger.extended + ' and Tip Position: ' + x_pos + ', ' + y_pos + ', ' + z_pos);
+                        thumb_pos = finger.tipPosition;
                         break;
                     case 1: // index
                         $('#leap-info-2').html('Index Extended: ' + finger.extended + ' and Tip Position: ' + x_pos + ', ' + y_pos + ', ' + z_pos);
+                        index_pos = finger.tipPosition;
                         break;
                     case 2: // middle
                         $('#leap-info-3').html('Middle Extended: ' + finger.extended);
@@ -590,11 +594,15 @@
                         $('#leap-info-4').html('Ring Extended: ' + finger.extended);
                         break;
                     case 4: // pinky
-                        $('#leap-info-5').html('Pinky Extended: ' + finger.extended);
+
                         break;
                     default:
 
                 }
+
+                // calculate distance of two vectors
+                var distance = Leap.vec3.distance(thumb_pos, index_pos);
+                $('#leap-info-5').html('Distance: ' + distance);
 
                 // if (j === 0) {
                 //     $('#leap-info-1').html("Pos X: " + Math.round((finger.tipPosition[0]) * 100) / 100);
