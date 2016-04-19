@@ -572,12 +572,35 @@
 
             for (var j = hand.fingers.length - 1; j >= 0; j--) {
                 var finger = hand.fingers[j];
+                var x_pos = Math.round((finger.tipPosition[0] * 100) / 100);
+                var y_pos = Math.round((finger.tipPosition[1] * 100) / 100);
+                var z_pos = Math.round((finger.tipPosition[2] * 100) / 100);
                 // check if specific fingers are extended or not
-                if (j === 0) {
-                    $('#leap-info-1').html("Pos X: " + Math.round((finger.tipPosition[0]) * 100) / 100);
-                    $('#leap-info-2').html("Pos Y: " + Math.round((finger.tipPosition[1]) * 100) / 100);
-                    $('#leap-info-3').html("Pos Z: " + Math.round((finger.tipPosition[2]) * 100) / 100);
+                switch(finger.type) {
+                    case 0: // thumb
+                        $('#leap-info-1').html('Thumb Extended:  ' + finger.extended + ' and Tip Position: ' + x_pos + ', ' + y_pos + ', ' + z_pos);
+                        break;
+                    case 1: // index
+                        $('#leap-info-2').html('Index Extended: ' + finger.extended + ' and Tip Position: ' + x_pos + ', ' + y_pos + ', ' + z_pos);
+                        break;
+                    case 2: // middle
+                        $('#leap-info-3').html('Middle Extended: ' + finger.extended);
+                        break;
+                    case 3: // ring
+                        $('#leap-info-4').html('Ring Extended: ' + finger.extended);
+                        break;
+                    case 4: // pinky
+                        $('#leap-info-5').html('Pinky Extended: ' + finger.extended);
+                        break;
+                    default:
+
                 }
+
+                // if (j === 0) {
+                //     $('#leap-info-1').html("Pos X: " + Math.round((finger.tipPosition[0]) * 100) / 100);
+                //     $('#leap-info-2').html("Pos Y: " + Math.round((finger.tipPosition[1]) * 100) / 100);
+                //     $('#leap-info-3').html("Pos Z: " + Math.round((finger.tipPosition[2]) * 100) / 100);
+                // }
             }
 
             if (true) {
