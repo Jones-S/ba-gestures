@@ -33,7 +33,6 @@ var INTERACTIONFLOW = {
                 }
             }
             else if(this.try(gesture_data, 'on')) {
-                console.log("ON is true");
                 myLeapApp.shiftr.publish('/lamp', 'on');
                 myLeapApp.sounder.play('on');
                 myLeapApp.flow.on_off_count++;
@@ -41,7 +40,6 @@ var INTERACTIONFLOW = {
             }
             else if(this.try(gesture_data, 'off')) {
                 myLeapApp.sounder.play('off');
-                console.log("OFF is true");
                 myLeapApp.shiftr.publish('/lamp', 'off');
                 myLeapApp.flow.on_off_count++;
             }
@@ -84,7 +82,7 @@ var INTERACTIONFLOW = {
             setTimeout(function() {
                 uber.say('Ist alles in Ordnung, oder verstehst du etwas nicht?');
                 setTimeout(function() {
-                    uber.say('Gib mir doch ein Zeichen, falls alles OK ist.');
+                    uber.say('Gib mir doch ein Zeichen, ob alles OK ist oder nicht.');
                     // set flag that onEnter is finished playing
                     uber.played_fns.on_enter = true;
                 }, 2500);
@@ -106,7 +104,7 @@ var INTERACTIONFLOW = {
                     || (this.try(gesture_data, 'off'))
                 ) {
                 myLeapApp.flow.distinct_count++;
-                console.log("%c myLeapApp.flow.distinct_count", "background: #0D0B07; color: #FAFBFF", myLeapApp.flow.distinct_count);
+                // console.log("%c myLeapApp.flow.distinct_count", "background: #0D0B07; color: #FAFBFF", myLeapApp.flow.distinct_count);
                 if (myLeapApp.flow.distinct_count > 8) {
                     myLeapApp.machine.callNextSeg('seg6');
                     myLeapApp.flow.distinct_count = 0;    // reset the count for further distinct interaction checking
@@ -138,7 +136,7 @@ var INTERACTIONFLOW = {
             }
             else if (this.try(gesture_data, 'distinct_interaction')) {
                 myLeapApp.flow.distinct_count++;
-                console.log("%c myLeapApp.flow.distinct_count", "background: #0D0B07; color: #FAFBFF", myLeapApp.flow.distinct_count);
+                // console.log("%c myLeapApp.flow.distinct_count", "background: #0D0B07; color: #FAFBFF", myLeapApp.flow.distinct_count);
                 if (myLeapApp.flow.distinct_count > 6) {
                     myLeapApp.machine.callNextSeg('seg4');
                     myLeapApp.flow.distinct_count = 0;

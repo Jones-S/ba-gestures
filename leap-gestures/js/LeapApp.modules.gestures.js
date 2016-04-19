@@ -507,8 +507,6 @@
             var hand = frame.hands[i];
             var speed = hand.palmVelocity;
 
-            // generate names for fingers 0 = thumb, 1 = index etc.
-            var name_map = ["thumb", "index", "middle", "ring", "pinky"];
             var extendedFingers = countExtendedFingers(hand);
 
             var confidence = hand.confidence;
@@ -560,6 +558,36 @@
             }
         }
     };
+
+
+
+    LEAPAPP.GestureChecker.prototype.checkOKGesture = function(frame) {
+        var uber = this;
+
+        for (var i = frame.hands.length -1; i >= 0; i--) {
+            var hand = frame.hands[i];
+
+            // save last hand in a temp variable
+            var last_hand = uber.last_hands_info[hand.id];
+
+            for (var j = hand.fingers.length - 1; j >= 0; j--) {
+                var finger = hand.fingers[j];
+                // check if specific fingers are extended or not
+                if (j === 0) {
+                    console.log("finger.tipPosition: ", finger.tipPosition);
+                }
+            }
+
+            if (true) {
+                return true;
+            } else {
+                return false;
+            }
+
+        }
+    };
+
+
 
     LEAPAPP.GestureChecker.prototype.detectFastMovement = function(frame) {
         var uber = this;
@@ -714,6 +742,7 @@
         gestures.off                    = uber.checkforCollapse(frame);
         gestures.swipe                  = uber.checkSwipe(frame);
         gestures.thumb_up               = uber.checkThumbUpGesture(frame);
+        gestures.ok                     = uber.checkOKGesture(frame);
         gestures.cancel                 = uber.checkCancelGesture(frame);
         gestures.fast_moves             = uber.detectFastMovement(frame);
         // console.log("uber.flags: ", uber.flags);
