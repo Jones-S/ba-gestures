@@ -574,7 +574,9 @@
                 var finger = hand.fingers[j];
                 // check if specific fingers are extended or not
                 if (j === 0) {
-                    console.log("finger.tipPosition: ", finger.tipPosition);
+                    $('#leap-info-1').html("Pos X: " + Math.round((finger.tipPosition[0]) * 100) / 100);
+                    $('#leap-info-2').html("Pos Y: " + Math.round((finger.tipPosition[1]) * 100) / 100);
+                    $('#leap-info-3').html("Pos Z: " + Math.round((finger.tipPosition[2]) * 100) / 100);
                 }
             }
 

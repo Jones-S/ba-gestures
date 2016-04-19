@@ -91,6 +91,9 @@ p {
 .messages {
   font: 80px 'Fira Mono', Helvetica, Arial; }
 
+.leap-frame-info {
+  font-size: 20px; }
+
 table {
   border-collapse: separate;
   border-spacing: 0; }
