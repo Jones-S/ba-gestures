@@ -11,7 +11,7 @@ html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockq
   vertical-align: baseline; }
 
 html, body {
-  font-family: "Circular-Book", "Circular", "europa", "Futura", sans-serif;
+  font-family: "Fira Mono", Helvetica, Arial;
   text-transform: none;
   font-size: 62.5%;
   line-height: 2.4rem;
@@ -24,7 +24,7 @@ html, body {
 
 h1, .h1, h2, .h2, h3, .h3, h4, .h4, .h5, .h6 {
   max-width: 30.0rem;
-  font-family: "Circular-Medium", "Circular", "europa", "Futura", sans-serif;
+  font-family: "Fira Mono", Helvetica, Arial;
   color: #EEEEEE; }
 
 h1, .h1 {

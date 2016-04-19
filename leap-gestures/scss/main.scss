@@ -16,9 +16,9 @@ $clr-2:           #979797;
 $clr-quiet:       #E8EBEB;
 // $clr-loud:        #(hex for a loudColor);
 
-$font-family-base:          "Circular-Book", "Circular", "europa", "Futura", sans-serif;
-$font-family-base-bold:     "Circular-Bold", "Circular", "europa", "Futura", sans-serif;
-$font-family-base-medium:   "Circular-Medium", "Circular", "europa", "Futura", sans-serif;
+$font-family-base:          'Fira Mono', Helvetica, Arial;
+$font-family-base-bold:     'Fira Mono', Helvetica, Arial;
+$font-family-base-medium:   'Fira Mono', Helvetica, Arial;
 
 // 16px (default) * 0.625 = 10px        -> base 10 to calc easier
 // to make something 50px wide use 5.0rem.
