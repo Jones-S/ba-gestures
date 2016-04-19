@@ -1,6 +1,12 @@
 /**
  * Flow defines the interaction Flow in one object. For better code structure the whole flow
  * lies in it's own file.
+ * Uses the HTML5 Audio controls with Javascript
+ * Methods:
+ * media.play(), media.pause(),
+ * media.volume = value ( which is a fraction in the range 0.0 (silent) to 1.0 (loudest)),
+ * media.muted
+ * further information: http://w3c.github.io/html/single-page.html#playback-volume
  */
 
 var INTERACTIONFLOW = {
@@ -16,11 +22,13 @@ var INTERACTIONFLOW = {
         onGestureCheck: function(gesture_data, data) {
             if (this.try(gesture_data, 'swipe')) {
                 if (gesture_data.swipe == 'up') {
-                    myLeapApp.shiftr.publish('/lamp', 'on');
-                    myLeapApp.flow.on_off_count++;
+                    myLeapApp.shiftr.publish('/lamp', 'on');    // pubslih via shiftr.io
+                    myLeapApp.sounder.play('on'); // play on sound
+                    myLeapApp.flow.on_off_count++; // increase count off on/off interactions
                 }
                 else if(gesture_data.swipe == "down") {
                     myLeapApp.shiftr.publish('/lamp', 'off');
+                    myLeapApp.sounder.play('off');
                     myLeapApp.flow.on_off_count++;
 
                 }
@@ -28,10 +36,12 @@ var INTERACTIONFLOW = {
             else if(this.try(gesture_data, 'on')) {
                 console.log("ON is true");
                 myLeapApp.shiftr.publish('/lamp', 'on');
+                myLeapApp.sounder.play('on');
                 myLeapApp.flow.on_off_count++;
 
             }
             else if(this.try(gesture_data, 'off')) {
+                myLeapApp.sounder.play('off');
                 console.log("OFF is true");
                 myLeapApp.shiftr.publish('/lamp', 'off');
                 myLeapApp.flow.on_off_count++;

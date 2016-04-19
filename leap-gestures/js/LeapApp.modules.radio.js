@@ -4,13 +4,14 @@
      * Radio is necessary for playing confirmatory sounds
      * and other interface related sounds.
      */
-    LEAPAPP.Radio = function() {
+    LEAPAPP.Sound = function() {
         // constructor
-        this.sound_on = new Audio('audio_file.mp3');
+        this.sound_on   = new Audio('audio/on.mp3');
+        this.sound_off  = new Audio('audio/off.mp3');
 
     };
 
-    LEAPAPP.Typewriter.prototype.play = function(sound) {
+    LEAPAPP.Sound.prototype.play = function(sound) {
         var uber = this;
 
         switch(sound) {
@@ -18,6 +19,7 @@
                 uber.sound_on.play();
                 break;
             case 'off':
+                uber.sound_off.play();
                 break;
             default:
                 // do nothing
