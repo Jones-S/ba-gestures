@@ -30,7 +30,6 @@ var INTERACTIONFLOW = {
                     myLeapApp.shiftr.publish('/lamp', 'off');
                     myLeapApp.sounder.play('off');
                     myLeapApp.flow.on_off_count++;
-
                 }
             }
             else if(this.try(gesture_data, 'on')) {
@@ -88,15 +87,17 @@ var INTERACTIONFLOW = {
                     uber.say('Gib mir doch ein Zeichen, falls alles OK ist.');
                     // set flag that onEnter is finished playing
                     uber.played_fns.on_enter = true;
-                }, 4000);
-            }, 3000);
+                }, 2500);
+            }, 2000);
         },
         onGestureCheck: function(gesture_data, data) {
             if (this.try(gesture_data, 'thumb_up')) {
                 myLeapApp.machine.callNextSeg('seg2');
+                myLeapApp.flow.distinct_count = 0;
             }
             else if (this.try(gesture_data, 'cancel')) {
                 myLeapApp.machine.callNextSeg('seg3');
+                myLeapApp.flow.distinct_count = 0;
             }
             else if (
                        (this.try(gesture_data, 'distinct_interaction'))
@@ -108,6 +109,7 @@ var INTERACTIONFLOW = {
                 console.log("%c myLeapApp.flow.distinct_count", "background: #0D0B07; color: #FAFBFF", myLeapApp.flow.distinct_count);
                 if (myLeapApp.flow.distinct_count > 8) {
                     myLeapApp.machine.callNextSeg('seg6');
+                    myLeapApp.flow.distinct_count = 0;    // reset the count for further distinct interaction checking
                 }
             }
 
@@ -137,8 +139,9 @@ var INTERACTIONFLOW = {
             else if (this.try(gesture_data, 'distinct_interaction')) {
                 myLeapApp.flow.distinct_count++;
                 console.log("%c myLeapApp.flow.distinct_count", "background: #0D0B07; color: #FAFBFF", myLeapApp.flow.distinct_count);
-                if (myLeapApp.flow.distinct_count > 3) {
+                if (myLeapApp.flow.distinct_count > 6) {
                     myLeapApp.machine.callNextSeg('seg4');
+                    myLeapApp.flow.distinct_count = 0;
                 }
             }
         },
@@ -155,8 +158,9 @@ var INTERACTIONFLOW = {
                     uber.say('Gib mir doch ein Zeichen, falls alles OK ist.');
                     // set flag that onEnter is finished playing
                     uber.played_fns.on_enter = true;
-                }, 4000);
-            }, 3000);
+                    myLeapApp.machine.callNextSeg('seg5');
+                }, 2500);
+            }, 2000);
         },
         onGestureCheck: function(gesture_data, data) {
 
@@ -167,7 +171,7 @@ var INTERACTIONFLOW = {
     seg5: {
         onEnter: function() {
             var uber = this;
-            this.say('Ok. Halte Deine Hand mit der Handfläche nach unten.')
+            this.say('Ok. Halte Deine Hand mit der Handfläche nach unten.');
             setTimeout(function() {
                 uber.say('Und bewege Deine Hand nach oben oder unten.');
                 uber.played_fns.on_enter = true;
@@ -184,7 +188,7 @@ var INTERACTIONFLOW = {
     seg5a: {
         onEnter: function() {
             var uber = this;
-            this.say('Halte Deine Hand mit der Handfläche nach unten.')
+            this.say('Halte Deine Hand mit der Handfläche nach unten.');
             setTimeout(function() {
                 uber.say('Und bewege Deine Hand nach oben oder unten.');
                 uber.played_fns.on_enter = true;
