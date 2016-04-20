@@ -198,7 +198,6 @@
                         uber.setTimer({ timeout_id: uber.timeouts.timeout_id_recent_distinct, flag: "recent_distinct", duration: 500 });
                         return true;
                     } else {
-                        console.log("ONLY WITHDRAWAL .....................");
                         return false;
                     }
                 }
@@ -573,40 +572,45 @@
             var thumb_pos = Leap.vec3.create();
             var index_pos = Leap.vec3.create();
 
-            for (var j = hand.fingers.length - 1; j >= 0; j--) {
-                var finger = hand.fingers[j];
-                var x_pos = Math.round((finger.tipPosition[0] * 100) / 100);
-                var y_pos = Math.round((finger.tipPosition[1] * 100) / 100);
-                var z_pos = Math.round((finger.tipPosition[2] * 100) / 100);
-                // check if specific fingers are extended or not
-                switch(finger.type) {
-                    case 0: // thumb
-                        // needs to be !extended
-                        if (finger.extended) {
-                            all_finger_ok = false;
-                        }
-                        thumb_pos = finger.tipPosition;
-                        break;
-                    case 1: // index
-                        index_pos = finger.tipPosition;
-                        break;
-                    case 2: // middle
-                        if (!finger.extended) {
-                            all_finger_ok = false; // needs to be extended
-                        }
-                        break;
-                    case 3: // ring
-                        if (!finger.extended) {
-                            all_finger_ok = false; // needs to be extended
-                        }
-                        break;
-                    case 4: // pinky
-                        if (!finger.extended) {
-                            all_finger_ok = false; // needs to be extended
-                        }
-                        break;
-                    default:
+            var confidence = hand.confidence;
+            if (confidence > 0.45) {
 
+
+                for (var j = hand.fingers.length - 1; j >= 0; j--) {
+                    var finger = hand.fingers[j];
+                    var x_pos = Math.round((finger.tipPosition[0] * 100) / 100);
+                    var y_pos = Math.round((finger.tipPosition[1] * 100) / 100);
+                    var z_pos = Math.round((finger.tipPosition[2] * 100) / 100);
+                    // check if specific fingers are extended or not
+                    switch(finger.type) {
+                        case 0: // thumb
+                            // needs to be !extended
+                            if (finger.extended) {
+                                all_finger_ok = false;
+                            }
+                            thumb_pos = finger.tipPosition;
+                            break;
+                        case 1: // index
+                            index_pos = finger.tipPosition;
+                            break;
+                        case 2: // middle
+                            if (!finger.extended) {
+                                all_finger_ok = false; // needs to be extended
+                            }
+                            break;
+                        case 3: // ring
+                            if (!finger.extended) {
+                                all_finger_ok = false; // needs to be extended
+                            }
+                            break;
+                        case 4: // pinky
+                            if (!finger.extended) {
+                                all_finger_ok = false; // needs to be extended
+                            }
+                            break;
+                        default:
+
+                    }
                 }
 
                 /**
@@ -617,14 +621,18 @@
                 var distance = Leap.vec3.distance(thumb_pos, index_pos);
                 $('#leap-info-5').html('Distance: ' + distance);
 
-            }
+                // check if all fingers are ok and if distance is short enough for OK gesture
+                if ((all_finger_ok) && (distance < 34)) {
+                    console.log("%c - - - - - - - GESTURE:                                    OK Gesture", 'background: #75C94B; color: #F7FFF8');
+                }
 
-            if (true) {
-                return true;
-            } else {
-                return false;
-            }
+                // if (true) {
+                //     return true;
+                // } else {
+                //     return false;
+                // }
 
+            }
         }
     };
 
