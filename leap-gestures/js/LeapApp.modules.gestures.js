@@ -434,15 +434,18 @@
             // add hand (id) to hands object if not existing yet
             if (!uber.last_hands.hasOwnProperty(hand.id)) {
                 uber.last_hands[hand.id] = {
-                    pos_1:      0,
-                    pos_2:      0,
-                    pos_3:      0,
-                    pos_4:      0,
-                    pos_5:      0,
-                    pos_6:      0,
-                    direction:  ''
+                    pos_1:          0,
+                    pos_2:          0,
+                    pos_3:          0,
+                    pos_4:          0,
+                    pos_5:          0,
+                    pos_6:          0,
+                    direction:      '',
+                    x_at_change:    0
                 };
             }
+            // TODO: check if last hands object is emptied if hand is gone...
+
             // save last frames palm position in var for quicker access (faster writing)
             var lh = uber.last_hands[hand.id];
 
@@ -453,11 +456,35 @@
                 direction = 'left';
             }
 
+            // track direction change
+            // during cancel gesture (fast) ~every 5 frames a direction is changed
             if (direction !== lh.direction) {
-                console.log("%c direction changed >>>>>>>>>>>>>>>>>", "background: #F84FFD; color: #DA5C1B");
+
+                // check if last direction change is sufficiently far away
+                if (Math.abs(lh.x_at_change - hand.palmPosition[0]) > 30) {
+                    console.log("%c direction changed >>>>>>>>>>>>>>>>>", "background: #F84FFD; color: #DA5C1B");
+                    uber.counts.dir_change_count++; // increase direction change count
+                    console.log("uber.counts.dir_change_count: ", uber.counts.dir_change_count);
+                    // set/reset direction change count after a sufficient timespan
+                    uber.setTimer({ timeout_id: uber.timeouts.timeout_id_dir_change, flag: undefined, duration: 1600, counter: "dir_change_count"});
+
+                    // check if a certain amount of changes occured
+                    if ((uber.counts.dir_change_count > 4) && (!uber.flags.recent_fast_moves)) {
+                        console.log("%c cancel gesture?", "background: #2C2518; color: #DA5C1B");
+                        // and reset counter
+                        uber.counts.dir_change_count = 0;
+
+                    }
+                }
+
+
+                // save x position right after direction change
+                uber.last_hands[hand.id].x_at_change = hand.palmPosition[0];
+
+
             }
 
-            console.log(" 0: ", hand.palmPosition);
+            // console.log(" 0: ", hand.palmPosition);
             // save position to last hands last positions for next frame
             uber.last_hands[hand.id].pos_6      = uber.last_hands[hand.id].pos_5;
             uber.last_hands[hand.id].pos_5      = uber.last_hands[hand.id].pos_4;
@@ -466,6 +493,7 @@
             uber.last_hands[hand.id].pos_2      = uber.last_hands[hand.id].pos_1;
             uber.last_hands[hand.id].pos_1      = hand.palmPosition;
             uber.last_hands[hand.id].direction  = direction;
+
 
 
             // if(uber.controller.frame(6).hands[0]) {
@@ -772,6 +800,8 @@
             if (counter) {
                 uber.counts[counter]    = 0; // reset counter
             }
+            console.log("%c uber.flags", "background: #D0E94E; color: #282829", uber.flags);
+            console.log("%c uber.counts", "background: #D0E94E; color: #282829", uber.counts);
         }, duration);
     };
 
