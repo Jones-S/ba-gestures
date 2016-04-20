@@ -462,7 +462,7 @@
                     (velocity[2] < 0 && lv[2] > 0 && ((velocity[2] - lv[2]) < - min_movement))
                 ) {
 
-                console.log("Direction Changed: ", velocity[0], lv[0], velocity[2], lv[2]);
+                console.log("Direction Changed: ", velocity, lv);
                 uber.counts.dir_change_count++;
 
                 /**
