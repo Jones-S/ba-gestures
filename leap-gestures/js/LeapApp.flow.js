@@ -89,8 +89,12 @@ var INTERACTIONFLOW = {
             }, 2000);
         },
         onGestureCheck: function(gesture_data, data) {
-            if (this.try(gesture_data, 'thumb_up') || this.try(gesture_data, 'ok')) {
+            if (this.try(gesture_data, 'thumb_up')) {
                 myLeapApp.machine.callNextSeg('seg2');
+                myLeapApp.flow.distinct_count = 0;
+            }
+            else if (this.try(gesture_data, 'ok')) {
+                myLeapApp.machine.callNextSeg('seg2a');
                 myLeapApp.flow.distinct_count = 0;
             }
             else if (this.try(gesture_data, 'cancel')) {
@@ -117,8 +121,26 @@ var INTERACTIONFLOW = {
     },
     seg2: {
         onEnter: function() {
-            this.say('Ok, dann ist ja alles in Ordnung. Ich lass dich weiter rumprobieren.');
-            this.played_fns.on_enter = true;
+            var uber = this;
+            this.say('Oh ein Connaisseur. <br>Daumen hoch!');
+            setTimeout(function() {
+                uber.played_fns.on_enter = true;
+                myLeapApp.machine.callNextSeg('seg9');
+            }, 1500);
+        },
+        onGestureCheck: function(gesture_data, data) {
+        },
+        onLeave: function() {
+        }
+    },
+    seg2a: {
+        onEnter: function() {
+            var uber = this;
+            this.say('Das OK Zeichen! <br>Genial.');
+            setTimeout(function() {
+                uber.played_fns.on_enter = true;
+                myLeapApp.machine.callNextSeg('seg9');
+            }, 1500);
         },
         onGestureCheck: function(gesture_data, data) {
         },
@@ -258,6 +280,17 @@ var INTERACTIONFLOW = {
         onLeave: function() {
         }
     },
+    seg9: {
+        onEnter: function() {
+            this.say('Aber dann ist ja alles in Ordnung. Ich lass dich weiter rumprobieren.');
+        },
+        onGestureCheck: function(gesture_data, data) {
+
+        },
+        onLeave: function() {
+        }
+    },
+
 
 
 

@@ -243,9 +243,8 @@
                         distinct_interaction = true;
                         // set a flag for recent distinct interaction
                         uber.flags.recent_distinct = true;
-                        console.log("%c - - - - - - - GESTURE:                                    Distinct Palm", 'background: #75C94B; color: #F7FFF8');
                         if (myLeapApp.debug) {
-                            console.log("%c - - - - - - - GESTURE:                                    Distinct Palm", 'background: #75C94B; color: #F7FFF8');
+                            console.log("%c - - - - - - - GESTURE:                                    Distinct Palm", 'background: #A8A696; color: #F7FFF8');
                         }
                         // set timer to enable next swipe
                         uber.setTimer({ timeout_id: uber.timeouts.timeout_id_recent_distinct, flag: "recent_distinct", duration: 500 });
