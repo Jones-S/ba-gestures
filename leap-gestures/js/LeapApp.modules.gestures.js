@@ -449,9 +449,12 @@
             // track direction change
             // during cancel gesture (fast) ~every 5 frames a direction is changed
             if (direction !== lh.direction) {
-
+                if (lh.x_at_change === 0) {
+                    lh.x_at_change = hand.palmPosition[0];
+                }
                 // check if last direction change is sufficiently far away
                 if (Math.abs(lh.x_at_change - hand.palmPosition[0]) > 30) {
+                    console.log("direction change");
 
                     uber.counts.dir_change_count++; // increase direction change count
 
