@@ -291,7 +291,7 @@
             // compare pinch strength between last and current frame
             // and check if passed time since last strong pinch is lower than a 1/4s (0.25s)
             $('#leap-info-1').html('hand.grabStrength: ' + hand.grabStrength);
-            console.log("hand.grabStrength ", hand.grabStrength);
+            // console.log("hand.grabStrength ", hand.grabStrength);
 
             if ((last_hand.grabStrength > 0.05)
                 && (hand.grabStrength < 0.05)
@@ -324,6 +324,7 @@
 
         for (var i = frame.hands.length -1; i >= 0; i--) {
             var hand = frame.hands[i];
+            var thumb_extended = true;
 
             // save last hand in a temp variable
             var last_hand = uber.last_hands_info[hand.id];
@@ -343,10 +344,18 @@
             // check for last collapse time
             var time_between_gestures = hand.timeVisible - uber.last_explosion;
 
-
+            // check thumb extension
+            for (var j = hand.fingers.length - 1; j >= 0; j--) {
+                // check for thumb
+                if (hand.fingers[j].type === 0 && !hand.fingers[j].extended) {
+                    thumb_extended = false;
+                    console.log("thumb_extended: ", thumb_extended);
+                }
+            }
 
             if ((last_hand.grabStrength < 0.75)
                 && (hand.grabStrength > 0.75)
+                && (!thumb_extended)
                 // && (time_passed < 0.25) &&
                 // && (time_between_gestures > 0.9)
              ) {
