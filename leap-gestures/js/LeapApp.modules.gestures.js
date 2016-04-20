@@ -290,7 +290,8 @@
 
             // compare pinch strength between last and current frame
             // and check if passed time since last strong pinch is lower than a 1/4s (0.25s)
-
+            $('#leap-info-1').html('hand.grabStrength: ' + hand.grabStrength);
+            console.log("hand.grabStrength ", hand.grabStrength);
 
             if ((last_hand.grabStrength > 0.05)
                 && (hand.grabStrength < 0.05)
@@ -344,8 +345,8 @@
 
 
 
-            if ((last_hand.grabStrength < 0.95)
-                && (hand.grabStrength > 0.95)
+            if ((last_hand.grabStrength < 0.75)
+                && (hand.grabStrength > 0.75)
                 // && (time_passed < 0.25) &&
                 // && (time_between_gestures > 0.9)
              ) {
