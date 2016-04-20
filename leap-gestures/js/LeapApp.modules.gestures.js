@@ -569,43 +569,19 @@
             var confidence = hand.confidence;
             if (confidence > 0.45) {
 
+                thumb_pos = uber.fingerInfo[hand.id].thumb.tip_pos;
+                index_pos = uber.fingerInfo[hand.id].index.tip_pos;
 
-                for (var j = hand.fingers.length - 1; j >= 0; j--) {
-                    var finger = hand.fingers[j];
-                    var x_pos = Math.round((finger.tipPosition[0] * 100) / 100);
-                    var y_pos = Math.round((finger.tipPosition[1] * 100) / 100);
-                    var z_pos = Math.round((finger.tipPosition[2] * 100) / 100);
-                    // check if specific fingers are extended or not
-                    switch(finger.type) {
-                        case 0: // thumb
-                            // needs to be !extended
-                            if (finger.extended) {
-                                all_finger_ok = false;
-                            }
-                            thumb_pos = finger.tipPosition;
-                            break;
-                        case 1: // index
-                            index_pos = finger.tipPosition;
-                            break;
-                        case 2: // middle
-                            if (!finger.extended) {
-                                all_finger_ok = false; // needs to be extended
-                            }
-                            break;
-                        case 3: // ring
-                            if (!finger.extended) {
-                                all_finger_ok = false; // needs to be extended
-                            }
-                            break;
-                        case 4: // pinky
-                            if (!finger.extended) {
-                                all_finger_ok = false; // needs to be extended
-                            }
-                            break;
-                        default:
-
-                    }
+                // check finger extension stati
+                if (
+                    (uber.fingerInfo[hand.id].thumb.extended) // if thumb is extended
+                    || (!uber.fingerInfo[hand.id].middle.extended) // if middle is bent
+                    || (!uber.fingerInfo[hand.id].ring.extended) // if ring is bent
+                    || (!uber.fingerInfo[hand.id].pinky.extended) // if pinky is bent
+                ) { // then set all finger ok to false
+                    all_finger_ok = false;
                 }
+
 
                 /**
                  * distance between thumb and index
