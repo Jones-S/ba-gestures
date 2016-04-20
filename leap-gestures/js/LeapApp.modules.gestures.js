@@ -274,7 +274,7 @@
             var index = uber.saveAndGetLast("last_pinch", hand);
 
             // save the time when the hand showed a pinchStrenght of more than 0.9 the last time
-            if (hand.pinchStrength > 0.9) {
+            if (hand.grabStrength > 0.9) {
                 uber.last_pinch[index].time = hand.timeVisible;
             }
 
@@ -288,8 +288,8 @@
             // and check if passed time since last strong pinch is lower than a 1/4s (0.25s)
 
 
-            if ((last_hand.pinchStrength > 0.05)
-                && (hand.pinchStrength < 0.05)
+            if ((last_hand.grabStrength > 0.05)
+                && (hand.grabStrength < 0.05)
                 // && (time_passed < 0.25)
                 // && (time_between_gestures > 0.9)
              ) {
@@ -325,8 +325,7 @@
 
             // call function to get and save last pinch info
             var index = uber.saveAndGetLast("last_open_hand", hand);
-            // console.log("hand.pinchStrength: ", hand.pinchStrength);
-            if (hand.pinchStrength < 0.003) {
+            if (hand.grabStrength < 0.003) {
                 uber.last_open_hand[index].time = hand.timeVisible;
             }
 
@@ -341,8 +340,8 @@
 
 
 
-            if ((last_hand.pinchStrength < 0.95)
-                && (hand.pinchStrength > 0.95)
+            if ((last_hand.grabStrength < 0.95)
+                && (hand.grabStrength > 0.95)
                 // && (time_passed < 0.25) &&
                 // && (time_between_gestures > 0.9)
              ) {
@@ -424,73 +423,80 @@
          * @return {boolean}
          */
         for (var i = frame.hands.length -1; i >= 0; i--) {
-
             var hand = frame.hands[i];
-
-            /**
-             * velocity of palm in three directions
-             * in millimeters/second [vx,vy,vz]
-             * x is parallel to leap motion device, y is up and down,
-             * z is closer and further away from user.
-             * check a lot of direction changes are registered
-             * for winking = cancel gesture
-             * @type {vector, vector, vector}
-             */
-            var velocity = hand.palmVelocity;
-            var min_movement = 75;
-
-            // add hand (id) to hands object if not existing yet
-            if (!uber.last_hands.hasOwnProperty(hand.id)) {
-                uber.last_hands[hand.id] = {
-                    l_velocity: 0
-                };
-            }
-            // save last frames velocity in var for quicker access (faster writing)
-            var lv = uber.last_hands[hand.id].l_velocity;
-
-            /**
-             * check if change from - to + which indicates a direction change
-             * in x direction (velocity[0])
-             * and in z direction (velocity[2])
-             * also check if direction change is big enough (bigger than min_movement)
-             * to exclude random direction changes when holding still
-             */
-            if (
-                    (velocity[0] > 0 && lv[0] < 0 && ((velocity[0] - lv[0]) >   min_movement))    ||
-                    (velocity[0] < 0 && lv[0] > 0 && ((velocity[0] - lv[0]) < - min_movement))    ||
-                    (velocity[2] > 0 && lv[2] < 0 && ((velocity[2] - lv[2]) >   min_movement))    ||
-                    (velocity[2] < 0 && lv[2] > 0 && ((velocity[2] - lv[2]) < - min_movement))
-                ) {
-
-                // console.log("Direction Changed");
-                uber.counts.dir_change_count++;
+            var confidence = hand.confidence;
+            if (confidence > 0.7) {
 
                 /**
-                 * if change count is big enough
-                 * and if no fast moves registered recently
-                 * (which would mean somebody could be swiping)
-                 * then trigger cancel gesture
+                 * velocity of palm in three directions
+                 * in millimeters/second [vx,vy,vz]
+                 * x is parallel to leap motion device, y is up and down,
+                 * z is closer and further away from user.
+                 * check a lot of direction changes are registered
+                 * for winking = cancel gesture
+                 * @type {vector, vector, vector}
                  */
-                if (uber.counts.dir_change_count > 4 && !uber.flags.recent_fast_moves) {
-                    cancel_gesture = true;
+                var velocity = hand.palmVelocity;
+                var min_movement = 75;
+
+                // add hand (id) to hands object if not existing yet
+                if (!uber.last_hands.hasOwnProperty(hand.id)) {
+                    uber.last_hands[hand.id] = {
+                        l_velocity: 0,
+                        l_position: 0
+                    };
+                }
+                // save last frames velocity in var for quicker access (faster writing)
+                var lv = uber.last_hands[hand.id].l_velocity;
+
+                /**
+                 * check if change from - to + which indicates a direction change
+                 * in x direction (velocity[0])
+                 * and in z direction (velocity[2])
+                 * also check if direction change is big enough (bigger than min_movement)
+                 * to exclude random direction changes when holding still
+                 */
+                if (
+                        (velocity[0] > 0 && lv[0] < 0 && ((velocity[0] - lv[0]) >   min_movement))    ||
+                        (velocity[0] < 0 && lv[0] > 0 && ((velocity[0] - lv[0]) < - min_movement))    ||
+                        (velocity[2] > 0 && lv[2] < 0 && ((velocity[2] - lv[2]) >   min_movement))    ||
+                        (velocity[2] < 0 && lv[2] > 0 && ((velocity[2] - lv[2]) < - min_movement))
+                    ) {
+
+                    // console.log("Direction Changed");
+                    uber.counts.dir_change_count++;
+
+                    /**
+                     * if change count is big enough
+                     * and if no fast moves registered recently
+                     * (which would mean somebody could be swiping)
+                     * then trigger cancel gesture
+                     */
+                    if (uber.counts.dir_change_count > 4 && !uber.flags.recent_fast_moves) {
+                        cancel_gesture = true;
+                    }
+
+                    // set timeOut. if 1s is over without a direction change
+                    // count is reset.
+                    uber.setTimer({ timeout_id: uber.timeouts.timeout_id_dir_change, flag: undefined, duration: 5000, counter: "dir_change_count"});
+
                 }
 
-                // set timeOut. if 1s is over without a direction change
-                // count is reset.
-                uber.setTimer({ timeout_id: uber.timeouts.timeout_id_dir_change, flag: undefined, duration: 5000, counter: "dir_change_count"});
+                // save velocity to last_frame for change detection in next frame
+                uber.last_hands[hand.id].l_velocity = velocity;
+                uber.last_hands[hand.id].l_position = hand.palmPosition;
 
-            }
+                if (cancel_gesture) {
+                    if (myLeapApp.debug) {
+                        console.log("hand.palmVelocity: ", hand.palmVelocity, "Last palmVelocity: ", uber.last_hands[hand.id].l_velocity);
+                        console.log("hand.palmPosition: ", hand.palmPosition, "Last palmPosition: ", uber.last_hands[hand.id].l_position);
 
-            // save velocity to last_frame for change detection in next frame
-            uber.last_hands[hand.id].l_velocity = velocity;
-
-            if (cancel_gesture) {
-                if (myLeapApp.debug) {
-                    console.log("%c - - - - - - - GESTURE:                                    Cancel:", 'background: #75C94B; color: #F7FFF8');
+                        console.log("%c - - - - - - - GESTURE:                                    Cancel:", 'background: #75C94B; color: #F7FFF8');
+                    }
+                    return true;
+                } else {
+                    return false;
                 }
-                return true;
-            } else {
-                return false;
             }
         }
     };
@@ -623,7 +629,7 @@
 
                 // check if all fingers are ok and if distance is short enough for OK gesture
                 if ((all_finger_ok) && (distance < 34)) {
-                    console.log("%c - - - - - - - GESTURE:                                    OK Gesture", 'background: #75C94B; color: #F7FFF8');
+                    console.log("%c - - - - - - - GESTURE:                                    OK Gesture", 'background: #6BC9BD; color: #F7FFF8');
                 }
 
                 // if (true) {
