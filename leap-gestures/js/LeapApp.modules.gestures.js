@@ -296,6 +296,7 @@
             // and check if passed time since last strong pinch is lower than a 1/4s (0.25s)
             if ((last_hand.grabStrength > 0.05)
                 && (hand.grabStrength < 0.05)
+                && (uber.last_gesture !== 'thumb_up') // if last gesture was thumb up dont trigger explosion
                 // && (time_passed < 0.25)
                 // && (time_between_gestures > 0.9)
              ) {
