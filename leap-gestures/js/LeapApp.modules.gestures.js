@@ -1,18 +1,35 @@
 (function(){
 
-    function makeTHREEVector(vector) {
-        var three_vector = new THREE.Vector3(vector[0], vector[1], vector[2]);
-        return three_vector;
-    }
+    function getFingerInfo(frame) {
+        var name_map = ["thumb", "index", "middle", "ring", "pinky"];
+        var object = {};
 
-    function countExtendedFingers(hand) {
-        // count extended finger
-        var extendedFingers = 0;
+        for (var i = frame.hands.length - 1; i >= 0; i--) {
+
+            var hand = frame.hands[i];
+            var total_extended = 5;
+
+            object[hand.id] = {
+                total_extended: 5,
+                thumb:  { extended: true, tip_pos: [0, 0, 0] },
+                index:  { extended: true, tip_pos: [0, 0, 0] },
+                middle: { extended: true, tip_pos: [0, 0, 0] },
+                ring:   { extended: true, tip_pos: [0, 0, 0] },
+                pinky:  { extended: true, tip_pos: [0, 0, 0] }
+            };
+
             for (var f = 0; f < hand.fingers.length; f++){
                 var finger = hand.fingers[f];
-                if (finger.extended) extendedFingers++;
+                // access finger info via type (number) mapped to name (identifier)
+                object[hand.id][name_map[finger.type]].tip_pos = finger.tipPosition;
+                if (!finger.extended) {
+                    object[hand.id][name_map[finger.type]].extended = false;
+                    total_extended--;
+                }
+            }
+            object[hand.id].total_extended = total_extended;
         }
-        return extendedFingers;
+        return object;
     }
 
 
@@ -39,6 +56,18 @@
         this.w = undefined;
         this.h = undefined;
         this.q = 1;
+
+        this.fingerInfo = {
+            /* structure */
+            // hand_id: {
+            //     total_extended: 5,
+            //     thumb:  { extended: true, tip_pos: [0, 0, 0] },
+            //     index:  { extended: true, tip_pos: [0, 0, 0] },
+            //     middle: { extended: true, tip_pos: [0, 0, 0] },
+            //     ring:   { extended: true, tip_pos: [0, 0, 0] },
+            //     pinky:  { extended: true, tip_pos: [0, 0, 0] }
+            // }
+        };
 
 
         // provide an array (object – because retrieving hand info via string id '22') for saving hands
@@ -151,6 +180,20 @@
         }
     };
 
+    /**
+     * printInfo brings frame information to the browser screen
+     */
+    LEAPAPP.GestureChecker.prototype.printInfo = function(frame) {
+        var uber = this;
+        for (var i = frame.hands.length - 1; i >= 0; i--) {
+            var hand = frame.hands[i];
+            $('#leap-info-1').html('grabStrength: ' + hand.grabStrength);
+            $('#leap-info-2').html('pinchStrength: ' + hand.pinchStrength);
+            $('#leap-info-3').html('palmPosition: ' + hand.palmPosition);
+            $('#leap-info-4').html('Extended: ' + uber.fingerInfo[hand.id].total_extended); // if two hands just overwrite first
+        }
+    };
+
     LEAPAPP.GestureChecker.prototype.checkForDistinctInteraction = function(frame) {
         var uber = this;
         var distinct_interaction;
@@ -231,7 +274,6 @@
             // call function to get and save last pinch info
             var index = uber.saveAndGetLast("last_pinch", hand);
 
-            // save the time when the hand showed a pinchStrenght of more than 0.9 the last time
             if (hand.grabStrength > 0.9) {
                 uber.last_pinch[index].time = hand.timeVisible;
             }
@@ -245,9 +287,6 @@
 
             // compare pinch strength between last and current frame
             // and check if passed time since last strong pinch is lower than a 1/4s (0.25s)
-            $('#leap-info-1').html('hand.grabStrength: ' + hand.grabStrength);
-            // console.log("hand.grabStrength ", hand.grabStrength);
-
             if ((last_hand.grabStrength > 0.05)
                 && (hand.grabStrength < 0.05)
                 // && (time_passed < 0.25)
@@ -299,13 +338,9 @@
             // check for last collapse time
             var time_between_gestures = hand.timeVisible - uber.last_explosion;
 
-            // check thumb extension
-            for (var j = hand.fingers.length - 1; j >= 0; j--) {
-                // check for thumb
-                if (hand.fingers[j].type === 0 && !hand.fingers[j].extended) {
-                    thumb_extended = false;
-                    console.log("thumb_extended: ", thumb_extended);
-                }
+            // get finger info object to check thumb extension
+            if (!uber.fingerInfo[hand.id].thumb.extended) {
+                thumb_extended = false;
             }
 
             if ((last_hand.grabStrength < 0.75)
@@ -465,7 +500,7 @@
             var hand = frame.hands[i];
             var speed = hand.palmVelocity;
 
-            var extendedFingers = countExtendedFingers(hand);
+            var extendedFingers = uber.fingerInfo.total_extended;
 
             var confidence = hand.confidence;
             if (confidence > 0.5) {
@@ -739,6 +774,12 @@
     LEAPAPP.GestureChecker.prototype.extractGestures = function(frame) {
         var gestures = {};
         var uber = this;
+        // do some calculations a lot of gestures will need
+        uber.fingerInfo = getFingerInfo(frame);
+
+        // print infos to screen
+        uber.printInfo(frame);
+
         // save last handinfo if no value exists
         uber.doesLastHandExist(frame);
 

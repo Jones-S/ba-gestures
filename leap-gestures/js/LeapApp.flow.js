@@ -64,7 +64,7 @@ var INTERACTIONFLOW = {
          */
         onGestureCheck: function(gesture_data, data) {
             // if gesture count is high enough aks user
-            if (myLeapApp.flow.on_off_count > 5) {
+            if (myLeapApp.flow.on_off_count > 20) {
                 myLeapApp.machine.callNextSeg('seg1');
             }
             // // check if thumb flag is in the object sent and if it's set to true
