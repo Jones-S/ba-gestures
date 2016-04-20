@@ -77,6 +77,9 @@
         };
 
         // gesture flags
+        $('body').on( "click", function() {
+            console.log("%c -------------------- START ANALYSIS FROM HERE ----------------- ", "background: #FDD187; color: #DA5C1B");
+        });
     };
 
     LEAPAPP.GestureChecker.prototype.startTracking = function(draw, callback) {
@@ -425,74 +428,93 @@
         for (var i = frame.hands.length -1; i >= 0; i--) {
             var hand = frame.hands[i];
 
-
-            /**
-             * velocity of palm in three directions
-             * in millimeters/second [vx,vy,vz]
-             * x is parallel to leap motion device, y is up and down,
-             * z is closer and further away from user.
-             * check a lot of direction changes are registered
-             * for winking = cancel gesture
-             * @type {vector, vector, vector}
-             */
-            var velocity = hand.palmVelocity;
             var min_movement = 75;
+            var direction = false; // var for saving moving direction of the hand ('right', 'left')
 
             // add hand (id) to hands object if not existing yet
             if (!uber.last_hands.hasOwnProperty(hand.id)) {
                 uber.last_hands[hand.id] = {
-                    l_velocity: 0,
-                    l_position: 0
+                    pos_1:      0,
+                    pos_2:      0,
+                    pos_3:      0,
+                    pos_4:      0,
+                    pos_5:      0,
+                    pos_6:      0,
+                    direction:  ''
                 };
             }
-            // save last frames velocity in var for quicker access (faster writing)
-            var lv = uber.last_hands[hand.id].l_velocity;
+            // save last frames palm position in var for quicker access (faster writing)
+            var lh = uber.last_hands[hand.id];
 
-            /**
-             * check if change from - to + which indicates a direction change
-             * in x direction (velocity[0])
-             * and in z direction (velocity[2])
-             * also check if direction change is big enough (bigger than min_movement)
-             * to exclude random direction changes when holding still
-             */
-            if (
-                    (velocity[0] > 0 && lv[0] < 0 && ((velocity[0] - lv[0]) >   min_movement))    ||
-                    (velocity[0] < 0 && lv[0] > 0 && ((velocity[0] - lv[0]) < - min_movement))    ||
-                    (velocity[2] > 0 && lv[2] < 0 && ((velocity[2] - lv[2]) >   min_movement))    ||
-                    (velocity[2] < 0 && lv[2] > 0 && ((velocity[2] - lv[2]) < - min_movement))
-                ) {
-
-                console.log("Direction Changed: ", velocity, lv);
-                uber.counts.dir_change_count++;
-
-                /**
-                 * if change count is big enough
-                 * and if no fast moves registered recently
-                 * (which would mean somebody could be swiping)
-                 * then trigger cancel gesture
-                 */
-                if (uber.counts.dir_change_count > 4 && !uber.flags.recent_fast_moves) {
-                    cancel_gesture = true;
-                }
-
-                // set timeOut. if 1s is over without a direction change
-                // count is reset.
-                uber.setTimer({ timeout_id: uber.timeouts.timeout_id_dir_change, flag: undefined, duration: 5000, counter: "dir_change_count"});
-
+            // check direction for x position
+            if (hand.palmPosition[0] > lh.pos_1[0]) {
+                direction = 'right';
+            } else {
+                direction = 'left';
             }
 
-            // save velocity to last_frame for change detection in next frame
-            uber.last_hands[hand.id].l_velocity = velocity;
-            uber.last_hands[hand.id].l_position = hand.palmPosition;
+            if (direction !== lh.direction) {
+                console.log("%c direction changed >>>>>>>>>>>>>>>>>", "background: #F84FFD; color: #DA5C1B");
+            }
+
+            console.log(" 0: ", hand.palmPosition);
+            // save position to last hands last positions for next frame
+            uber.last_hands[hand.id].pos_6      = uber.last_hands[hand.id].pos_5;
+            uber.last_hands[hand.id].pos_5      = uber.last_hands[hand.id].pos_4;
+            uber.last_hands[hand.id].pos_4      = uber.last_hands[hand.id].pos_3;
+            uber.last_hands[hand.id].pos_3      = uber.last_hands[hand.id].pos_2;
+            uber.last_hands[hand.id].pos_2      = uber.last_hands[hand.id].pos_1;
+            uber.last_hands[hand.id].pos_1      = hand.palmPosition;
+            uber.last_hands[hand.id].direction  = direction;
+
+
+            // if(uber.controller.frame(6).hands[0]) {
+            //     console.log("-1: ", uber.controller.frame(1).hands[0].palmPosition);
+            //     console.log("-2: ", uber.controller.frame(2).hands[0].palmPosition);
+            //     console.log("-3: ", uber.controller.frame(3).hands[0].palmPosition);
+            //     console.log("-4: ", uber.controller.frame(4).hands[0].palmPosition);
+            //     console.log("-5: ", uber.controller.frame(5).hands[0].palmPosition);
+            //     console.log("-6: ", uber.controller.frame(6).hands[0].palmPosition);
+            //     console.log("%c -------------------- next frame ----------------- ", "background: #FDD187; color: #DA5C1B");
+
+            // }
+
+            // /**
+            //  * check if change from - to + which indicates a direction change
+            //  * in x direction (velocity[0])
+            //  * and in z direction (velocity[2])
+            //  * also check if direction change is big enough (bigger than min_movement)
+            //  * to exclude random direction changes when holding still
+            //  */
+            // if (
+            //         (velocity[0] > 0 && lv[0] < 0 && ((velocity[0] - lv[0]) >   min_movement))    ||
+            //         (velocity[0] < 0 && lv[0] > 0 && ((velocity[0] - lv[0]) < - min_movement))    ||
+            //         (velocity[2] > 0 && lv[2] < 0 && ((velocity[2] - lv[2]) >   min_movement))    ||
+            //         (velocity[2] < 0 && lv[2] > 0 && ((velocity[2] - lv[2]) < - min_movement))
+            //     ) {
+
+            //     console.log("Direction Changed: ", velocity, lv);
+            //     uber.counts.dir_change_count++;
+
+            //     /**
+            //      * if change count is big enough
+            //      * and if no fast moves registered recently
+            //      * (which would mean somebody could be swiping)
+            //      * then trigger cancel gesture
+            //      */
+            //     if (uber.counts.dir_change_count > 4 && !uber.flags.recent_fast_moves) {
+            //         cancel_gesture = true;
+            //     }
+
+            //     // set timeOut. if 1s is over without a direction change
+            //     // count is reset.
+            //     uber.setTimer({ timeout_id: uber.timeouts.timeout_id_dir_change, flag: undefined, duration: 5000, counter: "dir_change_count"});
+
+            // }
+
 
             if (cancel_gesture) {
                 if (myLeapApp.debug) {
-                    console.log(" 0: ", hand.palmPosition);
-                    console.log("-1: ", uber.controller.frame(1).hands[0].palmPosition);
-                    console.log("-2: ", uber.controller.frame(2).hands[0].palmPosition);
-                    console.log("-3: ", uber.controller.frame(3).hands[0].palmPosition);
-                    console.log("-4: ", uber.controller.frame(4).hands[0].palmPosition);
-
                     console.log("%c - - - - - - - GESTURE:                                    Cancel:", 'background: #C94000; color: #F7FFF8');
                 }
                 return true;
