@@ -500,13 +500,13 @@
             var hand = frame.hands[i];
             var speed = hand.palmVelocity;
 
-            var extendedFingers = uber.fingerInfo.total_extended;
+            var extendedFingers = uber.fingerInfo[hand.id].total_extended;
 
             var confidence = hand.confidence;
             if (confidence > 0.5) {
 
-                // if 4 fingers are folded and thumb extended -> trigger gesture
-                if (extendedFingers < 2 && hand.thumb.extended) {
+                // only one finger should be extended (thumb) and check for thumb
+                if (extendedFingers <= 1 && uber.fingerInfo[hand.id].thumb.extended) {
                     var moving_fast = false;
                     /**
                      * speed indicates velocity of palm in three directions
