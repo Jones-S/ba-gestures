@@ -460,35 +460,24 @@
 
                     // check if a certain amount of changes occured
                     if ((uber.counts.dir_change_count > 4) && (!uber.flags.recent_fast_moves)) {
-                        console.log("%c cancel gesture?", "background: #2C2518; color: #DA5C1B");
+                        if (myLeapApp.debug) {
+                            console.log("%c - - - - - - - GESTURE:                                    Cancel:", "background: #2C2518; color: #DA5C1B");
+                        }
                         // and reset counter
                         uber.counts.dir_change_count = 0;
+                        return true;
                     }
                 }
 
-
                 // save x position right after direction change
                 uber.last_hands[hand.id].x_at_change = hand.palmPosition[0];
-
-
+            } else {
+                return false;
             }
 
             // save position to last hands last positions for next frame
             uber.last_hands[hand.id].pos_1      = hand.palmPosition;
             uber.last_hands[hand.id].direction  = direction;
-
-
-
-
-
-            if (cancel_gesture) {
-                if (myLeapApp.debug) {
-                    console.log("%c - - - - - - - GESTURE:                                    Cancel:", 'background: #C94000; color: #F7FFF8');
-                }
-                return true;
-            } else {
-                return false;
-            }
         }
 
     };
