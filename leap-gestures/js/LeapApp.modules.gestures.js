@@ -79,7 +79,8 @@
             timeout_id_fast_move:       2,
             timeout_id_recent_swipes:   3,
             timeout_id_thumb_up:        4,
-            timeout_id_recent_distinct: 5
+            timeout_id_recent_distinct: 5,
+            timeout_id_last_gesture:    6
 
         };
 
@@ -104,6 +105,8 @@
             dir_change_count:   0,   // counting direction change of cancel gesture
             thumb_up_frames:    0    // counting frames of thumb up gesture
         };
+
+        this.last_gesture   = ''; // saving the last gesture to prevent explosion gesture after thumb for example
 
         // gesture flags
         $('body').on( "click", function() {
@@ -154,6 +157,10 @@
                 }
             }
 
+            // do some calculations a lot of gestures will need
+            uber.fingerInfo = getFingerInfo(frame);
+            // print infos to screen
+            uber.printInfo(frame);
 
             /**
              * callback function:
@@ -542,6 +549,10 @@
                     if (myLeapApp.debug) {
                         console.log("%c - - - - - - - GESTURE:                                    Thumb Up:", 'background: #75C94B; color: #F7FFF8');
                     }
+                    // save to last gesture
+                    uber.last_gesture = 'thumb_up';
+                    // set/reset timer to erase last gesture var
+                    uber.setTimer({ timeout_id: uber.timeouts.timeout_id_last_gesture, var: "last_gesture", duration: 1000 });
                     return true;
                 } else {
                     return false;
@@ -697,6 +708,7 @@
         var flag        = options.flag;
         var duration    = options.duration;
         var counter     = options.counter;
+        var var_reset   = options.var;
 
         // set timeout to reset the flag
         if (uber.timeouts[timer_id]) {
@@ -708,6 +720,11 @@
             }
             if (counter) {
                 uber.counts[counter]    = 0; // reset counter
+            }
+            if (var_reset) { // reset a provided var (e.g last_gesture variable)
+                console.log("uber[var_reset] vorher: ", uber['last_gesture']);
+                uber[var_reset] = '';
+                console.log("uber[var_reset] nachher: ", uber[var_reset]);
             }
             // console.log("%c uber.flags", "background: #D0E94E; color: #282829", uber.flags);
             // console.log("%c uber.counts", "background: #D0E94E; color: #282829", uber.counts);
@@ -750,11 +767,6 @@
     LEAPAPP.GestureChecker.prototype.extractGestures = function(frame) {
         var gestures = {};
         var uber = this;
-        // do some calculations a lot of gestures will need
-        uber.fingerInfo = getFingerInfo(frame);
-
-        // print infos to screen
-        uber.printInfo(frame);
 
         // save last handinfo if no value exists
         uber.doesLastHandExist(frame);

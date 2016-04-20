@@ -1,10 +1,10 @@
 (function() {
 
     LEAPAPP.Controller = function(options) {
-        this.name       = "LeapApp controller";
-        this.flow       = options.flow;
-        this.start_seg  = options.start_seg;
-        this.debug      = options.debug;
+        this.name           = "LeapApp controller";
+        this.flow           = options.flow;
+        this.start_seg      = options.start_seg;
+        this.debug          = options.debug;
 
         this.shiftr_info = {
             mqtt_uri:   options.mqtt_uri,
