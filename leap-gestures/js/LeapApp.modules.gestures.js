@@ -414,11 +414,6 @@
         // so that a shaking fist is not registered as cancel
 
 
-        // check for fast movements first
-        // further calculations depend on it
-        // and set timer
-        uber.detectFastMovement(frame);
-
         /**
          * function to check if velocity is higher
          * than a certain threshold
@@ -462,12 +457,12 @@
 
                 // check if last direction change is sufficiently far away
                 if (Math.abs(lh.x_at_change - hand.palmPosition[0]) > 30) {
-                    console.log("%c direction changed >>>>>>>>>>>>>>>>>", "background: #F84FFD; color: #DA5C1B");
+                    console.log("%c direction changed >>>>>>>>>>>>>>>>>", "background: #F84FFD; color: #D5DAD6");
                     uber.counts.dir_change_count++; // increase direction change count
                     console.log("uber.counts.dir_change_count: ", uber.counts.dir_change_count);
                     // set/reset direction change count after a sufficient timespan
                     uber.setTimer({ timeout_id: uber.timeouts.timeout_id_dir_change, flag: undefined, duration: 1600, counter: "dir_change_count"});
-
+                    console.log("uber.flags.recent_fast_moves: ", uber.flags.recent_fast_moves);
                     // check if a certain amount of changes occured
                     if ((uber.counts.dir_change_count > 4) && (!uber.flags.recent_fast_moves)) {
                         console.log("%c cancel gesture?", "background: #2C2518; color: #DA5C1B");
@@ -724,7 +719,7 @@
                     uber.flags.recent_fast_moves = true;
 
                     // set timeout to reset the flag: uber.setTimer(timeout, flag to reset, time in ms)
-                    uber.setTimer({ timeout_id: uber.timeouts.timeout_id_fast_move, flag: "recent_fast_moves", duration: 900 });
+                    uber.setTimer({ timeout_id: uber.timeouts.timeout_id_fast_move, flag: "recent_fast_moves", duration: 450 });
                     return true;
                 }
             }
@@ -800,8 +795,8 @@
             if (counter) {
                 uber.counts[counter]    = 0; // reset counter
             }
-            console.log("%c uber.flags", "background: #D0E94E; color: #282829", uber.flags);
-            console.log("%c uber.counts", "background: #D0E94E; color: #282829", uber.counts);
+            // console.log("%c uber.flags", "background: #D0E94E; color: #282829", uber.flags);
+            // console.log("%c uber.counts", "background: #D0E94E; color: #282829", uber.counts);
         }, duration);
     };
 
@@ -853,7 +848,7 @@
         gestures.thumb_up               = uber.checkThumbUpGesture(frame);
         gestures.ok                     = uber.checkOKGesture(frame);
         gestures.cancel                 = uber.checkCancelGesture(frame);
-        gestures.fast_moves             = uber.detectFastMovement(frame);
+        // gestures.fast_moves             = uber.detectFastMovement(frame);
         // console.log("uber.flags: ", uber.flags);
         // save hand to last hand object
         uber.saveLastHand(frame);
