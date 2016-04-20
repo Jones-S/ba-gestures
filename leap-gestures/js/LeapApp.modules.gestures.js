@@ -286,6 +286,7 @@
 
             // check for last collapse time
             var time_between_gestures = hand.timeVisible - uber.last_collapse;
+            // TODO: take time between gestures into account again
 
             // compare pinch strength between last and current frame
             // and check if passed time since last strong pinch is lower than a 1/4s (0.25s)
@@ -297,7 +298,7 @@
                 // && (time_between_gestures > 0.9)
              ) {
                 if (myLeapApp.debug) {
-                    console.log("%c - - - - - - - GESTURE:                                    Explosion", 'background: #75C94B; color: #F7FFF8');
+                    console.log("%c - - - - - - - GESTURE:                                    Explosion", 'background: #ECDF00; color: #171817');
                 }
                 // save time of the last explosion
                 uber.last_explosion = hand.timeVisible;
@@ -349,7 +350,7 @@
                 // && (time_between_gestures > 0.9)
              ) {
                 if (myLeapApp.debug) {
-                    console.log("%c - - - - - - - GESTURE:                                    Collapse", 'background: #75C94B; color: #F7FFF8');
+                    console.log("%c - - - - - - - GESTURE:                                    Collapse", 'background: #928000; color: #FFFEFF');
                 }
                 uber.last_collapse = hand.timeVisible;
                 return true;
@@ -390,7 +391,7 @@
                     // if no recent swipes and dirction is defined
                     if (!uber.flags.recent_swipes && swipeDirection !== "") {
                         if (myLeapApp.debug) {
-                            console.log("%c - - - - - - - GESTURE:                                    Swipe: " + swipeDirection, 'background: #75C94B; color: #F7FFF8');
+                            console.log("%c - - - - - - - GESTURE:                                    Swipe: " + swipeDirection, 'background: #635FC9; color: #F7FFF8');
                         }
                         // set flag for recent swipes to true (will be reset by timer)
                         uber.flags.recent_swipes = true;
@@ -612,7 +613,6 @@
                  * extended index & thumb > distance about 120
                  */
                 var distance = Leap.vec3.distance(thumb_pos, index_pos);
-                $('#leap-info-5').html('Distance: ' + distance);
 
                 // check if all fingers are ok and if distance is short enough for OK gesture
                 if ((all_finger_ok) && (distance < 34)) {
