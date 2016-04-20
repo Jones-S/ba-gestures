@@ -582,14 +582,12 @@
                 // check if all fingers are ok and if distance is short enough for OK gesture
                 if ((all_finger_ok) && (distance < 34)) {
                     console.log("%c - - - - - - - GESTURE:                                    OK Gesture", 'background: #6BC9BD; color: #F7FFF8');
+                    return true;
+                } else {
+                    return false;
                 }
-
-                // if (true) {
-                //     return true;
-                // } else {
-                //     return false;
-                // }
-
+            } else {
+                return false;
             }
         }
     };

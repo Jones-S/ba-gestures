@@ -89,7 +89,7 @@ var INTERACTIONFLOW = {
             }, 2000);
         },
         onGestureCheck: function(gesture_data, data) {
-            if (this.try(gesture_data, 'thumb_up')) {
+            if (this.try(gesture_data, 'thumb_up') || this.try(gesture_data, 'ok')) {
                 myLeapApp.machine.callNextSeg('seg2');
                 myLeapApp.flow.distinct_count = 0;
             }

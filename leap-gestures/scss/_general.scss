@@ -1,8 +1,11 @@
 html {
-
+    height: 100%;
+    /* apply a natural box layout model to all elements, but allowing components to change */
+    box-sizing: border-box;
 }
 
 body {
+    height: 100%;
     border: 10px solid rgba(0,0,0,0);
 }
 
@@ -16,10 +19,7 @@ body {
   font-size: 0;
 }
 
-/* apply a natural box layout model to all elements, but allowing components to change */
-html {
-    box-sizing: border-box;
-}
+/* inheriting from html */
 *, *:before, *:after {
     box-sizing: inherit;
 }
@@ -69,3 +69,11 @@ body.fast-moves {
     width: 100%;
     background-color: #FAAF6E;
 }
+
+.leap-frame-info {
+    float: right;
+    width: 20%;
+    height: 100%;
+    list-style-type: none;
+}
+

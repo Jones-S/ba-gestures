@@ -92,13 +92,19 @@ p {
   font: 80px 'Fira Mono', Helvetica, Arial; }
 
 .leap-frame-info {
-  font-size: 20px; }
+  font-size: 13px; }
 
 table {
   border-collapse: separate;
   border-spacing: 0; }
 
+html {
+  height: 100%;
+  /* apply a natural box layout model to all elements, but allowing components to change */
+  box-sizing: border-box; }
+
 body {
+  height: 100%;
   border: 10px solid transparent; }
 
 .clearfix:after {
@@ -109,10 +115,7 @@ body {
   clear: both;
   font-size: 0; }
 
-/* apply a natural box layout model to all elements, but allowing components to change */
-html {
-  box-sizing: border-box; }
-
+/* inheriting from html */
 *, *:before, *:after {
   box-sizing: inherit; }
 
@@ -161,5 +164,11 @@ body.fast-moves {
   height: 7px;
   width: 100%;
   background-color: #FAAF6E; }
+
+.leap-frame-info {
+  float: right;
+  width: 20%;
+  height: 100%;
+  list-style-type: none; }
 
 /*# sourceMappingURL=maps/main.css.map */
