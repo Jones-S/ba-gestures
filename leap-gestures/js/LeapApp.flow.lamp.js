@@ -9,7 +9,7 @@
  * further information: http://w3c.github.io/html/single-page.html#playback-volume
  */
 
-var INTERACTIONFLOW = {
+var LAMPFLOW = {
 
     on_off_count: 0,    // save count and increase if on off
     distinct_count: 0,
@@ -64,7 +64,7 @@ var INTERACTIONFLOW = {
          */
         onGestureCheck: function(gesture_data, data) {
             // if gesture count is high enough aks user
-            if (myLeapApp.flow.on_off_count > 20) {
+            if (myLeapApp.flow.on_off_count > 13) {
                 myLeapApp.machine.callNextSeg('seg1');
             }
             // // check if thumb flag is in the object sent and if it's set to true
@@ -80,13 +80,13 @@ var INTERACTIONFLOW = {
             var uber = this;
             this.say('Ich erkenne sehr viele Eingaben.');
             setTimeout(function() {
-                uber.say('Ist alles in Ordnung, oder verstehst du etwas nicht?');
+                uber.say('Ist alles in Ordnung, oder verstehst Du etwas nicht?');
                 setTimeout(function() {
                     uber.say('Gib mir doch ein Zeichen, ob alles OK ist oder nicht.');
                     // set flag that onEnter is finished playing
                     uber.played_fns.on_enter = true;
                 }, 2500);
-            }, 2000);
+            }, 2800);
         },
         onGestureCheck: function(gesture_data, data) {
             if (this.try(gesture_data, 'thumb_up')) {
@@ -126,7 +126,7 @@ var INTERACTIONFLOW = {
             setTimeout(function() {
                 uber.played_fns.on_enter = true;
                 myLeapApp.machine.callNextSeg('seg9');
-            }, 1500);
+            }, 2300);
         },
         onGestureCheck: function(gesture_data, data) {
         },
@@ -140,7 +140,7 @@ var INTERACTIONFLOW = {
             setTimeout(function() {
                 uber.played_fns.on_enter = true;
                 myLeapApp.machine.callNextSeg('seg9');
-            }, 1500);
+            }, 2000);
         },
         onGestureCheck: function(gesture_data, data) {
         },
@@ -179,8 +179,8 @@ var INTERACTIONFLOW = {
                     // set flag that onEnter is finished playing
                     uber.played_fns.on_enter = true;
                     myLeapApp.machine.callNextSeg('seg5');
-                }, 2500);
-            }, 2000);
+                }, 3500);
+            }, 3500);
         },
         onGestureCheck: function(gesture_data, data) {
 

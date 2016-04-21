@@ -469,7 +469,7 @@
                     uber.setTimer({ timeout_id: uber.timeouts.timeout_id_dir_change, flag: undefined, duration: 1600, counter: "dir_change_count"});
 
                     // check if a certain amount of changes occured
-                    if ((uber.counts.dir_change_count > 4) && (!uber.flags.recent_fast_moves)) {
+                    if ((uber.counts.dir_change_count > 6) && (!uber.flags.recent_fast_moves)) {
                         // and reset counter
                         uber.counts.dir_change_count = 0;
                         cancel_gesture = true;

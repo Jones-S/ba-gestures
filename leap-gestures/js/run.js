@@ -4,7 +4,7 @@
      * LEAPAPP = app for shorter compiling result
      */
     $(function() { // Shorthand for $( document ).ready()
-        var flow = INTERACTIONFLOW;
+        var flow = LAMPFLOW;
         // Set options for the leap app
         var controller_options = {
             debug:      true,
