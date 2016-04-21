@@ -1,14 +1,17 @@
 (function() {
 
     /**
-     * Radio is necessary for playing and controlling the music played in the radio
+     * Sound is necessary for playing confirmatory sounds
+     * and other interface related sounds.
      */
-    LEAPAPP.Radio = function() {
+    LEAPAPP.Sound = function() {
         // constructor
+        this.sound_on   = new Audio('audio/on.mp3');
+        this.sound_off  = new Audio('audio/off.mp3');
 
     };
 
-    LEAPAPP.Radio.prototype.play = function(sound) {
+    LEAPAPP.Sound.prototype.play = function(sound) {
         var uber = this;
 
         switch(sound) {
