@@ -42,6 +42,11 @@
       return radians * 180 / Math.PI;
     };
 
+    // Converts from radians to degrees.
+    Math.twoDecimals = function(number) {
+      return Math.round(number * 100)/100;
+    };
+
     // TODO: disabled gestures when hand enters interaction box for a certain time
 
 
@@ -205,14 +210,11 @@
         for (var i = frame.hands.length - 1; i >= 0; i--) {
             var hand = frame.hands[i];
             var roll = hand.roll();
-            var rotAngle = hand.rotationAngle(uber.controller.frame(5), [0,0,1]);
-            rotAngle = Math.degrees(rotAngle);
             roll = Math.degrees(roll);
             $('#leap-info-1').html('grabStrength: ' + hand.grabStrength);
             $('#leap-info-2').html('pinchStrength: ' + hand.pinchStrength);
             $('#leap-info-3').html('roll: ' + Math.round(roll * 100)/100);
             $('#leap-info-4').html('Extended: ' + uber.fingerInfo[hand.id].total_extended); // if two hands just overwrite first
-            $('#leap-info-5').html('rotAngle: ' + rotAngle); // if two hands just overwrite first
         }
     };
 
@@ -637,19 +639,10 @@
             var hand = frame.hands[i];
             var roll = hand.roll(); // save rotation of hand in radians
             roll = Math.degrees(roll); // translate into degrees
-            var rotAngle = hand.rotationAngle(uber.controller.frame(1), [0,0,1]); // change in z-axis rotation since 5 frames
-            var axis = hand.rotationAxis(uber.controller.frame(1));
-            var z = axis[2];
-            z = Math.degrees(z);
-            z = Math.round(z*100)/100;
+            var rotAngle = hand.rotationAngle(uber.controller.frame(10), [0,0,1]); // change in z-axis rotation since 5 frames
+            rotAngle = Math.degrees(rotAngle);
 
-            var previousFrame = uber.controller.frame(1);
-            var axis2 = hand.rotationAxis(previousFrame);
-            console.log("Axis of Rotation: (" + axis2[0] + ", " + axis2[1] + ", " + axis2[2] + ")");
-
-            // console.log("axis: " + Math.round(axis[0]*100)/100 + ", " + Math.round(axis[1]*100)/100 + ", " + Math.round(axis[2]*100)/100 );
-            $('#leap-info-6').html('axis: <br>'  + Math.round(axis[0]*100)/100 + ",<br> " + Math.round(axis[1]*100)/100 + ",<br> " + Math.round(axis[2]*100)/100 );
-            $('#leap-info-7').html("Axis of Rotation: (" + axis2[0] + ", " + axis2[1] + ", " + axis2[2] + ")");
+            $('#leap-info-7').html(rotAngle);
 
             // check if left or right hand
             if (hand.type == 'left') {
@@ -659,6 +652,29 @@
             } else {
 
             }
+
+
+            // test distance between fingers
+            var thumb_pos   = Leap.vec3.create();
+            var index_pos   = Leap.vec3.create();
+            var middle_pos  = Leap.vec3.create();
+            var ring_pos    = Leap.vec3.create();
+            var pinky_pos   = Leap.vec3.create();
+
+            thumb_pos   = uber.fingerInfo[hand.id].thumb.tip_pos;
+            index_pos   = uber.fingerInfo[hand.id].index.tip_pos;
+            middle_pos  = uber.fingerInfo[hand.id].middle.tip_pos;
+            ring_pos    = uber.fingerInfo[hand.id].ring.tip_pos;
+            pinky_pos   = uber.fingerInfo[hand.id].pinky.tip_pos;
+
+            var distance_t_i = Leap.vec3.distance(thumb_pos, index_pos); // distance between thumb and index
+            var distance_i_m = Leap.vec3.distance(index_pos, middle_pos);
+            var distance_m_r = Leap.vec3.distance(middle_pos, ring_pos);
+            var distance_r_p = Leap.vec3.distance(ring_pos, pinky_pos);
+            var distance_p_t = Leap.vec3.distance(pinky_pos, thumb_pos);
+
+            $('#leap-info-5').html('dists: <br>' + ' <br>a: ' + Math.twoDecimals(distance_t_i)  + ', ' + ' <br>b: '+ Math.twoDecimals(distance_i_m)  + ', ' + ' <br>c: '+ Math.twoDecimals(distance_m_r)  + ', ' + ' <br>d: '+ Math.twoDecimals(distance_r_p) + ', ' + ' <br>e: '+ Math.twoDecimals(distance_p_t)  ); // if two hands just overwrite first
+
         }
 
     };
