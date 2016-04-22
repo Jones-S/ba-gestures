@@ -66,22 +66,27 @@
 
     LEAPAPP.Radio.prototype.play = function() {
         var uber = this;
-        console.log("uber.howler_bank[uber.current_track]: ", uber.howler_bank[uber.current_track]);
-        uber.howler_bank[uber.current_track].play( function(sound_id){
-            uber.current_playback_id = sound_id;
-        });
+        var song = uber.howler_bank[uber.current_track];
+        // check first audio node (should never be more than one)
+        // (probably unnecessary)
+        if (song._audioNode.length > 1) {
+            // use lodash do get only the first element of array
+            song._audioNode = _.head(song._audioNode);
+        }
+        // check if song is paused, then play it
+        // after creating a howl element paused is set to true
+        if(song._audioNode[0].paused){
+            song.play(function(sound_id){
+                uber.current_playback_id = sound_id; // save intance id
+            });
+        }
+
+
 
     };
 
     LEAPAPP.Radio.prototype.pause = function() {
         var uber = this;
-        // stop all tracks except the current one
-        console.log("uber.howler_bank: ", uber.howler_bank);
-        var all_other_tracks = _.without(uber.howler_bank, uber.howler_bank[uber.current_track]);
-        console.log("all_other_tracks: ", all_other_tracks);
-        uber.howler_bank.forEach(function (current, index) {
-            // body...
-        });
         uber.howler_bank[uber.current_track].pause(uber.current_playback_id);
 
     };
