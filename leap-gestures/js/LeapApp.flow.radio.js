@@ -19,7 +19,19 @@ var RADIOFLOW = {
             this.played_fns.on_enter = true;
         },
         onGestureCheck: function(gesture_data, data) {
-            if(this.try(gesture_data, 'on')) {
+            if (this.try(gesture_data, 'swipe')) {
+                if (gesture_data.swipe == 'right') {
+                    myLeapApp.radio.nextTrack();
+                    myLeapApp.shiftr.publish('/radio', 'right');    // pubslih via shiftr.io
+                    // myLeapApp.sounder.play('right'); // play on sound
+                }
+                else if(gesture_data.swipe == "left") {
+                    myLeapApp.radio.previousTrack();
+                    myLeapApp.shiftr.publish('/radio', 'left');
+                    // myLeapApp.sounder.play('left');
+                }
+            }
+            else if(this.try(gesture_data, 'on')) {
                 myLeapApp.shiftr.publish('/radio', 'on');
                 myLeapApp.sounder.play('on');
                 console.log("start playing");
