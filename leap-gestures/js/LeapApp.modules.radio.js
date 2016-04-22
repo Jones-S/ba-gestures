@@ -55,15 +55,16 @@
             }));
         });
 
-        // initiate the whole :
-
-
-
 
     };
 
+
+
+
+
+
+
     LEAPAPP.Radio.prototype.play = function() {
-        console.log("%c play", "background: #FDD187; color: #DA5C1B");
 
         var uber = this;
         var song = uber.howler_bank[uber.current_track];
@@ -87,29 +88,23 @@
 
     LEAPAPP.Radio.prototype.pause = function() {
         var uber = this;
-        console.log("%c pause", "background: #FDD187; color: #DA5C1B");
-
         uber.howler_bank[uber.current_track].pause(uber.current_playback_id);
 
     };
 
     LEAPAPP.Radio.prototype.nextTrack = function() {
-        console.log("%c nextTrack", "background: #FDD187; color: #DA5C1B");
         var uber = this;
         uber.howler_bank[uber.current_track].stop(uber.current_playback_id);
         uber.current_track = (uber.current_track + 1 !== uber.howler_bank.length) ? uber.current_track + 1 : 0;
-        console.log("%c next: uber.howler_bank[uber.current_track]", "background: #9C1DB4; color: #FAFBFF", uber.howler_bank[uber.current_track]);
         uber.play();
 
 
     };
 
     LEAPAPP.Radio.prototype.previousTrack = function() {
-        console.log("%c previousTrack", "background: #FDD187; color: #DA5C1B");
         var uber = this;
         uber.howler_bank[uber.current_track].stop(uber.current_playback_id);
-        uber.current_track = (uber.current_track - 1 > 0) ? uber.current_track - 1 : uber.howler_bank.length - 1;
-        console.log("%c prev: uber.howler_bank[uber.current_track]", "background: #9C1DB4; color: #FAFBFF", uber.howler_bank[uber.current_track]);
+        uber.current_track = (uber.current_track - 1 >= 0  ) ? uber.current_track - 1 : uber.howler_bank.length - 1;
         uber.play();
 
 
@@ -117,11 +112,9 @@
 
     // playing i+1 audio (= chaining audio files)
     LEAPAPP.Radio.prototype.onEnd = function() {
-        console.log("%c onEnd", "background: #FDD187; color: #DA5C1B");
-
         var uber = this;
         // check if current track is more than number of all tracks, otherwise reset to 0
-        uber.current_track = (uber.current_track + 1 > (uber.howler_bank.length - 1)) ? uber.current_track + 1 : 0;
+        uber.current_track = (uber.current_track + 1 > (uber.howler_bank.length - 1)) ? 0 : uber.current_track + 1;
         uber.play();
     };
 
