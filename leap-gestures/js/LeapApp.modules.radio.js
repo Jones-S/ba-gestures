@@ -1,13 +1,12 @@
 (function() {
 
-    function addNewTracks(directory) {
+    function addNewTracks(directory, files) {
         var tracks = [];
-        for (var i = directory.length - 1; i >= 0; i--) {
-            var track = new Audio(directory[i]);
+        for (var i = files.length - 1; i >= 0; i--) {
+            var track = new Audio(directory + files[i]);
             tracks.push(track);
         }
         return tracks;
-
     }
 
     /**
@@ -26,11 +25,12 @@
             'Keine Ahnung.mp3',
             'Mistral.mp3'
         ];
+        this.folder = "audio/tracks/";
 
-        this.tracks = addNewTracks(this.files);
+        this.tracks = addNewTracks(this.folder, this.files);
         console.log("this.tracks: ", this.tracks);
+        this.tracks[1].play();
 
-        var folder = "audio/tracks";
 
     };
 
