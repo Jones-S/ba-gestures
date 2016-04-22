@@ -15,21 +15,22 @@
     LEAPAPP.Radio = function() {
         // constructor
         this.files = [
-            '01 Steady As She Goes.mp3',
-            '1-02 Full Clip.mp3',
-            '02 Cream on Chrome.mp3',
-            '06 Illegalize It.mp3',
-            '06 Money.mp3',
-            '07 Schickt mir die Post.m4a',
-            '12 Haschisch Kakalake.mp3',
-            'Keine Ahnung.mp3',
+            // '01-Steady-As-She-Goes.mp3',
+            // '1-02-Full-Clip.mp3',
+            // '02-Cream-on-Chrome.mp3',
+            '06-Illegalize-It.mp3',
+            '06-Money.mp3',
+            '07-Schickt-mir-die-Post.m4a',
+            '12-Haschisch-Kakalake.mp3',
+            'Keine-Ahnung.mp3',
             'Mistral.mp3'
         ];
         this.folder = "audio/tracks/";
 
         this.tracks = addNewTracks(this.folder, this.files);
-        console.log("this.tracks: ", this.tracks);
-        this.tracks[1].play();
+        // console.log("this.tracks: ", this.tracks);
+        console.log("larasd 7723 134 ");
+
 
 
     };
