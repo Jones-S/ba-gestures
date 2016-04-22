@@ -33,15 +33,31 @@
         this.files = completeFilePath(this.folder, this.files);
         console.log("this.files: ", this.files);
 
-        this.sounds = new Howl({
-            urls: this.files,
-            autoplay: true,
-            loop: false,
-            volume: 0.5,
-            onend: function() {
-                console.log('Finished!');
-            }
+        this.current_track = 0;
+        // playlistUrls = [
+        //         "./audio/cmn-ni3.mp3",
+        //         "./audio/cmn-hao3.mp3",
+        //         "./audio/cmn-lao3.mp3",
+        //         "./audio/cmn-mao3.mp3"
+        //     ], // audio list
+        this.howlerBank = [];
+        this.loop = true;
+        var uber = this;
+
+        // build up howlerBank:
+        this.files.forEach(function(current, i) {
+            uber.howlerBank.push(new Howl({
+                urls: [uber.files[i]],
+                // execute onEnd when finished and bind this(=uber) context
+                // otherwise the this in the function onEnd will refer to the Howl context
+                onend: uber.onEnd.bind(uber),
+                buffer: true
+            }));
         });
+
+        // initiate the whole :
+        this.howlerBank[0].play();
+
 
 
 
@@ -49,12 +65,22 @@
 
     LEAPAPP.Radio.prototype.play = function() {
         var uber = this;
-        uber.current_track.play();
     };
 
     LEAPAPP.Radio.prototype.pause = function() {
         var uber = this;
-        uber.current_track.pause();
+    };
+
+    // playing i+1 audio (= chaining audio files)
+    LEAPAPP.Radio.prototype.onEnd = function() {
+        var uber = this;
+        if (uber.loop === true) {
+            // check if current track is more than number of all tracks, otherwise reset to 0
+            uber.current_track = (uber.current_track + 1 !== uber.howlerBank.length) ? uber.current_track + 1 : 0;
+        } else {
+            uber.current_track = uber.current_track + 1;
+        }
+        uber.howlerBank[uber.current_track].play();
     };
 
 }());
