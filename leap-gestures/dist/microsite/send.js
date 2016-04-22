@@ -19,5 +19,27 @@
             console.log("Lamp Off");
         });
 
+        $('button#play').on( "click", function() {
+            client.publish('/radio', 'play');
+            console.log("Radio Play");
+        });
+
+        $('button#pause').on( "click", function() {
+            client.publish('/radio', 'pause');
+            console.log("Radio pause");
+        });
+
+        $('button#next-track').on( "click", function() {
+            client.publish('/radio', 'next-track');
+            console.log("Radio next-track");
+        });
+
+        $('button#prev-track').on( "click", function() {
+            client.publish('/radio', 'prev-track');
+            console.log("Radio prev-track");
+        });
+
+
+
     });
 }(jQuery));
