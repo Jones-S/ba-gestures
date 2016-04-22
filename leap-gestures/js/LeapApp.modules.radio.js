@@ -22,33 +22,28 @@
             '06-Money.mp3',
             '07-Schickt-mir-die-Post.m4a',
             '12-Haschisch-Kakalake.mp3',
+            'Mistral.mp3',
             'Keine-Ahnung.mp3',
-            'Mistral.mp3'
+            '05-Stay-Cool.mp3'
         ];
-        this.folder = "audio/tracks/";
 
+        this.folder = "audio/tracks/";
         this.tracks = addNewTracks(this.folder, this.files);
+        this.current_track = this.tracks[0];
         // console.log("this.tracks: ", this.tracks);
-        console.log("larasd 7723 134 ");
 
 
 
     };
 
-    LEAPAPP.Radio.prototype.play = function(sound) {
+    LEAPAPP.Radio.prototype.play = function() {
         var uber = this;
+        uber.current_track.play();
+    };
 
-        switch(sound) {
-            case 'on':
-                uber.sound_on.play();
-                break;
-            case 'off':
-                uber.sound_off.play();
-                break;
-            default:
-                // do nothing
-                break;
-        }
+    LEAPAPP.Radio.prototype.pause = function() {
+        var uber = this;
+        uber.current_track.pause();
     };
 
 }());

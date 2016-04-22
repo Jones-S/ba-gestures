@@ -11,7 +11,6 @@
 
 var RADIOFLOW = {
 
-    on_off_count: 0,    // save count and increase if on off
     distinct_count: 0,
 
 
@@ -20,28 +19,17 @@ var RADIOFLOW = {
             this.played_fns.on_enter = true;
         },
         onGestureCheck: function(gesture_data, data) {
-            if (this.try(gesture_data, 'swipe')) {
-                if (gesture_data.swipe == 'up') {
-                    myLeapApp.shiftr.publish('/lamp', 'on');    // pubslih via shiftr.io
-                    myLeapApp.sounder.play('on'); // play on sound
-                    myLeapApp.flow.on_off_count++; // increase count off on/off interactions
-                }
-                else if(gesture_data.swipe == "down") {
-                    myLeapApp.shiftr.publish('/lamp', 'off');
-                    myLeapApp.sounder.play('off');
-                    myLeapApp.flow.on_off_count++;
-                }
-            }
-            else if(this.try(gesture_data, 'on')) {
-                myLeapApp.shiftr.publish('/lamp', 'on');
+            if(this.try(gesture_data, 'on')) {
+                myLeapApp.shiftr.publish('/radio', 'on');
                 myLeapApp.sounder.play('on');
-                myLeapApp.flow.on_off_count++;
+                console.log("start playing");
+                myLeapApp.radio.play();
 
             }
             else if(this.try(gesture_data, 'off')) {
                 myLeapApp.sounder.play('off');
-                myLeapApp.shiftr.publish('/lamp', 'off');
-                myLeapApp.flow.on_off_count++;
+                myLeapApp.shiftr.publish('/radio', 'off');
+                myLeapApp.radio.pause();
             }
         },
         onLeave: function() {
