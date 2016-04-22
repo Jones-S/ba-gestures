@@ -32,7 +32,7 @@
         return object;
     }
 
-
+    // TODO: disabled gestures when hand enters interaction box for a certain time
 
 
     LEAPAPP.GestureChecker = function (instance_name) {

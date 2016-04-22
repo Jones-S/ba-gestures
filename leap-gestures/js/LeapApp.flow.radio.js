@@ -22,25 +22,25 @@ var RADIOFLOW = {
             if (this.try(gesture_data, 'swipe')) {
                 if (gesture_data.swipe == 'right') {
                     myLeapApp.radio.nextTrack();
-                    myLeapApp.shiftr.publish('/radio', 'right');    // pubslih via shiftr.io
+                    // myLeapApp.shiftr.publish('/radio', 'next-track');    // pubslih via shiftr.io
                     // myLeapApp.sounder.play('right'); // play on sound
                 }
                 else if(gesture_data.swipe == "left") {
                     myLeapApp.radio.previousTrack();
-                    myLeapApp.shiftr.publish('/radio', 'left');
+                    // myLeapApp.shiftr.publish('/radio', 'prev-track');
                     // myLeapApp.sounder.play('left');
                 }
             }
             else if(this.try(gesture_data, 'on')) {
-                myLeapApp.shiftr.publish('/radio', 'on');
+                // myLeapApp.shiftr.publish('/radio', 'on');
                 myLeapApp.sounder.play('on');
                 console.log("start playing");
                 myLeapApp.radio.play();
 
             }
             else if(this.try(gesture_data, 'off')) {
+                // myLeapApp.shiftr.publish('/radio', 'off');
                 myLeapApp.sounder.play('off');
-                myLeapApp.shiftr.publish('/radio', 'off');
                 myLeapApp.radio.pause();
             }
         },
