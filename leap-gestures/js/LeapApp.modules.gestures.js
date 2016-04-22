@@ -104,6 +104,9 @@
         this.last_pinch         = [];
         this.last_open_hand     = [];
 
+        // saving hand rotation at beginning of rotation grab gesture
+        this.rot_frame = 0;
+
         this.last_explosion = this.last_collapse = 0;
 
         this.last_frame = {
@@ -114,7 +117,8 @@
             recent_fast_moves:  false,
             recent_swipes:      false,
             recent_distinct:    false,
-            thumb_up_gesture:   false
+            thumb_up_gesture:   false,
+            rotation_grab:      false
         };
         this.counts = {
             dir_change_count:   0,   // counting direction change of cancel gesture
@@ -675,6 +679,28 @@
 
             $('#leap-info-5').html('dists: <br>' + ' <br>a: ' + Math.twoDecimals(distance_t_i)  + ', ' + ' <br>b: '+ Math.twoDecimals(distance_i_m)  + ', ' + ' <br>c: '+ Math.twoDecimals(distance_m_r)  + ', ' + ' <br>d: '+ Math.twoDecimals(distance_r_p) + ', ' + ' <br>e: '+ Math.twoDecimals(distance_p_t)  ); // if two hands just overwrite first
 
+            if (
+                  (distance_t_i > 30 && distance_t_i < 80)
+                &&(distance_i_m > 20 && distance_i_m < 40)
+                &&(distance_m_r > 20 && distance_m_r < 35)
+                &&(distance_r_p > 20 && distance_r_p < 40)
+                &&(distance_p_t > 40 && distance_p_t < 75)
+
+            ) {
+                if (myLeapApp.debug) {
+                    console.log("%c - - - - - - - GESTURE:                                    Rotation Grab", 'background: #EC84B6; color: #555856');
+                }
+
+                if(uber.flags.rotation_grab === false) {
+                    // save current hand rotation
+                    uber.rot_frame = uber.controller.frame();
+                }
+                // set rotation flag to true
+                uber.flags.rotation_grab = true;
+
+                // compare rotation with rotation at beginning of grab gesture
+
+            }
         }
 
     };
