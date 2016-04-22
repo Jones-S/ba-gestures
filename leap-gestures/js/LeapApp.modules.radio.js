@@ -106,9 +106,19 @@
         uber.howler_bank[uber.current_track].stop(uber.current_playback_id);
         uber.current_track = (uber.current_track - 1 >= 0  ) ? uber.current_track - 1 : uber.howler_bank.length - 1;
         uber.play();
-
-
     };
+
+    LEAPAPP.Radio.prototype.volumeUp = function() {
+        var uber = this;
+        uber.howler_bank[uber.current_track].volume(1.0, uber.current_playback_id);
+    };
+
+    LEAPAPP.Radio.prototype.volumeDown = function() {
+        var uber = this;
+        uber.howler_bank[uber.current_track].volume(0.1, uber.current_playback_id);
+    };
+
+
 
     // playing i+1 audio (= chaining audio files)
     LEAPAPP.Radio.prototype.onEnd = function() {

@@ -34,9 +34,14 @@
             console.log("Radio next-track");
         });
 
-        $('button#prev-track').on( "click", function() {
-            client.publish('/radio', 'prev-track');
-            console.log("Radio prev-track");
+        $('button#vol-up').on( "click", function() {
+            client.publish('/radio', 'vol-up');
+            console.log("Radio vol-up");
+        });
+
+        $('button#vol-down').on( "click", function() {
+            client.publish('/radio', 'vol-down');
+            console.log("Radio vol-down");
         });
 
 

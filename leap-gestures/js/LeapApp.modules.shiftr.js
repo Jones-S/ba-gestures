@@ -38,6 +38,12 @@
                     case 'prev-track':
                         myLeapApp.radio.previousTrack();
                         break;
+                    case 'vol-up':
+                        myLeapApp.radio.volumeUp();
+                        break;
+                    case 'vol-down':
+                        myLeapApp.radio.volumeDown();
+                        break;
                     default:
                         console.log("Unknown message: ", message);
 
