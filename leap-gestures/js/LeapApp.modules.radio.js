@@ -42,6 +42,7 @@
         //         "./audio/cmn-mao3.mp3"
         //     ], // audio list
         this.howler_bank = [];
+        this.current_volume = 0.7; // from 0.01 to 1.0
         var uber = this;
 
         // build up howler_bank:
@@ -51,7 +52,8 @@
                 // execute onEnd when finished and bind this(=uber) context
                 // otherwise the this in the function onEnd will refer to the Howl context
                 onend: uber.onEnd.bind(uber),
-                buffer: true
+                buffer: true,
+                volume: uber.current_volume
             }));
         });
 
@@ -76,7 +78,9 @@
         }
         // check if song is paused, then play it
         // after creating a howl element paused is set to true
-        if(song._audioNode[0].paused){
+        if (song._audioNode[0].paused){
+            // set the volume before playing
+            song.volume(uber.current_volume);
             song.play(function(sound_id){
                 uber.current_playback_id = sound_id; // save intance id
             });
@@ -110,12 +114,27 @@
 
     LEAPAPP.Radio.prototype.volumeUp = function() {
         var uber = this;
-        uber.howler_bank[uber.current_track].volume(1.0, uber.current_playback_id);
+        // change current volume
+        if (uber.current_volume < 1.0) {
+            uber.current_volume += 0.05;
+        }
+        uber.howler_bank[uber.current_track].volume(uber.current_volume, uber.current_playback_id);
+        // also set volume for all howl instances
+        // by that the next track will keep the volume
+        // uber.howler_bank.forEach(function(current, i) {
+        //     uber.howler_bank[i].volume = 1.0;
+        // });
     };
 
     LEAPAPP.Radio.prototype.volumeDown = function() {
         var uber = this;
-        uber.howler_bank[uber.current_track].volume(0.1, uber.current_playback_id);
+        if (uber.current_volume > 0.1) {
+            uber.current_volume -= 0.05;
+        }
+        uber.howler_bank[uber.current_track].volume(uber.current_volume, uber.current_playback_id);
+        // uber.howler_bank.forEach(function(current, i) {
+        //     uber.howler_bank[i].volume = 0.1;
+        // });
     };
 
 
