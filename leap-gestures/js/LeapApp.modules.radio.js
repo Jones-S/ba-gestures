@@ -1,10 +1,12 @@
 (function() {
 
-    function addNewTracks(directory, files) {
+    function completeFilePath(directory, files) {
         var tracks = [];
+
+        // looping reversly. File order will be in reverse
         for (var i = files.length - 1; i >= 0; i--) {
-            var track = new Audio(directory + files[i]);
-            tracks.push(track);
+            var file = directory + files[i];
+            tracks.push(file);
         }
         return tracks;
     }
@@ -28,9 +30,18 @@
         ];
 
         this.folder = "audio/tracks/";
-        this.tracks = addNewTracks(this.folder, this.files);
-        this.current_track = this.tracks[0];
-        // console.log("this.tracks: ", this.tracks);
+        this.files = completeFilePath(this.folder, this.files);
+        console.log("this.files: ", this.files);
+
+        this.sounds = new Howl({
+            urls: this.files,
+            autoplay: true,
+            loop: false,
+            volume: 0.5,
+            onend: function() {
+                console.log('Finished!');
+            }
+        });
 
 
 
