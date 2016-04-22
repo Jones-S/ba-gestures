@@ -1,10 +1,36 @@
 (function() {
 
+    function addNewTracks(directory) {
+        var tracks = [];
+        for (var i = directory.length - 1; i >= 0; i--) {
+            var track = new Audio(directory[i]);
+            tracks.push(track);
+        }
+        return tracks;
+
+    }
+
     /**
      * Radio is necessary for playing and controlling the music played in the radio
      */
     LEAPAPP.Radio = function() {
         // constructor
+        this.files = [
+            '01 Steady As She Goes.mp3',
+            '1-02 Full Clip.mp3',
+            '02 Cream on Chrome.mp3',
+            '06 Illegalize It.mp3',
+            '06 Money.mp3',
+            '07 Schickt mir die Post.m4a',
+            '12 Haschisch Kakalake.mp3',
+            'Keine Ahnung.mp3',
+            'Mistral.mp3'
+        ];
+
+        this.tracks = addNewTracks(this.files);
+        console.log("this.tracks: ", this.tracks);
+
+        var folder = "audio/tracks";
 
     };
 
