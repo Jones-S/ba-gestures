@@ -15,13 +15,34 @@
         this.client.on('connect', function() {
             console.log('client has connected!');
 
-            // uber.client.subscribe('/lamp');
+            uber.client.subscribe('/radio');
             // client.unsubscribe('/example');
 
         });
 
         this.client.on('message', function(topic, message) {
             console.log('new message:', topic, message.toString());
+
+            // receiving radio input
+            if (topic == '/radio') {
+                switch(message.toString()) {
+                    case 'play':
+                        myLeapApp.radio.play();
+                        break;
+                    case 'pause':
+                        myLeapApp.radio.pause();
+                        break;
+                    case 'next-track':
+                        myLeapApp.radio.nextTrack();
+                        break;
+                    case 'prev-track':
+                        myLeapApp.radio.previousTrack();
+                        break;
+                    default:
+                        console.log("Unknown message: ", message);
+
+                }
+            }
         });
 
     };
