@@ -96,7 +96,10 @@
             timeout_id_recent_swipes:   3,
             timeout_id_thumb_up:        4,
             timeout_id_recent_distinct: 5,
-            timeout_id_last_gesture:    6
+            timeout_id_last_gesture:    6,
+            timeout_id_rotation_frames: 7,
+            timeout_id_rot_grab_timer:  8
+
 
         };
 
@@ -119,11 +122,13 @@
             recent_swipes:      false,
             recent_distinct:    false,
             thumb_up_gesture:   false,
-            rotation_grab:      false
+            rotation_grab:      false,
+            rot_grab_timer:     false
         };
         this.counts = {
             dir_change_count:   0,   // counting direction change of cancel gesture
-            thumb_up_frames:    0    // counting frames of thumb up gesture
+            thumb_up_frames:    0,   // counting frames of thumb up gesture
+            rotation_frames:    0    // counting frames of rotation gesture
         };
 
         // create object which will be sent to setVolume
@@ -650,68 +655,110 @@
         for (var i = frame.hands.length -1; i >= 0; i--) {
             var hand = frame.hands[i];
 
+            var confidence = hand.confidence;
+            var min_duration = 20; // frames how long the rotation gesture must exist to trigger
 
-            // test distance between fingers
-            var thumb_pos   = Leap.vec3.create();
-            var index_pos   = Leap.vec3.create();
-            var middle_pos  = Leap.vec3.create();
-            var ring_pos    = Leap.vec3.create();
-            var pinky_pos   = Leap.vec3.create();
+            if (confidence > 0.5) {
 
-            thumb_pos   = uber.fingerInfo[hand.id].thumb.tip_pos;
-            index_pos   = uber.fingerInfo[hand.id].index.tip_pos;
-            middle_pos  = uber.fingerInfo[hand.id].middle.tip_pos;
-            ring_pos    = uber.fingerInfo[hand.id].ring.tip_pos;
-            pinky_pos   = uber.fingerInfo[hand.id].pinky.tip_pos;
+                // test distance between fingers
+                var thumb_pos   = Leap.vec3.create();
+                var index_pos   = Leap.vec3.create();
+                var middle_pos  = Leap.vec3.create();
+                var ring_pos    = Leap.vec3.create();
+                var pinky_pos   = Leap.vec3.create();
 
-            var distance_t_i = Leap.vec3.distance(thumb_pos, index_pos); // distance between thumb and index
-            var distance_i_m = Leap.vec3.distance(index_pos, middle_pos);
-            var distance_m_r = Leap.vec3.distance(middle_pos, ring_pos);
-            var distance_r_p = Leap.vec3.distance(ring_pos, pinky_pos);
-            var distance_p_t = Leap.vec3.distance(pinky_pos, thumb_pos);
+                thumb_pos   = uber.fingerInfo[hand.id].thumb.tip_pos;
+                index_pos   = uber.fingerInfo[hand.id].index.tip_pos;
+                middle_pos  = uber.fingerInfo[hand.id].middle.tip_pos;
+                ring_pos    = uber.fingerInfo[hand.id].ring.tip_pos;
+                pinky_pos   = uber.fingerInfo[hand.id].pinky.tip_pos;
 
-            $('#leap-info-5').html('dists: <br>' + ' <br>a: ' + Math.twoDecimals(distance_t_i)  + ', ' + ' <br>b: '+ Math.twoDecimals(distance_i_m)  + ', ' + ' <br>c: '+ Math.twoDecimals(distance_m_r)  + ', ' + ' <br>d: '+ Math.twoDecimals(distance_r_p) + ', ' + ' <br>e: '+ Math.twoDecimals(distance_p_t)  ); // if two hands just overwrite first
+                var distance_t_i = Leap.vec3.distance(thumb_pos, index_pos); // distance between thumb and index
+                var distance_i_m = Leap.vec3.distance(index_pos, middle_pos);
+                var distance_m_r = Leap.vec3.distance(middle_pos, ring_pos);
+                var distance_r_p = Leap.vec3.distance(ring_pos, pinky_pos);
+                var distance_p_t = Leap.vec3.distance(pinky_pos, thumb_pos);
 
-            if (
-                  (distance_t_i > 30 && distance_t_i < 80)
-                &&(distance_i_m > 15 && distance_i_m < 40)
-                &&(distance_m_r > 15 && distance_m_r < 40)
-                &&(distance_r_p > 15 && distance_r_p < 50)
-                &&(distance_p_t > 40 && distance_p_t < 75)
+                $('#leap-info-5').html('dists: <br>' + ' <br>a: ' + Math.twoDecimals(distance_t_i)  + ', ' + ' <br>b: '+ Math.twoDecimals(distance_i_m)  + ', ' + ' <br>c: '+ Math.twoDecimals(distance_m_r)  + ', ' + ' <br>d: '+ Math.twoDecimals(distance_r_p) + ', ' + ' <br>e: '+ Math.twoDecimals(distance_p_t)  ); // if two hands just overwrite first
 
-            ) {
-                if (myLeapApp.debug) {
-                    console.log("%c - - - - - - - GESTURE:                                    Rotation Grab", 'background: #EC84B6; color: #555856');
+                if (
+                      (distance_t_i > 30 && distance_t_i < 80)
+                    &&(distance_i_m > 15 && distance_i_m < 40)
+                    &&(distance_m_r > 15 && distance_m_r < 40)
+                    &&(distance_r_p > 15 && distance_r_p < 50)
+                    &&(distance_p_t > 40 && distance_p_t < 75)
+
+                ) {
+
+                    if (uber.flags.rotation_grab === false) {
+                        // save current hand rotation
+                        uber.rot_frame = uber.controller.frame();
+                        // save current volume from radio
+                        uber.rotation_info.volume_at_grab = myLeapApp.radio.current_volume;
+                    }
+                    // set rotation flag to true
+                    uber.flags.rotation_grab = true;
+                    // increase the count how long the gesture is present
+                    uber.counts.rotation_frames++;
+                    console.log("uber.counts.rotation_frames: ", uber.counts.rotation_frames);
+
+                    // reset timers if they are running
+                    if (uber.flags.rot_grab_timer) {
+                        console.log("%c clear timer sir", "background: #FDD187; color: #DA5C1B");
+                        clearTimeout(uber.timeouts.timeout_id_rotation_frames);
+                        clearTimeout(uber.timeouts.timeout_id_rot_grab_timer);
+                        uber.flags.rot_grab_timer = false; // reset flag for timer set
+
+                    }
+
+                    // only start calculation if rotation gesture is present since a certain amount of time (frames)
+                    if (uber.counts.rotation_frames > min_duration) {
+                        if (myLeapApp.debug) {
+                            console.log("%c - - - - - - - GESTURE:                                    Rotation Grab", 'background: #EC84B6; color: #555856');
+                        }
+
+                        // compare rotation with rotation at beginning of grab gesture
+                        // var tot_diff = hand.rotationAngle(uber.rot_frame);
+                        uber.rotation_info.angle_diff = hand.rotationAngle(uber.rot_frame, [0,0,1]);
+                        // tot_diff = Math.degrees(tot_diff);
+                        uber.rotation_info.angle_diff = Math.degrees(uber.rotation_info.angle_diff);
+                        uber.rotation_info.angle_diff = Math.twoDecimals(uber.rotation_info.angle_diff);
+                        $('#leap-info-6').html('diff' + uber.rotation_info.angle_diff);
+
+                        rotation_gesture = true;
+                    }
+
+
+                } else {
+                    // check if rot_grab_timer false == rot grab timer is not set
+                    // also check for the duration of the gesture
+                    // if not long enough dont set timer
+                    if (!uber.flags.rot_grab_timer && uber.counts.rotation_frames > min_duration) {
+                        console.log("set the timers SIR");
+                        // reset the count how long the gesture exists
+                        // but use a timer to prevent resetting if the gesture is lost for only a couple frames
+                        // due to inaccuracy
+                        // also reset flag for the grab
+                        uber.setTimer({ timeout_id: uber.timeouts.timeout_id_rotation_frames, flag: 'rotation_grab', duration: 3000, counter: "rotation_frames" });
+                        // reset timer flag as well
+                        uber.setTimer({ timeout_id: uber.timeouts.timeout_id_rot_grab_timer, flag: 'rot_grab_timer', duration: 3000 });
+                        uber.flags.rot_grab_timer = true; // set a flag to mark that a timer was set
+                    }
+
+                    if (uber.counts.rotation_frames > min_duration) {
+                        console.log("%c ROTATION LOST", "background: #FF3700; color: #FAFBFF");
+                    }
                 }
 
-                if(uber.flags.rotation_grab === false) {
-                    // save current hand rotation
-                    uber.rot_frame = uber.controller.frame();
-                    // save current volume from radio
-                    uber.rotation_info.volume_at_grab = myLeapApp.radio.current_volume;
+                if (rotation_gesture) {
+                    return uber.rotation_info;
+                } else {
+                    return false;
                 }
-                // set rotation flag to true
-                uber.flags.rotation_grab = true;
-
-                // compare rotation with rotation at beginning of grab gesture
-                // var tot_diff = hand.rotationAngle(uber.rot_frame);
-                uber.rotation_info.angle_diff = hand.rotationAngle(uber.rot_frame, [0,0,1]);
-                // tot_diff = Math.degrees(tot_diff);
-                uber.rotation_info.angle_diff = Math.degrees(uber.rotation_info.angle_diff);
-                uber.rotation_info.angle_diff = Math.twoDecimals(uber.rotation_info.angle_diff);
-                $('#leap-info-6').html('diff' + uber.rotation_info.angle_diff);
-
-                rotation_gesture = true;
-
-            } else {
-                uber.flags.rotation_grab = false;
-            }
-
-            if (rotation_gesture) {
-                return uber.rotation_info;
             } else {
                 return false;
             }
+
         }
 
     };
@@ -806,6 +853,7 @@
      */
     LEAPAPP.GestureChecker.prototype.setTimer = function(options) {
         var uber = this;
+        console.log("timer set", options);
         // populate necessary arguments
         var timer_id    = options.timeout_id;
         var flag        = options.flag;
@@ -819,10 +867,15 @@
         }
         uber.timeouts[timer_id] = setTimeout(function() {
             if (flag) {
+                // console.log("uber.flags[grab] vorher: ", uber.flags[rotation_grab] );
                 uber.flags[flag]        = false; // reset flag
+                // console.log("uber.flags[grab] nachher: ", uber.flags[rotation_grab] );
             }
             if (counter) {
+                console.log("counter vorher: ", uber.counts[counter] );
                 uber.counts[counter]    = 0; // reset counter
+                console.log("counter nachher: ", uber.counts[counter] );
+
             }
             if (var_reset) { // reset a provided var (e.g last_gesture variable)
                 console.log("uber[var_reset] vorher: ", uber['last_gesture']);

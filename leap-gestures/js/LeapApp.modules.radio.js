@@ -147,13 +147,13 @@
             if (angle < 0) {
                 mapped_volume = angle.map(-50, 0, 0.1, vol);
                 mapped_volume = (mapped_volume < 0.1) ? 0.1 : mapped_volume; // if smaller than 0.1 reset to 0.1
-                console.log("< 0: left: mapped_volume: ", mapped_volume);
+                // console.log("< 0: left: mapped_volume: ", mapped_volume);
             }
             // right turn of hand
             else {
                 mapped_volume = angle.map(0, 50, vol, 1.0);
                 mapped_volume = (mapped_volume > 1.0) ? 1.0 : mapped_volume;
-                console.log("> 0: right: mapped_volume: ", mapped_volume);
+                // console.log("> 0: right: mapped_volume: ", mapped_volume);
             }
 
             // assign volume back to radio
