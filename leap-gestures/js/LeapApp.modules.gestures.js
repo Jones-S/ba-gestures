@@ -47,6 +47,10 @@
       return Math.round(number * 100)/100;
     };
 
+    Number.prototype.map = function (in_min, in_max, out_min, out_max) {
+      return (this - in_min) * (out_max - out_min) / (in_max - in_min) + out_min;
+    }
+
     // TODO: disabled gestures when hand enters interaction box for a certain time
 
 
@@ -681,9 +685,9 @@
 
             if (
                   (distance_t_i > 30 && distance_t_i < 80)
-                &&(distance_i_m > 20 && distance_i_m < 40)
-                &&(distance_m_r > 20 && distance_m_r < 35)
-                &&(distance_r_p > 20 && distance_r_p < 40)
+                &&(distance_i_m > 15 && distance_i_m < 40)
+                &&(distance_m_r > 15 && distance_m_r < 40)
+                &&(distance_r_p > 15 && distance_r_p < 50)
                 &&(distance_p_t > 40 && distance_p_t < 75)
 
             ) {
@@ -705,6 +709,9 @@
                 angle_diff = Math.degrees(angle_diff);
                 angle_diff = Math.twoDecimals(angle_diff);
                 $('#leap-info-6').html('diff' + angle_diff + ', ' + tot_diff);
+
+                // get current volume
+                var current_volume = myLeapApp.radio.current_volume;
 
             } else {
                 uber.flags.rotation_grab = false;
