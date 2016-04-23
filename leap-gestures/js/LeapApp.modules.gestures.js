@@ -47,9 +47,6 @@
       return Math.round(number * 100)/100;
     };
 
-    Number.prototype.map = function (in_min, in_max, out_min, out_max) {
-      return (this - in_min) * (out_max - out_min) / (in_max - in_min) + out_min;
-    }
 
     // TODO: disabled gestures when hand enters interaction box for a certain time
 
@@ -128,6 +125,9 @@
             dir_change_count:   0,   // counting direction change of cancel gesture
             thumb_up_frames:    0    // counting frames of thumb up gesture
         };
+
+        // create object which will be sent to setVolume
+        this.rotation_info = { angle_diff: 0, volume_at_grab: 0.7 };
 
         this.last_gesture   = ''; // saving the last gesture to prevent explosion gesture after thumb for example
 
@@ -643,23 +643,10 @@
 
     LEAPAPP.GestureChecker.prototype.checkRotationGesture = function(frame) {
         var uber = this;
+        var rotation_gesture = false;
+
         for (var i = frame.hands.length -1; i >= 0; i--) {
             var hand = frame.hands[i];
-            var roll = hand.roll(); // save rotation of hand in radians
-            roll = Math.degrees(roll); // translate into degrees
-            var rotAngle = hand.rotationAngle(uber.controller.frame(10), [0,0,1]); // change in z-axis rotation since 5 frames
-            rotAngle = Math.degrees(rotAngle);
-
-            $('#leap-info-7').html(rotAngle);
-
-            // check if left or right hand
-            if (hand.type == 'left') {
-                // check change since 5 frames
-                if (rotAngle > 5) {}
-
-            } else {
-
-            }
 
 
             // test distance between fingers
@@ -698,37 +685,31 @@
                 if(uber.flags.rotation_grab === false) {
                     // save current hand rotation
                     uber.rot_frame = uber.controller.frame();
+                    // save current volume from radio
+                    uber.rotation_info.volume_at_grab = myLeapApp.radio.current_volume;
                 }
                 // set rotation flag to true
                 uber.flags.rotation_grab = true;
 
                 // compare rotation with rotation at beginning of grab gesture
-                var tot_diff = hand.rotationAngle(uber.rot_frame);
-                var angle_diff = hand.rotationAngle(uber.rot_frame, [0,0,1]);
-                tot_diff = Math.degrees(tot_diff);
-                angle_diff = Math.degrees(angle_diff);
-                angle_diff = Math.twoDecimals(angle_diff);
-                $('#leap-info-6').html('diff' + angle_diff + ', ' + tot_diff);
+                // var tot_diff = hand.rotationAngle(uber.rot_frame);
+                uber.rotation_info.angle_diff = hand.rotationAngle(uber.rot_frame, [0,0,1]);
+                // tot_diff = Math.degrees(tot_diff);
+                uber.rotation_info.angle_diff = Math.degrees(uber.rotation_info.angle_diff);
+                uber.rotation_info.angle_diff = Math.twoDecimals(uber.rotation_info.angle_diff);
+                $('#leap-info-6').html('diff' + uber.rotation_info.angle_diff);
 
-                // get current volume
-                var current_volume = myLeapApp.radio.current_volume;
-                var mapped_volume = current_volume;
-
-                // map range 1 (<0 = left turn)
-                if (angle_diff < 0) {
-                    mapped_volume = angle_diff.map(-90, 0, 0.1, current_volume);
-                } else {
-                    mapped_volume = angle_diff.map(0, 90, current_volume, 1.0);
-                }
-                // assign volume back to radio
-                myLeapApp.radio.current_volume = mapped_volume;
-                myLeapApp.radio.setVolume(mapped_volume);
-
+                rotation_gesture = true;
 
             } else {
                 uber.flags.rotation_grab = false;
             }
-                console.log("%c myLeapApp.radio.current_volume", "background: #0D0B07; color: #FAFBFF", myLeapApp.radio.current_volume);
+
+            if (rotation_gesture) {
+                return uber.rotation_info;
+            } else {
+                return false;
+            }
         }
 
     };

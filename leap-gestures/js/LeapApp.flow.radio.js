@@ -43,6 +43,10 @@ var RADIOFLOW = {
                 myLeapApp.sounder.play('off');
                 myLeapApp.radio.pause();
             }
+            else if (this.try(gesture_data, 'rotation')) {
+                // send angle difference to radio to adjust volume
+                myLeapApp.radio.setVolume(gesture_data.rotation);
+            }
         },
         onLeave: function() {
         }

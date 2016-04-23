@@ -11,6 +11,10 @@
         return tracks;
     }
 
+    Number.prototype.map = function (in_min, in_max, out_min, out_max) {
+      return (this - in_min) * (out_max - out_min) / (in_max - in_min) + out_min;
+    };
+
     /**
      * Radio is necessary for playing and controlling the music played in the radio
      */
@@ -129,9 +133,27 @@
         uber.howler_bank[uber.current_track].volume(uber.current_volume, uber.current_playback_id);
     };
 
-    LEAPAPP.Radio.prototype.setVolume = function(volume) {
+    LEAPAPP.Radio.prototype.setVolume = function(rotation_info) {
         var uber = this;
-        uber.current_volume = volume;
+        var angle = rotation_info.angle_diff;
+        var vol = rotation_info.volume_at_grab;
+        var mapped_volume = uber.current_volume; // set mapped volume to current volume initially
+
+        // map range 1 (<0 = left turn)
+        if (angle < 0) {
+            mapped_volume = angle.map(-50, 0, 0.1, vol);
+            mapped_volume = (mapped_volume < 0.1) ? 0.1 : mapped_volume; // if smaller than 0.1 reset to 0.1
+            console.log("< 0: left: mapped_volume: ", mapped_volume);
+        }
+        // right turn of hand
+        else {
+            mapped_volume = angle.map(0, 50, vol, 1.0);
+            mapped_volume = (mapped_volume > 1.0) ? 1.0 : mapped_volume;
+            console.log("> 0: right: mapped_volume: ", mapped_volume);
+        }
+
+        // assign volume back to radio
+        uber.current_volume = mapped_volume;
         uber.howler_bank[uber.current_track].volume(uber.current_volume, uber.current_playback_id);
     };
 
