@@ -720,9 +720,6 @@
 
                     // only start calculation if rotation gesture is present since a certain amount of time (frames)
                     if (uber.counts.rotation_frames > min_duration) {
-                        if (myLeapApp.debug) {
-                            console.log("%c - - - - - - - GESTURE:                                    Rotation Grab", 'background: #EC84B6; color: #555856');
-                        }
                         // set last gesture
                         uber.last_gesture = 'rotation_grab';
                         // set/reset timer to erase last gesture var
@@ -737,6 +734,9 @@
                         uber.rotation_info.angle_diff = Math.twoDecimals(uber.rotation_info.angle_diff);
                         $('#leap-info-6').html('diff' + uber.rotation_info.angle_diff);
 
+                        if (myLeapApp.debug) {
+                            console.log("%c - - - - - - - GESTURE:                                    Rotation Grab", 'background: #EC84B6; color: #555856', uber.rotation_info.angle_diff);
+                        }
                         rotation_gesture = true;
                     }
 
