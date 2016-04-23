@@ -429,6 +429,8 @@
                         uber.flags.recent_swipes = true;
                         // set timer to enable next swipe
                         uber.setTimer({ timeout_id: uber.timeouts.timeout_id_recent_swipes, flag: "recent_swipes", duration: 500 });
+                        // a swipe also resets the count necessary for the cancel gesture
+                        uber.counts.dir_change_count = 0;
 
                         return swipeDirection;
                     } else {

@@ -161,7 +161,6 @@
             uber.howler_bank[uber.current_track].volume(uber.current_volume, uber.current_playback_id);
         }
 
-
     };
 
 
