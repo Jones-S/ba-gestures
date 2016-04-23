@@ -702,14 +702,7 @@
                     uber.counts.rotation_frames++;
                     console.log("uber.counts.rotation_frames: ", uber.counts.rotation_frames);
 
-                    // reset timers if they are running
-                    if (uber.flags.rot_grab_timer) {
-                        console.log("%c clear timer sir", "background: #FDD187; color: #DA5C1B");
-                        clearTimeout(uber.timeouts.timeout_id_rotation_frames);
-                        clearTimeout(uber.timeouts.timeout_id_rot_grab_timer);
-                        uber.flags.rot_grab_timer = false; // reset flag for timer set
 
-                    }
 
                     // only start calculation if rotation gesture is present since a certain amount of time (frames)
                     if (uber.counts.rotation_frames > min_duration) {
@@ -728,26 +721,10 @@
                         rotation_gesture = true;
                     }
 
+                    // reset frames and timer
+                    // to bridge unwanted pauses of the gesture
+                    uber.setTimer({ timeout_id: uber.timeouts.timeout_id_rotation_frames, flag: 'rotation_grab', duration: 400, counter: "rotation_frames" });
 
-                } else {
-                    // check if rot_grab_timer false == rot grab timer is not set
-                    // also check for the duration of the gesture
-                    // if not long enough dont set timer
-                    if (!uber.flags.rot_grab_timer && uber.counts.rotation_frames > min_duration) {
-                        console.log("set the timers SIR");
-                        // reset the count how long the gesture exists
-                        // but use a timer to prevent resetting if the gesture is lost for only a couple frames
-                        // due to inaccuracy
-                        // also reset flag for the grab
-                        uber.setTimer({ timeout_id: uber.timeouts.timeout_id_rotation_frames, flag: 'rotation_grab', duration: 3000, counter: "rotation_frames" });
-                        // reset timer flag as well
-                        uber.setTimer({ timeout_id: uber.timeouts.timeout_id_rot_grab_timer, flag: 'rot_grab_timer', duration: 3000 });
-                        uber.flags.rot_grab_timer = true; // set a flag to mark that a timer was set
-                    }
-
-                    if (uber.counts.rotation_frames > min_duration) {
-                        console.log("%c ROTATION LOST", "background: #FF3700; color: #FAFBFF");
-                    }
                 }
 
                 if (rotation_gesture) {
