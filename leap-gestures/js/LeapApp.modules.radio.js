@@ -135,26 +135,33 @@
 
     LEAPAPP.Radio.prototype.setVolume = function(rotation_info) {
         var uber = this;
-        var angle = rotation_info.angle_diff;
-        var vol = rotation_info.volume_at_grab;
-        var mapped_volume = uber.current_volume; // set mapped volume to current volume initially
+        // only adjust volume if track is playing
+        var song = uber.howler_bank[uber.current_track];
+        // check if song is paused
+        if (!song._audioNode[0].paused){
+            var angle = rotation_info.angle_diff;
+            var vol = rotation_info.volume_at_grab;
+            var mapped_volume = uber.current_volume; // set mapped volume to current volume initially
 
-        // map range 1 (<0 = left turn)
-        if (angle < 0) {
-            mapped_volume = angle.map(-50, 0, 0.1, vol);
-            mapped_volume = (mapped_volume < 0.1) ? 0.1 : mapped_volume; // if smaller than 0.1 reset to 0.1
-            console.log("< 0: left: mapped_volume: ", mapped_volume);
-        }
-        // right turn of hand
-        else {
-            mapped_volume = angle.map(0, 50, vol, 1.0);
-            mapped_volume = (mapped_volume > 1.0) ? 1.0 : mapped_volume;
-            console.log("> 0: right: mapped_volume: ", mapped_volume);
+            // map range 1 (<0 = left turn)
+            if (angle < 0) {
+                mapped_volume = angle.map(-50, 0, 0.1, vol);
+                mapped_volume = (mapped_volume < 0.1) ? 0.1 : mapped_volume; // if smaller than 0.1 reset to 0.1
+                console.log("< 0: left: mapped_volume: ", mapped_volume);
+            }
+            // right turn of hand
+            else {
+                mapped_volume = angle.map(0, 50, vol, 1.0);
+                mapped_volume = (mapped_volume > 1.0) ? 1.0 : mapped_volume;
+                console.log("> 0: right: mapped_volume: ", mapped_volume);
+            }
+
+            // assign volume back to radio
+            uber.current_volume = mapped_volume;
+            uber.howler_bank[uber.current_track].volume(uber.current_volume, uber.current_playback_id);
         }
 
-        // assign volume back to radio
-        uber.current_volume = mapped_volume;
-        uber.howler_bank[uber.current_track].volume(uber.current_volume, uber.current_playback_id);
+
     };
 
 
