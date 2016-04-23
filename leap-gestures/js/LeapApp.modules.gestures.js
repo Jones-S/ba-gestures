@@ -699,7 +699,15 @@
                 uber.flags.rotation_grab = true;
 
                 // compare rotation with rotation at beginning of grab gesture
+                var tot_diff = hand.rotationAngle(uber.rot_frame);
+                var angle_diff = hand.rotationAngle(uber.rot_frame, [0,0,1]);
+                tot_diff = Math.degrees(tot_diff);
+                angle_diff = Math.degrees(angle_diff);
+                angle_diff = Math.twoDecimals(angle_diff);
+                $('#leap-info-6').html('diff' + angle_diff + ', ' + tot_diff);
 
+            } else {
+                uber.flags.rotation_grab = false;
             }
         }
 
