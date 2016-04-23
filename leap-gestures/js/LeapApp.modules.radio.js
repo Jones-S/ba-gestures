@@ -119,11 +119,6 @@
             uber.current_volume += 0.05;
         }
         uber.howler_bank[uber.current_track].volume(uber.current_volume, uber.current_playback_id);
-        // also set volume for all howl instances
-        // by that the next track will keep the volume
-        // uber.howler_bank.forEach(function(current, i) {
-        //     uber.howler_bank[i].volume = 1.0;
-        // });
     };
 
     LEAPAPP.Radio.prototype.volumeDown = function() {
@@ -132,9 +127,12 @@
             uber.current_volume -= 0.05;
         }
         uber.howler_bank[uber.current_track].volume(uber.current_volume, uber.current_playback_id);
-        // uber.howler_bank.forEach(function(current, i) {
-        //     uber.howler_bank[i].volume = 0.1;
-        // });
+    };
+
+    LEAPAPP.Radio.prototype.setVolume = function(volume) {
+        var uber = this;
+        uber.current_volume = volume;
+        uber.howler_bank[uber.current_track].volume(uber.current_volume, uber.current_playback_id);
     };
 
 
