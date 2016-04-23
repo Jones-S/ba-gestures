@@ -712,10 +712,22 @@
 
                 // get current volume
                 var current_volume = myLeapApp.radio.current_volume;
+                var mapped_volume = current_volume;
+
+                // map range 1 (<0 = left turn)
+                if (angle_diff < 0) {
+                    mapped_volume = angle_diff.map(-60, 0, 0.1, current_volume);
+                } else {
+                    mapped_volume = angle_diff.map(0, 60, current_volume, 1.0);
+                }
+                // assign volume back to radio
+                myLeapApp.radio.current_volume = mapped_volume;
+
 
             } else {
                 uber.flags.rotation_grab = false;
             }
+                console.log("%c myLeapApp.radio.current_volume", "background: #0D0B07; color: #FAFBFF", myLeapApp.radio.current_volume);
         }
 
     };
