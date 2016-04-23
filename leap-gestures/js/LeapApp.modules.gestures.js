@@ -327,6 +327,11 @@
                 && (hand.grabStrength < 0.05)
                 && (uber.last_gesture !== 'thumb_up') // if last gesture was thumb up dont trigger explosion
                 && (uber.last_gesture !== 'rotation_grab')
+                && (hand.palmVelocity[0] > -500)
+                && (hand.palmVelocity[0] < 500) // palmvelocity cannot be too fast (otherwise it's a swipe)
+                && (hand.palmVelocity[2] > -250)
+                && (hand.palmVelocity[2] < 250) // palmvelocity cannot be too fast (otherwise it's a swipe)
+                && (!uber.flags.recent_swipes) // also check for recent swipes (enough time between gestures)
                 // && (time_passed < 0.25)
                 // && (time_between_gestures > 0.9)
              ) {
@@ -385,6 +390,12 @@
                 && (hand.grabStrength > 0.75)
                 && (!thumb_extended)
                 && (uber.last_gesture !== 'rotation_grab')
+                && (hand.palmVelocity[0] > -500)
+                && (hand.palmVelocity[0] < 500) // palmvelocity cannot be too fast (otherwise it's a swipe)
+                && (hand.palmVelocity[2] > -250)
+                && (hand.palmVelocity[2] < 250) // palmvelocity cannot be too fast (otherwise it's a swipe)
+                && (!uber.flags.recent_swipes) // also check for recent swipes (enough time between gestures)
+
                 // && (time_passed < 0.25) &&
                 // && (time_between_gestures > 0.9)
              ) {
@@ -438,6 +449,7 @@
                         uber.setTimer({ timeout_id: uber.timeouts.timeout_id_recent_swipes, flag: "recent_swipes", duration: 500 });
                         // a swipe also resets the count necessary for the cancel gesture
                         uber.counts.dir_change_count = 0;
+
 
                         return swipeDirection;
                     } else {
@@ -702,7 +714,7 @@
                     uber.flags.rotation_grab = true;
                     // increase the count how long the gesture is present
                     uber.counts.rotation_frames++;
-                    console.log("uber.counts.rotation_frames: ", uber.counts.rotation_frames);
+                    // console.log("uber.counts.rotation_frames: ", uber.counts.rotation_frames);
 
 
 
@@ -733,7 +745,7 @@
                     uber.setTimer({ timeout_id: uber.timeouts.timeout_id_rotation_frames, flag: 'rotation_grab', duration: 1200, counter: "rotation_frames" });
 
                 } else {
-                    console.log("%c NO ROTATION", "background: #070604; color: #DA5C1B");
+                    // console.log("%c NO ROTATION", "background: #070604; color: #DA5C1B");
                 }
 
                 if (rotation_gesture) {
