@@ -326,6 +326,7 @@
             if ((last_hand.grabStrength > 0.05)
                 && (hand.grabStrength < 0.05)
                 && (uber.last_gesture !== 'thumb_up') // if last gesture was thumb up dont trigger explosion
+                && (uber.last_gesture !== 'rotation_grab')
                 // && (time_passed < 0.25)
                 // && (time_between_gestures > 0.9)
              ) {
@@ -383,6 +384,7 @@
             if ((last_hand.grabStrength < 0.75)
                 && (hand.grabStrength > 0.75)
                 && (!thumb_extended)
+                && (uber.last_gesture !== 'rotation_grab')
                 // && (time_passed < 0.25) &&
                 // && (time_between_gestures > 0.9)
              ) {
@@ -709,6 +711,11 @@
                         if (myLeapApp.debug) {
                             console.log("%c - - - - - - - GESTURE:                                    Rotation Grab", 'background: #EC84B6; color: #555856');
                         }
+                        // set last gesture
+                        uber.last_gesture = 'rotation_grab';
+                        // set/reset timer to erase last gesture var
+                        uber.setTimer({ timeout_id: uber.timeouts.timeout_id_last_gesture, var: "last_gesture", duration: 1000 });
+
 
                         // compare rotation with rotation at beginning of grab gesture
                         // var tot_diff = hand.rotationAngle(uber.rot_frame);
@@ -723,8 +730,10 @@
 
                     // reset frames and timer
                     // to bridge unwanted pauses of the gesture
-                    uber.setTimer({ timeout_id: uber.timeouts.timeout_id_rotation_frames, flag: 'rotation_grab', duration: 400, counter: "rotation_frames" });
+                    uber.setTimer({ timeout_id: uber.timeouts.timeout_id_rotation_frames, flag: 'rotation_grab', duration: 1200, counter: "rotation_frames" });
 
+                } else {
+                    console.log("%c NO ROTATION", "background: #070604; color: #DA5C1B");
                 }
 
                 if (rotation_gesture) {
@@ -830,7 +839,6 @@
      */
     LEAPAPP.GestureChecker.prototype.setTimer = function(options) {
         var uber = this;
-        console.log("timer set", options);
         // populate necessary arguments
         var timer_id    = options.timeout_id;
         var flag        = options.flag;
@@ -844,20 +852,16 @@
         }
         uber.timeouts[timer_id] = setTimeout(function() {
             if (flag) {
-                // console.log("uber.flags[grab] vorher: ", uber.flags[rotation_grab] );
                 uber.flags[flag]        = false; // reset flag
-                // console.log("uber.flags[grab] nachher: ", uber.flags[rotation_grab] );
             }
             if (counter) {
-                console.log("counter vorher: ", uber.counts[counter] );
+                if(counter == 'rotation_frames') {
+                    console.log("%c timer for frames is reset", "background: #FDD187; color: #DA5C1B");
+                }
                 uber.counts[counter]    = 0; // reset counter
-                console.log("counter nachher: ", uber.counts[counter] );
-
             }
             if (var_reset) { // reset a provided var (e.g last_gesture variable)
-                console.log("uber[var_reset] vorher: ", uber['last_gesture']);
                 uber[var_reset] = '';
-                console.log("uber[var_reset] nachher: ", uber[var_reset]);
             }
             // console.log("%c uber.flags", "background: #D0E94E; color: #282829", uber.flags);
             // console.log("%c uber.counts", "background: #D0E94E; color: #282829", uber.counts);
