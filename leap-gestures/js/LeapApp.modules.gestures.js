@@ -387,7 +387,7 @@
             }
 
             if ((last_hand.grabStrength < 0.75)
-                && (hand.grabStrength > 0.75)
+                && (hand.grabStrength >= 0.75)
                 && (!thumb_extended)
                 && (uber.last_gesture !== 'rotation_grab')
                 && (hand.palmVelocity[0] > -500)
