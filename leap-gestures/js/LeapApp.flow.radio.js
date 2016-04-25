@@ -11,8 +11,15 @@
 
 var RADIOFLOW = {
 
-    distinct_count: 0,
-    radio_on: false,
+    distinct_count:     0,
+    radio_on:           false,
+    initial_count:      {
+                            on_off:     0,
+                            next_prev:  0,
+                            volume:     0
+                        },
+
+
 
 
     doAlways: {
@@ -66,10 +73,39 @@ var RADIOFLOW = {
             this.played_fns.on_enter = true;
         },
         onGestureCheck: function(gesture_data, data) {
-            // if gesture count is high enough aks user
-            if (myLeapApp.flow.on_off_count > 13) {
-                myLeapApp.machine.callNextSeg('seg1');
+            var uber = this;
+            var timer_started = false;
+
+            if (this.try(gesture_data, 'interaction') && !timer_started) {
+                timer_started = true;
+                // start timer as soon as hands are visible
+                setTimeout(function() {
+                    // check for counts of interactions to determine how much help a user needs
+                    if (   myLeapApp.flow.initial_count.volume >= 2
+                        && myLeapApp.flow.initial_count.next_prev >= 2
+                        && myLeapApp.flow.initial_count.on_off >= 3
+                    ) {
+                        // prolong the timer to say hello later
+                        setTimeout(function() {
+                            myLeapApp.machine.callNextSeg('seg4');
+                        }, 8000);
+                    }
+
+
+                }, 20000);
             }
+
+            if (this.try(gesture_data, 'rotation')) {
+                // TODO: now counting all frames with rotation
+                myLeapApp.flow.initial_count.volume++;
+            }
+            else if (this.try(gesture_data, 'on') || this.try(gesture_data, 'off')) {
+                myLeapApp.flow.initial_count.on_off++;
+            }
+            else if (this.try(gesture_data, 'swipe') && (gesture_data.swipe == 'right' || gesture_data.swipe == 'left')) {
+                myLeapApp.flow.initial_count.next_prev++;
+            }
+
         },
         onLeave: function() {
         }
