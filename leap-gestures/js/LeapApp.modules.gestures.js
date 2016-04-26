@@ -216,12 +216,10 @@
     };
 
     LEAPAPP.GestureChecker.prototype.checkForNewHand = function(frame) {
-        for (var i = frame.hands.length -1; i >= 0; i--) {
-            var hand = frame.hands[i];
-            // check if hand exists in last frame
-            if (true) {}
-            uber.last_hands_info[hand.id] = hand;
-        }
+        var uber = this;
+        // check if new hand entered the scene
+        var new_hand = uber.saveNewHand(frame);
+        if (new_hand) { return true; } else { return false; }
     };
 
     LEAPAPP.GestureChecker.prototype.checkForHandLeave = function(frame) {
@@ -834,14 +832,24 @@
     };
 
 
-    LEAPAPP.GestureChecker.prototype.doesLastHandExist = function(frame) {
+    /**
+     * saveNewHand saves a Hand to the last_hand info object
+     * If a new hand enters the frame it will add an object to the the last hand info
+     * @return {boolean} it will also return a boolean if a new hand enters the scene
+     */
+    LEAPAPP.GestureChecker.prototype.saveNewHand = function(frame) {
         var uber = this;
         for (var i = frame.hands.length - 1; i >= 0; i--) {
             var hand = frame.hands[i];
             if (!uber.last_hands_info.hasOwnProperty(hand.id)) {
                 uber.last_hands_info[hand.id] = hand;
+                return true;
+            } else {
+                return false;
             }
         }
+
+        return false;
     };
 
 
@@ -929,9 +937,6 @@
     LEAPAPP.GestureChecker.prototype.extractGestures = function(frame) {
         var gestures = {};
         var uber = this;
-
-        // save last handinfo if no value exists
-        uber.doesLastHandExist(frame);
 
         // check for gestures and save it in the gesture objects
         gestures.start                  = uber.checkForNewHand(frame);
