@@ -344,6 +344,121 @@ var RADIOFLOW = {
         onLeave: function() {
         }
     },
+    seg10: {
+        onEnter: function() {
+            this.say('Perfekt.<br>Die Lautstärke wechselst du mit einem imaginären Drehknopf.');
+            setTimeout(function() {
+                uber.played_fns.on_enter = true;
+            }, 2500);
+        },
+        onGestureCheck: function(gesture_data, data) {
+            this.callNextSeg('seg13');
+        },
+        onLeave: function() {
+        }
+    },
+    seg11: {
+        onEnter: function() {
+            this.say('Öffne deine Hand und imitiere eine Ohrfeige.');
+            setTimeout(function() {
+                uber.played_fns.on_enter = true;
+            }, 2500);
+        },
+        onGestureCheck: function(gesture_data, data) {
+            if (this.try(gesture_data, 'swipe' && (gesture_data.swipe == 'right' || gesture_data.swipe == "left"))) {
+                this.callNextSeg('seg10');
+            }
+        },
+        onLeave: function() {
+        }
+    },
+    seg12: {
+        onEnter: function() {
+            this.say('Um die Lautstärke zu ändern, denke doch mal an einen klassischen Drehknopf.');
+            setTimeout(function() {
+                uber.played_fns.on_enter = true;
+            }, 2900);
+        },
+        onGestureCheck: function(gesture_data, data) {
+            this.callNextSeg('seg13');
+        },
+        onLeave: function() {
+        }
+    },
+    seg13: {
+        onEnter: function() {
+            var uber = this;
+            uber.say('Am besten hörst du es, wenn ein Lied abgespielt wird.');
+            uber.played_fns.on_enter = true;
+            uber.timer_started = false;
+        },
+        onGestureCheck: function(gesture_data, data) {
+            var uber = this;
+            if (this.try(gesture_data, 'rotation')) {
+                this.callNextSeg('seg14');
+            }
+            else if (!uber.timer_started) {
+                uber.timer_started = true;
+                setTimeout(function() {
+                    uber.callNextSeg('seg15');
+                }, 10000);
+            }
+
+        },
+        onLeave: function() {
+        }
+    },
+    seg14: {
+        onEnter: function() {
+            this.say('Ausgezeichnet. <br>Du beherrscht nun den Musikplayer.');
+        },
+        onGestureCheck: function(gesture_data, data) {
+        },
+        onLeave: function() {
+        }
+    },
+    seg15: {
+        onEnter: function() {
+            var uber = this;
+            uber.say('Umfasse mit allen Fingern einen unsichtbaren Drehknopf der Grösse eines Fünf-Franken-Stückes.');
+            setTimeout(function() {
+                uber.say('Bei der richtigen Geste hörst du ein Klicken.');
+                setTimeout(function() {
+                    uber.say('Drehe dann deine Hand nach rechts oder nach links.');
+                    setTimeout(function() {
+                        uber.played_fns.on_enter = true;
+                    }, 2400);
+                }, 2600);
+            }, 3200);
+        },
+        onGestureCheck: function(gesture_data, data) {
+            if (this.try(gesture_data, 'rotation')) {
+                this.callNextSeg('seg14');
+            }
+        },
+        onLeave: function() {
+        }
+    },
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -374,6 +489,20 @@ var RADIOFLOW = {
         onLeave: function() {
         }
     },
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
