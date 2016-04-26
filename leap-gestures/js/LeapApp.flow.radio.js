@@ -13,6 +13,7 @@ var RADIOFLOW = {
 
     distinct_count:     0,
     radio_on:           false,
+    timer_started:      false,
     initial_count:      {
                             on_off:     0,
                             next_prev:  0,
@@ -80,13 +81,13 @@ var RADIOFLOW = {
     seg0: {
         onEnter: function() {
             this.played_fns.on_enter = true;
+            uber.timer_started = false;
         },
         onGestureCheck: function(gesture_data, data) {
             var uber = this;
-            var timer_started = false;
 
-            if (this.try(gesture_data, 'interaction') && !timer_started) {
-                timer_started = true;
+            if (this.try(gesture_data, 'interaction') && !uber.timer_started) {
+                uber.timer_started = true;
                 // start timer as soon as hands are visible
                 setTimeout(function() {
                     // check for counts of interactions to determine how much help a user needs
@@ -267,7 +268,7 @@ var RADIOFLOW = {
             }, 1900);
         },
         onGestureCheck: function(gesture_data, data) {
-            this.callNextSeg('Seg8a)');
+            this.callNextSeg('seg8a)');
         },
         onLeave: function() {
         }
@@ -284,7 +285,7 @@ var RADIOFLOW = {
             }, 2000);
         },
         onGestureCheck: function(gesture_data, data) {
-            this.callNextSeg('Seg8a)');
+            this.callNextSeg('seg8a)');
         },
         onLeave: function() {
         }
@@ -313,10 +314,31 @@ var RADIOFLOW = {
         onGestureCheck: function(gesture_data, data) {
             var uber = this;
             if (myLeapApp.flow.without_help.next_prev === false) {
-                uber.callNextSeg('Seg9');
+                uber.callNextSeg('seg9');
             }
             else if (myLeapApp.flow.without_help.next_prev && myLeapApp.flow.without_help.volume === false) {
-                uber.callNextSeg('Seg12');
+                uber.callNextSeg('seg12');
+            }
+        },
+        onLeave: function() {
+        }
+    },
+    seg9: {
+        onEnter: function() {
+            this.say('Um ein Lied zu wechseln, swipe doch von links nach rechts oder umgekehrt.');
+            uber.played_fns.on_enter = true;
+            uber.timer_started = false;
+        },
+        onGestureCheck: function(gesture_data, data) {
+            var uber = this;
+            if (this.try(gesture_data, 'swipe' && (gesture_data.swipe == 'right' || gesture_data.swipe == "left"))) {
+                this.callNextSeg('seg10');
+            }
+            else if (!uber.timer_started) {
+                uber.timer_started = true;
+                setTimeout(function() {
+                    uber.callNextSeg('seg11');
+                }, 10000);
             }
         },
         onLeave: function() {
