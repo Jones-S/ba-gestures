@@ -259,7 +259,7 @@
 
         var uber = this;
         // exit function if hand just entered
-        if (uber.flags.new_hand) {
+        if (uber.flags.new_hand && frame.hands.length === 1) {
             return false;
         }
 
@@ -331,7 +331,7 @@
     LEAPAPP.GestureChecker.prototype.checkForExplosion = function(frame) {
         var uber = this;
         // exit function if hand just entered
-        if (uber.flags.new_hand) {
+        if (uber.flags.new_hand && frame.hands.length === 1) {
             return false;
         }
 
@@ -393,7 +393,7 @@
     LEAPAPP.GestureChecker.prototype.checkforCollapse = function(frame) {
         var uber = this;
         // exit function if hand just entered
-        if (uber.flags.new_hand) {
+        if (uber.flags.new_hand && frame.hands.length === 1) {
             return false;
         }
 
@@ -453,7 +453,7 @@
     LEAPAPP.GestureChecker.prototype.checkSwipe = function(frame) {
         var uber = this;
         // exit function if hand just entered
-        if (uber.flags.new_hand) {
+        if (uber.flags.new_hand && frame.hands.length === 1) {
             return false;
         }
         var swipeDirection = "";
@@ -506,7 +506,7 @@
 
         var uber = this;
         // exit function if hand just entered
-        if (uber.flags.new_hand) {
+        if (uber.flags.new_hand && frame.hands.length === 1) {
             return false;
         }
 
@@ -592,7 +592,7 @@
     LEAPAPP.GestureChecker.prototype.checkThumbUpGesture = function(frame) {
         var uber = this;
         // exit function if hand just entered
-        if (uber.flags.new_hand) {
+        if (uber.flags.new_hand && frame.hands.length === 1) {
             return false;
         }
 
@@ -666,7 +666,7 @@
     LEAPAPP.GestureChecker.prototype.checkOKGesture = function(frame) {
         var uber = this;
         // exit function if hand just entered
-        if (uber.flags.new_hand) {
+        if (uber.flags.new_hand && frame.hands.length === 1) {
             return false;
         }
 
@@ -722,7 +722,7 @@
     LEAPAPP.GestureChecker.prototype.checkRotationGesture = function(frame) {
         var uber = this;
         // exit function if hand just entered
-        if (uber.flags.new_hand) {
+        if (uber.flags.new_hand && frame.hands.length === 1) {
             return false;
         }
 
