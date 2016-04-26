@@ -28,20 +28,26 @@
                 switch(message.toString()) {
                     case 'play':
                         myLeapApp.radio.play();
+                        myLeapApp.sounder.play('on');
                         break;
                     case 'pause':
                         myLeapApp.radio.pause();
+                        myLeapApp.sounder.play('off');
                         break;
                     case 'next-track':
+                        myLeapApp.sounder.play('next');
                         myLeapApp.radio.nextTrack();
                         break;
                     case 'prev-track':
                         myLeapApp.radio.previousTrack();
+                        myLeapApp.sounder.play('prev');
                         break;
                     case 'vol-up':
+                        myLeapApp.sounder.play('vol');
                         myLeapApp.radio.volumeUp();
                         break;
                     case 'vol-down':
+                        myLeapApp.sounder.play('vol');
                         myLeapApp.radio.volumeDown();
                         break;
                     default:

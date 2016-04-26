@@ -30,6 +30,7 @@ var RADIOFLOW = {
             if (this.try(gesture_data, 'swipe')) {
                 if (gesture_data.swipe == 'right') {
                     myLeapApp.radio.nextTrack();
+                    myLeapApp.sounder.play('next');
                     // set radio on flag to on
                     this.radio_on = true;
                     // myLeapApp.shiftr.publish('/radio', 'next-track');    // pubslih via shiftr.io
@@ -37,6 +38,7 @@ var RADIOFLOW = {
                 }
                 else if(gesture_data.swipe == "left") {
                     myLeapApp.radio.previousTrack();
+                    myLeapApp.sounder.play('prev');
                     this.radio_on = true;
                     // myLeapApp.shiftr.publish('/radio', 'prev-track');
                     // myLeapApp.sounder.play('left');
@@ -62,6 +64,8 @@ var RADIOFLOW = {
             else if (this.try(gesture_data, 'rotation')) {
                 // send angle difference to radio to adjust volume
                 myLeapApp.radio.setVolume(gesture_data.rotation);
+                myLeapApp.sounder.play('vol');
+
             }
         },
         onLeave: function() {
