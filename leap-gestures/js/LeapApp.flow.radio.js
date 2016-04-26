@@ -178,11 +178,11 @@ var RADIOFLOW = {
                 uber.say('Zusätzlich zum Ein- und Ausschalten und dem Wechseln der Lieder gibt es auch eine Geste, um die Lautstärke zu verändern.');
                 setTimeout(function() {
                     uber.played_fns.on_enter = true;
-                }, 4800);
+                }, 5500);
             }, 3300);
         },
         onGestureCheck: function(gesture_data, data) {
-            this.callNextSeg('seg5');
+            myLeapApp.machine.callNextSeg('seg5');
         },
         onLeave: function() {
         }
@@ -202,7 +202,7 @@ var RADIOFLOW = {
             }, 4700);
         },
         onGestureCheck: function(gesture_data, data) {
-            this.callNextSeg('seg5');
+            myLeapApp.machine.callNextSeg('seg5');
         },
         onLeave: function() {
         }
@@ -219,7 +219,7 @@ var RADIOFLOW = {
             }, 2300);
         },
         onGestureCheck: function(gesture_data, data) {
-            this.callNextSeg('seg5');
+            myLeapApp.machine.callNextSeg('seg5');
         },
         onLeave: function() {
         }
@@ -247,7 +247,7 @@ var RADIOFLOW = {
                 setTimeout(function() {
                     uber.played_fns.on_enter = true;
                 }, 2100);
-            }, 3400);
+            }, 5300);
         },
         onGestureCheck: function(gesture_data, data) {
             if (this.try(gesture_data, 'ok')) {
@@ -278,7 +278,7 @@ var RADIOFLOW = {
             }, 1900);
         },
         onGestureCheck: function(gesture_data, data) {
-            this.callNextSeg('seg8a)');
+            myLeapApp.machine.callNextSeg('seg8a');
         },
         onLeave: function() {
         }
@@ -295,7 +295,7 @@ var RADIOFLOW = {
             }, 2000);
         },
         onGestureCheck: function(gesture_data, data) {
-            this.callNextSeg('seg8a)');
+            myLeapApp.machine.callNextSeg('seg8a)');
         },
         onLeave: function() {
         }
@@ -342,7 +342,7 @@ var RADIOFLOW = {
         onGestureCheck: function(gesture_data, data) {
             var uber = this;
             if (this.try(gesture_data, 'swipe' && (gesture_data.swipe == 'right' || gesture_data.swipe == "left"))) {
-                this.callNextSeg('seg10');
+                myLeapApp.machine.callNextSeg('seg10');
             }
             else if (!uber.timer_started) {
                 uber.timer_started = true;
@@ -362,7 +362,7 @@ var RADIOFLOW = {
             }, 2500);
         },
         onGestureCheck: function(gesture_data, data) {
-            this.callNextSeg('seg13');
+            myLeapApp.machine.callNextSeg('seg13');
         },
         onLeave: function() {
         }
@@ -376,7 +376,7 @@ var RADIOFLOW = {
         },
         onGestureCheck: function(gesture_data, data) {
             if (this.try(gesture_data, 'swipe' && (gesture_data.swipe == 'right' || gesture_data.swipe == "left"))) {
-                this.callNextSeg('seg10');
+                myLeapApp.machine.callNextSeg('seg10');
             }
         },
         onLeave: function() {
@@ -390,7 +390,7 @@ var RADIOFLOW = {
             }, 2900);
         },
         onGestureCheck: function(gesture_data, data) {
-            this.callNextSeg('seg13');
+            myLeapApp.machine.callNextSeg('seg13');
         },
         onLeave: function() {
         }
@@ -405,7 +405,7 @@ var RADIOFLOW = {
         onGestureCheck: function(gesture_data, data) {
             var uber = this;
             if (this.try(gesture_data, 'rotation')) {
-                this.callNextSeg('seg14');
+                myLeapApp.machine.callNextSeg('seg14');
             }
             else if (!uber.timer_started) {
                 uber.timer_started = true;
@@ -443,7 +443,7 @@ var RADIOFLOW = {
         },
         onGestureCheck: function(gesture_data, data) {
             if (this.try(gesture_data, 'rotation')) {
-                this.callNextSeg('seg14');
+                myLeapApp.machine.callNextSeg('seg14');
             }
         },
         onLeave: function() {

@@ -67,11 +67,11 @@
          */
 
         // for drawing fingers in drawing mode
-        this.ctx = undefined; // canvas 2d drawing context
-        this.canvas = undefined;
-        this.w = undefined;
-        this.h = undefined;
-        this.q = 1;
+        this.ctx        = undefined; // canvas 2d drawing context
+        this.canvas     = undefined;
+        this.w          = undefined;
+        this.h          = undefined;
+        this.q          = 1;
 
         this.fingerInfo = {
             /* structure */
@@ -98,7 +98,8 @@
             timeout_id_recent_distinct: 5,
             timeout_id_last_gesture:    6,
             timeout_id_rotation_frames: 7,
-            timeout_id_rot_grab_timer:  8
+            timeout_id_rot_grab_timer:  8,
+            timeout_id_new_hand:        9
 
 
         };
@@ -123,7 +124,8 @@
             recent_distinct:    false,
             thumb_up_gesture:   false,
             rotation_grab:      false,
-            rot_grab_timer:     false
+            rot_grab_timer:     false,
+            new_hand:           false
         };
         this.counts = {
             dir_change_count:   0,   // counting direction change of cancel gesture
@@ -219,7 +221,13 @@
         var uber = this;
         // check if new hand entered the scene
         var new_hand = uber.saveNewHand(frame);
-        if (new_hand) { return true; } else { return false; }
+        if (new_hand) {
+            uber.flags.new_hand = true;
+            uber.setTimer({ timeout_id: uber.timeouts.timeout_id_new_hand, flag: "new_hand", duration: 800 });
+            return true;
+        } else {
+            return false;
+        }
     };
 
     LEAPAPP.GestureChecker.prototype.checkForHandLeave = function(frame) {
@@ -248,7 +256,13 @@
     };
 
     LEAPAPP.GestureChecker.prototype.checkForDistinctInteraction = function(frame) {
+
         var uber = this;
+        // exit function if hand just entered
+        if (uber.flags.new_hand) {
+            return false;
+        }
+
         var distinct_interaction;
 
         for (var i = frame.hands.length -1; i >= 0; i--) {
@@ -316,6 +330,10 @@
      */
     LEAPAPP.GestureChecker.prototype.checkForExplosion = function(frame) {
         var uber = this;
+        // exit function if hand just entered
+        if (uber.flags.new_hand) {
+            return false;
+        }
 
         for (var i = frame.hands.length -1; i >= 0; i--) {
             var hand = frame.hands[i];
@@ -374,6 +392,10 @@
      */
     LEAPAPP.GestureChecker.prototype.checkforCollapse = function(frame) {
         var uber = this;
+        // exit function if hand just entered
+        if (uber.flags.new_hand) {
+            return false;
+        }
 
         for (var i = frame.hands.length -1; i >= 0; i--) {
             var hand = frame.hands[i];
@@ -430,6 +452,10 @@
 
     LEAPAPP.GestureChecker.prototype.checkSwipe = function(frame) {
         var uber = this;
+        // exit function if hand just entered
+        if (uber.flags.new_hand) {
+            return false;
+        }
         var swipeDirection = "";
 
         // Display Gesture object data
@@ -479,6 +505,11 @@
     LEAPAPP.GestureChecker.prototype.checkCancelGesture = function(frame) {
 
         var uber = this;
+        // exit function if hand just entered
+        if (uber.flags.new_hand) {
+            return false;
+        }
+
         var cancel_gesture = false;
         // TODO: Maybe need to check for fingers.extended
         // so that a shaking fist is not registered as cancel
@@ -560,6 +591,11 @@
 
     LEAPAPP.GestureChecker.prototype.checkThumbUpGesture = function(frame) {
         var uber = this;
+        // exit function if hand just entered
+        if (uber.flags.new_hand) {
+            return false;
+        }
+
         /**
          * check for both hands
          if fingers are not extended and thumb is extended
@@ -629,6 +665,11 @@
 
     LEAPAPP.GestureChecker.prototype.checkOKGesture = function(frame) {
         var uber = this;
+        // exit function if hand just entered
+        if (uber.flags.new_hand) {
+            return false;
+        }
+
         var all_finger_ok = true; // save info if all fingers are in the correct position
 
         for (var i = frame.hands.length -1; i >= 0; i--) {
@@ -680,6 +721,11 @@
 
     LEAPAPP.GestureChecker.prototype.checkRotationGesture = function(frame) {
         var uber = this;
+        // exit function if hand just entered
+        if (uber.flags.new_hand) {
+            return false;
+        }
+
         var rotation_gesture = false;
 
         for (var i = frame.hands.length -1; i >= 0; i--) {
@@ -782,6 +828,7 @@
 
     LEAPAPP.GestureChecker.prototype.detectFastMovement = function(frame) {
         var uber = this;
+
         /**
          * loop through all vectors in velocity (x,y,z)
          * compare absolute value of number with a threshold-speed
