@@ -89,7 +89,7 @@ p {
   transform-origin: 48% 70%; }
 
 .messages {
-  font: 55px 'Fira Mono', Helvetica, Arial; }
+  font: 35px 'Fira Mono', Helvetica, Arial; }
 
 .leap-frame-info {
   font-size: 13px; }
@@ -167,8 +167,13 @@ body.fast-moves {
 
 .leap-frame-info {
   float: right;
-  width: 40%;
+  width: 30%;
   height: 100%;
   list-style-type: none; }
+
+.messages {
+  height: 100%;
+  width: 70%;
+  float: left; }
 
 /*# sourceMappingURL=maps/main.css.map */

@@ -81,7 +81,7 @@ var RADIOFLOW = {
     seg0: {
         onEnter: function() {
             this.played_fns.on_enter = true;
-            uber.timer_started = false;
+            this.timer_started = false;
         },
         onGestureCheck: function(gesture_data, data) {
             var uber = this;
@@ -138,12 +138,15 @@ var RADIOFLOW = {
             if (this.try(gesture_data, 'rotation')) {
                 // TODO: now counting all frames with rotation
                 myLeapApp.flow.initial_count.volume++;
+                console.log("Dr. volume: ", myLeapApp.flow.initial_count.volume);
             }
             else if (this.try(gesture_data, 'on') || this.try(gesture_data, 'off')) {
                 myLeapApp.flow.initial_count.on_off++;
+                console.log("Dr.  off: ", myLeapApp.flow.initial_count.on_off);
             }
             else if (this.try(gesture_data, 'swipe') && (gesture_data.swipe == 'right' || gesture_data.swipe == 'left')) {
                 myLeapApp.flow.initial_count.next_prev++;
+                console.log("Dr. next prev: ", myLeapApp.flow.initial_count.next_prev);
             }
 
         },
