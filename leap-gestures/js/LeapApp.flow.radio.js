@@ -33,6 +33,13 @@ var RADIOFLOW = {
             this.played_fns.on_enter = true;
         },
         onGestureCheck: function(gesture_data, data) {
+            // play hover sound for new hands
+            if (this.try(gesture_data, 'start')) {
+                myLeapApp.sounder.play('start');
+            }
+            if (this.try(gesture_data, 'exit')) {
+                myLeapApp.sounder.play('exit');
+            }
             if (this.try(gesture_data, 'swipe')) {
                 if (gesture_data.swipe == 'right') {
                     myLeapApp.radio.nextTrack();
