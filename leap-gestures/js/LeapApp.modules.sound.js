@@ -6,15 +6,15 @@
      */
     LEAPAPP.Sound = function() {
         // constructor
-        this.sound_on      = new Audio('audio/on.mp3');
-        this.sound_off     = new Audio('audio/off.mp3');
-        this.sound_vol     = new Audio('audio/volume.mp3');
-        this.sound_cancel  = new Audio('audio/cancel.mp3');
-        this.sound_ok      = new Audio('audio/ok.mp3');
-        this.sound_next    = new Audio('audio/swipe_right.mp3');
-        this.sound_prev    = new Audio('audio/swipe_left.mp3');
-        this.sound_start   = new Audio('audio/hover_in.mp3');
-        this.sound_exit    = new Audio('audio/hover_out.mp3');
+        this.sound_on      = new Howl({ urls: ['audio/on.mp3'], volume: 0.65 });
+        this.sound_off     = new Howl({ urls: ['audio/off.mp3'], volume: 0.65 });
+        this.sound_vol     = new Howl({ urls: ['audio/volume.mp3'], volume: 0.65 });
+        this.sound_cancel  = new Howl({ urls: ['audio/cancel.mp3'], volume: 0.65 });
+        this.sound_ok      = new Howl({ urls: ['audio/ok.mp3'], volume: 0.65 });
+        this.sound_next    = new Howl({ urls: ['audio/swipe_right.mp3'], volume: 0.65 });
+        this.sound_prev    = new Howl({ urls: ['audio/swipe_left.mp3'], volume: 0.65 });
+        this.sound_start   = new Howl({ urls: ['audio/hover_in.mp3'], volume: 0.65 });
+        this.sound_exit    = new Howl({ urls: ['audio/hover_out.mp3'], volume: 0.65 });
 
     };
 
