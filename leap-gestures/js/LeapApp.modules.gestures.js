@@ -223,7 +223,12 @@
     };
 
     LEAPAPP.GestureChecker.prototype.checkForHandLeave = function(frame) {
-
+        var uber = this;
+        if (uber.controller.frame(1).hands && frame.hands.length < uber.controller.frame(1).hands.length) {
+            return true;
+        } else {
+            return false;
+        }
     };
 
     /**
@@ -940,7 +945,6 @@
 
         // check for gestures and save it in the gesture objects
         gestures.start                  = uber.checkForNewHand(frame);
-        gestures.exit                   = uber.checkForHandLeave(frame);
         gestures.interaction            = uber.checkForAnyInteraction(frame);
         gestures.distinct_interaction   = uber.checkForDistinctInteraction(frame);
         gestures.on                     = uber.checkForExplosion(frame);
@@ -950,6 +954,7 @@
         gestures.ok                     = uber.checkOKGesture(frame);
         gestures.cancel                 = uber.checkCancelGesture(frame);
         gestures.rotation               = uber.checkRotationGesture(frame);
+        gestures.exit                   = uber.checkForHandLeave(frame);
         // gestures.fast_moves             = uber.detectFastMovement(frame);
 
         // save hand to last hand object
