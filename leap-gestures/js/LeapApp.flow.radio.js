@@ -171,8 +171,8 @@ var RADIOFLOW = {
                 uber.say('Zusätzlich zum Ein- und Ausschalten und dem Wechseln der Lieder gibt es auch eine Geste, um die Lautstärke zu verändern.');
                 setTimeout(function() {
                     uber.played_fns.on_enter = true;
-                }, 3500);
-            }, 2300);
+                }, 4800);
+            }, 3300);
         },
         onGestureCheck: function(gesture_data, data) {
             this.callNextSeg('seg5');
@@ -191,8 +191,8 @@ var RADIOFLOW = {
                     setTimeout(function() {
                         uber.played_fns.on_enter = true;
                     }, 2400);
-                }, 2600);
-            }, 2600);
+                }, 4200);
+            }, 4700);
         },
         onGestureCheck: function(gesture_data, data) {
             this.callNextSeg('seg5');
