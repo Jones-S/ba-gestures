@@ -215,6 +215,19 @@
         }
     };
 
+    LEAPAPP.GestureChecker.prototype.checkForNewHand = function(frame) {
+        for (var i = frame.hands.length -1; i >= 0; i--) {
+            var hand = frame.hands[i];
+            // check if hand exists in last frame
+            if (true) {}
+            uber.last_hands_info[hand.id] = hand;
+        }
+    };
+
+    LEAPAPP.GestureChecker.prototype.checkForHandLeave = function(frame) {
+
+    };
+
     /**
      * printInfo brings frame information to the browser screen
      */
@@ -921,6 +934,8 @@
         uber.doesLastHandExist(frame);
 
         // check for gestures and save it in the gesture objects
+        gestures.start                  = uber.checkForNewHand(frame);
+        gestures.exit                   = uber.checkForHandLeave(frame);
         gestures.interaction            = uber.checkForAnyInteraction(frame);
         gestures.distinct_interaction   = uber.checkForDistinctInteraction(frame);
         gestures.on                     = uber.checkForExplosion(frame);
