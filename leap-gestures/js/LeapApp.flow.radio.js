@@ -18,6 +18,11 @@ var RADIOFLOW = {
                             next_prev:  0,
                             volume:     0
                         },
+    without_help:       {
+                            on_off:     false,
+                            next_prev:  false,
+                            volume:     false
+                        },
 
 
 
@@ -89,13 +94,43 @@ var RADIOFLOW = {
                         && myLeapApp.flow.initial_count.next_prev >= 2
                         && myLeapApp.flow.initial_count.on_off >= 3
                     ) {
+                        // set all flags to true
+                        for (var prop in myLeapApp.flow.without_help) {
+                            // skip loop if the property is from prototype
+                            if(!myLeapApp.flow.without_help.hasOwnProperty(prop)) { continue; }
+                            myLeapApp.flow.without_help[prop] = true;
+                        }
                         // prolong the timer to say hello later
                         setTimeout(function() {
                             myLeapApp.machine.callNextSeg('seg4');
                         }, 8000);
                     }
 
+                    else if (
+                          myLeapApp.flow.initial_count.on_off >= 3
+                       && myLeapApp.flow.initial_count.next_prev >= 2
+                    ) {
+                        // set flags for later segments
+                        myLeapApp.flow.without_help.on_off = true;
+                        myLeapApp.flow.without_help.next_prev = true;
+                        myLeapApp.machine.callNextSeg('seg2');
+                    }
 
+                    else if (myLeapApp.flow.initial_count.on_off >= 3) {
+                        // set flags for later segments
+                        myLeapApp.flow.without_help.on_off = true;
+                        myLeapApp.machine.callNextSeg('seg3');
+                    }
+
+                    else if (myLeapApp.flow.initial_count.next_prev >= 2) {
+                        // set flags for later segments
+                        myLeapApp.flow.without_help.next_prev = true;
+                        myLeapApp.machine.callNextSeg('seg3a');
+                    }
+
+                    else {
+                        myLeapApp.machine.callNextSeg('seg1');
+                    }
                 }, 20000);
             }
 
@@ -117,43 +152,202 @@ var RADIOFLOW = {
     seg1: {
         onEnter: function() {
             var uber = this;
-            this.say('Ich erkenne sehr viele Eingaben.');
+            this.say('Hey Grünschnabel.<br>Alles klar?');
+        },
+        onGestureCheck: function(gesture_data, data) {
+        },
+        onLeave: function() {
+        }
+    },
+    seg2: {
+        onEnter: function() {
+            var uber = this;
+            uber.say('Du scheinst sehr versiert zu sein, mit dem Umgang des Musikplayers.');
             setTimeout(function() {
-                uber.say('Ist alles in Ordnung, oder verstehst Du etwas nicht?');
+                uber.say('Zusätzlich zum Ein- und Ausschalten und dem Wechseln der Lieder gibt es auch eine Geste, um die Lautstärke zu verändern.');
                 setTimeout(function() {
-                    uber.say('Gib mir doch ein Zeichen, ob alles OK ist oder nicht.');
+                    uber.played_fns.on_enter = true;
+                }, 3500);
+            }, 2300);
+        },
+        onGestureCheck: function(gesture_data, data) {
+            this.callNextSeg('seg5');
+        },
+        onLeave: function() {
+        }
+    },
+    seg3: {
+        onEnter: function() {
+            var uber = this;
+            uber.say('Ich habe bemerkt, dass Du den Musikplayer ein- und ausgeschaltet hast.');
+            setTimeout(function() {
+                uber.say('Wusstest Du, dass es noch mehr Gesten gibt, um dieses Gerät zu steuern?');
+                setTimeout(function() {
+                    uber.say('Du kannst die Lieder wechseln und die Lautstärke einstellen.');
+                    setTimeout(function() {
+                        uber.played_fns.on_enter = true;
+                    }, 2400);
+                }, 2600);
+            }, 2600);
+        },
+        onGestureCheck: function(gesture_data, data) {
+            this.callNextSeg('seg5');
+        },
+        onLeave: function() {
+        }
+    },
+    seg3a: {
+        onEnter: function() {
+            var uber = this;
+            uber.say('Lieder wechseln kannst du ja bereits.');
+            setTimeout(function() {
+                uber.say('Zusätzlich kannst du auch ein- und ausschalten <br>sowie die Lautstärke verstellen.');
+                setTimeout(function() {
+                    uber.played_fns.on_enter = true;
+                }, 3100);
+            }, 2300);
+        },
+        onGestureCheck: function(gesture_data, data) {
+            this.callNextSeg('seg5');
+        },
+        onLeave: function() {
+        }
+    },
+    seg4: {
+        onEnter: function() {
+            var uber = this;
+            uber.say('Salut. Ich wollte nur kurz «Hallo» sagen.');
+            setTimeout(function() {
+                uber.say('Grossartig wie du alle Gesten schon kennst!');
+                    uber.played_fns.on_enter = true;
+            }, 2300);        },
+        onGestureCheck: function(gesture_data, data) {
+
+        },
+        onLeave: function() {
+        }
+    },
+    seg5: {
+        onEnter: function() {
+            var uber = this;
+            uber.say('Ich würde Dir nun ein paar Tipps geben. Ist das OK, oder willst du abbrechen und noch selber etwas weiterprobieren?');
+            setTimeout(function() {
+                uber.say('Gib mir doch ein Zeichen');
+                setTimeout(function() {
+                    uber.played_fns.on_enter = true;
+                }, 2100);
+            }, 3400);
+        },
+        onGestureCheck: function(gesture_data, data) {
+            if (this.try(gesture_data, 'ok')) {
+                myLeapApp.machine.callNextSeg('seg6');
+            }
+            else if (this.try(gesture_data, 'thumb_up')) {
+                myLeapApp.machine.callNextSeg('seg7');
+            }
+            else if (this.try(gesture_data, 'cancel')) {
+                myLeapApp.machine.callNextSeg('seg8');
+            }
+            else if (this.try(gesture_data, 'distinct_interaction')) {
+                myLeapApp.flow.distinct_count++;
+                if (myLeapApp.flow.distinct_count > 10) {
+                    myLeapApp.machine.callNextSeg('seg16');
+                }
+            }
+        },
+        onLeave: function() {
+        }
+    },
+    seg6: {
+        onEnter: function() {
+            var uber = this;
+            uber.say('Das OK-Zeichen ist auch mein Favorit.');
+            setTimeout(function() {
+                uber.played_fns.on_enter = true;
+            }, 1900);
+        },
+        onGestureCheck: function(gesture_data, data) {
+            this.callNextSeg('Seg8a)');
+        },
+        onLeave: function() {
+        }
+    },
+    seg7: {
+        onEnter: function() {
+            var uber = this;
+            uber.say('Gut, die «Daumen-Hoch»-Geste scheint bekannt zu sein.');
+            setTimeout(function() {
+                uber.say('Dann zu den Tipps.');
+                setTimeout(function() {
+                    uber.played_fns.on_enter = true;
+                }, 1500);
+            }, 2000);
+        },
+        onGestureCheck: function(gesture_data, data) {
+            this.callNextSeg('Seg8a)');
+        },
+        onLeave: function() {
+        }
+    },
+    seg8: {
+        onEnter: function() {
+            var uber = this;
+            uber.say('Dann lasse ich dich noch ein wenig probieren.');
+            setTimeout(function() {
+                uber.say('Falls du doch Hilfe brauchen solltest, swipe 3 mal nach oben, um mich zu rufen.');
+                    uber.played_fns.on_enter = true;
+            }, 2000);
+        },
+        onGestureCheck: function(gesture_data, data) {
+            //TODO: check for 3 swipes up
+        },
+        onLeave: function() {
+        }
+    },
+
+    // check variables and get correspondig elements
+    seg8a: {
+        onEnter: function() {
+            uber.played_fns.on_enter = true;
+        },
+        onGestureCheck: function(gesture_data, data) {
+            var uber = this;
+            if (myLeapApp.flow.without_help.next_prev === false) {
+                uber.callNextSeg('Seg9');
+            }
+            else if (myLeapApp.flow.without_help.next_prev && myLeapApp.flow.without_help.volume === false) {
+                uber.callNextSeg('Seg12');
+            }
+        },
+        onLeave: function() {
+        }
+    },
+
+
+
+    seg16: {
+        onEnter: function() {
+            var uber = this;
+            this.say('Ich verstehe leider deine Zeichen nicht.');
+            setTimeout(function() {
+                uber.say('Falls alles Ok ist, halt doch deinen Daumen hoch.');
+                setTimeout(function() {
+                    uber.say('Falls nicht, schüttle Deine Hand, als würdest Du etwas ablehnen.');
                     // set flag that onEnter is finished playing
                     uber.played_fns.on_enter = true;
-                }, 2500);
-            }, 2800);
+                }, 4000);
+            }, 3000);
         },
         onGestureCheck: function(gesture_data, data) {
             if (this.try(gesture_data, 'thumb_up')) {
-                myLeapApp.machine.callNextSeg('seg2');
-                myLeapApp.flow.distinct_count = 0;
+                myLeapApp.machine.callNextSeg('seg7');
             }
             else if (this.try(gesture_data, 'ok')) {
-                myLeapApp.machine.callNextSeg('seg2a');
-                myLeapApp.flow.distinct_count = 0;
+                myLeapApp.machine.callNextSeg('seg6');
             }
             else if (this.try(gesture_data, 'cancel')) {
-                myLeapApp.machine.callNextSeg('seg3');
-                myLeapApp.flow.distinct_count = 0;
+                myLeapApp.machine.callNextSeg('seg8');
             }
-            else if (
-                       (this.try(gesture_data, 'distinct_interaction'))
-                    || (this.try(gesture_data, 'swipe'))
-                    || (this.try(gesture_data, 'on'))
-                    || (this.try(gesture_data, 'off'))
-                ) {
-                myLeapApp.flow.distinct_count++;
-                // console.log("%c myLeapApp.flow.distinct_count", "background: #0D0B07; color: #FAFBFF", myLeapApp.flow.distinct_count);
-                if (myLeapApp.flow.distinct_count > 8) {
-                    myLeapApp.machine.callNextSeg('seg6');
-                    myLeapApp.flow.distinct_count = 0;    // reset the count for further distinct interaction checking
-                }
-            }
-
         },
         onLeave: function() {
         }
