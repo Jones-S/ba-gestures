@@ -75,17 +75,17 @@ var RADIOFLOW = {
                 this.radio_on = false;
             }
             else if (this.try(gesture_data, 'rotation')) {
-                // send angle difference to radio to adjust volume
-                myLeapApp.radio.setVolume(gesture_data.rotation);
-                // play sound only at first
-                // or when sound is done
-                if (gesture_data.rotation.grabbing === false) {
+                if (gesture_data.rotation.grabbing) {
+                    // send angle difference to radio to adjust volume
+                    myLeapApp.radio.setVolume(gesture_data.rotation);
+                } else {
                     myLeapApp.sounder.sound_vol.stop();
                 }
+                // play sound only at first
+                // or when sound is done
                 if (gesture_data.rotation.new_rotation) {
                     myLeapApp.sounder.play('vol');
                 }
-
             }
 
         },

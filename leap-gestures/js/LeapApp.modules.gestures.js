@@ -135,7 +135,7 @@
         };
 
         // create object which will be sent to setVolume
-        this.rotation_info = { angle_diff: 0, volume_at_grab: 0.7, new_rotation: false, grabbing: false };
+        this.rotation_info = { rotation_gesture: false, angle_diff: 0, volume_at_grab: 0.7, new_rotation: false, grabbing: false };
 
         this.last_gesture   = ''; // saving the last gesture to prevent explosion gesture after thumb for example
     };
@@ -743,8 +743,6 @@
             return false;
         }
 
-        var rotation_gesture = false;
-
         for (var i = frame.hands.length -1; i >= 0; i--) {
             var hand = frame.hands[i];
 
@@ -826,7 +824,7 @@
                         } else {
                             uber.rotation_info.new_rotation = false;
                         }
-                        rotation_gesture = true;
+                        uber.rotation_info.rotation_gesture = true;
                     }
 
                     // reset frames and timer
@@ -835,21 +833,18 @@
 
                 } else {
                     // console.log("%c NO ROTATION", "background: #070604; color: #DA5C1B");
+                    uber.rotation_info.rotation_gesture = false;
                 }
 
-                if (rotation_gesture) {
-                    // copy grabbing flag to rotation info object
-                    uber.rotation_info.grabbing = uber.flags.grabbing;
-                    return uber.rotation_info;
-                } else {
-                    return false;
-                }
-            } else {
-                return false;
+                // copy flag value to rotation info
+                uber.rotation_info.grabbing = uber.flags.grabbing;
+                // always return rotation info if confidence is high enough
+                return uber.rotation_info;
             }
 
         }
 
+        return false;
     };
 
 
