@@ -9,9 +9,10 @@
         var controller_options = {
             debug:      true,
             flow:       flow,
-            start_seg:  'seg0',
+            start_seg:  'seg3',
             mqtt_uri:   'mqtt://e0b7ded5:04f776d89819bfdb@broker.shiftr.io',
-            client_id:  'jonas laptop'
+            client_id:  'jonas laptop',
+            typewriter: false
         };
 
 
