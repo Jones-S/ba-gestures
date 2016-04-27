@@ -126,8 +126,7 @@
             rotation_grab:      false,
             rot_grab_timer:     false,
             new_hand:           false,
-            test:               true,
-            test2:              true
+            grabbing:           false
         };
         this.counts = {
             dir_change_count:   0,   // counting direction change of cancel gesture
@@ -824,7 +823,7 @@
                             // set new rotation flag to true at the first frame of the gesture go trigger one event
                             uber.rotation_info.new_rotation = true;
                             // and also set flag grabbing to true (as long as true -> play sound)
-                            uber.rotation_info.grabbing = true;
+                            uber.flags.grabbing = true;
                         } else {
                             uber.rotation_info.new_rotation = false;
                         }
@@ -833,13 +832,15 @@
 
                     // reset frames and timer
                     // to bridge unwanted pauses of the gesture
-                    uber.setTimer({ timeout_id: uber.timeouts.timeout_id_rotation_frames, flag: 'rotation_grab', duration: 800, counter: "rotation_frames" });
+                    uber.setTimer({ timeout_id: uber.timeouts.timeout_id_rotation_frames, flag: ['rotation_grab', 'grabbing'], duration: 800, counter: "rotation_frames" });
 
                 } else {
                     // console.log("%c NO ROTATION", "background: #070604; color: #DA5C1B");
                 }
 
                 if (rotation_gesture) {
+                    // copy grabbing flag to rotation info object
+                    uber.rotation_info.grabbing = uber.flags.grabbing;
                     return uber.rotation_info;
                 } else {
                     return false;

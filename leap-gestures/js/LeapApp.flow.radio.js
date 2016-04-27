@@ -87,7 +87,6 @@ var RADIOFLOW = {
             // stop volume sound
             else if (gesture_data.rotation === false) {
                 myLeapApp.sounder.sound_vol.stop();
-                console.log("%c STOP STOP STOP STOP STOP STOP STOP STOP STOP ", "background: #FD0D00; color: #DA5C1B");
             }
         },
         onLeave: function() {
