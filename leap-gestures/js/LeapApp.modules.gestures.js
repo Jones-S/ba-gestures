@@ -66,12 +66,6 @@
          * @return {[type]}      [description]
          */
 
-        // for drawing fingers in drawing mode
-        this.ctx        = undefined; // canvas 2d drawing context
-        this.canvas     = undefined;
-        this.w          = undefined;
-        this.h          = undefined;
-        this.q          = 1;
 
         this.fingerInfo = {
             /* structure */
@@ -161,17 +155,11 @@
 
 
 
-    LEAPAPP.GestureChecker.prototype.startTracking = function(draw, callback) {
+    LEAPAPP.GestureChecker.prototype.startTracking = function(callback) {
 
         // save reference to GestureChecker (this)
         // for nested functions which don't have acces to this
         var uber = this;
-
-        // if canvas draw is necessary
-        if (draw) {
-            uber.w = 1024;
-            uber.h = 768;
-        }
 
         // if callback (param) is a function set uber.callback to it, otherwise make an empty function
         uber.callback = typeof callback === 'function' ? callback : function(){};
@@ -182,27 +170,7 @@
         uber.controller.connect();
         // assigns the info of the current frame to the var 'frame'.
         // frame(1) would call the second last frame info and so on
-        uber.controller.on('frame', _.throttle(function(frame){
-
-            if (draw){
-                // add a canvas to the DOM-tree
-                var canvas_string = '<canvas id="drawing" width="' + uber.w + '" height="' + uber.h + '"></canvas>';
-                $('body').append(canvas_string);
-
-                // get 2d drawing context for our canvas if
-                // it hasn't been set up yet
-                if (!uber.ctx) {
-                    uber.canvas = document.getElementById("drawing");
-                    uber.ctx = uber.canvas.getContext('2d');
-                }
-
-                // if fingers detected draw them on canvas
-                if (frame.pointables.length) {
-                    // blank out canvas
-                    uber.ctx.clearRect(0, 0, uber.w, uber.h);
-                    uber.drawFingerTips(frame.pointables);
-                }
-            }
+        uber.controller.on('frame', function(frame) {
 
             // do some calculations a lot of gestures will need
             uber.fingerInfo = getFingerInfo(frame);
@@ -223,7 +191,7 @@
             }
 
 
-        }, 33));
+        });
     };
 
     LEAPAPP.GestureChecker.prototype.checkForAnyInteraction = function(frame) {
@@ -986,38 +954,6 @@
         }, duration);
     };
 
-    LEAPAPP.GestureChecker.prototype.drawFingerTips = function(pointables) {
-        var uber = this;
-
-        for (var i = pointables.length - 1; i >= 0; i--) {
-            var pointable = pointables[i];
-
-
-            // do we know where the tip of the finger or tool is
-            // located?
-            var tip = pointable.tipPosition;
-            if (!tip) return;
-            // get x/y/z coordinates of pointable tips
-            // and convert to coordinates that roughly
-            // live inside of the canvas dimensions.
-            var x = tip[0]*2 + uber.w/2;
-            var y = -tip[1] + uber.h/2;
-            // use depth to control the radius of the circle
-            // being drawn
-            var radius = (-tip[2] + 100) / 6;  // random numbers lol
-            if (radius < 10) radius = 10;      // not too small!
-            // begin drawing circle
-            uber.ctx.beginPath();
-            // centered at (x,y) with radius scaled by depth, in a full arc
-            uber.ctx.arc(x, y, radius, 0 , 2 * Math.PI, false);
-            uber.ctx.lineWidth = 5;
-            // color based on which hand it is
-            var g = i % 2 ? 200 : 0;
-            uber.ctx.strokeStyle = "rgb(120," + g + ",35)";
-            // draw circle
-            uber.ctx.stroke();
-        }
-    };
 
     LEAPAPP.GestureChecker.prototype.extractGestures = function(frame) {
         var gestures = {};
