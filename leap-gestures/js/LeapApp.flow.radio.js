@@ -143,17 +143,18 @@ var RADIOFLOW = {
             }
 
             if (this.try(gesture_data, 'rotation')) {
-                // TODO: now counting all frames with rotation
-                myLeapApp.flow.initial_count.volume++;
-                console.log("Dr. volume: ", myLeapApp.flow.initial_count.volume);
+                console.log("gesture_data.rotation: ", gesture_data.rotation);
+                if (gesture_data.rotation.new_rotation) {
+                    console.log("%c NEW ROTATION", "background: #17FD00; color: #B8DAC2");
+                    console.log("myLeapApp.flow.initial_count.volume: ", myLeapApp.flow.initial_count.volume);
+                    myLeapApp.flow.initial_count.volume++;
+                }
             }
             else if (this.try(gesture_data, 'on') || this.try(gesture_data, 'off')) {
                 myLeapApp.flow.initial_count.on_off++;
-                console.log("Dr.  off: ", myLeapApp.flow.initial_count.on_off);
             }
             else if (this.try(gesture_data, 'swipe') && (gesture_data.swipe == 'right' || gesture_data.swipe == 'left')) {
                 myLeapApp.flow.initial_count.next_prev++;
-                console.log("Dr. next prev: ", myLeapApp.flow.initial_count.next_prev);
             }
 
         },
