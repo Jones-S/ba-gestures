@@ -78,7 +78,8 @@ gulp.task('concatthirdparty', function() {
                 'node_modules/lodash/lodash.js',
                 'node_modules/three/three.js',
                 'node_modules/typed.js/dist/typed.min.js',
-                'node_modules/howler/howler.js',
+                // 'node_modules/howler/howler.js',
+                'node_modules/howler-2/howler.min.js',
                 'shiftr/js/mqtt-latest.js'
                 // ,'further 3rd comapany js files.js'
             ])

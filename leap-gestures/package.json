@@ -10,6 +10,8 @@
   "license": "ISC",
   "dependencies": {
     "howler": "^1.1.29",
+    // not sure about the git url dependency
+    "howler-2": "https://github.com/goldfire/howler.js/tree/2.0",
     "leapjs": "^0.6.4",
     "lodash": "^4.8.2",
     "mqtt": "^1.8.0",

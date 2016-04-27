@@ -52,7 +52,7 @@
         // build up howler_bank:
         this.files.forEach(function(current, i) {
             uber.howler_bank.push(new Howl({
-                urls: [uber.files[i]],
+                src: [uber.files[i]],
                 // execute onEnd when finished and bind this(=uber) context
                 // otherwise the this in the function onEnd will refer to the Howl context
                 onend: uber.onEnd.bind(uber),
@@ -136,6 +136,7 @@
         var uber = this;
         // only adjust volume if track is playing
         var song = uber.howler_bank[uber.current_track];
+        console.log("song: ", song);
         // check if song is paused
         if (!song._audioNode[0].paused){
             var angle = rotation_info.angle_diff;
