@@ -87,6 +87,7 @@ var RADIOFLOW = {
             // stop volume sound
             else if (gesture_data.rotation === false) {
                 myLeapApp.sounder.sound_vol.stop();
+                console.log("%c STOP STOP STOP STOP STOP STOP STOP STOP STOP ", "background: #FD0D00; color: #DA5C1B");
             }
         },
         onLeave: function() {
@@ -151,10 +152,8 @@ var RADIOFLOW = {
             }
 
             if (this.try(gesture_data, 'rotation')) {
-                console.log("gesture_data.rotation: ", gesture_data.rotation);
                 if (gesture_data.rotation.new_rotation) {
                     console.log("%c NEW ROTATION", "background: #17FD00; color: #B8DAC2");
-                    console.log("myLeapApp.flow.initial_count.volume: ", myLeapApp.flow.initial_count.volume);
                     myLeapApp.flow.initial_count.volume++;
                 }
             }

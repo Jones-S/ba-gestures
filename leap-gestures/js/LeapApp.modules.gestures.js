@@ -134,7 +134,7 @@
         };
 
         // create object which will be sent to setVolume
-        this.rotation_info = { angle_diff: 0, volume_at_grab: 0.7, new_rotation: false };
+        this.rotation_info = { angle_diff: 0, volume_at_grab: 0.7, new_rotation: false, grabbing: false };
 
         this.last_gesture   = ''; // saving the last gesture to prevent explosion gesture after thumb for example
 
@@ -805,6 +805,8 @@
                         if (uber.counts.rotation_frames == min_duration + 1) {
                             // set new rotation flag to true at the first frame of the gesture go trigger one event
                             uber.rotation_info.new_rotation = true;
+                            // and also set flag grabbing to true (as long as true -> play sound)
+                            uber.rotation_info.grabbing = true;
                         } else {
                             uber.rotation_info.new_rotation = false;
                         }
