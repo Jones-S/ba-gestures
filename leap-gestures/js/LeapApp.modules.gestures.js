@@ -125,7 +125,9 @@
             thumb_up_gesture:   false,
             rotation_grab:      false,
             rot_grab_timer:     false,
-            new_hand:           false
+            new_hand:           false,
+            test:               true,
+            test2:              true
         };
         this.counts = {
             dir_change_count:   0,   // counting direction change of cancel gesture
@@ -137,12 +139,28 @@
         this.rotation_info = { angle_diff: 0, volume_at_grab: 0.7, new_rotation: false, grabbing: false };
 
         this.last_gesture   = ''; // saving the last gesture to prevent explosion gesture after thumb for example
-
-        // gesture flags
-        $('body').on( "click", function() {
-            console.log("%c -------------------- START ANALYSIS FROM HERE ----------------- ", "background: #FDD187; color: #DA5C1B");
-        });
     };
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     LEAPAPP.GestureChecker.prototype.startTracking = function(draw, callback) {
 
@@ -936,11 +954,12 @@
     LEAPAPP.GestureChecker.prototype.setTimer = function(options) {
         var uber = this;
         // populate necessary arguments
-        var timer_id    = options.timeout_id;
-        var flag        = options.flag;
-        var duration    = options.duration;
-        var counter     = options.counter;
-        var var_reset   = options.var;
+        var timer_id        = options.timeout_id;
+        var duration        = options.duration;
+        var counter         = options.counter;
+        var var_reset       = options.var;
+        var flag            = options.flag;
+
 
         // set timeout to reset the flag
         if (uber.timeouts[timer_id]) {
@@ -948,7 +967,16 @@
         }
         uber.timeouts[timer_id] = setTimeout(function() {
             if (flag) {
-                uber.flags[flag]        = false; // reset flag
+                // check if multiple flags need to be reset (if flag is an array)
+                if( Object.prototype.toString.call( options.flag ) === '[object Array]' ) {
+                    // and set all the flags to false
+                    options.flag.forEach(function(current, i) {
+                        uber.flags[flag[i]] = false;
+                    });
+
+                } else {
+                    uber.flags[flag] = false; // reset flag
+                }
             }
             if (counter) {
                 if(counter == 'rotation_frames') {
