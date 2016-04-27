@@ -152,7 +152,6 @@ var RADIOFLOW = {
 
             if (this.try(gesture_data, 'rotation')) {
                 if (gesture_data.rotation.new_rotation) {
-                    console.log("%c NEW ROTATION", "background: #17FD00; color: #B8DAC2");
                     myLeapApp.flow.initial_count.volume++;
                 }
             }
@@ -161,6 +160,7 @@ var RADIOFLOW = {
             }
             else if (this.try(gesture_data, 'swipe') && (gesture_data.swipe == 'right' || gesture_data.swipe == 'left')) {
                 myLeapApp.flow.initial_count.next_prev++;
+                console.log("myLeapApp.flow.initial_count.next_prev: ", myLeapApp.flow.initial_count.next_prev);
             }
 
         },
@@ -248,9 +248,9 @@ var RADIOFLOW = {
     seg5: {
         onEnter: function() {
             var uber = this;
-            uber.say('Ich würde Dir nun ein paar Tipps geben. Ist das OK, oder willst du abbrechen und noch selber etwas weiterprobieren?');
+            uber.say('Ich würde Dir nun ein paar Tipps geben.');
             setTimeout(function() {
-                uber.say('Gib mir doch ein Zeichen');
+                uber.say('Ist das OK, oder willst du abbrechen und noch selber etwas weiterprobieren? Gib mir doch ein Zeichen');
                 setTimeout(function() {
                     uber.played_fns.on_enter = true;
                 }, 2100);
@@ -302,7 +302,7 @@ var RADIOFLOW = {
             }, 2000);
         },
         onGestureCheck: function(gesture_data, data) {
-            myLeapApp.machine.callNextSeg('seg8a)');
+            myLeapApp.machine.callNextSeg('seg8a');
         },
         onLeave: function() {
         }
