@@ -326,7 +326,7 @@ var RADIOFLOW = {
     // check variables and get correspondig elements
     seg8a: {
         onEnter: function() {
-            uber.played_fns.on_enter = true;
+            this.played_fns.on_enter = true;
         },
         onGestureCheck: function(gesture_data, data) {
             var uber = this;

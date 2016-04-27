@@ -77,9 +77,7 @@
         if (!song.playing()){
             // set the volume before playing
             song.volume(uber.current_volume);
-            song.play(function(sound_id){
-                uber.current_playback_id = sound_id; // save intance id
-            });
+            song.play();
         }
 
     };
@@ -93,7 +91,7 @@
 
     LEAPAPP.Radio.prototype.nextTrack = function() {
         var uber = this;
-        uber.howler_bank[uber.current_track].stop(uber.current_playback_id);
+        uber.howler_bank[uber.current_track].stop();
         uber.current_track = (uber.current_track + 1 !== uber.howler_bank.length) ? uber.current_track + 1 : 0;
         uber.play();
 
@@ -102,7 +100,7 @@
 
     LEAPAPP.Radio.prototype.previousTrack = function() {
         var uber = this;
-        uber.howler_bank[uber.current_track].stop(uber.current_playback_id);
+        uber.howler_bank[uber.current_track].stop();
         uber.current_track = (uber.current_track - 1 >= 0  ) ? uber.current_track - 1 : uber.howler_bank.length - 1;
         uber.play();
     };
@@ -113,7 +111,7 @@
         if (uber.current_volume < 1.0) {
             uber.current_volume += 0.05;
         }
-        uber.howler_bank[uber.current_track].volume(uber.current_volume, uber.current_playback_id);
+        uber.howler_bank[uber.current_track].volume(uber.current_volume);
     };
 
     LEAPAPP.Radio.prototype.volumeDown = function() {
@@ -121,7 +119,7 @@
         if (uber.current_volume > 0.1) {
             uber.current_volume -= 0.05;
         }
-        uber.howler_bank[uber.current_track].volume(uber.current_volume, uber.current_playback_id);
+        uber.howler_bank[uber.current_track].volume(uber.current_volume);
     };
 
     LEAPAPP.Radio.prototype.setVolume = function(rotation_info) {
@@ -148,7 +146,7 @@
 
         // assign volume back to radio
         uber.current_volume = mapped_volume;
-        uber.howler_bank[uber.current_track].volume(uber.current_volume, uber.current_playback_id);
+        uber.howler_bank[uber.current_track].volume(uber.current_volume);
 
     };
 
