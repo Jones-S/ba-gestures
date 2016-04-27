@@ -771,15 +771,7 @@
                         uber.rot_frame = uber.controller.frame();
                         // save current volume from radio
                         uber.rotation_info.volume_at_grab = myLeapApp.radio.current_volume;
-                        // set new rotation flag to true at the first frame of the gesture go trigger one event
-                        uber.rotation_info.new_rotation = true;
-                        console.log("KKKKKKKKKKKKKKKKKKKKKKKkKKKKKKKKKKKKKKKK");
-                    } else {
-                        // if gesture exists more than one frame
-                        // => rotation_grab is true, then set the info new_rotation flag to false to prevent triggering again
-                        // this is needed for counting the volume adjust gestures
-                        console.log("55555555551111111122222----------------------------");
-                        uber.rotation_info.new_rotation = false;
+
                     }
                     // set rotation flag to true
                     uber.flags.rotation_grab = true;
@@ -807,6 +799,13 @@
 
                         if (myLeapApp.debug) {
                             console.log("%c - - - - - - - GESTURE:                                    Rotation Grab", 'background: #EC84B6; color: #555856', uber.rotation_info.angle_diff);
+                        }
+                        // check for the first frame when the gesture is triggered
+                        if (uber.counts.rotation_frames == min_duration + 1) {
+                            // set new rotation flag to true at the first frame of the gesture go trigger one event
+                            uber.rotation_info.new_rotation = true;
+                        } else {
+                            uber.rotation_info.new_rotation = false;
                         }
                         rotation_gesture = true;
                     }
