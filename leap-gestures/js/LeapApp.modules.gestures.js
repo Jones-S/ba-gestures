@@ -134,7 +134,7 @@
         };
 
         // create object which will be sent to setVolume
-        this.rotation_info = { angle_diff: 0, volume_at_grab: 0.7 };
+        this.rotation_info = { angle_diff: 0, volume_at_grab: 0.7, new_rotation: false };
 
         this.last_gesture   = ''; // saving the last gesture to prevent explosion gesture after thumb for example
 
@@ -771,6 +771,15 @@
                         uber.rot_frame = uber.controller.frame();
                         // save current volume from radio
                         uber.rotation_info.volume_at_grab = myLeapApp.radio.current_volume;
+                        // set new rotation flag to true at the first frame of the gesture go trigger one event
+                        uber.rotation_info.new_rotation = true;
+                        console.log("KKKKKKKKKKKKKKKKKKKKKKKkKKKKKKKKKKKKKKKK");
+                    } else {
+                        // if gesture exists more than one frame
+                        // => rotation_grab is true, then set the info new_rotation flag to false to prevent triggering again
+                        // this is needed for counting the volume adjust gestures
+                        console.log("55555555551111111122222----------------------------");
+                        uber.rotation_info.new_rotation = false;
                     }
                     // set rotation flag to true
                     uber.flags.rotation_grab = true;
@@ -804,7 +813,7 @@
 
                     // reset frames and timer
                     // to bridge unwanted pauses of the gesture
-                    uber.setTimer({ timeout_id: uber.timeouts.timeout_id_rotation_frames, flag: 'rotation_grab', duration: 1200, counter: "rotation_frames" });
+                    uber.setTimer({ timeout_id: uber.timeouts.timeout_id_rotation_frames, flag: 'rotation_grab', duration: 800, counter: "rotation_frames" });
 
                 } else {
                     // console.log("%c NO ROTATION", "background: #070604; color: #DA5C1B");
