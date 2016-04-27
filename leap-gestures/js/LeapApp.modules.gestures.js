@@ -175,7 +175,7 @@
             // do some calculations a lot of gestures will need
             uber.fingerInfo = getFingerInfo(frame);
             // print infos to screen
-            uber.printInfo(frame);
+            // uber.printInfo(frame);
 
             /**
              * callback function:
@@ -738,7 +738,6 @@
                 var distance_r_p = Leap.vec3.distance(ring_pos, pinky_pos);
                 var distance_p_t = Leap.vec3.distance(pinky_pos, thumb_pos);
 
-                $('#leap-info-5').html('dists: <br>' + ' <br>a: ' + Math.twoDecimals(distance_t_i)  + ', ' + ' <br>b: '+ Math.twoDecimals(distance_i_m)  + ', ' + ' <br>c: '+ Math.twoDecimals(distance_m_r)  + ', ' + ' <br>d: '+ Math.twoDecimals(distance_r_p) + ', ' + ' <br>e: '+ Math.twoDecimals(distance_p_t)  ); // if two hands just overwrite first
 
                 if (
                       (distance_t_i > 30 && distance_t_i < 80)
@@ -778,7 +777,6 @@
                         // tot_diff = Math.degrees(tot_diff);
                         uber.rotation_info.angle_diff = Math.degrees(uber.rotation_info.angle_diff);
                         uber.rotation_info.angle_diff = Math.twoDecimals(uber.rotation_info.angle_diff);
-                        $('#leap-info-6').html('diff' + uber.rotation_info.angle_diff);
 
                         if (myLeapApp.debug) {
                             console.log("%c - - - - - - - GESTURE:                                    Rotation Grab", 'background: #EC84B6; color: #555856');
