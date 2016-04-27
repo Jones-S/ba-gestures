@@ -41,7 +41,7 @@
          * @param  {object} data: will pass the leap frame object
          * @return {[type]}       [description]
          */
-        uber.tracker.startTracking(LEAPAPP.draw, function callbackFunction(gesture_data, data) {
+        uber.tracker.startTracking(function callbackFunction(gesture_data, data) {
             uber.intermediary.publish("gesture", gesture_data, data);
         });
     };
