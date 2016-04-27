@@ -815,9 +815,8 @@
                         $('#leap-info-6').html('diff' + uber.rotation_info.angle_diff);
 
                         if (myLeapApp.debug) {
-                            console.log("%c - - - - - - - GESTURE:                                    Rotation Grab", 'background: #EC84B6; color: #555856', uber.rotation_info.angle_diff);
+                            console.log("%c - - - - - - - GESTURE:                                    Rotation Grab", 'background: #EC84B6; color: #555856');
                         }
-                        console.log("myLeapApp.sounder.sound_vol: ", myLeapApp.sounder.sound_vol);
                         // check for the first frame when the gesture is triggered
                         if (uber.counts.rotation_frames == min_duration + 1) {
                             // set new rotation flag to true at the first frame of the gesture go trigger one event

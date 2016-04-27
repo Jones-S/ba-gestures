@@ -79,15 +79,15 @@ var RADIOFLOW = {
                 myLeapApp.radio.setVolume(gesture_data.rotation);
                 // play sound only at first
                 // or when sound is done
+                if (gesture_data.rotation.grabbing === false) {
+                    myLeapApp.sounder.sound_vol.stop();
+                }
                 if (gesture_data.rotation.new_rotation) {
                     myLeapApp.sounder.play('vol');
                 }
 
             }
-            // stop volume sound
-            else if (gesture_data.rotation === false) {
-                myLeapApp.sounder.sound_vol.stop();
-            }
+
         },
         onLeave: function() {
         }
