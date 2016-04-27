@@ -182,7 +182,7 @@
         uber.controller.connect();
         // assigns the info of the current frame to the var 'frame'.
         // frame(1) would call the second last frame info and so on
-        uber.controller.on('frame', function(frame){
+        uber.controller.on('frame', _.throttle(function(frame){
 
             if (draw){
                 // add a canvas to the DOM-tree
@@ -223,7 +223,7 @@
             }
 
 
-        });
+        }, 33));
     };
 
     LEAPAPP.GestureChecker.prototype.checkForAnyInteraction = function(frame) {
@@ -832,7 +832,6 @@
                     uber.setTimer({ timeout_id: uber.timeouts.timeout_id_rotation_frames, flag: ['rotation_grab', 'grabbing'], duration: 800, counter: "rotation_frames" });
 
                 } else {
-                    // console.log("%c NO ROTATION", "background: #070604; color: #DA5C1B");
                     uber.rotation_info.rotation_gesture = false;
                 }
 
