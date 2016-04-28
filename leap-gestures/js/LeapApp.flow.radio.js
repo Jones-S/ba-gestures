@@ -155,10 +155,12 @@ var RADIOFLOW = {
                     myLeapApp.flow.initial_count.volume++;
                 }
             }
-            else if (this.try(gesture_data, 'on') || this.try(gesture_data, 'off')) {
+
+            if (this.try(gesture_data, 'on') || this.try(gesture_data, 'off')) {
                 myLeapApp.flow.initial_count.on_off++;
             }
-            else if (this.try(gesture_data, 'swipe') && (gesture_data.swipe == 'right' || gesture_data.swipe == 'left')) {
+
+            if (this.try(gesture_data, 'swipe') && (gesture_data.swipe == 'right' || gesture_data.swipe == 'left')) {
                 myLeapApp.flow.initial_count.next_prev++;
                 console.log("myLeapApp.flow.initial_count.next_prev: ", myLeapApp.flow.initial_count.next_prev);
             }
@@ -171,8 +173,13 @@ var RADIOFLOW = {
         onEnter: function() {
             var uber = this;
             this.say('Hey Grünschnabel.<br>Alles klar?');
+            // prolong the timer to say hello later
+            setTimeout(function() {
+                uber.played_fns.on_enter = true;
+            }, 2500);
         },
         onGestureCheck: function(gesture_data, data) {
+            myLeapApp.machine.callNextSeg('seg0');
         },
         onLeave: function() {
         }
@@ -331,10 +338,10 @@ var RADIOFLOW = {
         onGestureCheck: function(gesture_data, data) {
             var uber = this;
             if (myLeapApp.flow.without_help.next_prev === false) {
-                uber.callNextSeg('seg9');
+                myLeapApp.machine.callNextSeg('seg9');
             }
             else if (myLeapApp.flow.without_help.next_prev && myLeapApp.flow.without_help.volume === false) {
-                uber.callNextSeg('seg12');
+                myLeapApp.machine.callNextSeg('seg12');
             }
         },
         onLeave: function() {
@@ -354,7 +361,7 @@ var RADIOFLOW = {
             else if (!uber.timer_started) {
                 uber.timer_started = true;
                 setTimeout(function() {
-                    uber.callNextSeg('seg11');
+                    myLeapApp.machine.callNextSeg('seg11');
                 }, 10000);
             }
         },
@@ -391,6 +398,7 @@ var RADIOFLOW = {
     },
     seg12: {
         onEnter: function() {
+            var uber = this;
             this.say('Um die Lautstärke zu ändern, denke doch mal an einen klassischen Drehknopf.');
             setTimeout(function() {
                 uber.played_fns.on_enter = true;
@@ -411,14 +419,24 @@ var RADIOFLOW = {
         },
         onGestureCheck: function(gesture_data, data) {
             var uber = this;
-            if (this.try(gesture_data, 'rotation')) {
+            if (this.try(gesture_data, 'rotation') && (gesture_data.rotation.grabbing)) {
+                console.log("%c go to 14", "background: #0D0B07; color: #FAFBFF");
                 myLeapApp.machine.callNextSeg('seg14');
+                // clear timer
+                console.log("timer vor clear: ", uber.timer);
+                clearTimeout(uber.timer);
             }
             else if (!uber.timer_started) {
+                console.log("%c Timer set", "background: #0D0B07; color: #FAFBFF");
+
                 uber.timer_started = true;
-                setTimeout(function() {
-                    uber.callNextSeg('seg15');
-                }, 10000);
+                // set a new variable for the timer uber.timer holds the timeout Id
+                uber.timer = setTimeout(function() {
+                    console.log("%c timerli ended", "background: #0D0B07; color: #FAFBFF");
+
+                    myLeapApp.machine.callNextSeg('seg15');
+                }, 13000);
+                console.log("timer just set: ", uber.timer);
             }
 
         },

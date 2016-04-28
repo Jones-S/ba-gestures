@@ -1,14 +1,14 @@
 (function() {
 
-    // private functions go here
-    function set_msg_clr() {
-        var uber = this;
-        // TODO: check if this is the correct context
-        if(('#messages').length) { // if message container exists
-            // set a new hsl value for the textcolor
-            $('#messages').css('color', 'hsl(0, 0%, ' + uber.hsl_brightness + '%)');
-        }
-    }
+    // // private functions go here
+    // function set_msg_clr() {
+    //     var uber = this;
+    //     // TODO: check if this is the correct context
+    //     if(('#messages').length) { // if message container exists
+    //         // set a new hsl value for the textcolor
+    //         $('#messages').css('color', 'hsl(0, 0%, ' + uber.hsl_brightness + '%)');
+    //     }
+    // }
 
     /**
      * Typewriter makes the necessary
@@ -38,7 +38,7 @@
             }
             $el = $('<div id="messages" class="messages"></div>');
             $('body').append($el);
-            set_msg_clr(); // set color of messages
+            // set_msg_clr(); // set color of messages
             $el.typed({
                 strings: [msg],
                 typeSpeed: 0,
