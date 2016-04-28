@@ -492,6 +492,7 @@ var RADIOFLOW = {
     seg15: {
         onEnter: function() {
             var uber = this;
+            uber.rotation_count = 0;
             uber.say('Umfasse mit allen Fingern einen unsichtbaren Drehknopf der Grösse eines Fünf-Franken-Stückes.');
             setTimeout(function() {
                 uber.say('Bei der richtigen Geste hörst du ein Klicken.');
@@ -505,11 +506,11 @@ var RADIOFLOW = {
         },
         onGestureCheck: function(gesture_data, data) {
             var uber = this;
-            uber.rotation_count = 0;
 
             if (this.try(gesture_data, 'rotation') && (gesture_data.rotation.grabbing)) {
                 // count the frames for the rotation duration
                 uber.rotation_count++;
+                console.log("uber.rotation_count: ", uber.rotation_count);
                 // TODO: rather check for minimal volume change
                 if (uber.rotation_count >= 100) { // 100 frames, ~1.5s
                     // check if song is playing, then go to 14
