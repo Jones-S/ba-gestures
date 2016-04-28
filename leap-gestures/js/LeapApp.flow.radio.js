@@ -98,6 +98,7 @@ var RADIOFLOW = {
         onEnter: function() {
             this.played_fns.on_enter = true;
             this.timer_started = false;
+            this.new_rotation = false;
         },
         onGestureCheck: function(gesture_data, data) {
             var uber = this;
@@ -152,7 +153,19 @@ var RADIOFLOW = {
             }
 
             if (this.try(gesture_data, 'rotation')) {
+                // check if new rotation
                 if (gesture_data.rotation.new_rotation) {
+                    // set flag for the time the rotation is on
+                    uber.new_rotation = true;
+                }
+                // check if the gesture is made for sufficient time
+                if (uber.new_rotation && gesture_data.rotation.duration > 30) {
+                    myLeapApp.flow.initial_count.volume++;
+                    // reset flag
+                    uber.new_rotation = false;
+                }
+                // also increase count if the gesture is made for a long time
+                if (gesture_data.rotation.duration == 200) {
                     myLeapApp.flow.initial_count.volume++;
                 }
             }

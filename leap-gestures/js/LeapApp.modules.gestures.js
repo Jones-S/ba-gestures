@@ -129,7 +129,14 @@
         };
 
         // create object which will be sent to setVolume
-        this.rotation_info = { rotation_gesture: false, angle_diff: 0, volume_at_grab: 0.7, new_rotation: false, grabbing: false };
+        this.rotation_info = {
+            rotation_gesture: false,
+            angle_diff: 0,
+            volume_at_grab: 0.7,
+            new_rotation: false,
+            grabbing: false,
+            duration: 0
+        };
 
         this.last_gesture   = ''; // saving the last gesture to prevent explosion gesture after thumb for example
     };
@@ -791,6 +798,7 @@
                             uber.rotation_info.new_rotation = false;
                         }
                         uber.rotation_info.rotation_gesture = true;
+                        uber.rotation_info.duration = uber.counts.rotation_frames;
                     }
 
                     // reset frames and timer
