@@ -356,11 +356,13 @@ var RADIOFLOW = {
         onGestureCheck: function(gesture_data, data) {
             var uber = this;
             if (this.try(gesture_data, 'swipe' && (gesture_data.swipe == 'right' || gesture_data.swipe == "left"))) {
+                // clear timeout
+                clearTimeout(uber.timer);
                 myLeapApp.machine.callNextSeg('seg10');
             }
             else if (!uber.timer_started) {
                 uber.timer_started = true;
-                setTimeout(function() {
+                uber.timer = setTimeout(function() {
                     myLeapApp.machine.callNextSeg('seg11');
                 }, 10000);
             }
@@ -416,27 +418,28 @@ var RADIOFLOW = {
             uber.say('Am besten hörst du es, wenn ein Lied abgespielt wird.');
             uber.played_fns.on_enter = true;
             uber.timer_started = false;
+            uber.rotation_count = 0;
         },
         onGestureCheck: function(gesture_data, data) {
             var uber = this;
             if (this.try(gesture_data, 'rotation') && (gesture_data.rotation.grabbing)) {
-                console.log("%c go to 14", "background: #0D0B07; color: #FAFBFF");
-                myLeapApp.machine.callNextSeg('seg14');
-                // clear timer
-                console.log("timer vor clear: ", uber.timer);
-                clearTimeout(uber.timer);
+                // count the frames for the rotation duration
+                uber.rotation_count++;
+                // TODO: rather check for minimal volume change
+                if (uber.rotation_count >= 100) { // 100 frames, ~1.5s
+                    myLeapApp.machine.callNextSeg('seg14');
+                    // clear timer
+                    clearTimeout(uber.timer);
+                }
             }
             else if (!uber.timer_started) {
-                console.log("%c Timer set", "background: #0D0B07; color: #FAFBFF");
 
                 uber.timer_started = true;
                 // set a new variable for the timer uber.timer holds the timeout Id
                 uber.timer = setTimeout(function() {
-                    console.log("%c timerli ended", "background: #0D0B07; color: #FAFBFF");
 
                     myLeapApp.machine.callNextSeg('seg15');
                 }, 13000);
-                console.log("timer just set: ", uber.timer);
             }
 
         },
