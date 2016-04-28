@@ -89,6 +89,17 @@
 
     };
 
+    LEAPAPP.Radio.prototype.isPlaying = function() {
+        var uber = this;
+        var song = uber.howler_bank[uber.current_track];
+        if (song.playing()){
+            return true;
+        } else {
+            return false;
+        }
+
+    };
+
     LEAPAPP.Radio.prototype.nextTrack = function() {
         var uber = this;
         uber.howler_bank[uber.current_track].stop();
