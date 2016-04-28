@@ -16,6 +16,9 @@
      * the output text to the screen with typed.js
      * Dependency: typed.js, jQuery
      */
+
+    // TODO: use http://gabrielflorit.github.io/typewriter-js/
+    // as an alternative maybe with better painting performance
     LEAPAPP.Typewriter = function() {
         // constructor
         this.name = "typewriter";
