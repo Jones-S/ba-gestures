@@ -86,6 +86,8 @@ var RADIOFLOW = {
                 if (gesture_data.rotation.new_rotation) {
                     myLeapApp.sounder.play('vol');
                 }
+            } else if (!this.try(gesture_data, 'interaction')) { // if no interaction stop sounder (hand left!)
+                myLeapApp.sounder.sound_vol.stop(); // shut down sound for sure, also when hand leaves interaction box
             }
 
         },
