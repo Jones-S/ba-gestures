@@ -49,6 +49,16 @@
             console.log("Radio vol-down");
         });
 
+        $('button#led-up').on( "click", function() {
+            client.publish('/lamp', 'brighter');
+            console.log("lamp led-up");
+        });
+
+        $('button#led-down').on( "click", function() {
+            client.publish('/lamp', 'lessbright');
+            console.log("lamp led-down");
+        });
+
 
 
     });
