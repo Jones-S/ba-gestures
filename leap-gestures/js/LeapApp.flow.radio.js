@@ -186,7 +186,7 @@ var RADIOFLOW = {
     seg1: {
         onEnter: function() {
             var uber = this;
-            this.say('Hey Grünschnabel.<br>Alles klar?');
+            this.say('Hey Grünschnabel.<br>Probier doch noch ein wenig aus!');
             // prolong the timer to say hello later
             setTimeout(function() {
                 uber.played_fns.on_enter = true;
@@ -201,13 +201,10 @@ var RADIOFLOW = {
     seg2: {
         onEnter: function() {
             var uber = this;
-            uber.say('Du scheinst sehr versiert zu sein, mit dem Umgang des Musikplayers.');
+            uber.say('Du scheinst sehr versiert zu sein, mit dem Umgang des Musikplayers.<br>Zusätzlich zum Ein- und Ausschalten und dem Wechseln der Lieder gibt es auch eine Geste, um die Lautstärke zu verändern.');
             setTimeout(function() {
-                uber.say('Zusätzlich zum Ein- und Ausschalten und dem Wechseln der Lieder gibt es auch eine Geste, um die Lautstärke zu verändern.');
-                setTimeout(function() {
-                    uber.played_fns.on_enter = true;
-                }, 5500);
-            }, 3300);
+                uber.played_fns.on_enter = true;
+            }, 12000);
         },
         onGestureCheck: function(gesture_data, data) {
             myLeapApp.machine.callNextSeg('seg5');
@@ -218,16 +215,10 @@ var RADIOFLOW = {
     seg3: {
         onEnter: function() {
             var uber = this;
-            uber.say('Ich habe bemerkt, dass Du den Musikplayer ein- und ausgeschaltet hast.');
+            uber.say('Ich habe bemerkt, dass Du den Musikplayer ein- und ausgeschaltet hast.<br> Es gibt jedoch noch mehr Gesten, um diesen Musikplayer zu steuern. <br>Du kannst die Lieder wechseln und die Lautstärke einstellen.');
             setTimeout(function() {
-                uber.say('Wusstest Du, dass es noch mehr Gesten gibt, um dieses Gerät zu steuern?');
-                setTimeout(function() {
-                    uber.say('Du kannst die Lieder wechseln und die Lautstärke einstellen.');
-                    setTimeout(function() {
-                        uber.played_fns.on_enter = true;
-                    }, 2400);
-                }, 4200);
-            }, 4700);
+                uber.played_fns.on_enter = true;
+            }, 14000);
         },
         onGestureCheck: function(gesture_data, data) {
             myLeapApp.machine.callNextSeg('seg5');
@@ -238,13 +229,10 @@ var RADIOFLOW = {
     seg3a: {
         onEnter: function() {
             var uber = this;
-            uber.say('Lieder wechseln kannst du ja bereits.');
+            uber.say('Lieder wechseln kannst du ja bereits.<br>Zusätzlich kannst du auch ein- und ausschalten <br>sowie die Lautstärke verstellen.');
             setTimeout(function() {
-                uber.say('Zusätzlich kannst du auch ein- und ausschalten <br>sowie die Lautstärke verstellen.');
-                setTimeout(function() {
-                    uber.played_fns.on_enter = true;
-                }, 3100);
-            }, 2300);
+                uber.played_fns.on_enter = true;
+            }, 9500);
         },
         onGestureCheck: function(gesture_data, data) {
             myLeapApp.machine.callNextSeg('seg5');
@@ -259,7 +247,7 @@ var RADIOFLOW = {
             setTimeout(function() {
                 uber.say('Grossartig wie du alle Gesten schon kennst!');
                     uber.played_fns.on_enter = true;
-            }, 2300);        },
+            }, 3500);        },
         onGestureCheck: function(gesture_data, data) {
 
         },
@@ -271,13 +259,10 @@ var RADIOFLOW = {
             var uber = this;
             // set a counter to 0 to count interactions later on
             uber.distinct_count = 0;
-            uber.say('Ich würde Dir nun ein paar Tipps geben.');
-            setTimeout(function() {
-                uber.say('Ist das OK, oder willst du abbrechen und noch selber etwas weiterprobieren? Gib mir doch ein Zeichen.');
+            uber.say('Ich würde Dir nun ein paar Tipps geben.<br>Gib mir doch ein Zeichen, falls das das OK is, oder falls du die Hilfe abbrechen und selber noch weiterprobieren willst?');
                 setTimeout(function() {
                     uber.played_fns.on_enter = true;
-                }, 2100);
-            }, 5300);
+                }, 1200);
         },
         onGestureCheck: function(gesture_data, data) {
             var uber = this;
@@ -313,7 +298,7 @@ var RADIOFLOW = {
             uber.say('Das OK-Zeichen ist auch mein Favorit.');
             setTimeout(function() {
                 uber.played_fns.on_enter = true;
-            }, 1900);
+            }, 3000);
         },
         onGestureCheck: function(gesture_data, data) {
             myLeapApp.machine.callNextSeg('seg8a');
@@ -329,8 +314,8 @@ var RADIOFLOW = {
                 uber.say('Dann zu den Tipps.');
                 setTimeout(function() {
                     uber.played_fns.on_enter = true;
-                }, 1900);
-            }, 2400);
+                }, 3000);
+            }, 4000);
         },
         onGestureCheck: function(gesture_data, data) {
             myLeapApp.machine.callNextSeg('seg8a');
@@ -343,9 +328,9 @@ var RADIOFLOW = {
             var uber = this;
             uber.say('Dann lasse ich dich noch ein wenig probieren.');
             setTimeout(function() {
-                uber.say('Falls du doch Hilfe brauchen solltest, swipe 3 mal nach oben, um mich zu rufen.');
+                uber.say('Falls du doch Hilfe brauchen solltest, swipe 3 mal nach oben, um mich zu rufen. (Kommentar: Geht noch nicht)');
                     uber.played_fns.on_enter = true;
-            }, 2000);
+            }, 4000);
         },
         onGestureCheck: function(gesture_data, data) {
             //TODO: check for 3 swipes up
@@ -405,7 +390,7 @@ var RADIOFLOW = {
             this.say('Perfekt.<br>Die Lautstärke wechselst du mit einem imaginären Drehknopf.');
             setTimeout(function() {
                 uber.played_fns.on_enter = true;
-            }, 2500);
+            }, 4500);
         },
         onGestureCheck: function(gesture_data, data) {
             myLeapApp.machine.callNextSeg('seg13');
@@ -420,7 +405,7 @@ var RADIOFLOW = {
             this.say('Öffne deine Hand und imitiere eine Ohrfeige.');
             setTimeout(function() {
                 uber.played_fns.on_enter = true;
-            }, 2500);
+            }, 4500);
         },
         onGestureCheck: function(gesture_data, data) {
             var uber = this;
@@ -440,7 +425,7 @@ var RADIOFLOW = {
             this.say('Um die Lautstärke zu ändern, denke doch mal an einen klassischen Drehknopf.');
             setTimeout(function() {
                 uber.played_fns.on_enter = true;
-            }, 2900);
+            }, 4400);
         },
         onGestureCheck: function(gesture_data, data) {
             myLeapApp.machine.callNextSeg('seg13');
@@ -470,7 +455,7 @@ var RADIOFLOW = {
                         console.log("yes sound on");
                         myLeapApp.machine.callNextSeg('seg14');
                     } else {
-                        myLeapApp.machine.callNextSeg('seg14a')
+                        myLeapApp.machine.callNextSeg('seg14a');
                     }
                 }
             }
@@ -490,7 +475,7 @@ var RADIOFLOW = {
     },
     seg14: {
         onEnter: function() {
-            this.say('Ausgezeichnet. <br>Du beherrscht nun den Musikplayer.');
+            this.say('Ausgezeichnet. <br>Du beherrschst nun den Musikplayer.');
         },
         onGestureCheck: function(gesture_data, data) {
         },
@@ -527,16 +512,10 @@ var RADIOFLOW = {
         onEnter: function() {
             var uber = this;
             uber.rotation_count = 0;
-            uber.say('Umfasse mit allen Fingern einen unsichtbaren Drehknopf der Grösse eines Fünf-Franken-Stückes.');
+            uber.say('Umfasse mit allen Fingern einen unsichtbaren Drehknopf der Grösse eines Fünf-Franken-Stückes.<br>Bei der richtigen Geste hörst du ein Klicken.<br>Drehe dann deine Hand nach rechts oder nach links.');
             setTimeout(function() {
-                uber.say('Bei der richtigen Geste hörst du ein Klicken.');
-                setTimeout(function() {
-                    uber.say('Drehe dann deine Hand nach rechts oder nach links.');
-                    setTimeout(function() {
-                        uber.played_fns.on_enter = true;
-                    }, 2400);
-                }, 2600);
-            }, 3200);
+                uber.played_fns.on_enter = true;
+            }, 12000);
         },
         onGestureCheck: function(gesture_data, data) {
             var uber = this;
@@ -585,15 +564,10 @@ var RADIOFLOW = {
     seg16: {
         onEnter: function() {
             var uber = this;
-            this.say('Ich verstehe leider deine Zeichen nicht.');
+            this.say('Ich verstehe leider deine Zeichen nicht.<br>Falls alles Ok ist, halt doch deinen Daumen hoch.<br>Falls nicht, schüttle Deine Hand, als würdest Du etwas ablehnen.<br>(Daumen etwas schräg halten)');
             setTimeout(function() {
-                uber.say('Falls alles Ok ist, halt doch deinen Daumen hoch.');
-                setTimeout(function() {
-                    uber.say('Falls nicht, schüttle Deine Hand, als würdest Du etwas ablehnen.');
-                    // set flag that onEnter is finished playing
-                    uber.played_fns.on_enter = true;
-                }, 4000);
-            }, 3000);
+                uber.played_fns.on_enter = true;
+            }, 9400);
         },
         onGestureCheck: function(gesture_data, data) {
             if (this.try(gesture_data, 'thumb_up')) {

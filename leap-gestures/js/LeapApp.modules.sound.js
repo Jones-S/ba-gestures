@@ -8,7 +8,7 @@
         // constructor
         this.sound_on      = new Howl({ src: ['audio/on.mp3'], volume: 0.65 });
         this.sound_off     = new Howl({ src: ['audio/off.mp3'], volume: 0.65 });
-        this.sound_vol     = new Howl({ src: ['audio/volume.mp3'], volume: 0.65, loop: true });
+        this.sound_vol     = new Howl({ src: ['audio/volume.mp3'], volume: 0.45, loop: true });
         this.sound_cancel  = new Howl({ src: ['audio/cancel.mp3'], volume: 0.65 });
         this.sound_ok      = new Howl({ src: ['audio/ok.mp3'], volume: 0.65 });
         this.sound_next    = new Howl({ src: ['audio/swipe_right.mp3'], volume: 0.65 });
