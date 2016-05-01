@@ -19,3 +19,4 @@ https://github.com/256dpi/arduino-mqtt
 Wifi: BRIDGE
 PW: ARPANet but new name, all lowercase.
 
+Test
