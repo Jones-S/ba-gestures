@@ -32,22 +32,30 @@ var LAMPFLOW = {
                 myLeapApp.shiftr.publish('/lamp', 'on');
                 myLeapApp.sounder.play('on');
                 myLeapApp.flow.on_off_count++;
-                myLeapApp.flow.flags.lamp_on = true;
+                this.lamp_on_flag = true;
 
             }
             else if(this.try(gesture_data, 'off')) {
                 myLeapApp.sounder.play('off');
                 myLeapApp.shiftr.publish('/lamp', 'off');
                 myLeapApp.flow.on_off_count++;
-                myLeapApp.flow.flags.lamp_on = false;
+                this.lamp_on_flag = false;
             }
             // if lamp is on check y axis for dimming
             if (this.lamp_on_flag) {
                 // set current position of hand to current brightness
+                if (data.hands.length === 1) {
+                    // y-Axis range 120mm – 420mm
+                    // mapping this to brightness
+                    // console.log("data.hands[0].palmPosition[1]: ", data.hands[0].palmPosition[1]);
+                    var y_axis = data.hands[0].palmPosition[1];
+                    this.brightness = y_axis.map(120, 420, 5, 150);
+                    this.brightness = (this.brightness < 5) ? 5 : this.brightness; // 5 is minimum
+                    this.brightness = (this.brightness > 150) ? 150 : this.brightness; // 150 maximum
+                    console.log("this.brightness: ", this.brightness);
+                    myLeapApp.shiftr.publish('/lamp', 'brightness ' + brightness);
+                }
 
-            } else {
-                var vol = -30;
-                var mapped_volume = vol.map(-50, 0, 0.1, 0.8);
             }
         },
         onLeave: function() {
