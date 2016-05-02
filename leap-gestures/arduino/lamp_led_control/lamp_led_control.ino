@@ -6,7 +6,7 @@ BridgeClient net;
 MQTTClient client;
 
 int LED = 9;           // the PWM pin the LED is attached to
-int brightness = 100;  // how bright the LED is max 100! (3V von 5V = 100 von 255)
+int brightness = 100;  // how bright the LED is max 145! (3V von 5V = 153 von 255)
 boolean running = false;
 String message = "";
 
@@ -65,7 +65,7 @@ void messageReceived(String topic, String payload, char * bytes, unsigned int le
   message = payload;
 
   if (message == "brighter") {
-    if (brightness < 100) {
+    if (brightness < 150) {
       brightness += 5;  // increment by 5
     }
     Serial.println("brighter: ");
