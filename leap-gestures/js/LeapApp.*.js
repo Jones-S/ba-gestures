@@ -15,3 +15,9 @@ LEAPAPP.segments = [];
 
 // one line function to add F12 pause script functionality
 $(window).keydown(function(e) { if (e.keyCode == 123) debugger; });
+
+
+// extend native prototypes
+Number.prototype.map = function (in_min, in_max, out_min, out_max) {
+  return (this - in_min) * (out_max - out_min) / (in_max - in_min) + out_min;
+};

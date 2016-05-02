@@ -494,12 +494,6 @@
         }
     };
 
-    // LEAPAPP.GestureChecker.prototype.checkDimming = function(frame) {
-    //     var uber = this;
-
-    // };
-
-
     LEAPAPP.GestureChecker.prototype.checkCancelGesture = function(frame) {
 
         var uber = this;
@@ -978,7 +972,6 @@
         gestures.on                     = uber.checkForExplosion(frame);
         gestures.off                    = uber.checkforCollapse(frame);
         gestures.swipe                  = uber.checkSwipe(frame);
-        gestures.dim                    = uber.checkDimming(frame);
         gestures.thumb_up               = uber.checkThumbUpGesture(frame);
         gestures.ok                     = uber.checkOKGesture(frame);
         gestures.cancel                 = uber.checkCancelGesture(frame);

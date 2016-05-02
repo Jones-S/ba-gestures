@@ -11,6 +11,8 @@ var LAMPFLOW = {
     doAlways: {
         onEnter: function() {
             this.played_fns.on_enter = true;
+            this.lamp_on_flag = false;
+            this.brightness = 100;
         },
         onGestureCheck: function(gesture_data, data) {
             var uber = this;
@@ -30,14 +32,23 @@ var LAMPFLOW = {
                 myLeapApp.shiftr.publish('/lamp', 'on');
                 myLeapApp.sounder.play('on');
                 myLeapApp.flow.on_off_count++;
+                myLeapApp.flow.flags.lamp_on = true;
 
             }
             else if(this.try(gesture_data, 'off')) {
                 myLeapApp.sounder.play('off');
                 myLeapApp.shiftr.publish('/lamp', 'off');
                 myLeapApp.flow.on_off_count++;
+                myLeapApp.flow.flags.lamp_on = false;
             }
-            // TODO: check for dimming
+            // if lamp is on check y axis for dimming
+            if (this.lamp_on_flag) {
+                // set current position of hand to current brightness
+
+            } else {
+                var vol = -30;
+                var mapped_volume = vol.map(-50, 0, 0.1, 0.8);
+            }
         },
         onLeave: function() {
         }
