@@ -36,11 +36,6 @@ var LAMPFLOW = {
                 myLeapApp.sounder.play('off');
                 myLeapApp.shiftr.publish('/lamp', 'off');
                 myLeapApp.flow.on_off_count++;
-            } else {
-                if (data.hands.length == 1) {
-                    console.log("data.hands[0].palmPosition[2]: ", data.hands[0].palmPosition[2]);
-                }
-
             }
             // TODO: check for dimming
         },
