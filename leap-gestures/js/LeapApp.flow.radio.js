@@ -186,7 +186,7 @@ var RADIOFLOW = {
     seg1: {
         onEnter: function() {
             var uber = this;
-            this.say('Hey Grünschnabel.<br>Probier doch noch ein wenig aus! /nl Ein paar generelle Tipps vorweg:<br>Führe Bewegungen langsam und bestimmt aus und höre dabei auf Klänge. Diese geben dir Auskunft, ob und welche Aktion gerade ausgeführt wird.');
+            this.say('Hey Grünschnabel. :)<br>Probier doch noch ein wenig aus! /nl Ein paar generelle Tipps vorweg:<br>Führe Bewegungen langsam und bestimmt aus und höre dabei auf Klänge. Diese geben dir Auskunft, ob und welche Aktion gerade ausgeführt wird.');
             // prolong the timer to say hello later
             setTimeout(function() {
                 uber.played_fns.on_enter = true;
@@ -201,7 +201,7 @@ var RADIOFLOW = {
     seg2: {
         onEnter: function() {
             var uber = this;
-            uber.say('Du scheinst sehr versiert zu sein, mit dem Umgang des Musikplayers.<br>Zusätzlich zum Ein- und Ausschalten und dem Wechseln der Lieder gibt es auch eine Geste, um die Lautstärke zu verändern.');
+            uber.say('Du scheinst sehr versiert zu sein, mit dem Umgang des Musikplayers. /nl Zusätzlich zum Ein- und Ausschalten und dem Wechseln der Lieder gibt es auch eine Geste, um die Lautstärke zu verändern.');
             setTimeout(function() {
                 uber.played_fns.on_enter = true;
             }, 12000);
@@ -539,28 +539,6 @@ var RADIOFLOW = {
         }
     },
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     seg16: {
         onEnter: function() {
             var uber = this;
@@ -583,6 +561,76 @@ var RADIOFLOW = {
         onLeave: function() {
         }
     },
+
+    seg17: {
+        onEnter: function() {
+            var uber = this;
+            uber.on_off_count = 0;
+            uber.timer_started = false;
+
+            this.say('Dann beginnen wir doch mit dem Ein- und Ausschalten. \
+                /nl Strecke deine Finger aus und forme dann schnell eine Faust. Damit schaltest du ein Lied aus. \
+                /nl Um es wieder einzuschalten, öffne deine Hand, so dass alle Finger gestreckt sind.');
+            setTimeout(function() {
+                uber.played_fns.on_enter = true;
+            }, 6000);
+        },
+        onGestureCheck: function(gesture_data, data) {
+            var uber = this;
+            if (this.try(gesture_data, 'on') || this.try(gesture_data, 'off')) {
+                uber.on_off_count++;
+                if (uber.on_off_count > 2) {
+                    // clear timeout
+                    clearTimeout(uber.timer);
+                    myLeapApp.machine.callNextSeg('seg10');
+                }
+            }
+            else if (!uber.timer_started) {
+                uber.timer_started = true;
+                uber.timer = setTimeout(function() {
+                    myLeapApp.machine.callNextSeg('seg18');
+                }, 18000);
+            }
+        },
+        onLeave: function() {
+        }
+    },
+
+    seg18: {
+        onEnter: function() {
+            var uber = this;
+            uber.on_off_count = 0;
+            this.say('Handfläche nach unten und dann entweder alle Finger ausstrecken (Einschalten) oder eine Faust formen (Ausschalten).\
+                /nl Führe es doch ein paar Mal aus, damit ich sehe, dass es für dich klar ist.');
+            setTimeout(function() {
+                uber.played_fns.on_enter = true;
+            }, 8000);
+        },
+        onGestureCheck: function(gesture_data, data) {
+            var uber = this;
+                if (this.try(gesture_data, 'on') || this.try(gesture_data, 'off')) {
+                    uber.on_off_count++;
+                    if (uber.on_off_count > 3) {
+                        myLeapApp.machine.callNextSeg('seg10');
+                    }
+                }
+        },
+        onLeave: function() {
+        }
+    },
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
