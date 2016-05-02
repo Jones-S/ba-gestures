@@ -89,6 +89,9 @@ p {
   transform-origin: 48% 70%; }
 
 .messages {
+  padding: 6%; }
+
+.messages > p {
   font: 35px 'Fira Mono', Helvetica, Arial; }
 
 .leap-frame-info {

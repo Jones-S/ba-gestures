@@ -43,6 +43,7 @@ var LAMPFLOW = {
                 myLeapApp.shiftr.publish('/lamp', 'off');
                 myLeapApp.flow.on_off_count++;
             }
+            // TODO: check for dimming
         },
         onLeave: function() {
         }

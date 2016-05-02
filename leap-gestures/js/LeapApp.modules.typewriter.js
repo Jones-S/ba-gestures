@@ -27,6 +27,14 @@
     };
 
     LEAPAPP.Typewriter.prototype.write = function(msg) {
+        // process message
+        var messages = msg.split("/nl "); // look for new line indicators
+        var html_string = '';
+        messages.forEach(function(current, i) {
+            html_string += '<p>' + messages[i] + '</p>';
+        });
+        console.log("html_string: ", html_string);
+
         // check if writing option is set to true
         if (myLeapApp.typewriter) {
 
@@ -46,7 +54,7 @@
             });
         } else {
             // only add text to the div
-            $('#messages').html(msg);
+            $('#messages').html(html_string);
         }
 
     };

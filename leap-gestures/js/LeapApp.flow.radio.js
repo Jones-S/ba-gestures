@@ -186,7 +186,7 @@ var RADIOFLOW = {
     seg1: {
         onEnter: function() {
             var uber = this;
-            this.say('Hey Grünschnabel.<br>Probier doch noch ein wenig aus!');
+            this.say('Hey Grünschnabel.<br>Probier doch noch ein wenig aus! /nl Ein paar generelle Tipps vorweg:<br>Führe Bewegungen langsam und bestimmt aus und höre dabei auf Klänge. Diese geben dir Auskunft, ob und welche Aktion gerade ausgeführt wird.');
             // prolong the timer to say hello later
             setTimeout(function() {
                 uber.played_fns.on_enter = true;
