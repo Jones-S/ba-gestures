@@ -33,7 +33,6 @@
         messages.forEach(function(current, i) {
             html_string += '<p>' + messages[i] + '</p>';
         });
-        console.log("html_string: ", html_string);
 
         // check if writing option is set to true
         if (myLeapApp.typewriter) {
@@ -54,7 +53,7 @@
             });
         } else {
             // only add text to the div
-            $('#messages').html(html_string);
+            $('#messages').hide().html(html_string).fadeIn(1600);
         }
 
     };
