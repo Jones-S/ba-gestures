@@ -64,7 +64,19 @@ void messageReceived(String topic, String payload, char * bytes, unsigned int le
   // save message (payload) in string
   message = payload;
 
-  if (message == "brighter") {
+   if (message == "on") {
+    running = true;
+    digitalWrite(RELAYPIN, HIGH);
+    Serial.println("ON");
+  } 
+  
+  else if (message == "off") {
+    running = false;
+    digitalWrite(RELAYPIN, LOW);
+    Serial.println("OFF");
+  }
+  
+  else if (message == "brighter") {
     if (brightness < 150) {
       brightness += 5;  // increment by 5
     }
@@ -79,8 +91,27 @@ void messageReceived(String topic, String payload, char * bytes, unsigned int le
     Serial.println("less bright: ");
     Serial.print(brightness);
   }
-}
 
+  else {
+    // process message
+    char* ptr = strtok(message, " ");
+    Serial.println(ptr);
+    
+    while (ptr != NULL) {
+      Serial.println("ptr" + ptr);
+      // next part of message
+      // passing NULL, because strtok is already initialized and
+      // points internally to the message string
+      ptr = strtok(NULL, " ");
+      // if it's not brightness then it is the value itself
+      if (ptr != "brightness") {
+        int brightness_amount = atoi(ptr);
+        Serial.println(brightness_amount);
+      }
+    }
+  }
+}
+ 
 
 
 
