@@ -52,7 +52,6 @@ void loop() {
 
   // set the brightness of pin 9:
   analogWrite(LED, brightness);
-  Serial.println(brightness);
 }
 
 void messageReceived(String topic, String payload, char * bytes, unsigned int length) {
@@ -66,13 +65,13 @@ void messageReceived(String topic, String payload, char * bytes, unsigned int le
 
    if (message == "on") {
     running = true;
-    digitalWrite(RELAYPIN, HIGH);
+    brightness = 100;
     Serial.println("ON");
   } 
   
   else if (message == "off") {
     running = false;
-    digitalWrite(RELAYPIN, LOW);
+    brightness = 0;
     Serial.println("OFF");
   }
   
