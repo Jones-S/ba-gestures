@@ -1,12 +1,6 @@
 /**
  * Flow defines the interaction Flow in one object. For better code structure the whole flow
  * lies in it's own file.
- * Uses the HTML5 Audio controls with Javascript
- * Methods:
- * media.play(), media.pause(),
- * media.volume = value ( which is a fraction in the range 0.0 (silent) to 1.0 (loudest)),
- * media.muted
- * further information: http://w3c.github.io/html/single-page.html#playback-volume
  */
 
 var LAMPFLOW = {
@@ -14,12 +8,12 @@ var LAMPFLOW = {
     on_off_count: 0,    // save count and increase if on off
     distinct_count: 0,
 
-
     doAlways: {
         onEnter: function() {
             this.played_fns.on_enter = true;
         },
         onGestureCheck: function(gesture_data, data) {
+            var uber = this;
             if (this.try(gesture_data, 'swipe')) {
                 if (gesture_data.swipe == 'up') {
                     myLeapApp.shiftr.publish('/lamp', 'on');    // pubslih via shiftr.io
@@ -42,6 +36,11 @@ var LAMPFLOW = {
                 myLeapApp.sounder.play('off');
                 myLeapApp.shiftr.publish('/lamp', 'off');
                 myLeapApp.flow.on_off_count++;
+            } else {
+                if (data.hands.length == 1) {
+                    console.log("data.hands[0].palmPosition[2]: ", data.hands[0].palmPosition[2]);
+                }
+
             }
             // TODO: check for dimming
         },
