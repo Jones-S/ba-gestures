@@ -8,7 +8,8 @@ MQTTClient client;
 
 int LED = 9;           // the PWM pin the LED is attached to
 int brightness = 100;  // how bright the LED is max 145! (3V von 5V = 153 von 255)
-int br_diff = 0;
+int br_diff = 0, current_diff = 0;
+int input_brightness = 100;
 float incr = 0;
 boolean running = false;
 String message = "";
@@ -52,6 +53,15 @@ void loop() {
 //
 //   // client.publish("/hello", "world");
 // }
+
+  // as long the input brightness is not equal the current brightness
+  // change value via the incr steps
+  current_diff = input_brightness - brightness;
+  if (abs(current_diff) >= abs(incr)) {
+    brightness += incr;
+    Serial.print("new brihtness");
+    Serial.println(brightness);
+  }
 
   // set the brightness of pin 9:
   analogWrite(LED, brightness);
@@ -114,15 +124,16 @@ void messageReceived(String topic, String payload, char * bytes, unsigned int le
     valPosition = strtok(NULL, delimiters);
 
     if (valPosition != NULL) {
-      int n = atoi(valPosition); //convert string to number
+      input_brightness = atoi(valPosition); //convert string to number
 
       // to smooth out brightness difference over time
-      br_diff = brightness - n;
+      br_diff = input_brightness - brightness;
       // check if current brightness is higher or lower
      
       // lower brightness
       // and calculate step with rounding
       incr = float(br_diff) / 10;
+      incr = int(incr);
 
       Serial.print("step :");
       Serial.println(incr);
