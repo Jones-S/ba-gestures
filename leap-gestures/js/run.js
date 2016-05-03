@@ -10,7 +10,7 @@
         var controller_options = {
             debug:      true,
             flow:       flow,
-            start_seg:  'seg17',
+            start_seg:  'seg0',
             mqtt_uri:   'mqtt://e0b7ded5:04f776d89819bfdb@broker.shiftr.io',
             client_id:  'jonas laptop',
             typewriter: false
@@ -27,16 +27,5 @@
         console.log(myLeapApp.name + " initialized.");
 
 
-        $("body").on( "click", function() {
-            if (!myLeapApp.lamp_on) {
-                myLeapApp.shiftr.publish('/lamp', 'on');
-                myLeapApp.lamp_on = true;
-                console.log("on");
-            } else {
-                myLeapApp.shiftr.publish('/lamp', 'off');
-                myLeapApp.lamp_on = false;
-                console.log("off");
-            }
-        });
     });
 }(jQuery, LEAPAPP));

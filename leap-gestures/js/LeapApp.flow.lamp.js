@@ -52,8 +52,8 @@ var LAMPFLOW = {
                     this.brightness = y_axis.map(120, 420, 5, 150);
                     this.brightness = (this.brightness < 5) ? 5 : this.brightness; // 5 is minimum
                     this.brightness = (this.brightness > 150) ? 150 : this.brightness; // 150 maximum
-                    console.log("this.brightness: ", this.brightness);
-                    myLeapApp.shiftr.publish('/lamp', 'brightness ' + brightness);
+                    // console.log("this.brightness: ", this.brightness);
+                    myLeapApp.shiftr.publish('/lamp', 'brightness-' + this.brightness);
                 }
 
             }
