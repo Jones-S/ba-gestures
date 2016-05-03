@@ -41,16 +41,16 @@ var RADIOFLOW = {
             }
             if (this.try(gesture_data, 'swipe')) {
                 if (gesture_data.swipe == 'right') {
-                    myLeapApp.radio.nextTrack();
                     myLeapApp.sounder.play('next');
+                    myLeapApp.radio.nextTrack();
                     // set radio on flag to on
                     this.radio_on = true;
                     // myLeapApp.shiftr.publish('/radio', 'next-track');    // pubslih via shiftr.io
                     // myLeapApp.sounder.play('right'); // play on sound
                 }
                 else if(gesture_data.swipe == "left") {
-                    myLeapApp.radio.previousTrack();
                     myLeapApp.sounder.play('prev');
+                    myLeapApp.radio.previousTrack();
                     this.radio_on = true;
                     // myLeapApp.shiftr.publish('/radio', 'prev-track');
                     // myLeapApp.sounder.play('left');
@@ -62,7 +62,10 @@ var RADIOFLOW = {
                     myLeapApp.sounder.play('on');
                 }
                 console.log("start playing");
-                myLeapApp.radio.play();
+                // wait a bit before playing
+                setTimeout(function(){
+                    myLeapApp.radio.play();
+                }, 400);
                 this.radio_on = true;
 
             }
