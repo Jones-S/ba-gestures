@@ -35,6 +35,10 @@
         uber.machine.callNextSeg(uber.start_seg);
 
 
+        // reset certain states (like lamp state)
+        myLeapApp.shiftr.publish('/lamp', 'reset');
+
+
         /**
          * the callback function says what is called each frame
          * within the leap frame controller

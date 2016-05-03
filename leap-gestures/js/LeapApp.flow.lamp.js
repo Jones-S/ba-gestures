@@ -21,28 +21,38 @@ var LAMPFLOW = {
 
             if (this.try(gesture_data, 'swipe')) {
                 if (gesture_data.swipe == 'up') {
-                    myLeapApp.shiftr.publish('/lamp', 'on');    // pubslih via shiftr.io
-                    myLeapApp.sounder.play('on'); // play on sound
-                    myLeapApp.flow.on_off_count++; // increase count off on/off interactions
+                    if (!this.lamp_on_flag) {
+                        myLeapApp.shiftr.publish('/lamp', 'on');
+                        myLeapApp.sounder.play('on');
+                        myLeapApp.flow.on_off_count++;
+                        this.lamp_on_flag = true;
+                    }
                 }
                 else if(gesture_data.swipe == "down") {
-                    myLeapApp.shiftr.publish('/lamp', 'off');
-                    myLeapApp.sounder.play('off');
-                    myLeapApp.flow.on_off_count++;
+                    if (this.lamp_on_flag) {
+                        myLeapApp.shiftr.publish('/lamp', 'off');
+                        myLeapApp.sounder.play('off');
+                        myLeapApp.flow.on_off_count++;
+                        this.lamp_on_flag = false;
+                    }
                 }
             }
             else if(this.try(gesture_data, 'on')) {
-                myLeapApp.shiftr.publish('/lamp', 'on');
-                myLeapApp.sounder.play('on');
-                myLeapApp.flow.on_off_count++;
-                this.lamp_on_flag = true;
+                if (!this.lamp_on_flag) {
+                    myLeapApp.shiftr.publish('/lamp', 'on');
+                    myLeapApp.sounder.play('on');
+                    myLeapApp.flow.on_off_count++;
+                    this.lamp_on_flag = true;
+                }
 
             }
             else if(this.try(gesture_data, 'off')) {
-                myLeapApp.sounder.play('off');
-                myLeapApp.shiftr.publish('/lamp', 'off');
-                myLeapApp.flow.on_off_count++;
-                this.lamp_on_flag = false;
+                if (this.lamp_on_flag) {
+                    myLeapApp.shiftr.publish('/lamp', 'off');
+                    myLeapApp.sounder.play('off');
+                    myLeapApp.flow.on_off_count++;
+                    this.lamp_on_flag = false;
+                }
             }
             // if lamp is on check y axis for dimming
             if (this.lamp_on_flag) {
