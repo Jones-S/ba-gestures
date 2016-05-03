@@ -18,6 +18,7 @@ var RADIOFLOW = {
                             next_prev:  0,
                             volume:     0
                         },
+    // object to hold information which of the gestures were found without help
     without_help:       {
                             on_off:     false,
                             next_prev:  false,
@@ -41,16 +42,22 @@ var RADIOFLOW = {
             }
             if (this.try(gesture_data, 'swipe')) {
                 if (gesture_data.swipe == 'right') {
+                    myLeapApp.radio.pause();
                     myLeapApp.sounder.play('next');
-                    myLeapApp.radio.nextTrack();
+                    setTimeout(function(){
+                        myLeapApp.radio.nextTrack();
+                    }, 400);
                     // set radio on flag to on
                     this.radio_on = true;
                     // myLeapApp.shiftr.publish('/radio', 'next-track');    // pubslih via shiftr.io
                     // myLeapApp.sounder.play('right'); // play on sound
                 }
                 else if(gesture_data.swipe == "left") {
+                    myLeapApp.radio.pause();
                     myLeapApp.sounder.play('prev');
-                    myLeapApp.radio.previousTrack();
+                    setTimeout(function(){
+                        myLeapApp.radio.previousTrack();
+                    }, 400);
                     this.radio_on = true;
                     // myLeapApp.shiftr.publish('/radio', 'prev-track');
                     // myLeapApp.sounder.play('left');
