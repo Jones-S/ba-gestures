@@ -6,17 +6,21 @@
      */
     LEAPAPP.Sound = function() {
         // constructor
-        this.sound_on      = new Howl({ src: ['audio/on.mp3'], volume: 0.65 });
-        this.sound_off     = new Howl({ src: ['audio/off.mp3'], volume: 0.65 });
-        this.sound_vol     = new Howl({ src: ['audio/volume.mp3'], volume: 0.45, loop: true });
-        this.sound_cancel  = new Howl({ src: ['audio/cancel.mp3'], volume: 0.65 });
-        this.sound_ok      = new Howl({ src: ['audio/ok.mp3'], volume: 0.65 });
-        this.sound_next    = new Howl({ src: ['audio/swipe_right.mp3'], volume: 0.65 });
-        this.sound_prev    = new Howl({ src: ['audio/swipe_left.mp3'], volume: 0.65 });
-        this.sound_start   = new Howl({ src: ['audio/hover_in.mp3'], volume: 0.65 });
-        this.sound_exit    = new Howl({ src: ['audio/hover_out.mp3'], volume: 0.65 });
+        this.sound_on      = new Howl({ src: ['audio/wav/hover_in.aif'], volume: 0.65 });
+        this.sound_off     = new Howl({ src: ['audio/wav/hover_out.aif'], volume: 0.65 });
+        this.sound_vol     = new Howl({ src: ['audio/wav/volume.wav'], volume: 0.45, loop: true });
+        this.sound_cancel  = new Howl({ src: ['audio/wav/cancel.wav'], volume: 0.65 });
+        this.sound_ok      = new Howl({ src: ['audio/wav/ok.wav'], volume: 0.65 });
+        this.sound_next    = new Howl({ src: ['audio/wav/swipe_right.aif'], volume: 0.65 });
+        this.sound_prev    = new Howl({ src: ['audio/wav/swipe_left.aif'], volume: 0.65 });
+        this.sound_start   = new Howl({ src: ['audio/wav/'], volume: 0.65 });
+        this.sound_exit    = new Howl({ src: ['audio/wav/'], volume: 0.65 });
 
     };
+
+
+
+
 
     LEAPAPP.Sound.prototype.play = function(sound) {
         var uber = this;
