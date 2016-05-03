@@ -13,6 +13,7 @@ var LAMPFLOW = {
             this.played_fns.on_enter = true;
             this.lamp_on_flag = false;
             this.brightness = 100;
+            this.brtn_plsh_count = 0;
 
         },
         onGestureCheck: function(gesture_data, data) {
@@ -47,7 +48,9 @@ var LAMPFLOW = {
             if (this.lamp_on_flag) {
                 // set current position of hand to current brightness
                 if (data.hands.length === 1) {
-                    _.debounce(function(data) {
+                    uber.brtn_plsh_count++;
+                    // only publish every x frames
+                    if (uber.brtn_plsh_count % 15 === 0) {
                         // y-Axis range 120mm – 420mm
                         // mapping this to brightness
                         // console.log("data.hands[0].palmPosition[1]: ", data.hands[0].palmPosition[1]);
@@ -57,9 +60,11 @@ var LAMPFLOW = {
                         this.brightness = (this.brightness > 150) ? 150 : this.brightness; // 150 maximum
                         console.log("this.brightness: ", this.brightness);
                         myLeapApp.shiftr.publish('/lamp', 'brightness-' + this.brightness);
-
-                    }, 1000, {leading: true});
-                    // uber.publishBrightness(data);
+                    }
+                    // reset counter every now and then
+                    if (uber.brtn_plsh_count >= 3600) {
+                        uber.brtn_plsh_count = 0;
+                    }
                 }
 
             }
