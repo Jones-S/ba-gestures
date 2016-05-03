@@ -59,6 +59,14 @@
             console.log("lamp led-down");
         });
 
+        $('button#bn-140').on( "click", function() {
+            client.publish('/lamp', 'brightness-140');
+        });
+
+         $('button#bn-40').on( "click", function() {
+            client.publish('/lamp', 'brightness-40');
+        });
+
 
 
     });
