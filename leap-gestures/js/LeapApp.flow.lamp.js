@@ -13,9 +13,11 @@ var LAMPFLOW = {
             this.played_fns.on_enter = true;
             this.lamp_on_flag = false;
             this.brightness = 100;
+
         },
         onGestureCheck: function(gesture_data, data) {
             var uber = this;
+
             if (this.try(gesture_data, 'swipe')) {
                 if (gesture_data.swipe == 'up') {
                     myLeapApp.shiftr.publish('/lamp', 'on');    // pubslih via shiftr.io
@@ -45,15 +47,19 @@ var LAMPFLOW = {
             if (this.lamp_on_flag) {
                 // set current position of hand to current brightness
                 if (data.hands.length === 1) {
-                    // y-Axis range 120mm – 420mm
-                    // mapping this to brightness
-                    // console.log("data.hands[0].palmPosition[1]: ", data.hands[0].palmPosition[1]);
-                    var y_axis = data.hands[0].palmPosition[1];
-                    this.brightness = y_axis.map(120, 420, 5, 150);
-                    this.brightness = (this.brightness < 5) ? 5 : this.brightness; // 5 is minimum
-                    this.brightness = (this.brightness > 150) ? 150 : this.brightness; // 150 maximum
-                    // console.log("this.brightness: ", this.brightness);
-                    myLeapApp.shiftr.publish('/lamp', 'brightness-' + this.brightness);
+                    _.debounce(function(data) {
+                        // y-Axis range 120mm – 420mm
+                        // mapping this to brightness
+                        // console.log("data.hands[0].palmPosition[1]: ", data.hands[0].palmPosition[1]);
+                        var y_axis = data.hands[0].palmPosition[1];
+                        this.brightness = y_axis.map(120, 420, 5, 150);
+                        this.brightness = (this.brightness < 5) ? 5 : this.brightness; // 5 is minimum
+                        this.brightness = (this.brightness > 150) ? 150 : this.brightness; // 150 maximum
+                        console.log("this.brightness: ", this.brightness);
+                        myLeapApp.shiftr.publish('/lamp', 'brightness-' + this.brightness);
+
+                    }, 1000, {leading: true});
+                    // uber.publishBrightness(data);
                 }
 
             }
