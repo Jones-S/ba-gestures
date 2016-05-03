@@ -63,7 +63,7 @@ void messageReceived(String topic, String payload, char * bytes, unsigned int le
   // save message (payload) in string
   message = payload;
 
-   if (message == "on") {
+  if (message == "on") {
     running = true;
     brightness = 100;
     Serial.println("ON");
@@ -93,21 +93,27 @@ void messageReceived(String topic, String payload, char * bytes, unsigned int le
 
   else {
     // process message
-    char* ptr = strtok(message, " ");
-    Serial.println(ptr);
+   
+    // Prepare the character array (the buffer) with a dynamic length
+    char char_buf[message.length() + 1];
     
-    while (ptr != NULL) {
-      Serial.println("ptr" + ptr);
-      // next part of message
-      // passing NULL, because strtok is already initialized and
-      // points internally to the message string
-      ptr = strtok(NULL, " ");
-      // if it's not brightness then it is the value itself
-      if (ptr != "brightness") {
-        int brightness_amount = atoi(ptr);
-        Serial.println(brightness_amount);
-      }
+    // check string length
+    int str_len = str.length() + 1; 
+    
+    message.toCharArray(char_buf, str_len);
+    
+    char delimiters[] = "-";
+    char* valPosition;
+    
+    //This initializes strtok with our string to tokenize
+    valPosition = strtok(char_buf, delimiters);
+        
+    while(valPosition != NULL){
+      Serial.println(valPosition);
+      //Here we pass in a NULL value, which tells strtok to continue working with the previous string
+      valPosition = strtok(NULL, delimiters);
     }
+
   }
 }
  
