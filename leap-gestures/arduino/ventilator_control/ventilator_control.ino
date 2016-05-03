@@ -25,13 +25,13 @@ void setup() {
 
 void connect() {
   Serial.print("connecting...");
-  while (!client.connect("arduino", "e0b7ded5", "04f776d89819bfdb")) {
+  while (!client.connect("arduino_ventilator", "e0b7ded5", "04f776d89819bfdb")) {
     Serial.print(".");
   }
 
   Serial.println("\nconnected!");
 
-  client.subscribe("/lamp");
+  client.subscribe("/ventilator");
   // client.unsubscribe("/example");
 }
 
