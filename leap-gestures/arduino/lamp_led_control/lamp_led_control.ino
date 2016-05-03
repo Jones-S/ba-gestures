@@ -98,7 +98,7 @@ void messageReceived(String topic, String payload, char * bytes, unsigned int le
     char char_buf[message.length() + 1];
     
     // check string length
-    int str_len = str.length() + 1; 
+    int str_len = message.length() + 1; 
     
     message.toCharArray(char_buf, str_len);
     
@@ -107,12 +107,14 @@ void messageReceived(String topic, String payload, char * bytes, unsigned int le
     
     //This initializes strtok with our string to tokenize
     valPosition = strtok(char_buf, delimiters);
-        
-    while(valPosition != NULL){
-      Serial.println(valPosition);
-      //Here we pass in a NULL value, which tells strtok to continue working with the previous string
-      valPosition = strtok(NULL, delimiters);
+    // move it to the second token
+    valPosition = strtok(NULL, delimiters);
+
+    if (valPosition != NULL) {
+      int n = atoi(valPosition); //convert string to number
+      brightness = n; // set brightness to the incoming value
     }
+  
 
   }
 }
