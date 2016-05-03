@@ -14,8 +14,10 @@ float incr = 0;
 boolean running = false;
 String message = "";
 
-
 unsigned long lastMillis = 0;
+
+
+
 
 void setup() {
   Bridge.begin();
@@ -49,11 +51,7 @@ void loop() {
   }
 
   // publish a message roughly every second.
-// if (millis() - lastMillis > 1000) {
-//   lastMillis = millis();
-//
-//   // client.publish("/hello", "world");
-// }
+
 
   // as long the input brightness is not equal the current brightness
   // change value via the incr steps
@@ -66,10 +64,16 @@ void loop() {
     } else if (brightness > 150) {
       brightness = 150;
     }
-    Serial.print("new brihtness:    ");
-    Serial.println(brightness);
+    
   }
 
+//  if (millis() - lastMillis > 1000) {
+//    lastMillis = millis();
+//    Serial.print("current Brightness:    ");
+//    Serial.println(brightness);
+//    // client.publish("/hello", "world");
+//   }
+   
   // set the brightness of pin 9:
   analogWrite(LED, brightness);
 }
@@ -109,6 +113,14 @@ void messageReceived(String topic, String payload, char * bytes, unsigned int le
     }
     Serial.println("less bright: ");
     Serial.print(brightness);
+  }
+
+  else if (message == "reset") {
+    running = false;
+    br_diff = 0; 
+    current_diff = 0;
+    brightness = 0;
+    Serial.println("RESET");
   }
 
   else {
