@@ -7,7 +7,7 @@ BridgeClient net;
 MQTTClient client;
 
 int LED = 9;           // the PWM pin the LED is attached to
-int brightness = 100;  // how bright the LED is max 145! (3V von 5V = 153 von 255)
+int brightness = 0;  // how bright the LED is max 145! (3V von 5V = 153 von 255)
 int br_diff = 0, current_diff = 0;
 int input_brightness = 100;
 float incr = 0;
@@ -26,6 +26,7 @@ void setup() {
   connect();
 
   pinMode(LED, OUTPUT);      // sets the digital pin as output
+  
 }
 
 void connect() {
@@ -59,7 +60,13 @@ void loop() {
   current_diff = input_brightness - brightness;
   if (abs(current_diff) >= abs(incr)) {
     brightness += incr;
-    Serial.print("new brihtness");
+    // but check that the brightness cannot go over the max or min value
+    if (brightness < 0) {
+      brightness = 0;
+    } else if (brightness > 150) {
+      brightness = 150;
+    }
+    Serial.print("new brihtness:    ");
     Serial.println(brightness);
   }
 
