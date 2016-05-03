@@ -11,51 +11,72 @@ var LAMPFLOW = {
     doAlways: {
         onEnter: function() {
             this.played_fns.on_enter = true;
-            this.lamp_on_flag = false;
+            this.flags = {
+                lamp_on:                false,
+                first_gesture_saved:    false
+            };
             this.brightness = 100;
             this.brtn_plsh_count = 0;
+            this.on_off_gesture = false; // container for saving the first on off gesture ['swipe' / 'explode']
 
         },
         onGestureCheck: function(gesture_data, data) {
             var uber = this;
 
-            if (this.try(gesture_data, 'swipe')) {
+            // check if swipe gesture was registered and if the inititial gesture was not explode
+            if (this.try(gesture_data, 'swipe') && this.on_off_gesture != 'explode') {
                 if (gesture_data.swipe == 'up') {
-                    if (!this.lamp_on_flag) {
+                    if (!this.flags.lamp_on) {
+                        if (!this.on_off_gesture) {
+                            // save first gesture
+                            this.on_off_gesture = 'swipe';
+                        }
                         myLeapApp.shiftr.publish('/lamp', 'on');
                         myLeapApp.sounder.play('on');
                         myLeapApp.flow.on_off_count++;
-                        this.lamp_on_flag = true;
+                        this.flags.lamp_on = true;
                     }
                 }
                 else if(gesture_data.swipe == "down") {
-                    if (this.lamp_on_flag) {
+                    if (this.flags.lamp_on) {
+                        if (!this.on_off_gesture) {
+                            // save first gesture
+                            this.on_off_gesture = 'swipe';
+                        }
                         myLeapApp.shiftr.publish('/lamp', 'off');
                         myLeapApp.sounder.play('off');
                         myLeapApp.flow.on_off_count++;
-                        this.lamp_on_flag = false;
+                        this.flags.lamp_on = false;
                     }
                 }
             }
-            else if(this.try(gesture_data, 'on')) {
-                if (!this.lamp_on_flag) {
+            else if(this.try(gesture_data, 'on') && this.on_off_gesture != 'swipe') {
+                if (!this.flags.lamp_on) {
+                    if (!this.on_off_gesture) {
+                        // save first gesture
+                        this.on_off_gesture = 'explode';
+                    }
                     myLeapApp.shiftr.publish('/lamp', 'on');
                     myLeapApp.sounder.play('on');
                     myLeapApp.flow.on_off_count++;
-                    this.lamp_on_flag = true;
+                    this.flags.lamp_on = true;
                 }
 
             }
-            else if(this.try(gesture_data, 'off')) {
-                if (this.lamp_on_flag) {
+            else if(this.try(gesture_data, 'off') && this.on_off_gesture != 'swipe') {
+                if (this.flags.lamp_on) {
+                    if (!this.on_off_gesture) {
+                        // save first gesture
+                        this.on_off_gesture = 'explode';
+                    }
                     myLeapApp.shiftr.publish('/lamp', 'off');
                     myLeapApp.sounder.play('off');
                     myLeapApp.flow.on_off_count++;
-                    this.lamp_on_flag = false;
+                    this.flags.lamp_on = false;
                 }
             }
             // if lamp is on check y axis for dimming
-            if (this.lamp_on_flag) {
+            if (this.flags.lamp_on) {
                 // set current position of hand to current brightness
                 if (data.hands.length === 1) {
                     uber.brtn_plsh_count++;
