@@ -2,11 +2,14 @@
 #include <BridgeClient.h>
 #include <MQTTClient.h>
 
+
 BridgeClient net;
 MQTTClient client;
 
 int LED = 9;           // the PWM pin the LED is attached to
 int brightness = 100;  // how bright the LED is max 145! (3V von 5V = 153 von 255)
+int br_diff = 0;
+float incr = 0;
 boolean running = false;
 String message = "";
 
@@ -112,7 +115,19 @@ void messageReceived(String topic, String payload, char * bytes, unsigned int le
 
     if (valPosition != NULL) {
       int n = atoi(valPosition); //convert string to number
-      brightness = n; // set brightness to the incoming value
+
+      // to smooth out brightness difference over time
+      br_diff = brightness - n;
+      // check if current brightness is higher or lower
+     
+      // lower brightness
+      // and calculate step with rounding
+      incr = float(br_diff) / 10;
+
+      Serial.print("step :");
+      Serial.println(incr);
+      Serial.print("   total :");
+      Serial.println(br_diff);
     }
   
 
