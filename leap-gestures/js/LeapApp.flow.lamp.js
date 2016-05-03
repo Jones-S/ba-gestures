@@ -27,9 +27,11 @@ var LAMPFLOW = {
             if (this.try(gesture_data, 'swipe') && this.on_off_gesture != 'explode') {
                 if (gesture_data.swipe == 'up') {
                     if (!this.flags.lamp_on) {
-                        if (!this.on_off_gesture) {
-                            // save first gesture
+                        // check if gesture option is set and on_off_gesture is not defined yet
+                        if (myLeapApp.gesture_option && !this.on_off_gesture) {
+                            // save first gesture if gesture option is set
                             this.on_off_gesture = 'swipe';
+                            console.log("this.on_off_gesture: ", this.on_off_gesture);
                         }
                         myLeapApp.shiftr.publish('/lamp', 'on');
                         myLeapApp.sounder.play('on');
@@ -39,7 +41,7 @@ var LAMPFLOW = {
                 }
                 else if(gesture_data.swipe == "down") {
                     if (this.flags.lamp_on) {
-                        if (!this.on_off_gesture) {
+                        if (myLeapApp.gesture_option && !this.on_off_gesture) {
                             // save first gesture
                             this.on_off_gesture = 'swipe';
                         }
@@ -52,9 +54,10 @@ var LAMPFLOW = {
             }
             else if(this.try(gesture_data, 'on') && this.on_off_gesture != 'swipe') {
                 if (!this.flags.lamp_on) {
-                    if (!this.on_off_gesture) {
+                    if (myLeapApp.gesture_option && !this.on_off_gesture) {
                         // save first gesture
                         this.on_off_gesture = 'explode';
+                        console.log("this.on_off_gesture: ", this.on_off_gesture);
                     }
                     myLeapApp.shiftr.publish('/lamp', 'on');
                     myLeapApp.sounder.play('on');
@@ -65,7 +68,7 @@ var LAMPFLOW = {
             }
             else if(this.try(gesture_data, 'off') && this.on_off_gesture != 'swipe') {
                 if (this.flags.lamp_on) {
-                    if (!this.on_off_gesture) {
+                    if (myLeapApp.gesture_option && !this.on_off_gesture) {
                         // save first gesture
                         this.on_off_gesture = 'explode';
                     }
