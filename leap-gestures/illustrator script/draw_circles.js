@@ -6,7 +6,7 @@ function main() {
     var docHeight = 700;
     var amountOfArtboards = 1;
     var circleRadius = 2;
-    var numberOfRings = 1;
+    var numberOfRings = 2;
     var horizontalDistance = 19;
     var amountsOfCircles = 6; // the amount of the circles in the first ring, will increase over time
 
@@ -39,23 +39,26 @@ function main() {
     var pi = activeDocument.activeLayer.pathItems.ellipse(centerPoint.y, centerPoint.x, circleRadius*2, circleRadius*2);
 
     // for each ring add circles
-    for (var i = numberOfRings - 1; i >= 0; i--) {
-        var angle = 360 / amountsOfCircles; // with 6 its 30°
+    for (var i = 1; i <= numberOfRings; i++) {
+        var angle = 360 / (i * amountsOfCircles); // with 6 its 30°
         var currentAngle = 0;
 
         // determine first position of circle
-        var firstPoint = { x: 0, y: 0};
-        firstPoint.x = currentPoint.x;
-        firstPoint.y = currentPoint.y + horizontalDistance;
+        var firstPoint = {
+            x: centerPoint.x,
+            y: centerPoint.y + ((i + 1) * horizontalDistance)
+        };
 
-        for (var j = amountsOfCircles - 1; j >= 0; j--) {
+        for (var j = (i * amountsOfCircles) - 1; j >= 0; j--) {
             // determine new point
-            var newCenterpoint = calculatePosition(currentAngle, horizontalDistance, centerPoint);
+            var newCenterpoint = calculatePosition(currentAngle, (i * horizontalDistance), centerPoint);
             // draw new circle
             var circle = activeDocument.activeLayer.pathItems.ellipse(newCenterpoint.y, newCenterpoint.x, circleRadius*2, circleRadius*2);
             // and increase angle
             currentAngle += angle;
         }
+
+
 
     }
 
