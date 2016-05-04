@@ -2,31 +2,52 @@
 
 
 function main() {
-    var doc;
-    // if document is open then use that
-    if ( app.documents.length > 0 ) {
-        doc = app.activeDocument;
-    } else {
-        // otherwise create one
-        var width = 700;
-        var height = 700;
-        var amountOfArtboards = 1;
-        doc = app.documents.add(null, width, height, amountOfArtboards);
-    }
-    // doc.units = Pixels;
+    var docWidth = 700;
+    var docHeight = 700;
+    var amountOfArtboards = 1;
+    var circleRadius = 5;
+    var numberOfRings = 3;
+    var horizontalDistance = 13;
+    var amtOfCircInFirstRing = 6; // the amount of the circles in the first ring
+
+    var centerPoint = {
+        x: (docWidth/2) + circleRadius,
+        y: (docHeight/2) - circleRadius
+    };
+
+    var currentPoint = {
+        x: centerPoint.x,
+        y: centerPoint.y
+    };
+
+    // add a new document
+    var doc = app.documents.add(DocumentColorSpace.RGB, docWidth, docHeight, amountOfArtboards);
 
     var fillColor = new RGBColor();
     fillColor.red   = 0;
     fillColor.green = 0;
     fillColor.blue  = 0;
 
-    // alert("Drawing a lot of circles.");
-    // draw a circle ellipse([bottom], [left], [height], [width])
-    pi = activeDocument.activeLayer.pathItems.ellipse(600, 300, 10, 10);
+    doc.defaultFillColor = fillColor;
+    doc.defaultFilled = true;
+    doc.defaultStroked = false;
 
-    pi.filled = true;
-    pi.stroked = false;
-    pi.fillColor = fillColor;
+
+    // draw center circle ellipse(['bottom'], [left], [height], [width])
+    // bottom is actually top but somehow my ruler is inversed
+    pi = activeDocument.activeLayer.pathItems.ellipse(centerPoint.x, centerPoint.y, circleRadius*2, circleRadius*2);
+
+    // for each ring add circles
+    for (var i = numberOfRings - 1; i >= 0; i--) {
+        var distance = 360 / amtOfCircInFirstRing; // with 6 its 30°
+        // determine first position of circle
+        var firstPoint;
+        firstPoint.x = currentPoint.x;
+        firstPoint.y = currentPoint.y + horizontalDistance;
+    }
+
+
+
 
 }
 
