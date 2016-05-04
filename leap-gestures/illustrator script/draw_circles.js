@@ -6,7 +6,7 @@ function main() {
     var docHeight = 700;
     var amountOfArtboards = 1;
     var circleRadius = 2;
-    var numberOfRings = 2;
+    var numberOfRings = 15;
     var horizontalDistance = 19;
     var amountsOfCircles = 6; // the amount of the circles in the first ring, will increase over time
 
