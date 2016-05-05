@@ -5,9 +5,9 @@ var VENTILATORFLOW = {
 
     doAlways: {
         onEnter: function() {
-            this.played_fns.on_enter = true;
+            this.played_fns.on_enter =  true;
             this.flags = {
-                venti_on:                false,
+                venti_on:               false,
                 first_gesture_saved:    false
             };
             this.brightness = 100;
@@ -80,27 +80,24 @@ var VENTILATORFLOW = {
     },
     seg0: {
         onEnter: function() {
-            this.played_fns.on_enter = true;
+            var uber = this;
+            uber.played_fns.on_enter = true;
+            uber.interaction_count = 0;
         },
-        /**
-         * checks for gestures
-         * possible gesture booleans are
-         * [ gestures.interaction
-         *   gestures.thumb_up
-         *   gestures.cancel
-         *   gestures.fast_moves ]
-         * @param  {[type]} gesture_data holds the gesture booleans
-         * @param  {[type]} data         holds the frame data from leap
-         */
+
         onGestureCheck: function(gesture_data, data) {
-            // if gesture count is high enough aks user
+            var uber = this;
+            // count on and off events
             if (myLeapApp.flow.on_off_count > 13) {
                 myLeapApp.machine.callNextSeg('seg1');
             }
-            // // check if thumb flag is in the object sent and if it's set to true
-            // if(this.try(gesture_data, 'interaction')) {
-            //     myLeapApp.machine.callNextSeg('seg1');
-            // }
+            // start 'timer', which is just a frame count whenever a hand is in the interaction box
+            if (uber.try(gesture_data, 'interaction')) {
+                uber.interaction_count++; // add 1, -> counting frames of interaction
+                if (uber.interaction_count > 4800) { // 4800frames = 1:20min with 60fps
+                    myLeapApp.machine.callNextSeg('seg1a');
+                }
+            }
         },
         onLeave: function() {
         }
@@ -108,15 +105,55 @@ var VENTILATORFLOW = {
     seg1: {
         onEnter: function() {
             var uber = this;
-            this.say('Ich erkenne sehr viele Eingaben.');
+            this.say('Du schaltest sehr oft ein und aus. \
+                /nl Wenn Du etwas Hilfe bei der Bedienung brauchst, dann lass es mich durch eine bestätigende Geste wissen.');
             setTimeout(function() {
-                uber.say('Ist alles in Ordnung, oder verstehst Du etwas nicht?');
-                setTimeout(function() {
-                    uber.say('Gib mir doch ein Zeichen, ob alles OK ist oder nicht.');
-                    // set flag that onEnter is finished playing
-                    uber.played_fns.on_enter = true;
-                }, 2500);
-            }, 2800);
+                // set flag that onEnter is finished playing
+                uber.played_fns.on_enter = true;
+            }, 6000);
+        },
+        onGestureCheck: function(gesture_data, data) {
+            myLeapApp.machine.callNextSeg('seg1b')
+        },
+        onLeave: function() {
+        }
+    },
+    seg1a: {
+        onEnter: function() {
+            var uber = this;
+            this.say('Du schaltest sehr oft ein und aus. \
+                /nl Wenn Du etwas Hilfe bei der Bedienung brauchst, dann lass es mich durch eine bestätigende Geste wissen.');
+            setTimeout(function() {
+                // set flag that onEnter is finished playing
+                uber.played_fns.on_enter = true;
+            }, 6000);
+        },
+        onGestureCheck: function(gesture_data, data) {
+            myLeapApp.machine.callNextSeg('seg1b')
+        },
+        onLeave: function() {
+        }
+    },
+    seg1b: {
+        onEnter: function() {
+            // do nothing in the on enter, to let the last text remain on the screen
+            uber.played_fns.on_enter = true;
+        },
+        onGestureCheck: function(gesture_data, data) {
+            // check for different gestures
+        },
+        onLeave: function() {
+        }
+    },
+    segxx: {
+        onEnter: function() {
+            var uber = this;
+            this.say('Du schaltest sehr oft ein und aus. \
+                /nl Wenn Du etwas Hilfe bei der Bedienung brauchst, dann lass es mich durch eine bestätigende Geste wissen.');
+            setTimeout(function() {
+                // set flag that onEnter is finished playing
+                uber.played_fns.on_enter = true;
+            }, 6000);
         },
         onGestureCheck: function(gesture_data, data) {
             if (this.try(gesture_data, 'thumb_up')) {
