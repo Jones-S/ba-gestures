@@ -105,6 +105,7 @@ var VENTILATORFLOW = {
     seg1: {
         onEnter: function() {
             var uber = this;
+            // allow 'bad' line breakes. to disallow -> open .jshintrc file in the root of the folder and disable; multistr: false
             this.say('Du schaltest sehr oft ein und aus. \
                 /nl Wenn Du etwas Hilfe bei der Bedienung brauchst, dann lass es mich durch eine bestätigende Geste wissen.');
             setTimeout(function() {
@@ -113,7 +114,7 @@ var VENTILATORFLOW = {
             }, 6000);
         },
         onGestureCheck: function(gesture_data, data) {
-            myLeapApp.machine.callNextSeg('seg1b')
+            myLeapApp.machine.callNextSeg('seg1b');
         },
         onLeave: function() {
         }
@@ -121,116 +122,82 @@ var VENTILATORFLOW = {
     seg1a: {
         onEnter: function() {
             var uber = this;
-            this.say('Du schaltest sehr oft ein und aus. \
-                /nl Wenn Du etwas Hilfe bei der Bedienung brauchst, dann lass es mich durch eine bestätigende Geste wissen.');
+            this.say('Hallo, ist da Jemand? \
+                /nl Brauchst du Hilfe bei der Bedienung? \
+                /ln Dann lasse es mich durch eine bestätigende Geste wissen.');
             setTimeout(function() {
                 // set flag that onEnter is finished playing
                 uber.played_fns.on_enter = true;
             }, 6000);
         },
         onGestureCheck: function(gesture_data, data) {
-            myLeapApp.machine.callNextSeg('seg1b')
+            myLeapApp.machine.callNextSeg('seg1b');
         },
         onLeave: function() {
         }
     },
     seg1b: {
         onEnter: function() {
+            var uber = this;
             // do nothing in the on enter, to let the last text remain on the screen
             uber.played_fns.on_enter = true;
+            // set a counter to 0
+            uber.distinct_count = 0;
         },
         onGestureCheck: function(gesture_data, data) {
-            // check for different gestures
-        },
-        onLeave: function() {
-        }
-    },
-    segxx: {
-        onEnter: function() {
             var uber = this;
-            this.say('Du schaltest sehr oft ein und aus. \
-                /nl Wenn Du etwas Hilfe bei der Bedienung brauchst, dann lass es mich durch eine bestätigende Geste wissen.');
-            setTimeout(function() {
-                // set flag that onEnter is finished playing
-                uber.played_fns.on_enter = true;
-            }, 6000);
-        },
-        onGestureCheck: function(gesture_data, data) {
+            // check for different gestures
             if (this.try(gesture_data, 'thumb_up')) {
-                myLeapApp.machine.callNextSeg('seg2');
-                myLeapApp.flow.distinct_count = 0;
+                myLeapApp.machine.callNextSeg('seg3');
             }
             else if (this.try(gesture_data, 'ok')) {
-                myLeapApp.machine.callNextSeg('seg2a');
-                myLeapApp.flow.distinct_count = 0;
+                myLeapApp.machine.callNextSeg('seg2');
             }
             else if (this.try(gesture_data, 'cancel')) {
                 myLeapApp.machine.callNextSeg('seg3');
-                myLeapApp.flow.distinct_count = 0;
             }
             else if (
-                       (this.try(gesture_data, 'distinct_interaction'))
-                    || (this.try(gesture_data, 'swipe'))
-                    || (this.try(gesture_data, 'on'))
-                    || (this.try(gesture_data, 'off'))
-                ) {
-                myLeapApp.flow.distinct_count++;
+                   (this.try(gesture_data, 'distinct_interaction'))
+                || (this.try(gesture_data, 'swipe'))
+                || (this.try(gesture_data, 'on'))
+                || (this.try(gesture_data, 'off'))
+            ) {
+                uber.distinct_count++;
                 // console.log("%c myLeapApp.flow.distinct_count", "background: #0D0B07; color: #FAFBFF", myLeapApp.flow.distinct_count);
-                if (myLeapApp.flow.distinct_count > 8) {
-                    myLeapApp.machine.callNextSeg('seg6');
-                    myLeapApp.flow.distinct_count = 0;    // reset the count for further distinct interaction checking
+                if (uber.distinct_count > 15) {
+                    myLeapApp.machine.callNextSeg('seg8');
                 }
             }
-
         },
         onLeave: function() {
         }
     },
+
     seg2: {
         onEnter: function() {
             var uber = this;
-            this.say('Oh ein Connaisseur. <br>Daumen hoch!');
+            this.say('Das OK-Zeichen. Gut dann werde ich Dir mal ein paar Tipps geben.');
             setTimeout(function() {
                 uber.played_fns.on_enter = true;
-                myLeapApp.machine.callNextSeg('seg9');
-            }, 2300);
+            }, 4100);
         },
         onGestureCheck: function(gesture_data, data) {
-        },
-        onLeave: function() {
-        }
-    },
-    seg2a: {
-        onEnter: function() {
-            var uber = this;
-            this.say('Das OK Zeichen! <br>Genial.');
-            setTimeout(function() {
-                uber.played_fns.on_enter = true;
-                myLeapApp.machine.callNextSeg('seg9');
-            }, 2000);
-        },
-        onGestureCheck: function(gesture_data, data) {
+            myLeapApp.machine.callNextSeg('seg4');
         },
         onLeave: function() {
         }
     },
     seg3: {
         onEnter: function() {
-            this.say('Ist für dich nicht klar, mit welcher Geste du das Objekt steuerst?');
-            this.played_fns.on_enter = true;
+            var uber = this;
+            this.say('Der gute alte Daumen… \
+                /nl Dann gebe ich dir ein paar Tipps.');
+            setTimeout(function() {
+                uber.played_fns.on_enter = true;
+            }, 4000);
         },
         onGestureCheck: function(gesture_data, data) {
-            if (this.try(gesture_data, 'thumb_up')) {
-                myLeapApp.machine.callNextSeg('seg5');
-            }
-            else if (this.try(gesture_data, 'distinct_interaction')) {
-                myLeapApp.flow.distinct_count++;
-                // console.log("%c myLeapApp.flow.distinct_count", "background: #0D0B07; color: #FAFBFF", myLeapApp.flow.distinct_count);
-                if (myLeapApp.flow.distinct_count > 6) {
-                    myLeapApp.machine.callNextSeg('seg4');
-                    myLeapApp.flow.distinct_count = 0;
-                }
-            }
+            myLeapApp.machine.callNextSeg('seg4');
         },
         onLeave: function() {
         }
@@ -238,16 +205,11 @@ var VENTILATORFLOW = {
     seg4: {
         onEnter: function() {
             var uber = this;
-            this.say('Ich habe zwar deine Antwort wieder nicht komplett erkannt,');
+            this.say('Um den Ventilator einzuschalten, halte deine Hand in den Interaktionsbereich. \
+                /nl Du hörst einen Klang, sobald deine Hand in diesen Bereich eintritt oder ihn wieder verlässt.');
             setTimeout(function() {
-                uber.say('Aber ich gehe davon aus, dass nicht alles so ganz klar ist.');
-                setTimeout(function() {
-                    uber.say('Gib mir doch ein Zeichen, falls alles OK ist.');
-                    // set flag that onEnter is finished playing
                     uber.played_fns.on_enter = true;
-                    myLeapApp.machine.callNextSeg('seg5');
-                }, 3500);
-            }, 3500);
+            }, 11000);
         },
         onGestureCheck: function(gesture_data, data) {
 
