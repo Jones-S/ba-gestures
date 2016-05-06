@@ -30,6 +30,7 @@ var VENTILATORFLOW = {
                         }
                         myLeapApp.shiftr.publish('/venti', 'on');
                         myLeapApp.sounder.play('on');
+                        // TODO replace flow.on_off_count with uber.on_off_count > save it into segment
                         myLeapApp.flow.on_off_count++;
                         this.flags.venti_on = true;
                     }
@@ -212,6 +213,13 @@ var VENTILATORFLOW = {
             }, 11000);
         },
         onGestureCheck: function(gesture_data, data) {
+            // check saved gesture from the beginning
+            // if explode gesture was used
+            if (this.on_off_gesture && this.on_off_gesture == 'explode') {
+                myLeapApp.machine.callNextSeg('seg6');
+            } else {
+                myLeapApp.machine.callNextSeg('seg5');
+            }
 
         },
         onLeave: function() {
@@ -220,16 +228,19 @@ var VENTILATORFLOW = {
     seg5: {
         onEnter: function() {
             var uber = this;
-            this.say('Ok. Halte Deine Hand mit der Handfläche nach unten.');
+            uber.on_off_count = 0; // create a count
+
+            this.say('Dann bewegst du deine mit einer raschen Bewegung von unten nach oben.\
+                /nl Und ausschalten kannst du mit der umgekehrten Bewegung.');
             setTimeout(function() {
-                uber.say('Und bewege Deine Hand nach oben oder unten.');
                 uber.played_fns.on_enter = true;
-            }, 3000);                },
+            }, 1000);
+        },
         onGestureCheck: function(gesture_data, data) {
-            if (gesture_data.swipe == "up" || gesture_data.swipe == 'down') {
-                // set venti on in doAlways
-                myLeapApp.machine.callNextSeg('seg8');
-            }
+            // count on off commands
+            var uber = this;
+            if (true) {}
+
         },
         onLeave: function() {
         }
