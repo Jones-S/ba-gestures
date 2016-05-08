@@ -32,7 +32,7 @@
 
         (function fade() {
             var val = parseFloat(el[0].style.opacity);
-            if ((val += 0.1) < 1) {
+            if ((val += 0.025) < 1) {
                 el[0].style.opacity = val;
                 requestAnimationFrame(fade);
             }
