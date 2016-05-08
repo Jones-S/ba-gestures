@@ -62,7 +62,6 @@
                 switch(message.toString()) {
                 case 'on':
                     myLeapApp.sounder.play('on');
-                    console.log("its on bitches");
                     break;
                 case 'off':
                     myLeapApp.sounder.play('off');

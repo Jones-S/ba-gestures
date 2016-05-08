@@ -64,7 +64,6 @@
         } else {
             switch(sound) {
             case 'on':
-                console.log("Dr. Jones");
                 uber.sound_on.play();
                 break;
             case 'off':
