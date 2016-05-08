@@ -16,6 +16,10 @@
             console.log('client has connected!');
 
             uber.client.subscribe('/radio');
+            // only subscribe to sound channel, if the computer is not playing external sounds
+            if (!myLeapApp.ext_sounds) {
+                uber.client.subscribe('/sound');
+            }
             // client.unsubscribe('/example');
 
         });
@@ -56,8 +60,9 @@
                 }
             } else if (topic == '/sound') {
                 switch(message.toString()) {
-                    case 'on':
+                case 'on':
                     myLeapApp.sounder.play('on');
+                    console.log("its on bitches");
                     break;
                 case 'off':
                     myLeapApp.sounder.play('off');

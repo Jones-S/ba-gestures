@@ -63,8 +63,12 @@
             client.publish('/lamp', 'brightness-140');
         });
 
-         $('button#bn-40').on( "click", function() {
+        $('button#bn-40').on( "click", function() {
             client.publish('/lamp', 'brightness-40');
+        });
+
+        $('button#sound-test').on( "click", function() {
+            client.publish('/sound', 'on');
         });
 
 

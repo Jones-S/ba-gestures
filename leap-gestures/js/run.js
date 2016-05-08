@@ -16,7 +16,7 @@
             client_id:          'jonas laptop',
             typewriter:         false,
             gesture_option:     true,
-            ext_sounds:         true
+            ext_sounds:         false
         };
 
 

@@ -6,8 +6,8 @@
      */
     LEAPAPP.Sound = function() {
         // constructor
-        this.sound_on      = new Howl({ src: ['audio/wav/'], volume: 0.65 });
-        this.sound_off     = new Howl({ src: ['audio/wav/hover_out.wav'], volume: 0.65 });
+        this.sound_on      = new Howl({ src: ['audio/mp3/on.mp3'], volume: 0.65 });
+        this.sound_off     = new Howl({ src: ['audio/mp3/off.mp3'], volume: 0.65 });
         this.sound_vol     = new Howl({ src: ['audio/wav/volume.wav'], volume: 0.45, loop: true });
         this.sound_dock_on = new Howl({ src: ['audio/wav/vol_docking.wav'], volume: 0.45, loop: true });
         this.sound_dock_off= new Howl({ src: ['audio/wav/vol_docking_off'], volume: 0.45, loop: true });
@@ -64,6 +64,7 @@
         } else {
             switch(sound) {
             case 'on':
+                console.log("Dr. Jones");
                 uber.sound_on.play();
                 break;
             case 'off':
