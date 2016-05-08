@@ -1,14 +1,43 @@
 (function() {
 
-    // // private functions go here
-    // function set_msg_clr() {
-    //     var uber = this;
-    //     // TODO: check if this is the correct context
-    //     if(('#messages').length) { // if message container exists
-    //         // set a new hsl value for the textcolor
-    //         $('#messages').css('color', 'hsl(0, 0%, ' + uber.hsl_brightness + '%)');
-    //     }
-    // }
+    // private functions go here
+
+    /**
+     * Use vanilla js fade functions to use requestAnimationFrame
+     * instead of using jQuery fadeIn fadeOut functions, which don't use requestAnimationFrame
+     */
+
+    // fade out
+    function fadeOut(el) {
+        el[0].style.opacity = 1;
+
+        (function fade() {
+            if ((el[0].style.opacity -= 0.1) < 0) {
+                el[0].style.display = "none";
+            } else {
+                requestAnimationFrame(fade);
+            }
+        })();
+    }
+
+    function hide(el) {
+        // use el[0] because it is a jquery array and only the first should be the one to check
+        el[0].style.opacity = 0.0;
+    }
+
+    // fade in
+    function fadeIn(el, display) {
+        el[0].style.opacity = 0;
+        el[0].style.display = display || "block";
+
+        (function fade() {
+            var val = parseFloat(el[0].style.opacity);
+            if ((val += 0.1) < 1) {
+                el[0].style.opacity = val;
+                requestAnimationFrame(fade);
+            }
+        })();
+    }
 
     /**
      * Typewriter makes the necessary
@@ -53,7 +82,11 @@
             });
         } else {
             // only add text to the div
-            $('#messages').hide().html(html_string).fadeIn(1600);
+            // $('#messages').hide().html(html_string).fadeIn(1600);
+            var $elm = $('#messages'); // use val to return only the first element, otherwise it will return an array
+            $elm.html(html_string);
+            hide($elm);
+            fadeIn($elm);
         }
 
     };
