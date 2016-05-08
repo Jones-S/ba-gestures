@@ -84,7 +84,8 @@ var RADIOFLOW = {
                 this.radio_on = false;
             }
             else if (this.try(gesture_data, 'rotation')) {
-                if (gesture_data.rotation.grabbing) {
+                // only change volume when grabbing and the rotation gesture is true as well
+                if (gesture_data.rotation.grabbing && gesture_data.rotation.rotation_gesture) {
                     console.log("gesture_data.rotation.duration: ", gesture_data.rotation.duration);
 
                     // send angle difference to radio to adjust volume
