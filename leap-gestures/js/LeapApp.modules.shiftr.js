@@ -54,6 +54,40 @@
                         console.log("Unknown message: ", message);
 
                 }
+            } else if (topic == '/sound') {
+                switch(message.toString()) {
+                    case 'on':
+                    myLeapApp.sounder.play('on');
+                    break;
+                case 'off':
+                    myLeapApp.sounder.play('off');
+                    break;
+                case 'vol':
+                    myLeapApp.sounder.play('vol');
+                    break;
+                case 'cancel':
+                    myLeapApp.sounder.play('cancel');
+                    break;
+                case 'ok':
+                    myLeapApp.sounder.play('ok');
+                    break;
+                case 'next':
+                    myLeapApp.sounder.play('next');
+                    break;
+                case 'prev':
+                    myLeapApp.sounder.play('prev');
+                    break;
+                case 'start':
+                    myLeapApp.sounder.play('start');
+                    break;
+                case 'exit':
+                    myLeapApp.sounder.play('exit');
+                    break;
+                default:
+                    // do nothing
+                    break;
+
+                }
             }
         });
 
