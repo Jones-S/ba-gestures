@@ -88,6 +88,9 @@ var RADIOFLOW = {
                     // send angle difference to radio to adjust volume
                     myLeapApp.radio.setVolume(gesture_data.rotation);
                 }
+                if (gesture_data.rotation.finish_rotation) {
+                    myLeapApp.sounder.play('dock_off');
+                }
                 // play sound only at first
                 if (gesture_data.rotation.new_rotation) {
                     myLeapApp.sounder.play('dock_on');

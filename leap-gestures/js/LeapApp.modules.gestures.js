@@ -130,12 +130,14 @@
 
         // create object which will be sent to setVolume
         this.rotation_info = {
-            rotation_gesture: false,
-            angle_diff: 0,
-            volume_at_grab: 0.7,
-            new_rotation: false,
-            grabbing: false,
-            duration: 0
+            rotation_gesture:   false,
+            angle_diff:         0,
+            volume_at_grab:     0.7,
+            new_rotation:       false,
+            finish_rotation:    false,
+            grabbing:           false,
+            grabbing_lf:        false, // grabbing flag at last frame
+            duration:           0
         };
 
         this.last_gesture   = ''; // saving the last gesture to prevent explosion gesture after thumb for example
@@ -713,6 +715,10 @@
 
     LEAPAPP.GestureChecker.prototype.checkRotationGesture = function(frame) {
         var uber = this;
+
+        // set finish rotation to false all the time
+        uber.rotation_info.finish_rotation = false;
+
         // exit function if hand just entered
         if (uber.flags.new_hand && frame.hands.length === 1) {
             return false;
@@ -809,8 +815,21 @@
                     uber.rotation_info.rotation_gesture = false;
                 }
 
+                // check if last frame is different from current
+                // and also if last frame it was still true
+                if (uber.rotation_info.grabbing_lf != uber.rotation_info.grabbing && uber.rotation_info.grabbing_lf === true ) {
+                    // and set finish flag to true
+                    uber.rotation_info.finish_rotation = true;
+                }
+
+                // assign the grabbing to the last frame
+                uber.rotation_info.grabbing_lf = uber.rotation_info.grabbing;
+
                 // copy flag value to rotation info
                 uber.rotation_info.grabbing = uber.flags.grabbing;
+
+
+
                 // always return rotation info if confidence is high enough
                 return uber.rotation_info;
             }
@@ -947,9 +966,6 @@
                 }
             }
             if (counter) {
-                if(counter == 'rotation_frames') {
-                    console.log("%c timer for frames is reset", "background: #FDD187; color: #DA5C1B");
-                }
                 uber.counts[counter]    = 0; // reset counter
             }
             if (var_reset) { // reset a provided var (e.g last_gesture variable)
