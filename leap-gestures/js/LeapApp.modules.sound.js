@@ -9,6 +9,8 @@
         this.sound_on      = new Howl({ src: ['audio/wav/'], volume: 0.65 });
         this.sound_off     = new Howl({ src: ['audio/wav/hover_out.wav'], volume: 0.65 });
         this.sound_vol     = new Howl({ src: ['audio/wav/volume.wav'], volume: 0.45, loop: true });
+        this.sound_dock_on = new Howl({ src: ['audio/wav/vol_docking.wav'], volume: 0.45, loop: true });
+        this.sound_dock_off= new Howl({ src: ['audio/wav/vol_docking_off'], volume: 0.45, loop: true });
         this.sound_cancel  = new Howl({ src: ['audio/wav/cancel.wav'], volume: 0.65 });
         this.sound_ok      = new Howl({ src: ['audio/wav/ok.wav'], volume: 0.65 });
         this.sound_next    = new Howl({ src: ['audio/wav/swipe_right.wav'], volume: 0.65 });
