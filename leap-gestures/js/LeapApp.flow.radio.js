@@ -85,6 +85,8 @@ var RADIOFLOW = {
             }
             else if (this.try(gesture_data, 'rotation')) {
                 if (gesture_data.rotation.grabbing) {
+                    console.log("gesture_data.rotation.duration: ", gesture_data.rotation.duration);
+
                     // send angle difference to radio to adjust volume
                     myLeapApp.radio.setVolume(gesture_data.rotation);
                 }
