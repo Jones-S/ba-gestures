@@ -80,6 +80,7 @@
                 typeSpeed: 0,
                 showCursor: false
             });
+            // TODO: improve typed.js with requestAnimationFrame
         } else {
             // only add text to the div
             // $('#messages').hide().html(html_string).fadeIn(1600);
