@@ -15,7 +15,8 @@
             mqtt_uri:           'mqtt://e0b7ded5:04f776d89819bfdb@broker.shiftr.io',
             client_id:          'jonas laptop',
             typewriter:         false,
-            gesture_option:     true
+            gesture_option:     true,
+            ext_sounds:         true
         };
 
 

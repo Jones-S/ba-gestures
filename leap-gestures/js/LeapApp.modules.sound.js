@@ -27,7 +27,42 @@
     LEAPAPP.Sound.prototype.play = function(sound) {
         var uber = this;
 
-        switch(sound) {
+        // check if sounds should be played on this computer or on another one via shiftr
+        if (myLeapApp.ext_sounds) {
+            switch(sound) {
+                case 'on':
+                    myLeapApp.shiftr.publish('/sound', 'on');
+                    break;
+                case 'off':
+                    myLeapApp.shiftr.publish('/sound', 'off');
+                    break;
+                case 'vol':
+                    myLeapApp.shiftr.publish('/sound', 'vol');
+                    break;
+                case 'cancel':
+                    myLeapApp.shiftr.publish('/sound', 'cancel');
+                    break;
+                case 'ok':
+                    myLeapApp.shiftr.publish('/sound', 'ok');
+                    break;
+                case 'next':
+                    myLeapApp.shiftr.publish('/sound', 'next');
+                    break;
+                case 'prev':
+                    myLeapApp.shiftr.publish('/sound', 'prev');
+                    break;
+                case 'start':
+                    myLeapApp.shiftr.publish('/sound', 'start');
+                    break;
+                case 'exit':
+                    myLeapApp.shiftr.publish('/sound', 'exit');
+                    break;
+                default:
+                    // do nothing
+                    break;
+            }
+        } else {
+            switch(sound) {
             case 'on':
                 uber.sound_on.play();
                 break;
@@ -59,6 +94,9 @@
                 // do nothing
                 break;
         }
+        }
+
+
     };
 
 }());

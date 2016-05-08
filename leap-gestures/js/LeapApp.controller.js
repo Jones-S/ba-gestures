@@ -6,7 +6,8 @@
         this.start_seg          = options.start_seg;
         this.debug              = options.debug;
         this.typewriter         = options.typewriter;
-        this.gesture_option    = options.gesture_option;
+        this.gesture_option     = options.gesture_option;
+        this.ext_sounds         = options.ext_sounds;
 
         this.shiftr_info = {
             mqtt_uri:   options.mqtt_uri,
