@@ -38,10 +38,10 @@
                 'nj_goodbye.mp3',
                 'paint_it.mp3',
                 'tribe_award.mp3',
+                'dire_sultan.wav',
                 'rhcp_cabron.wav',
                 'uh_lady.mp3',
-                'racon_steady.mp3',
-                'dire_sultan.wav'
+                'racon_steady.mp3'
             ];
         }
 
@@ -58,7 +58,7 @@
         //         "./audio/cmn-mao3.mp3"
         //     ], // audio list
         this.howler_bank = [];
-        this.current_volume = 0.7; // from 0.01 to 1.0
+        this.current_volume = 0.5   ; // from 0.01 to 1.0
         var uber = this;
 
         // build up howler_bank:
@@ -68,7 +68,7 @@
                 // execute onEnd when finished and bind this(=uber) context
                 // otherwise the this in the function onEnd will refer to the Howl context
                 onend: uber.onEnd.bind(uber),
-                buffer: true,
+                preload: true,
                 volume: uber.current_volume
             }));
         });
