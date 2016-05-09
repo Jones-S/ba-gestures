@@ -16,6 +16,7 @@
             client_id:          'jonas laptop',
             typewriter:         false,
             gesture_option:     true,
+            music_folder:       'classics',
             ext_sounds:         false
         };
 

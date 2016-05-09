@@ -7,6 +7,7 @@
         this.debug              = options.debug;
         this.typewriter         = options.typewriter;
         this.gesture_option     = options.gesture_option;
+        this.music_folder       = options.music_folder;
         this.ext_sounds         = options.ext_sounds;
 
         this.shiftr_info = {

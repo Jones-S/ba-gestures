@@ -17,18 +17,35 @@
      */
     LEAPAPP.Radio = function() {
         // constructor
-        this.files = [
-            'mh_00001.mp3',
-            'mh_00002.mp3',
-            'mh_00003.mp3',
-            'mh_00004.mp3',
-            'mh_00005.mp3',
-            'mh_00006.mp3',
-            'mh_00007.mp3',
-            'mh_00008.mp3'
-        ];
 
-        this.folder = "audio/tracks/";
+        if (myLeapApp.music_folder == 'marek') {
+            this.files = [
+                'mh_00001.mp3',
+                'mh_00002.mp3',
+                'mh_00003.mp3',
+                'mh_00004.mp3',
+                'mh_00005.mp3',
+                'mh_00006.mp3',
+                'mh_00007.mp3',
+                'mh_00008.mp3'
+            ];
+        } else if (myLeapApp.music_folder == 'classics') {
+            this.files = [
+                'ec_layla.wav',
+                'jh_blues.mp3',
+                'jjc_call_me.mp3',
+                'ad_he_wont.wav',
+                'nj_goodbye.mp3',
+                'paint_it.mp3',
+                'tribe_award.mp3',
+                'rhcp_cabron.wav',
+                'uh_lady.mp3',
+                'racon_steady.mp3',
+                'dire_sultan.wav'
+            ];
+        }
+
+        this.folder = "audio/tracks/" + myLeapApp.music_folder + '/';
         this.files = completeFilePath(this.folder, this.files);
         console.log("this.files: ", this.files);
 
