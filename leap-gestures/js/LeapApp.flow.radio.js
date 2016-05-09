@@ -357,11 +357,17 @@ var RADIOFLOW = {
         },
         onGestureCheck: function(gesture_data, data) {
             var uber = this;
-            if (myLeapApp.flow.without_help.next_prev === false) {
+            // only on/off
+            if (myLeapApp.flow.without_help.on_off && !myLeapApp.flow.without_help.next_prev && !myLeapApp.flow.without_help.volume) {
                 myLeapApp.machine.callNextSeg('seg9');
             }
-            else if (myLeapApp.flow.without_help.next_prev && myLeapApp.flow.without_help.volume === false) {
+            // swipe and on/off
+            else if (myLeapApp.flow.without_help.next_prev && myLeapApp.flow.without_help.on_off && !myLeapApp.flow.without_help.volume) {
                 myLeapApp.machine.callNextSeg('seg12');
+            }
+            // only swipe
+            else if (myLeapApp.flow.without_help.next_prev && !myLeapApp.flow.without_help.volume && !myLeapApp.flow.without_help.on_off) {
+                myLeapApp.machine.callNextSeg('seg17');
             }
         },
         onLeave: function() {
