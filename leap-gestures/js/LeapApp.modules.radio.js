@@ -190,6 +190,37 @@
 
     };
 
+    LEAPAPP.Radio.prototype.setVolumeYAxis = function(mapped_volume) {
+        var uber = this;
+        // only adjust volume if track is playing
+        var song = uber.howler_bank[uber.current_track];
+        var vol = rotation_info.volume_at_grab;
+
+        // mapped volume is already in the range from 0.1 to 1.0
+
+        // check difference between the current volume and the incoming volume
+        // round first for easier comparison
+        var round_current = Math.round(uber.current_volume * 10) / 10;
+        var round_mapped  = Math.round(mapped_volume  * 10) / 10;
+
+        // rounded values range from 0.1 – 1.0 and increment by 0.1
+        // if current - mapped is != 0 (which means it's bigger or smaller)
+        // the click sound will be played
+        // if the difference is bigger than 0.2 then for every increment it will play a click
+        if (Math.abs(round_current - round_mapped) > 0) {
+            myLeapApp.sounder.play('vol');
+        }
+
+        console.log("round_current: ", round_current);
+        console.log("round_mapped: ", round_mapped);
+
+        if (uber.current_volume - mapped_volume) {}
+        // assign volume back to radio
+        uber.current_volume = mapped_volume;
+        uber.howler_bank[uber.current_track].volume(uber.current_volume);
+
+    };
+
 
 
     // playing i+1 audio (= chaining audio files)

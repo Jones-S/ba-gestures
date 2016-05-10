@@ -99,6 +99,23 @@ var RADIOFLOW = {
                     myLeapApp.sounder.play('dock_on');
                 }
             }
+            // if radio is on check y axis for volume
+            if (this.radio_on) {
+                // set current position of hand to current brightness
+                if (data.hands.length === 1) {
+                    // y-Axis range 120mm – 420mm
+                    // mapping this to volume (0.1 - 1.0)
+                    var y_axis = data.hands[0].palmPosition[1];
+                    this.volume = y_axis.map(120, 420, 0.1, 1.0);
+                    this.volume = (this.volume < 0.1) ? 0.1 : this.volume; // 0.1 is minimum
+                    this.volume = (this.volume > 1) ? 1 : this.volume; // 1 maximum
+                    console.log("this.volume: ", this.volume);
+                    // send volume to radio module to adjust volume
+                    myLeapApp.radio.setVolumeYAxis(this.volume);
+
+                }
+
+            }
 
         },
         onLeave: function() {
@@ -295,7 +312,7 @@ var RADIOFLOW = {
             ) {
                 uber.distinct_count++;
                 console.log("uber.distinct_count: ", uber.distinct_count);
-                if (uber.distinct_count > 20) {
+                if (uber.distinct_count > 12) {
                     myLeapApp.machine.callNextSeg('seg16');
                 }
             }

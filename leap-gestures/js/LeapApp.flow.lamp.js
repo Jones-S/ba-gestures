@@ -16,7 +16,7 @@ var LAMPFLOW = {
                 first_gesture_saved:    false
             };
             this.brightness = 100;
-            this.brtn_plsh_count = 0;
+            this.brightness_publish_count = 0;
             this.on_off_gesture = false; // container for saving the first on off gesture ['swipe' / 'explode']
 
         },
@@ -82,9 +82,9 @@ var LAMPFLOW = {
             if (this.flags.lamp_on) {
                 // set current position of hand to current brightness
                 if (data.hands.length === 1) {
-                    uber.brtn_plsh_count++;
+                    uber.brightness_publish_count++;
                     // only publish every x frames
-                    if (uber.brtn_plsh_count % 15 === 0) {
+                    if (uber.brightness_publish_count % 15 === 0) {
                         // y-Axis range 120mm – 420mm
                         // mapping this to brightness
                         // console.log("data.hands[0].palmPosition[1]: ", data.hands[0].palmPosition[1]);
@@ -96,8 +96,8 @@ var LAMPFLOW = {
                         myLeapApp.shiftr.publish('/lamp', 'brightness-' + this.brightness);
                     }
                     // reset counter every now and then
-                    if (uber.brtn_plsh_count >= 3600) {
-                        uber.brtn_plsh_count = 0;
+                    if (uber.brightness_publish_count >= 3600) {
+                        uber.brightness_publish_count = 0;
                     }
                 }
 
