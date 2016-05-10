@@ -183,7 +183,6 @@
         console.log("round_current: ", round_current);
         console.log("round_mapped: ", round_mapped);
 
-        if (uber.current_volume - mapped_volume) {}
         // assign volume back to radio
         uber.current_volume = mapped_volume;
         uber.howler_bank[uber.current_track].volume(uber.current_volume);
@@ -194,7 +193,6 @@
         var uber = this;
         // only adjust volume if track is playing
         var song = uber.howler_bank[uber.current_track];
-        var vol = rotation_info.volume_at_grab;
 
         // mapped volume is already in the range from 0.1 to 1.0
 
@@ -211,10 +209,6 @@
             myLeapApp.sounder.play('vol');
         }
 
-        console.log("round_current: ", round_current);
-        console.log("round_mapped: ", round_mapped);
-
-        if (uber.current_volume - mapped_volume) {}
         // assign volume back to radio
         uber.current_volume = mapped_volume;
         uber.howler_bank[uber.current_track].volume(uber.current_volume);
