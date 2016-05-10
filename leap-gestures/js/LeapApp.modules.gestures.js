@@ -124,6 +124,7 @@
         };
         this.counts = {
             dir_change_count:   0,   // counting direction change of cancel gesture
+            hand_still_frames:  0,   // counting how long a hand is held still
             thumb_up_frames:    0,   // counting frames of thumb up gesture
             rotation_frames:    0    // counting frames of rotation gesture
         };
@@ -712,6 +713,42 @@
     };
 
 
+    LEAPAPP.GestureChecker.prototype.checkHandRaiseGesture = function(frame) {
+        var uber = this;
+        for (var i = frame.hands.length -1; i >= 0; i--) {
+            var hand = frame.hands[i];
+
+            var confidence = hand.confidence;
+            var min_duration = 100; // frames how long the hand has to be held still
+
+            // save last hand in a temp variable
+            var last_hand = uber.last_hands_info[hand.id];
+
+            // hand is when held still (position not moving more than 1)in position in each direction
+            if (   (Math.abs(last_hand.palmPosition[0] - hand.palmPosition[0]) < 0.1)
+                && (Math.abs(last_hand.palmPosition[1] - hand.palmPosition[1]) < 0.1)
+                && (Math.abs(last_hand.palmPosition[2] - hand.palmPosition[2]) < 0.1)
+
+            ) {
+                // then add to the frame count
+                uber.counts.hand_still_frames++;
+            }
+            // else reset the counter
+            else {
+                uber.counts.hand_still_frames = 0;
+            }
+
+
+
+            // console.log("hand.palmPosition[0]: ", hand.palmPosition[0]);
+            // console.log("hand.palmPosition[1]: ", hand.palmPosition[1]);
+            // console.log("hand.palmPosition[2]: ", hand.palmPosition[2]);
+        }
+        // if no hand then reset the count as well
+        if (frame.hands.length === 0 && uber.counts.hand_still_frames !== 0) {
+            uber.counts.hand_still_frames = 0;
+        }
+    };
 
     LEAPAPP.GestureChecker.prototype.checkRotationGesture = function(frame) {
         var uber = this;
@@ -991,7 +1028,8 @@
         gestures.thumb_up               = uber.checkThumbUpGesture(frame);
         gestures.ok                     = uber.checkOKGesture(frame);
         gestures.cancel                 = uber.checkCancelGesture(frame);
-        gestures.rotation               = uber.checkRotationGesture(frame);
+        // gestures.rotation               = uber.checkRotationGesture(frame);
+        gestures.raise                  = uber.checkHandRaiseGesture(frame);
         gestures.exit                   = uber.checkForHandLeave(frame);
         // gestures.fast_moves             = uber.detectFastMovement(frame);
 
