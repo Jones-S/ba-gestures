@@ -714,7 +714,7 @@
     };
 
 
-    LEAPAPP.GestureChecker.prototype.checkHandRaiseGesture = function(frame) {
+    LEAPAPP.GestureChecker.prototype.checkVolAdjustGesture = function(frame) {
         var uber = this;
 
         for (var i = frame.hands.length -1; i >= 0; i--) {
@@ -738,7 +738,7 @@
                 // checking for a minimum
                 if (uber.counts.hand_still_frames > 50) {
                     // set a flag for active volume adjustment
-
+                    uber.flags.adjusting_vol = true;
                 }
             }
             // else reset the counter
@@ -746,15 +746,20 @@
                 uber.counts.hand_still_frames = 0;
             }
 
-
-
-            // console.log("hand.palmPosition[0]: ", hand.palmPosition[0]);
-            // console.log("hand.palmPosition[1]: ", hand.palmPosition[1]);
-            // console.log("hand.palmPosition[2]: ", hand.palmPosition[2]);
         }
         // if no hand then reset the count as well
         if (frame.hands.length === 0 && uber.counts.hand_still_frames !== 0) {
             uber.counts.hand_still_frames = 0;
+
+            // and if hand is out -> set flag to false
+            uber.flags.adjusting_vol = false;
+        }
+
+        // if flag of adjusting vol is true return true
+        if (uber.flags.adjusting_vol) {
+            return true;
+        } else {
+            return false;
         }
     };
 
@@ -1037,7 +1042,7 @@
         gestures.ok                     = uber.checkOKGesture(frame);
         gestures.cancel                 = uber.checkCancelGesture(frame);
         // gestures.rotation               = uber.checkRotationGesture(frame);
-        gestures.raise                  = uber.checkHandRaiseGesture(frame);
+        gestures.vol_adjust             = uber.checkVolAdjustGesture(frame);
         gestures.exit                   = uber.checkForHandLeave(frame);
         // gestures.fast_moves             = uber.detectFastMovement(frame);
 
