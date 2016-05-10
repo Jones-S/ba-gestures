@@ -120,7 +120,8 @@
             rotation_grab:      false,
             rot_grab_timer:     false,
             new_hand:           false,
-            grabbing:           false
+            grabbing:           false,
+            adjusting_vol:      false
         };
         this.counts = {
             dir_change_count:   0,   // counting direction change of cancel gesture
@@ -715,6 +716,7 @@
 
     LEAPAPP.GestureChecker.prototype.checkHandRaiseGesture = function(frame) {
         var uber = this;
+
         for (var i = frame.hands.length -1; i >= 0; i--) {
             var hand = frame.hands[i];
 
@@ -732,6 +734,12 @@
             ) {
                 // then add to the frame count
                 uber.counts.hand_still_frames++;
+
+                // checking for a minimum
+                if (uber.counts.hand_still_frames > 50) {
+                    // set a flag for active volume adjustment
+
+                }
             }
             // else reset the counter
             else {
