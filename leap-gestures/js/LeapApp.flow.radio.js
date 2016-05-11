@@ -83,22 +83,22 @@ var RADIOFLOW = {
                 myLeapApp.radio.pause();
                 this.radio_on = false;
             }
-            else if (this.try(gesture_data, 'rotation')) {
-                // only change volume when grabbing and the rotation gesture is true as well
-                if (gesture_data.rotation.grabbing && gesture_data.rotation.rotation_gesture) {
-                    console.log("gesture_data.rotation.duration: ", gesture_data.rotation.duration);
+            // else if (this.try(gesture_data, 'rotation')) {
+            //     // only change volume when grabbing and the rotation gesture is true as well
+            //     if (gesture_data.rotation.grabbing && gesture_data.rotation.rotation_gesture) {
+            //         console.log("gesture_data.rotation.duration: ", gesture_data.rotation.duration);
 
-                    // send angle difference to radio to adjust volume
-                    myLeapApp.radio.setVolume(gesture_data.rotation);
-                }
-                if (gesture_data.rotation.finish_rotation) {
-                    myLeapApp.sounder.play('dock_off');
-                }
-                // play sound only at first
-                if (gesture_data.rotation.new_rotation) {
-                    myLeapApp.sounder.play('dock_on');
-                }
-            }
+            //         // send angle difference to radio to adjust volume
+            //         myLeapApp.radio.setVolume(gesture_data.rotation);
+            //     }
+            //     if (gesture_data.rotation.finish_rotation) {
+            //         myLeapApp.sounder.play('dock_off');
+            //     }
+            //     // play sound only at first
+            //     if (gesture_data.rotation.new_rotation) {
+            //         myLeapApp.sounder.play('dock_on');
+            //     }
+            // }
             else if (this.try(gesture_data, 'vol_adjust')) {
                 // if adjusting volume then map y-axis to volume
                 console.log("%c vol adjust", "background: #FDD187; color: #DA5C1B");
@@ -197,23 +197,25 @@ var RADIOFLOW = {
                 }, 20000);
             }
 
-            if (this.try(gesture_data, 'rotation')) {
-                // check if new rotation
-                if (gesture_data.rotation.new_rotation) {
-                    // set flag for the time the rotation is on
-                    uber.new_rotation = true;
-                }
-                // check if the gesture is made for sufficient time
-                if (uber.new_rotation && gesture_data.rotation.duration > 30) {
-                    myLeapApp.flow.initial_count.volume++;
-                    // reset flag
-                    uber.new_rotation = false;
-                }
-                // also increase count if the gesture is made for a long time
-                if (gesture_data.rotation.duration == 200) {
-                    myLeapApp.flow.initial_count.volume++;
-                }
-            }
+            // dont use rotation grab anymore
+
+            // if (this.try(gesture_data, 'rotation')) {
+            //     // check if new rotation
+            //     if (gesture_data.rotation.new_rotation) {
+            //         // set flag for the time the rotation is on
+            //         uber.new_rotation = true;
+            //     }
+            //     // check if the gesture is made for sufficient time
+            //     if (uber.new_rotation && gesture_data.rotation.duration > 30) {
+            //         myLeapApp.flow.initial_count.volume++;
+            //         // reset flag
+            //         uber.new_rotation = false;
+            //     }
+            //     // also increase count if the gesture is made for a long time
+            //     if (gesture_data.rotation.duration == 200) {
+            //         myLeapApp.flow.initial_count.volume++;
+            //     }
+            // }
 
             if (this.try(gesture_data, 'on') || this.try(gesture_data, 'off')) {
                 myLeapApp.flow.initial_count.on_off++;
