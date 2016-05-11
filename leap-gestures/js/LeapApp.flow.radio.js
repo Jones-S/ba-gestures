@@ -169,7 +169,7 @@ var RADIOFLOW = {
                 // start timer as soon as hands are visible
                 setTimeout(function() {
                     // check for counts of interactions to determine how much help a user needs
-                    if (   myLeapApp.flow.initial_count.volume >= 2
+                    if (   myLeapApp.flow.initial_count.volume >= 1
                         && myLeapApp.flow.initial_count.next_prev >= 2
                         && myLeapApp.flow.initial_count.on_off >= 3
                     ) {
