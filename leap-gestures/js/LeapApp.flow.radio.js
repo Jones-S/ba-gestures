@@ -103,7 +103,8 @@ var RADIOFLOW = {
                 // if adjusting volume then map y-axis to volume
                 console.log("%c vol adjust", "background: #FDD187; color: #DA5C1B");
 
-                if (data.hands[0].palmPosition[1]) {
+                // check for hands first, because when hand left
+                if (!(this.try(gesture_data, 'exit'))) {
                     // y-Axis range 120mm – 420mm
                     // mapping this to volume (0.1 - 1.0)
                     var y_axis = data.hands[0].palmPosition[1];
@@ -216,6 +217,11 @@ var RADIOFLOW = {
             //         myLeapApp.flow.initial_count.volume++;
             //     }
             // }
+
+            if (this.try(gesture_data, 'vol_adjust')) {
+                myLeapApp.flow.initial_count.volume++;
+                console.log("myLeapApp.flow.initial_count.volume: ", myLeapApp.flow.initial_count.volume);
+            }
 
             if (this.try(gesture_data, 'on') || this.try(gesture_data, 'off')) {
                 myLeapApp.flow.initial_count.on_off++;

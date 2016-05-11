@@ -762,9 +762,16 @@
             uber.flags.adjusting_vol = false;
         }
 
-        // if flag of adjusting vol is true return true
+
+        // if flag of adjusting vol is true check for interruption
+        // and return
         if (uber.flags.adjusting_vol) {
-            return true;
+            // reset will return true, if volume adjust is interrupted
+            if (uber.checkVolumeAdjustInterruption(frame)) {
+                return false;
+            } else {
+                return true;
+            }
         } else {
             return false;
         }
@@ -989,6 +996,38 @@
             uber.last_hands_info[hand.id] = hand;
         }
     };
+
+    // check if vol adjust is interrupted
+    LEAPAPP.GestureChecker.prototype.checkVolumeAdjustInterruption = function(frame) {
+        var uber = this;
+
+        for (var i = frame.hands.length - 1; i >= 0; i--) {
+            var hand = frame.hands[i];
+
+            // get finger info
+            var extended = uber.fingerInfo[hand.id].total_extended;
+
+            // save last hand in a temp variable
+            var last_hand = uber.last_hands_info[hand.id];
+
+            if ( (extended < 4) // if at least 2 fingers are bent
+              || (Math.abs(last_hand.palmPosition[0] - hand.palmPosition[0]) > 3.0)
+              || (Math.abs(last_hand.palmPosition[1] - hand.palmPosition[1]) > 3.0)
+
+            ) {
+                console.log("%c INTERRUPTED", "background: #FD6144; color: #B6DABA");
+                return false;
+            }
+            else {
+                return true;
+            }
+        }
+
+        // if nothing was returned before -> no hands -> return false
+        return false;
+    };
+
+
 
 
     /**
