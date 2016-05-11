@@ -464,7 +464,8 @@ var RADIOFLOW = {
     seg10: {
         onEnter: function() {
             var uber = this;
-            this.say('Perfekt.<br>Die Lautstärke wechselst du mit einem imaginären Drehknopf.');
+            this.say('Perfekt.\
+                /nl Und die Lautstärke halte Deine geöffnete Hand eine Zeit lang still. Nach einer Weile – du hörst ein Geräusch – kannst Du, indem Du Deine Hand höher oder tiefer hältst, die Lautstärke verstellen. ');
             setTimeout(function() {
                 uber.played_fns.on_enter = true;
             }, 4500);
@@ -499,7 +500,7 @@ var RADIOFLOW = {
     seg12: {
         onEnter: function() {
             var uber = this;
-            this.say('Um die Lautstärke zu ändern, denke doch mal an einen klassischen Drehknopf.');
+            this.say('Und die Lautstärke halte Deine geöffnete Hand eine Zeit lang still. Nach einer Weile kannst du die Lautstärke verstellen. ');
             setTimeout(function() {
                 uber.played_fns.on_enter = true;
             }, 4400);
@@ -516,24 +517,28 @@ var RADIOFLOW = {
             uber.say('Am besten hörst du es, wenn ein Lied abgespielt wird.');
             uber.played_fns.on_enter = true;
             uber.timer_started = false;
-            uber.rotation_count = 0;
+            uber.vol_count = 0;
+            uber.new_volume = false;
         },
         onGestureCheck: function(gesture_data, data) {
             var uber = this;
-            if (this.try(gesture_data, 'rotation') && (gesture_data.rotation.grabbing)) {
-                // count the frames for the rotation duration
-                uber.rotation_count++;
-                // TODO: rather check for minimal volume change
-                if (uber.rotation_count >= 100) { // 100 frames, ~1.5s
-                    // clear timer
-                    clearTimeout(uber.timer);
-                    // check if song is playing, then go to 14
-                    if (myLeapApp.radio.isPlaying()) {
-                        console.log("yes sound on");
-                        myLeapApp.machine.callNextSeg('seg14');
-                    } else {
-                        myLeapApp.machine.callNextSeg('seg14a');
-                    }
+
+            if (this.try(gesture_data, 'vol_adjust') && !uber.new_volume) {
+                uber.new_volume = true;
+                uber.vol_count++;
+                console.log("myLeapApp.flow.initial_count.volume: ", myLeapApp.flow.initial_count.volume);
+            } else if (!this.try(gesture_data, 'vol_adjust')) {
+                uber.new_volume = false;
+            }
+
+            if (uber.vol_count > 0) {
+                // clear timer
+                clearTimeout(uber.timer);
+                // check if song is playing, then go to 14
+                if (myLeapApp.radio.isPlaying()) {
+                    myLeapApp.machine.callNextSeg('seg14');
+                } else {
+                    myLeapApp.machine.callNextSeg('seg14a');
                 }
             }
             else if (!uber.timer_started) {
@@ -564,19 +569,23 @@ var RADIOFLOW = {
             var uber = this;
             uber.say('Spiel doch mal ein Lied ab, damit du den Unterschied hörst.');
             uber.played_fns.on_enter = true;
-            uber.rotation_count = 0;
+            uber.vol_count = 0;
+            uber.new_volume = false;
         },
         onGestureCheck: function(gesture_data, data) {
             var uber = this;
-            if (this.try(gesture_data, 'rotation') && (gesture_data.rotation.grabbing)) {
+
+            if (this.try(gesture_data, 'vol_adjust') && !uber.new_volume) {
+                uber.new_volume = true;
+                uber.vol_count++;
+                console.log("myLeapApp.flow.initial_count.volume: ", myLeapApp.flow.initial_count.volume);
+            } else if (!this.try(gesture_data, 'vol_adjust')) {
+                uber.new_volume = false;
+            }
+            if (uber.vol_count > 1) {
+                // check if song is playing, then go to 14
                 if (myLeapApp.radio.isPlaying()) {
-                    // count frames when song i playing
-                    uber.rotation_count++;
-                    // TODO: rather check for minimal volume change
-                    if (uber.rotation_count >= 100) { // 100 frames, ~1.5s
-                    // check if song is playing, then go to 14
-                        myLeapApp.machine.callNextSeg('seg14');
-                    }
+                    myLeapApp.machine.callNextSeg('seg14');
                 }
             }
 
@@ -588,8 +597,12 @@ var RADIOFLOW = {
     seg15: {
         onEnter: function() {
             var uber = this;
-            uber.rotation_count = 0;
-            uber.say('Umfasse mit allen Fingern einen unsichtbaren Drehknopf der Grösse eines Fünf-Franken-Stückes.<br>Bei der richtigen Geste hörst du ein Klicken.<br>Drehe dann deine Hand nach rechts oder nach links.');
+            uber.vol_count = 0;
+            uber.new_volume = false;
+
+            uber.say('Halte deine Hand ausgestreckt für ein paar Sekunden still.\
+                /nl Sobald du die Lautsärke verstellen kannst, hörst du ein Geräusch. \
+                /nl Dann bewege deine Hand hoch oder runter.');
             setTimeout(function() {
                 uber.played_fns.on_enter = true;
             }, 12000);
@@ -597,20 +610,22 @@ var RADIOFLOW = {
         onGestureCheck: function(gesture_data, data) {
             var uber = this;
 
-            if (this.try(gesture_data, 'rotation') && (gesture_data.rotation.grabbing)) {
-                // count the frames for the rotation duration
-                uber.rotation_count++;
-                console.log("uber.rotation_count: ", uber.rotation_count);
-                // TODO: rather check for minimal volume change
-                if (uber.rotation_count >= 100) { // 100 frames, ~1.5s
-                    // check if song is playing, then go to 14
-                    if (myLeapApp.radio.isPlaying()) {
-                        myLeapApp.machine.callNextSeg('seg14');
-                    } else {
-                        myLeapApp.machine.callNextSeg('seg14a');
-                    }
+            if (this.try(gesture_data, 'vol_adjust') && !uber.new_volume) {
+                uber.new_volume = true;
+                uber.vol_count++;
+                console.log("myLeapApp.flow.initial_count.volume: ", myLeapApp.flow.initial_count.volume);
+            } else if (!this.try(gesture_data, 'vol_adjust')) {
+                uber.new_volume = false;
+            }
+            if (uber.vol_count > 1) {
+                // check if song is playing, then go to 14
+                if (myLeapApp.radio.isPlaying()) {
+                    myLeapApp.machine.callNextSeg('seg14');
+                } else {
+                    myLeapApp.machine.callNextSeg('seg14a');
                 }
             }
+
         },
         onLeave: function() {
         }
