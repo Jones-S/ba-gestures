@@ -702,7 +702,9 @@
 
                 // check if all fingers are ok and if distance is short enough for OK gesture
                 if ((all_finger_ok) && (distance < 34)) {
-                    console.log("%c - - - - - - - GESTURE:                                    OK Gesture", 'background: #6BC9BD; color: #F7FFF8');
+                    if (myLeapApp.debug) {
+                        console.log("%c - - - - - - - GESTURE:                                    OK Gesture", 'background: #6BC9BD; color: #F7FFF8');
+                    }
                     return true;
                 } else {
                     return false;
@@ -727,7 +729,8 @@
             var last_hand = uber.last_hands_info[hand.id];
 
             // hand is when held still (position not moving more than 1)in position in each direction
-            if (   (Math.abs(last_hand.palmPosition[0] - hand.palmPosition[0]) < 0.1)
+            if (   (!uber.flags.adjusting_vol) // only check if flag is not true anyway
+                && (Math.abs(last_hand.palmPosition[0] - hand.palmPosition[0]) < 0.1)
                 && (Math.abs(last_hand.palmPosition[1] - hand.palmPosition[1]) < 0.1)
                 && (Math.abs(last_hand.palmPosition[2] - hand.palmPosition[2]) < 0.1)
 
@@ -736,9 +739,13 @@
                 uber.counts.hand_still_frames++;
 
                 // checking for a minimum
-                if (uber.counts.hand_still_frames > 50) {
+                if (uber.counts.hand_still_frames > 35) {
                     // set a flag for active volume adjustment
                     uber.flags.adjusting_vol = true;
+
+                    if (myLeapApp.debug) {
+                        console.log("%c - - - - - - - GESTURE:                                    Volume Adjust Start", 'background: #C3EC25; color: #191A1A');
+                    }
                 }
             }
             // else reset the counter
@@ -888,6 +895,9 @@
 
         return false;
     };
+
+
+    // TODO: check for quick enter and leaving (keep your hands in the field!)
 
 
 
@@ -1045,6 +1055,22 @@
         gestures.vol_adjust             = uber.checkVolAdjustGesture(frame);
         gestures.exit                   = uber.checkForHandLeave(frame);
         // gestures.fast_moves             = uber.detectFastMovement(frame);
+
+        // if adjusting vol flag is true -> then check if flag should be reset
+        if (uber.flags.adjusting_vol) {
+            // check other gestures
+            if (   (gestures.cancel)
+                || (gestures.distinct_interaction)
+                || (gestures.exit)
+                || (gestures.off)
+                || (gestures.on)
+                || (gestures.ok)
+                || (gestures.swipe)
+                || (gestures.thumb_up)
+            ) {
+                uber.flags.adjusting_vol = false;
+            }
+        }
 
         // save hand to last hand object
         uber.saveLastHand(frame);

@@ -103,15 +103,17 @@ var RADIOFLOW = {
                 // if adjusting volume then map y-axis to volume
                 console.log("%c vol adjust", "background: #FDD187; color: #DA5C1B");
 
-                // y-Axis range 120mm – 420mm
-                // mapping this to volume (0.1 - 1.0)
-                var y_axis = data.hands[0].palmPosition[1];
-                this.volume = y_axis.map(120, 420, 0.1, 1.0);
-                this.volume = (this.volume < 0.1) ? 0.1 : this.volume; // 0.1 is minimum
-                this.volume = (this.volume > 1) ? 1 : this.volume; // 1 maximum
-                console.log("this.volume: ", this.volume);
-                // send volume to radio module to adjust volume
-                myLeapApp.radio.setVolumeYAxis(this.volume);
+                if (data.hands[0].palmPosition[1]) {
+                    // y-Axis range 120mm – 420mm
+                    // mapping this to volume (0.1 - 1.0)
+                    var y_axis = data.hands[0].palmPosition[1];
+                    this.volume = y_axis.map(120, 420, 0.1, 1.0);
+                    this.volume = (this.volume < 0.1) ? 0.1 : this.volume; // 0.1 is minimum
+                    this.volume = (this.volume > 1) ? 1 : this.volume; // 1 maximum
+                    console.log("this.volume: ", this.volume);
+                    // send volume to radio module to adjust volume
+                    myLeapApp.radio.setVolumeYAxis(this.volume);
+                }
 
             }
             // // if radio is on check y axis for volume
