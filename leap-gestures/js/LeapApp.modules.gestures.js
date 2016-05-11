@@ -768,8 +768,11 @@
         if (uber.flags.adjusting_vol) {
             // reset will return true, if volume adjust is interrupted
             if (uber.checkVolumeAdjustInterruption(frame)) {
+                // set flag to false
+                uber.flags.adjusting_vol = false;
                 return false;
             } else {
+                console.log("all good - - - - - - ");
                 return true;
             }
         } else {
@@ -1009,17 +1012,20 @@
 
             // save last hand in a temp variable
             var last_hand = uber.last_hands_info[hand.id];
+            var diffx = 0;
+            var diffy = 0;
 
             if ( (extended < 4) // if at least 2 fingers are bent
-              || (Math.abs(last_hand.palmPosition[0] - hand.palmPosition[0]) > 3.0)
-              || (Math.abs(last_hand.palmPosition[1] - hand.palmPosition[1]) > 3.0)
+              || ((diffx = Math.abs(last_hand.palmPosition[0] - hand.palmPosition[0])) > 6.0)
+              || ((diffy = Math.abs(last_hand.palmPosition[2] - hand.palmPosition[2])) > 6.0)
 
             ) {
                 console.log("%c INTERRUPTED", "background: #FD6144; color: #B6DABA");
-                return false;
+                console.log("extended: ", extended, ", x pos: ", diffx, ", y pos: ", diffy );
+                return true;
             }
             else {
-                return true;
+                return false;
             }
         }
 
