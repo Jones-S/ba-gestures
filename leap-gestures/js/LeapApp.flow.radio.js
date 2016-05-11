@@ -31,8 +31,10 @@ var RADIOFLOW = {
     doAlways: {
         onEnter: function() {
             this.played_fns.on_enter = true;
+            this.new_volume = false;
         },
         onGestureCheck: function(gesture_data, data) {
+            var uber = this;
             // play hover sound for new hands
             if (this.try(gesture_data, 'start')) {
                 myLeapApp.sounder.play('start');
@@ -100,8 +102,14 @@ var RADIOFLOW = {
             //     }
             // }
             else if (this.try(gesture_data, 'vol_adjust')) {
+
+                // play sound only at first
+                if (!uber.new_volume) {
+                    myLeapApp.sounder.play('dock_on');
+                    uber.new_volume = true;
+                }
+
                 // if adjusting volume then map y-axis to volume
-                console.log("%c vol adjust", "background: #FDD187; color: #DA5C1B");
 
                 // check for hands first, because when hand left
                 if (!(this.try(gesture_data, 'exit'))) {
@@ -111,12 +119,18 @@ var RADIOFLOW = {
                     this.volume = y_axis.map(120, 420, 0.1, 1.0);
                     this.volume = (this.volume < 0.1) ? 0.1 : this.volume; // 0.1 is minimum
                     this.volume = (this.volume > 1) ? 1 : this.volume; // 1 maximum
-                    console.log("this.volume: ", this.volume);
+                    console.log("%c this.volume: ", "background: #FDD187; color: #DA5C1B", this.volume);
                     // send volume to radio module to adjust volume
                     myLeapApp.radio.setVolumeYAxis(this.volume);
                 }
 
             }
+            else if (!this.try(gesture_data, 'vol_adjust') && uber.new_volume) {
+                uber.new_volume = false;
+                // play docking sounds
+                myLeapApp.sounder.play('dock_off');
+            }
+
             // // if radio is on check y axis for volume
             // if (this.radio_on) {
             //     // set current position of hand to current brightness
