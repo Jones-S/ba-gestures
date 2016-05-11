@@ -772,7 +772,6 @@
                 uber.flags.adjusting_vol = false;
                 return false;
             } else {
-                console.log("all good - - - - - - ");
                 return true;
             }
         } else {

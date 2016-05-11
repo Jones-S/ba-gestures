@@ -145,6 +145,7 @@ var RADIOFLOW = {
             this.played_fns.on_enter = true;
             this.timer_started = false;
             this.new_rotation = false;
+            this.new_volume = false;
         },
         onGestureCheck: function(gesture_data, data) {
             var uber = this;
@@ -218,9 +219,12 @@ var RADIOFLOW = {
             //     }
             // }
 
-            if (this.try(gesture_data, 'vol_adjust')) {
+            if (this.try(gesture_data, 'vol_adjust') && !uber.new_volume) {
+                uber.new_volume = true;
                 myLeapApp.flow.initial_count.volume++;
                 console.log("myLeapApp.flow.initial_count.volume: ", myLeapApp.flow.initial_count.volume);
+            } else if (!this.try(gesture_data, 'vol_adjust')) {
+                uber.new_volume = false;
             }
 
             if (this.try(gesture_data, 'on') || this.try(gesture_data, 'off')) {
