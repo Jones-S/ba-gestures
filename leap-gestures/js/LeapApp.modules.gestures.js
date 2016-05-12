@@ -1132,13 +1132,40 @@
 
     LEAPAPP.GestureChecker.prototype.select = function(frame) {
         var uber = this;
+        uber.active_object = '';
+
         // only make it possible with one hand
         if (frame.hands.length === 1) {
             var hand = frame.hands[0];
 
             // start selection if bigger than 420
             if (hand.palmPosition[1] > 420) {
-                console.log("hand.palmPosition[1]: ", hand.palmPosition[1]);
+                console.log("hand.palmPosition[]: ", hand.palmPosition[0]);
+                if (hand.palmPosition[0] < -60) {
+                    if (uber.active_object != 'radio') {
+                        $('.object').removeClass('active');
+                        // change most left object
+                        $('#radio').addClass('active');
+                    }
+                    // set a flag
+                    uber.active_object = 'radio';
+                } else if (hand.palmPosition[0] > 60) {
+                    if (uber.active_object != 'ventilator') {
+                        $('.object').removeClass('active');
+                        // change most left object
+                        $('#ventilator').addClass('active');
+                    }
+                    // set a flag
+                    uber.active_object = 'ventilator';
+                } else {
+                    if (uber.active_object != 'lamp') {
+                        $('.object').removeClass('active');
+                        // change most left object
+                        $('#lamp').addClass('active');
+                    }
+                    // set a flag
+                    uber.active_object = 'lamp';
+                }
 
             }
 

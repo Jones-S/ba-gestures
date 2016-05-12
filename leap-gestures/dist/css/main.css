@@ -181,9 +181,12 @@ body.fast-moves {
 
 .object {
   width: 30%;
-  height: 50px;
+  height: 200px;
   background-color: #FFC819;
   float: left;
   margin-right: 3px; }
+
+.object.active {
+  background-color: #60A4FF; }
 
 /*# sourceMappingURL=maps/main.css.map */
