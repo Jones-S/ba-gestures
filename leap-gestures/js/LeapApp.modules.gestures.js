@@ -201,6 +201,9 @@
                 myLeapApp.painter.paint(gesture_data);
             }
 
+            // call selector
+            uber.select(frame);
+
 
         });
     };
@@ -1120,6 +1123,24 @@
         uber.saveLastHand(frame);
 
         return gestures;
+    };
+
+
+
+
+
+
+    LEAPAPP.GestureChecker.prototype.select = function(frame) {
+        var uber = this;
+        // only make it possible with one hand
+        if (frame.hands.length === 1) {
+
+        }
+        for (var i = frame.hands.length - 1; i >= 0; i--) {
+            var hand = frame.hands[i];
+            // save hand into last hands array
+            uber.last_hands_info[hand.id] = hand;
+        }
     };
 
 
