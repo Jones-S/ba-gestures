@@ -1134,12 +1134,16 @@
         var uber = this;
         // only make it possible with one hand
         if (frame.hands.length === 1) {
+            var hand = frame.hands[0];
 
-        }
-        for (var i = frame.hands.length - 1; i >= 0; i--) {
-            var hand = frame.hands[i];
-            // save hand into last hands array
-            uber.last_hands_info[hand.id] = hand;
+            // start selection if bigger than 420
+            if (hand.palmPosition[1] > 420) {
+                console.log("hand.palmPosition[1]: ", hand.palmPosition[1]);
+
+            }
+
+        } else {
+            return false;
         }
     };
 
