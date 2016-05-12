@@ -85,13 +85,17 @@ body.fast-moves {
 
 .object {
     width: 30%;
-    height: 200px;
+    height: 500px;
     background-color: #FFC819;
     float: left;
     margin-right: 3px;
+    font-size: 40px;
+    padding: 30px;
+    color: black;
 }
 
 .object.active {
     background-color: #60A4FF;
+    color: white;
 }
 
