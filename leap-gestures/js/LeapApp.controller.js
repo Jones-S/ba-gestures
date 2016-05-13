@@ -32,7 +32,7 @@
         uber.shiftr         = new LEAPAPP.Shiftr(uber.shiftr_info);
         uber.sounder        = new LEAPAPP.Sound();
         uber.radio          = new LEAPAPP.Radio();
-        uber.selector       = new LEAPAPP.ObjectSelector();
+
         // subscribe 'doAlways'-Segment to the publisher
         var new_segment     = new LEAPAPP.Segment(uber.flow.doAlways);
         new_segment.onEnter(); // execute onEnter to skip that (otherwise onGestureCheck won't be executed)

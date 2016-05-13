@@ -11,14 +11,13 @@
         var controller_options = {
             debug:              true,
             flow:               flow,
-            start_seg:          'seg6',
+            start_seg:          'seg0',
             mqtt_uri:           'mqtt://e0b7ded5:04f776d89819bfdb@broker.shiftr.io',
             client_id:          'jonas laptop',
             typewriter:         false,
             gesture_option:     true,
             music_folder:       'classics',
-            ext_sounds:         false,
-            visualizer:         true
+            ext_sounds:         false
         };
 
 
