@@ -9,6 +9,7 @@
         this.gesture_option     = options.gesture_option;
         this.music_folder       = options.music_folder;
         this.ext_sounds         = options.ext_sounds;
+        this.visualizer         = options.visualizer;
 
         this.shiftr_info = {
             mqtt_uri:   options.mqtt_uri,

@@ -17,7 +17,8 @@
             typewriter:         false,
             gesture_option:     true,
             music_folder:       'classics',
-            ext_sounds:         false
+            ext_sounds:         false,
+            visualizer:         true
         };
 
 

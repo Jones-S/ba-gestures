@@ -8,7 +8,7 @@
 
     };
 
-    LEAPAPP.ObjectSelector.prototype.onEnd = function() {
+    LEAPAPP.ObjectSelector.prototype.select = function() {
         var uber = this;
 
     };
