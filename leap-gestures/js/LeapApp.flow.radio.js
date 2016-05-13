@@ -31,7 +31,6 @@ var RADIOFLOW = {
     doAlways: {
         onEnter: function() {
             this.played_fns.on_enter = true;
-            this.new_volume = false;
         },
         onGestureCheck: function(gesture_data, data) {
             var uber = this;
@@ -51,8 +50,6 @@ var RADIOFLOW = {
                     }, 400);
                     // set radio on flag to on
                     this.radio_on = true;
-                    // myLeapApp.shiftr.publish('/radio', 'next-track');    // pubslih via shiftr.io
-                    // myLeapApp.sounder.play('right'); // play on sound
                 }
                 else if(gesture_data.swipe == "left") {
                     myLeapApp.radio.pause();
@@ -61,8 +58,7 @@ var RADIOFLOW = {
                         myLeapApp.radio.previousTrack();
                     }, 400);
                     this.radio_on = true;
-                    // myLeapApp.shiftr.publish('/radio', 'prev-track');
-                    // myLeapApp.sounder.play('left');
+
                 }
             }
             else if(this.try(gesture_data, 'on')) {
@@ -85,31 +81,11 @@ var RADIOFLOW = {
                 myLeapApp.radio.pause();
                 this.radio_on = false;
             }
-            // else if (this.try(gesture_data, 'rotation')) {
-            //     // only change volume when grabbing and the rotation gesture is true as well
-            //     if (gesture_data.rotation.grabbing && gesture_data.rotation.rotation_gesture) {
-            //         console.log("gesture_data.rotation.duration: ", gesture_data.rotation.duration);
 
-            //         // send angle difference to radio to adjust volume
-            //         myLeapApp.radio.setVolume(gesture_data.rotation);
-            //     }
-            //     if (gesture_data.rotation.finish_rotation) {
-            //         myLeapApp.sounder.play('dock_off');
-            //     }
-            //     // play sound only at first
-            //     if (gesture_data.rotation.new_rotation) {
-            //         myLeapApp.sounder.play('dock_on');
-            //     }
-            // }
             else if (this.try(gesture_data, 'vol_adjust')) {
 
-                // play sound only at first
-                if (!uber.new_volume) {
-                    myLeapApp.sounder.play('dock_on');
-                    uber.new_volume = true;
-                }
-
                 // if adjusting volume then map y-axis to volume
+                // TODO: set volume to current handposition when entering the interaction box
 
                 // check for hands first, because when hand left
                 if (!(this.try(gesture_data, 'exit'))) {
@@ -125,29 +101,7 @@ var RADIOFLOW = {
                 }
 
             }
-            else if (!this.try(gesture_data, 'vol_adjust') && uber.new_volume) {
-                uber.new_volume = false;
-                // play docking sounds
-                myLeapApp.sounder.play('dock_off');
-            }
 
-            // // if radio is on check y axis for volume
-            // if (this.radio_on) {
-            //     // set current position of hand to current brightness
-            //     if (data.hands.length === 1) {
-            //         // y-Axis range 120mm – 420mm
-            //         // mapping this to volume (0.1 - 1.0)
-            //         var y_axis = data.hands[0].palmPosition[1];
-            //         this.volume = y_axis.map(120, 420, 0.1, 1.0);
-            //         this.volume = (this.volume < 0.1) ? 0.1 : this.volume; // 0.1 is minimum
-            //         this.volume = (this.volume > 1) ? 1 : this.volume; // 1 maximum
-            //         console.log("this.volume: ", this.volume);
-            //         // send volume to radio module to adjust volume
-            //         myLeapApp.radio.setVolumeYAxis(this.volume);
-
-            //     }
-
-            // }
 
         },
         onLeave: function() {

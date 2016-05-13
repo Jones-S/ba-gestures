@@ -205,8 +205,10 @@
         // if current - mapped is != 0 (which means it's bigger or smaller)
         // the click sound will be played
         // if the difference is bigger than 0.2 then for every increment it will play a click
+
+        // TODO: map volume between current hand and max and min
         if (Math.abs(round_current - round_mapped) > 0) {
-            myLeapApp.sounder.play('vol');
+            // myLeapApp.sounder.play('vol');
         }
 
         // assign volume back to radio
