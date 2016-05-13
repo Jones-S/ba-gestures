@@ -202,7 +202,13 @@
             }
 
             // call selector
-            uber.select(frame);
+            // uber.select(frame);
+
+            if (myLeapApp.visualizer){
+                uber.visualizeFingerTips(frame);
+            }
+
+
 
 
         });
@@ -742,14 +748,14 @@
                 uber.counts.hand_still_frames++;
 
                 // checking for a minimum
-                if (uber.counts.hand_still_frames > 35) {
+                // if (uber.counts.hand_still_frames > 35) {
                     // set a flag for active volume adjustment
                     uber.flags.adjusting_vol = true;
 
                     if (myLeapApp.debug) {
                         console.log("%c - - - - - - - GESTURE:                                    Volume Adjust Start", 'background: #C3EC25; color: #191A1A');
                     }
-                }
+                // }
             }
             // else reset the counter
             else {
@@ -1127,6 +1133,74 @@
 
 
 
+    LEAPAPP.GestureChecker.prototype.visualizeFingerTips = function(frame) {
+
+        var m_canvas = document.getElementById("drawing");
+        m_canvas.width = 300;
+        m_canvas.height = 300;
+        var ctx = m_canvas.getContext('2d');
+
+        if (frame.fingers.length) {
+            // blank out canvas
+            ctx.clearRect(0, 0, m_canvas.width, m_canvas.height);
+
+            for (var i = frame.fingers.length - 1; i >= 0; i--) {
+                var finger = frame.fingers[i];
+
+
+                // do we know where the tip of the finger or tool is
+                // located?
+                var tip = finger.tipPosition;
+                if (!tip) return;
+
+                // get x/y/z coordinates of pointable tips
+                // and convert to coordinates that roughly
+                // live inside of the canvas dimensions.
+                var x = tip[0]*2 + m_canvas.width/2;
+                var y = -tip[1] + m_canvas.height/1.2;
+                // use depth to control the radius of the circle
+                // being drawn
+                var radius = (-tip[2] + 100) / 12;  // random numbers lol
+                if (radius < 10) radius = 10;      // not too small!
+                // begin drawing circle
+                ctx.beginPath();
+                // centered at (x,y) with radius scaled by depth, in a full arc
+                ctx.arc(x, y, radius, 0 , 2 * Math.PI, false);
+                ctx.lineWidth = 5;
+                ctx.fillStyle = "#fff";
+                // draw circle
+                ctx.fill();
+            }
+
+        }
+
+        // document.body.appendChild(m_canvas);
+
+
+        // add a canvas to the DOM-tree
+        // var canvas_string = '<canvas id="drawing" width="' + uber.w + '" height="' + uber.h + '"></canvas>';
+        // $('body').append(m_canvas);
+
+        // // get 2d drawing context for our canvas if
+        // // it hasn't been set up yet
+
+        // // if fingers detected draw them on canvas
+        // if (frame.pointables.length) {
+        //     // blank out canvas
+        //     uber.ctx.clearRect(0, 0, uber.w, uber.h);
+        //     uber.drawFingerTips(frame.pointables);
+        // }
+
+
+        // drawMario(m_context);
+
+        // function render() {
+        //   context.drawImage(m_canvas, 0, 0);
+        //   requestAnimationFrame(render);
+        // }
+
+
+    };
 
 
 
