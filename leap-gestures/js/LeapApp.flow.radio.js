@@ -81,8 +81,8 @@ var RADIOFLOW = {
                 myLeapApp.radio.pause();
                 this.radio_on = false;
             }
-
-            else if (this.try(gesture_data, 'vol_adjust')) {
+            // only adjust volume if radio is on
+            else if (this.radio_on && this.try(gesture_data, 'vol_adjust')) {
 
                 // if adjusting volume then map y-axis to volume
                 // TODO: set volume to current handposition when entering the interaction box
