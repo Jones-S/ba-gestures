@@ -1,0 +1,742 @@
+# Vorwort
+
+Technologischer Fortschritt stellt den Menschen ständig vor neue Herausforderungen im Umgang damit.1. Vorwort
+2. Thema
+3. Research
+4. Prozess (Prototyp)
+5. Schlusswort
+———
+Thesis
+
+
+
+# Thema
+
+Meine Thesis befasst sich mit neuen Technologien, mit dem Aufschwung des Internets und unter anderem mit der Thematik des «Internets der Dinge»[^1]. Im praktischen Teil der Arbeit beschäftigte ich mich mit der Frage, wie «intelligente» Geräte in unmittelbarer Zukunft von uns gesteuert werden könnten. Vor allem «Internet of Things»-Objekte zogen meine Aufmerksamkeit auf sich. Die Entwicklung könnte durchaus in die Richtung gehen, dass die Mehrheit unserer Gerätschaften und Objekte ans Internet angeschlossen sind. Um einen Geschirrspüler einzuschalten, muss man dann nicht mehr den Einschaltknopf drücken, sondern kann von unterwegs per Web-Interface den Spülgang starten.
+
+Es ist zu erwarten, dass nicht alle dieser Geräte ihr eigenes Interface erhalten werden. Wenn die Sonnenstore nun automatisch übers Netz heruntergelassen werden kann, dann heisst das wohl noch lange nicht, dass nun auch Knöpfe oder ein Touchscreen angebracht wird. Irgendwann hätte man schlichtweg zu viele Interfaces. Aber das Smartphone hervorholen, wenn ich den Geschirrspüler starten möchte? Wer will das schon.
+
+Meine Arbeit befasst sich mit der Frage, wie wir solchen «intelligenten» und vernetzten Geräten in Zukunft begegnen werden. Man möchte den Vorteil nutzen, dass man sich nicht direkt in unmittelbarer Nähe des Gerätes befinden muss, um es zu bedienen. Gleichzeitig möchte man aber die Steuerung auch nicht über ein zusätzliches Gerät vornehmen (beispielsweise ein Smartphone oder einen Computer). Sprachsteuerung könnte hier Abhilfe schaffen. Man ruft einem Gerät einen Befehl zu, und dieser wird ausgeführt. Oft macht eine Spracheingabe Sinn, aber eben nicht immer. Wenn die Umgebung sehr laut ist, funktioniert eine Spracheingabe weniger gut. Aber auch soziale Gründe könnten jemanden daran hindern, mit einem Gerät zu sprechen. Vielleicht ist es Jemandem unangenehm in der vollgestopften U-Bahn mit seinem Gerät zu sprechen. Oder an der Universität in einer Vorlesung ist es schlicht nicht möglich, dass alle Studenten mit all ihren Gerätschaften sprechen. Der Dozent wäre nicht mehr zu hören. Die Liste, wo Spracheingabe weniger Sinn macht, könnte man noch weiterführen.
+
+Alternativ könnte in solchen Momenten die Gestensteuerung interessant werden. Vor allem kleinere Gesten, die nicht verlangen, dass man mit den gesamten Armen in der Gegend rumfuchtelt, könnten als Eingabe dienen. Gesten sind nicht hörbar, können somit auch versteckt ausgeführt werden.
+
+In meiner praktischen Arbeit versuchte ich das Potential der Gestensteuerung genauer zu erforschen. Ich versuchte auszuloten, wie wir mit «Internet of Things»-Objekten über Gesten kommunizieren könnten. Wie Gesten einem neuen Benutzer gegenüber vermittelt werden könnten, ohne dass er zuvor eine Bedienungsanleitung lesen muss. Ich versuchte aufzuzeigen, wo die Limitationen der Gestensteuerung liegen und wo Möglichkeiten zur Integration im Alltag liegen könnten.
+
+Im Verlaufe des Projektes entstanden mehrere interaktive Prototypen, die mit Gesten zu steuern sind. Auf dem Weg dahin, stellten sich mir Fragen, aus verschiedensten Designdiziplinen; Sounddesign, Objektdesign, Interfacedesign aber auch Fragen zur Strukturierung meines Codes (Programmierung) und nicht zuletzt aus dem Interactiondesign.                                                                                                                                                                                                                                                                                                 
+
+
+
+
+[^1]:(vgl. Kapitel 2.2 der Thesis). 
+# Prozess
+
+Selbstverständlich war nicht von Beginn weg klar, in welcher Form das Thema der Gestensteuerung von «Intelligenz» Dingen materialisiert werden sollte.
+
+Ein relativ guter zeitlicher Verlauf meines Projektes ist erkennbar auf meinem Blog, den ich vom Anfang des Projektes geführt habe. Darauf zu lesen sind Recherche-Resultate (eher zu Beginn des Projektes), gefilmte Recherchen und Experimente, um Ideen zu vermitteln sowie Entwicklungen hin zu den drei gestengesteuerten Objekten.
+
++-----------------------+
+|                       |
+|                       |
++-----------------------+
+(Img: 01 Blog in Browserfenster)
+
+
+
+
+## Recherche und Experimente
+
+Im ersten Schritt der Arbeit beschäftigte ich mit mit möglichen Anwendungsbereichen, wo Gestensteuerung wirklich Sinn machen könnte.
+
+
++-----------------------+
+|                       |
+|                       |
++-----------------------+
+(Img: 02 Kreissäge)
+
++-----------------------+
+|                       |
+|                       |
++-----------------------+
+(Img: 03 Chirurgie)
+
++-----------------------+
+|                       |
+|                       |
++-----------------------+
+(Img: 04 Videocontrol)
+
++-----------------------+
+|                       |
+|                       |
++-----------------------+
+(Img: 05 Bankomat)
+
+Bald darauf verabschiedete ich mich jedoch von spezifischen Anwendungsbereichen, und widmete mich der Untersuchung von generellen Muster, die bei der Gestensteuerung von Wichtigkeit sein könnten. Dabei beschäftigte ich mich unter anderem mit der «Rich-Interaction–Camera» von Joep Frens [^1]
+
+Joep Frens nennt dabei, dass Multifunktionsgerät wie zum Beispiel Computer nur sehr standardisierte Interaktionen erlauben. Weil die Geräte so viele Funktionen abdecken müssen, sind die Interfaces und die Interaktionsgestaltung relativ stark limitiert. Ein Drehknopf auf einer Tastatur macht selten Sinn, weil die meisten Applikationen auf einem Computer keine «Drehknopf-Kontrolle» benötigen. Joep Frens wagte einen neuen Ansatz und gestaltete eine Kamera, welche nicht nur über Knöpfe bedienbar ist. Stattdessen besitzt die Kamera verschiebbare und manipulierbare Teile, deren Bedienung der eigentlichen Funktion näher steht als das Drücken eines Knopfes. Beispielsweise wird für das Speichern eines Bildes auf der Speicherkarte ein Teil der Kamera an die Speicherkarte angedockt und simuliert so ein «Verschieben» des Bildes auf die Karte.
+
++-----------------------+
+|                       |
+|                       |
++-----------------------+
+(Img: 05 Rich interaction camera)
+
+Mein nächster Ansatz beschäftigte sich mit einer Weiterführung dieses Gedankens. Was wäre, wenn man die Interaktionsmöglichkeiten eines Smartphones – ebenfalls ein Multifunktionsgerät – durch Gestensteuerung wieder erweitern würde. Plötzlich könnte ein Drehknopf wieder seinen Platz haben in einem Smartphone. Oder noch viel komplexere Bewegungen, um dem Gerät verschiedenste Befehle zu geben. Aus diesem Gedanken heraus untersuchte ich einerseits selber verschiedenste Gesten und liess Versuchspersonen Gesten zu vordefinierten Begriffen ausführen.
+
++-----------------------+
+|                       |
+|                       |
++-----------------------+
+(Img: 06 Surfing)
+
+
++-----------------------+
+|                       |
+|                       |
++-----------------------+
+(Img: 07 Gesture camera)
+
++-----------------------+
+|                       |
+|                       |
++-----------------------+
+(Img: 08 Diversification)
+
++-----------------------+
+|                       |
+|                       |
++-----------------------+
+(Img: 08.1 Shazam)
+
+
++-----------------------+
+|                       |
+|                       |
++-----------------------+
+(Img: 09 Gesten)
+
++-----------------------+
+|                       |
+|                       |
++-----------------------+
+(Img: 10 Gesten andere Leute)
+
+
+
+
+
+## Prototyp
+
+Nach all diesen Experimenten und Gedanken nahm auch langsam die Idee zum Resultat des Projektes Form an. Ich legte mich fest auf die Ausarbeitung eines Dialoges zwischen einem intelligenten Gerät und einem Benutzer. Die Begegnung sollte jedoch nicht nur für Benutzer funktionieren, die schon wissen, welche Gesten welche Auswirkungen haben, sondern auch für neue unwissende Benutzer eine angenehme Erfahrung («User Experience») bieten.
+
+Die erste Idee, die dazu im Raum stand, war, dass «intelligente»   Geräte, wenn sie schon intelligent sind, am besten doch die Gesten eines Benutzers über Zeit erlernen. Um das in meinem Prototyp zu implementieren, wäre es nötig gewesen mich mit «Machine Learning» zu beschäftigen, und der Bereich der Programmierung wäre – wenn überhaupt möglich – viel zu aufwändig geworden.
+
+Stattdessen begann ich die «Wizard of Oz»-Methode anzuwenden um ein «intelligentes» Gerät zu imitieren. Ich baute eine kleine Box, welche mein iPhone aufnahm, und programmierte einen Textdisplay, den ich über das Internet von einem Computer aus anpassen konnte. Ganz wie ein Chat funktioniert, konnte ich etwas schreiben, worauf dies auf dem Bildschirm erschien. Mit diesem «smarten» Objekt konnte ich simulieren, als würde das Objekt Gesten eines Benutzers erkennen.
+
+
++-----------------------+
+|                       |
+|                       |
++-----------------------+
+(Img: 11 Wizard)
+
++-----------------------+
+|                       |
+|                       |
++-----------------------+
+(Img: 11 Wizard Video)
+
+
+Mit den Ergebnissen aus diesen Versuchen beschloss ich, dass ich, dass ich ein Objekt bauen würde, welches Gesten erkennt und dann je nach Input auf verschiedene Weise reagieren kann. Somit war sozusagen die Idee eines Assistenten geboren, der dem unerfahrenen User über Texthinweise hilft, falls jemand mit den Gesten nicht so ganz klarkommt. Umsetzen wollte ich dies zuerst in einer Art Radio, welcher einen integrierten Screen hatte – ganz ähnlich dem Versuch mit dem eingepassten iPhone.
+
++-----------------------+
+|                       |
+|                       |
++-----------------------+
+(Img: 12 Radio)
+
+Damit das Objekt je nach Eingabe verschieden reagieren kann, braucht es einen multioptimalen Ablauf und je nach Eingabe des Benutzers muss eine andere Reaktion aufgerufen werden.
+
++-----------------------+
+|                       |
+|                       |
++-----------------------+
+(Img: 13 Flow)
+
+Bald darauf stellte sich heraus, dass anstelle von nur einem Objekt (Radio), mehrere gestengesteuerte Objekte das Konzept von Gesten im vernetzten Alltag stärker repräsentierten. Und so stand bald die Idee, nicht nur einen Radio, sondern auch eine Lampe und einen Ventilator auszustellen. Alle drei Objekte sind per Gesten steuerbar, weisen jedoch verschiedene Komplexitätslevel auf. So ist das Ein- und Ausschalten des Ventilators relativ simpel im Vergleich zu Funktionen wie Lautstärke verstellen und Lied wechseln beim Radio, oder besser beim Musikplayer. Das Erlernen der Gesten sollte mitunter durch einen Assistenten vermittelt werden, der auf Text basierte. Dabei stellten sich viele Fragen zur Ausgestaltung des Dialoges zwischen Benutzer und Objekt, respektive Assistenten. Nach längerer Entwicklungszeit und Ausarbeitung dieser Interaktion, fiel aber kurz vor Schluss der Entscheid, den Assistenten komplett wegzulassen. Einerseits aus dem Grund, dass so die Interaktion um ein Vielfaches weniger komplex erschien, und andererseits, weil die Ausgestaltung des Tones, wie der Assistent mit einem Benutzer «spricht» sehr viele Fragen aufwarf, die nicht allgemeingültig für alle Benutzergruppen gleich zu lösen gewesen wären.
+
+Als Erweiterung des modellierten Szenarios programmierte ich eine Webseite, die es erlaubt über das Internet alle Befehle, die per Gesten ausgelöst werden können, auch über ein Webinterface zu geben. Dies soll das Zusammenspiel von Gestensteuerung und Websteuerung zeigen, wie sich die Interaktion in einer Situation mit «Internet of Things»-Things anfühlen könnte.
+
+
+Beim Ausgestalten des Dialoges zwischen Benutzer und Gerät, tauchten sehr viele Fragen aus verschiedenen Designdisziplinen auf. Ohne fassbares und nur reduziert sichtbares Interface, war es nötig mich mit möglichen Feedback-Klängen zu befassen. Um den Dialog anzuregen, und um verständlicher zu machen, dass diese Objekte nicht einfach nur das sind, wonach sie aussehen, waren Gedanken zur Objektgestaltung nötig. Und nicht zuletzt war es nötig mit ständigen User-Tests zu prüfen, ob und welche Gesten und welche Interaktionen besser und welche schlechter funktionierten. All diese Punkte werden im folgenden nach Thematik aufgegliedert und detaillierter erklärt. 
+
+### Code
+
+Um dies zu bewerkstelligen, musste ich mich zuerst einmal mit dem Aufbau des Codes beschäftigen, da es absehbar war, dass die Programmierung dahinter nicht ganz unkompliziert werden würde. Ich nahm mir einige Zeit, um mich in Programmierungsmuster zu vertiefen und beschloss schliesslich, dass ich ein «Publish-Subscribe Pattern»	 anwenden werde.
+
++-----------------------+
+|                       |  
+|                       |
++-----------------------+
+(Img: 14 publish schema)
+
++-----------------------+
+|                       |
+|                       |
++-----------------------+
+(Img: 15 Flow and Code)
+
++-----------------------+
+|                       |
+|                       |
++-----------------------+
+(Img: 16 Gesture check file schema)
+
++-----------------------+
+|                       |
+|                       |
++-----------------------+
+(Img: 16 gesture interference grafik)
+
+…
+
+
+### Technologie
+
+Gleichzeitig mit den ersten Schritten zur Programmierung kamen auch die ersten Fragen zur Technologie und Vernetzung der verschiedenen Komponenten auf. Bald war klar, dass ich mehrere ans Internet angegliederte Teile haben werde. Diese sollten sich über  Shiftr.io, eine «Internet of Things Prototyping Platform»,  austauschen. Die Steuerung der Lampe und des Ventilators geschieht über zwei Arduino Yúns. Und das Herzstück, nämlich die eigentliche Registration von Gesten, besteht aus drei Leap Motion Geräten, welche es erlauben sehr feine Finger- und Handbewegungen zu erfassen. Die Prozessieren dieser Erfassung geschieht dann auf drei verbundenen Computern.
+
++-----------------------+
+|                       |
+|                       |
++-----------------------+
+(Img: 17 Schema Relais)
+
++-----------------------+
+|                       |
+|                       |
++-----------------------+
+(Img: 18 Relais Foto)
+
+
++-----------------------+
+|                       |
+|                       |
++-----------------------+
+(Img: 19 Shiftr)
+
++-----------------------+
+|                       |
+|                       |
++-----------------------+
+(Img: 20 Leap Foto)
+
++-----------------------+
+|                       |
+|                       |
++-----------------------+
+(Img: 21 Dimschematic)
+
++-----------------------+
+|                       |
+|                       |
++-----------------------+
+(Img: 21.1 Sketchbook 3.Mai foto shield schematic)
+
++-----------------------+
+|                       |
+|                       |
++-----------------------+
+(Img: 22 Rebel Shield)
+
++-----------------------+
+|                       |
+|                       |
++-----------------------+
+(Img: 23 Alles zusammen Grafik/Skizze)
+
+
+### Sound Design
+
+Relativ früh war klar, dass sowohl das fehlende haptische Feedback, welches bei materialisierte Interfaces vorhanden ist, und das weitgehend fehlende visuelle Feedback, durch eine neue Feedback-Komponente ersetzt werden soll, oder beinahe muss.
+Klang bot sich in diesem Zusammenhang an und ich setzte mich mit der Ausgestaltung von Interface-Sounds auseinander.
+
++-----------------------+
+|                       |
+|                       |
++-----------------------+
+(Img: 23.1 User test L195 1)
+	Entscheidend beigetragen zum Entscheid, dass Klänge bei der Interaktion eine wichtige Rolle spielen sollten, hat einer der ersten User-Tests. Da hörte man beim Einschalten der Lampe nämlich, wie das Relais umschaltete und einem so eine akustische Bestätigung gab, dass der Befehl angekommen ist. Auch wenn man selbiges auch durch das angehende Licht sehen konnte.
+
++-----------------------+
+|                       |
+|                       |
++-----------------------+
+(Img: 24 Link Soundcloud Aufnahmen)
+	Nach den ersten Aufnahmen und leichter Selektion kamen folgende rohe Klänge zusammen, welche als Ingredienzen für das weitere Sounddesign dienen sollten.
+
++-----------------------+
+|                       |
+|                       |
++-----------------------+
+(Img: 25 Link Soundcloud erste Sounds)
+	Die rohen Klänge mischte ich mit weiteren Klängen und addierte vor allem Instrumententöne aus Garage-Band hinzu. Diese reichten von drohne-ähnlichen Brummgeräuschen über harmonischer klingende «Hall»-Geräusche.
+
+Nach den ersten User-Tests wurde klar, dass beim Radio ein besonderes Augenmerk auf das Sounddesign gelegt werden muss, da die Klänge nicht mit der abgespielten Musik verwechselt werden dürfen. Auch die Wahl der Musik für die Ausstellung kann extrem entscheidend sein, wie sich herausstellte.
+
+. - - - - - - - - - - - - - - - - - - - - - - .  
+. - - - - - - - - - - - - - - - - - - - - - - .   
+. - - - - - - - - - - - - - - - - - - - - - - . 
+
+Zitat: Kathrin Musik Aggressiv
+
+Einerseits ist die Wahl der Musik wichtig für die User-Experience im Allgemeinen, aber fast noch wichtiger war, dass die Lieder sich eindeutig von den Interface-Klängen unterscheiden. Vor allem wenn Jemand die Lieder nicht kennt, kann elektronische Musik schnell mal so wirken, als ob Teile des Liedes zum Interface gehören würde, oder umgekehrt.
+
++-----------------------+
+|                       |
+|                       |
++-----------------------+
+(Img: 26 User Test Kathrin)
+
++-----------------------+
+|                       |
+|                       |
++-----------------------+
+(Img: 27 User Test HO40)
+	Nachdem ich die Musik im Vergleich vom ersten Test von HipHop auf elektronische und sanftere Musik gewechselt hatte, stellt sich heraus, dass die Überlappung der Interface-Sounds mit der Musik zu gross war. Ein weiterer Richtungswechsel in der Musikwahl war also nötig.
+
+
+. - - - - - - - - - - - - - - - - - - - - - - .  
+. - - - - - - - - - - - - - - - - - - - - - - .   
+. - - - - - - - - - - - - - - - - - - - - - - . 
+
+Zitat: HO40/Kathrin Ich meinte es sei Musik
+
+Die User-Tests bewegten mich also dazu, das Sounddesign noch einmal zu überarbeiten. Gewisse Klänge mussten abgeschwächt werden, andere wiederum mussten im Timing angepasst werden. Ausserdem sollten die Klänge mehr zu einer Klangfamilie gehören, was durch das Hinzufügen von wiederkehrenden Klangarten bewerkstelligt werden konnte. Auch überdachte ich die «Mikro-Narration» die in jedem Klang hinterlegt sein sollte.
+
++-----------------------+
+|                       |
+|                       |
++-----------------------+
+(Img: 27.5 Sound Narration Skizze)
+
++-----------------------+
+|                       |
+|                       |
++-----------------------+
+(Img: 28 New Sounds Link)
+	Die meisten Klänge sind nochmals überarbeitet und zeigen nun wiederkehrende Klangmuster. Neue Klänge wie ein «Andocken» und «Abdocken» kamen hinzu.
+
++-----------------------+
+|                       |
+|                       |
++-----------------------+
+(Img: 29 Hover Sound Link )
+	Der Hover Sound wurde kürzer, damit der Eintritt und Austritt eher auf das Klangereignis bezogen werden konnte und die Klangnote war weniger brummig dafür mehr als Klicken wahrzunehmen, um einerseits die Ähnlichkeit zur Musik aufzuheben und um andererseits mehr wie ein «Aktivieren» der Gestenregistration zu klingen.
+
++-----------------------+
+|                       |
+|                       |
++-----------------------+
++-----------------------+
+|                       |
+|                       |
++-----------------------+
+(Img: 30 Andock-Sound, Video auf H040 Test )
+	Der Klang zum Justieren des Volumes mit einem imaginären Drehknopf war anfangs noch ein regelmässiges Klicken, das sobald man die richtige Geste ausführte, zu klingen begann. Dies brachte jedoch Probleme mit sich, da man ein Klicken für die inkrementelle Zunahme der Lautstärke erwarten würde. Aus User-Test-Feedback abgeleitet, kam ich auf die Idee, dass man erst für jede Lautstärkenstufe, die verstellt wurde, ein Klicken hören konnte. Wie wusste man dann, dass man die richtige Handposition – um einen unsichtbaren Drehknopf zu verstellen – eingenommen hatte? Dieses Feedback wollte ich über einen «Andock-» und «Abdock-Geräusch» geben. Nachdem dieser Ton ertönt, sollte der Benutzer wissen, dass er jetzt seine Hand drehen konnte, und daraufhin ertönte für jeden Lautstärkeschritt ein Klicken.
+
++-----------------------+
+|                       |
+|                       |
++-----------------------+
+(Img: 30 Volume Hand Video mit Andock und Klick )
+
+
+
+
+
+
+
+### Interface Design
+
+Im Bereich Interface-Design gab es zwei Aspekte zu gestalten. Einerseits ging es darum die Darstellung des Assistenten zu gestalten und andererseits stand das Design der Webseite zur Diskussion. Der Assistent sollte von der Anmutung meiner Ansicht nach sehr reduziert sein, da er konzeptuell eigentlich ja nur ein Zwischenschritt darstellte hin zu gestengesteuerten Objekten, die kein Display mehr bräuchten. So entschied ich mich für ein Layout, das nur mit Text auskam.
+
++-----------------------+
+|                       |
+|                       |
++-----------------------+
+(Img: 31 Assistent)
+
++-----------------------+
+|                       |
+|                       |
++-----------------------+
+(Img: 32 Assistent 2)
+	Ich wählte eine Monospace-Schrift für die Darstellung des Textes des Assistenten. Dies, weil ich so eine gewisse Rohheit und eine Nähe zu einer Maschine vermitteln konnte. Es schien mir wichtig irgendwie klarzumachen, dass der Text zu einer Maschine gehörte, schliesslich erschien der Text ja in einer Projektion irgendwo neben dem Objekt selbst.
+
++-----------------------+
+|                       |
+|                       |
++-----------------------+
+(Img: 33 Animation Übergang Screens)
+	Bei einem Aufbau von drei Objekten, jedes mit seinem eigenen Assistenten, drängte sich die Frage auf, wie die drei verschiedenen Assistenten angezeigt werden sollten. Nebeneinander oder sozusagen als «Multi-Chat» in einem Fenster? Letzteres wiederum zog die Frage nach den Übergängen zwischen den verschiedenen Screen-Zuständen nach sich. Wie wird der Wechsel von einem Chat zum anderen vollbracht? Die oben angedeutete Animation (siehe Link, um die Animation zu sehen) könnte eine Möglichkeit darstellen, zwischen Objekten und deren Chats zu wechseln.
+
++-----------------------+
+|                       |
+|                       |
++-----------------------+
+(Img: 34 Blog Screenshot Link)
+	Mit einer ähnlichen Optik wie die des Assistenten ist auch der Projektdokumentations-Blog gestaltet. Man findet – vom Inhalt abgesehen – ein sehr reduziertes Auftreten. Eine Monospace-Schriftart dient auch hier, um die technische Note und den prototypischen Charakter herauszustreichen.
+
+Je weiter das Projekt fortschritt und bis zur Ausstellung vieles von dieser rohen und prototypischen Anmutung verloren hat, stellte sich die Frage, ob für ein «fertiges» Produkt nicht ein anderes Auftreten angebrachter gewesen wäre. Anstatt einer Monospace-Schrift eine feiner ausgestaltete Schrift zu verwenden. Da aber kurz vor Ende des Projektes der Entschluss fiel, den Assistenten aus der Ausstellung zu streichen, musste auch die Frage nach dessen Aussehen nicht vollends geklärt werden.
+
+
+Die Webseite hingegen, die zu einem relativ späten Zeitpunkt des Projektes erst ausgestaltet wurde, sollte diese Rohheit, die der Assistent noch aufzeigte, reduziert werden. Es ging nun darum ein vollendetes Produkt zu präsentieren und eine Situation zu simulieren, wo wir Objekte mit Gesten und über Webinterfaces steuern können.
+
++-----------------------+
+|                       |
+|                       |
++-----------------------+
+(Img: 35 Wireframe Sketch Buch)
+	Wireframes für die Webseitengestaltung.
+
++-----------------------+
+|                       |
+|                       |
++-----------------------+
+(Img: 36 Webseite Index)
+	Die Startseite zeigt die drei Objekte, um möglichst verständlich zu sein, welches Gerät man bedienen möchte. Von hier aus navigiert man auf die verschiedenen Objekte.
+
++-----------------------+
+|                       |
+|                       |
++-----------------------+
+(Img: 37 Webseite Radio Detail)
+	Auf einer Objektunterseite, ist einerseits das Objekt beschrieben. Darauf folgen gleich die Steuerelemente, die es erlauben dieselben Befehle zu erteilen, welche auch per Gesten initiiert werden können. Für Leute, die Gesten vergessen haben, oder gar noch nicht kennen, folgt dann eine Erläuterung der Gesten und deren Ausführung. Dies könnte auch in einer vorstellbaren Zukunft ein Hilfsmittel zu sein, das Gestenverständnis für Gerätschaften, die man nicht kennt, zu verbessern.
+
++-----------------------+
+|                       |
+|                       |
++-----------------------+
+(Img: 38 Logo)
+
+
+
+ 
+
+### Objekt Design
+
+Obwohl der Fokus auf der Interaktion zwischen den Objekten und dem Benutzer lag, gab es doch einige Entscheide zu fällen, welche Objekte überhaupt in der Ausstellung gezeigt werden sollten, und wie diese auszusehen hatten. Am meisten Gestaltungsspielraum bot der Radio. Die Lampe und der Ventilator mussten ja funktionieren, und aus diesem Grund auch gekauft werden. Bis auf das Auswählen des Objektes blieb da, auf die Form bezogen, nicht so viel Gestaltungsfreiheit. Der Radio hingegen würde so oder so nicht richtig funktionieren, da das Abspielen der Musik über einen Computer geregelt würde, was von Beginn weg klar war. Der Radio als Objekt musste in erster Linie vermitteln, dass es hier um Musik geht.
+
+Grundsätzliche Designelemente, die über die gesamte Objektfamilie gelten sollten, waren, dass die Objekte möglichst reduziert daherkommen sollten. Zum Einen werden so nicht zu viele Funktionen erwartet und zum Anderen werden die Objekte so markiert als «etwas Besonderes», das aus den Alltagsgegenständen, die üblich sind heraussticht. Aus demselben Grund sollten die Objekte alle genau im gleichen Weiss erscheinen. Durch die komplett weisse Farbe erhalten sie eine Zusammengehörigkeit und erfahren eine Abstraktion von bekannten Lampen, Ventilatoren oder Radios. Um eine komplette Zusammengehörigkeit zu schaffen, wäre es optimal gewesen auch mehr Zeit in massgeschneiderte Formen der Objekte zu investieren. Dies war jedoch nur für den Radio möglich.
+
++-----------------------+
+|                       |
+|                       |
++-----------------------+
+(Img: 38.5 Skizze 18.3 Ausstellung)
+	Anfängliche Skizze eines möglichen Projektresultates. Das Objekt hätte mit dem Benutzer über ein Textinterface interagiert. Damals war jedoch noch nicht von einem Radio die Rede, eher dachte ich daran, dass das Objekt wieder andere Dinge für den Benutzer steuern könnte. Zur Diskussion standen Dinge wie «Licht ändern», «Drucker steuern», «Fernseher verstellen», «Sprinkleranlage ein- und ausschalten» oder «Film steuern». 
+
+
+
++-----------------------+
+|                       |
+|                       |
++-----------------------+
+(Img: 39 Retro Radio Sketch 1)
+	Anfänglich dachte ich, dass der Radio einen gewissen 70er Look erhalten sollte, um ihn noch mehr von heutigen Radios abzutrennen. Ich begann also eine sehr runde Form zu skizzieren.
+
++-----------------------+
+|                       |
+|                       |
++-----------------------+
+(Img: 40 Retro Radio Modell)
+	Das erste Miniatur-Modell aus Hartschaum zeigte noch immer diese rundliche Form, die auch daran erinnern sollte, dass der Radio eben nicht mehr nur ein «Technik-Gerät» sei, sondern ein «intelligentes» und somit auch «menschlicheres» Gerät.
+
++-----------------------+
+|                       |
+|                       |
++-----------------------+
+(Img: 41 iMac farbig)
+	Der Radio sollte auch dem iMac 3G ähneln, der 1998 auf den Markt kam und als einer der ersten Computer die graue maschinelle Anmutung durchbrach und in einer organischeren und fröhlicheren Form daherkam. http://www.stevesonian.com/museum/desktop/iMac/downloads/pictures/iMac_3q.jpg
+
++-----------------------+
+|                       |
+|                       |
++-----------------------+
+(Img: 42 Weitere Radio Skizzen)
+
++-----------------------+
+|                       |
+|                       |
++-----------------------+
+(Img: 43 Holz Laser)
+	Um die runde Form zu erreichen, beabsichtigte ich den Radio aus verschieden grossen gelaserten Holzstücken zusammenzusetzen. Die stufenartige Oberfläche wollte ich dann zu einer flachen und runden Form runterschleifen.
+
++-----------------------+
+|                       |
+|                       |
++-----------------------+
+(Img: 43 Radio zusammengeklebt)
+	Ich klebte zwar die Form zusammen, aber schon kurz davor wurde klar, dass ein Radio, der so aussieht nicht zu den übrigen Objekten passen würde.
+
++-----------------------+
+|                       |
+|                       |
++-----------------------+
+(Img: 44 Radio holz neu)
+	Nach dem Redesign des Radios sollte er noch reduzierter daherkommen. Umgesetzt wurde er eigentlich nur durch die Verwendung eines Massivholzstückes. 
+
++-----------------------+
+|                       |
+|                       |
++-----------------------+
+(Img: 45 Radio Neu weiss)
+	Die vier Knöpfe auf der Oberseite stehen für die vier Gesten (Play, Pause, Nächstes Lied, Vorheriges Lied) und auch für das Verstellen der Lautstärke gibt es einen Regler. Diese sind natürlich alle nicht funktional, aber sollen einen Hinweise auf diese Funktionalitäten geben.
+
++-----------------------+
+|                       |
+|                       |
++-----------------------+
+(Img: 46 Ventilator schwarz)
+	Der ursprüngliche Ventilator sah so aus. Von der Form schon eher geometrisch und somit auch gewissermassen reduziert, aber trotzdem noch mit vielen «Anhängseln» welche noch reduziert werden mussten.
+
++-----------------------+
+|                       |
+|                       |
++-----------------------+
+(Img: 47 Ventilator Skizze Fuss)
+	Nach der Entfernung des Griffes oben und der weissen Färbung, störten noch die verspielten Füsschen des Ventilator dessen Erscheinungsbild. Ich überlegte mir also mehrere Möglichkeiten diese zu verkleiden, und eine Ähnlichkeit zum Radio zu schaffen.
+
++-----------------------+
+|                       |
+|                       |
++-----------------------+
+(Img: 48 Ventilator weiss fertig)
+	Herausgekommen ist folgende Erscheinung. Die Füsschen sind verkleidet und die Form darum herum erinnert noch an die Aussenform des Radios. Auch der Schalter wurde entfernt. Einerseits, damit die Verlockung den Ventilator auszuschalten gering bleibt, andererseits auch um die Reduktion noch konsequenter umzusetzen.
+
++-----------------------+
+|                       |
+|                       |
++-----------------------+
+(Img: 49 Lampe)
+	Als Ausgangslampe kam für mich eine relativ klassische Tischlampe in Frage. Einerseits ist so die Befestigung in der Ausstellung relativ einfach zu gewährleisten und andererseits ist die Form sehr «lampentypisch». Man kann durchaus argumentieren, dass die Lampe zu wenig reduziert ist, im Vergleich zu den anderen Objekten. Aber auch nach fundierter Suche nach erschwinglichen Alternativen, fand ich keine treffenden Lampen, die mir perfekt in die Objektreihe gepasst hätte. Ich entschied mich deshalb dazu, einige kleinere Teile zu entfernen, den Rest aber so zu lassen. Ich hoffte, dass die weisse Färbung ihren Teil dazu beiträgt, dass alle drei Objekte genügend ähnlich aussehen.
+
++-----------------------+
+|                       |
+|                       |
++-----------------------+
+(Img: 50 Lampe)
+	Die endgültige Lampe, wie sie in der Ausstellung zu stehen kommt.
+
+
+
+
+
+
+
+### Interaction Design/Gesten
+
+Die Überschrift «Interaction Design» ist für mich etwas schwieriger zu definieren als die vorherigen. Streng genommen beinhaltet «Interaction Design» ja die vorherigen Disziplinen, aber trotzdem führe ich diesen Titel hier einzeln auf. Darin bringe ich Themen unter, die für mich sonst schwer zuordenbar  sind. Ein grosser Teil die Thematik der Gesten selber, den ich hier abhandeln möchte. Welche Gesten machen aus welchen Gründen für welche Befehle besonders Sinn, wo sind Schwächen und wo Stärken verschiedener Bewegungen zu erkennen und wie sieht ein Zusammenspiel von Gesten mit Klängen oder auch mit anderen Gesten aus.
+
+Als weiteren Punkt, möchte ich hier auf die Gestaltung des «Flows» eingehen. Damit meine ich die multi-optionale Abfolge von Reaktionen auf Benutzereingaben durch den Assistenten.
+
+Sobald klar war, dass der Assistent je nach Eingabe des Benutzers anders reagieren muss, begann ich mögliche Abläufe in Diagrammen aufzuzeichnen. Angelehnt an Zustandsdiagramme[^2], welche beispielsweise das Verhalten eines Softwaresystems genutzt werden, erstellte ich Diagramme für alle der drei Objekte. 
+
++-----------------------+
+|                       |
+|                       |
++-----------------------+
+(Img: 51.1 Flow Image)
+	Ein solcher Ablauf ist gegliedert in einzelne Segmente. Je nach Aktion des Benutzers verläuft der Weg über verschiedene Segmente. Angenommen ein Benutzer erlernt keine Geste selber, dann wird der Assistent nach und nach alle Gesten erklären und «abfragen». Ganz im Gegensatz dazu steht die Möglichkeit, dass der Benutzer alle Gesten selber erlernt, oder schon kennt. Dann wird ein komplett anderer Textverlauf des Assistenten gezeigt.
+
++-----------------------+
+|                       |
+|                       |
++-----------------------+
+(Img: 51.2 Flow Image Detail)
+	Ein Ablauf beginnt immer mit dem ersten Auftauchen einer Hand in den Interaktionsbereich der Leap Motion. Danach wird einige Zeit lang gar nichts angezeigt und der Assistent registriert die Eingaben. Danach reagiert der Assistent angepasst an die bereits erlernten Gesten des Benutzers.
+
+
+. - - - - - - - - - - - - - - - - - - - - - - .  
+. - - - - - - - - - - - - - - - - - - - - - - .   
+. - - - - - - - - - - - - - - - - - - - - - - . 
+
+Zitat: Assistent soll nicht fragen, wenn keine Antwort gewünscht.
+
+
++-----------------------+
+|                       |
+|                       |
++-----------------------+
+(Img: 51.3 Flow Image Detail “Frage ohne Frage”)
+	Hier ein Beispiel einer Frage, die nicht als Frage gemeint ist. Der Assistent «spricht» kurz danach weiter, und erwartet gar keine Antwort. Genau dies wurde von Probanden in User-Tests bemängelt. Dies stiftet grosse Verwirrung und musste folglich überarbeitet werden.
+
+
+
+
+
+
+
++-----------------------+
+|                       |
+|                       |
++-----------------------+
+(Img: 51 User Test 3 Objekte)
+	Eine der ersten Fragestellungen war, wie Jemand überhaupt mit drei Objekten über Gesten kommuniziert. Dies versuchte ich mit einem simplen Test herauszufinden. Es stellte sich heraus, dass, wie ich bereits annahm, Benutzer automatisch den Blick und die Gesten auf dasjenige Gerät richten, welches sie gerade bedienen möchten. 
+
+. - - - - - - - - - - - - - - - - - - - - - - .  
+. - - - - - - - - - - - - - - - - - - - - - - .   
+. - - - - - - - - - - - - - - - - - - - - - - . 
+
+Zitat: Fragestellung: Wie würdest du mit drei Geräten über Gesten kommunizieren?
+
+
++-----------------------+
+|                       |
+|                       |
++-----------------------+
+(Img: 52 User Test L195 Lampe ein aus)
+	Hier zu sehen ist der erste Lampenprototyp. Zwei mögliche Gesten waren zu dem Zeitpunkt durch das System erkennbar. Die erste Möglichkeit das Licht ein- und auszuschalten bestand darin, dass man seine Hand öffnete oder schloss. Die zweite Möglichkeit beinhaltete eine schnelle Handbewegung nach oben oder nach unten.
+
++-----------------------+
+|                       |
+|                       |
++-----------------------+
+(Img: 52.3 Skizze 13.4 Buch)
+	Ausschnitt aus meinem Skizzenbuch zur On/Off-Geste.
+
+
++-----------------------+
+|                       |
+|                       |
++-----------------------+
+(Img: 53 User Test L195 Lampe ein aus)
+	Ebenfalls getestet habe ich, wie schnell Leute Gesten, die sie nicht kennen per Zufall herausfinden. Ich setzte Ihnen die erste Lampe, die per Gesten steuerbar war, vor und schaute was passierte. Alle Probanden fanden entweder die eine oder die andere Geste heraus. Verwirrung stiftete dann jedoch die Möglichkeit zweier Gesten. Als Benutzer denkt man, man hätte eine Geste erkannt und richtig angewandt, durch das Auftauchen einer unbekannten Geste, die dasselbe bewirkt, wird das Gelernte wieder durcheinander gebracht. Obwohl zwei Gesten vielleicht schneller dazu führen kann, dass ein unwissender Nutzer die Geste von selbst herausfindet, stiftet es nach diesem Schritt eher Verwirrung.
+
+. - - - - - - - - - - - - - - - - - - - - - - .  
+. - - - - - - - - - - - - - - - - - - - - - - .   
+. - - - - - - - - - - - - - - - - - - - - - - . 
+
+Zitat: «Der Verwirrungsfaktor mit mehreren Gesten ist gross. Eine einzige Geste ist zu bevorzugen.»
+
++-----------------------+
+|                       |
+|                       |
++-----------------------+
+(Img: 54 Foto User Test L195 Lampe ein aus)
+	
+
+
+
+Eine wichtige Thematik, die Einflüsse auf die Programmierung und die Gestaltung der Gesten selber hatte, waren Gesten-Gesten-Interaktionen. Wenn das Ausführen der einen Geste gleichzeitig Elemente einer anderen Geste beinhaltet, kann das zu Problemen führen. Als Beispiel; Wenn man ein Lied weiter schaltet und dazu  mit der linken Hand eine «Swipe-Bewegung» nach rechts ausführt, dann schliessen viele Leute (was sich auch in User-Tests herausstellte) die Hand dabei. Dies wiederum ist die Geste, um das Gerät auszuschalten. Solche Probleme sollten so weit wie möglich abgefangen werden. Dabei muss stets die Balance gehalten werden, so dass am Ende eine gewollte Interaktion nicht ausgeführt werden kann. Solche Probleme führten dazu, dass über das gesamte Projekt hinweg ständig die Gesten angepasst werden mussten.
+
++-----------------------+
+|                       |
+|                       |
++-----------------------+
+(Img: 55 Dim Lamp Link)
+	Die Lampe konnte ja zu Beginn mit einem Swipe nach oben ein- und mit einem Swipe nach unten ausgeschaltet werden. Als nun eine Geste, um die Lampe zu dimmen hinzukam, zeichnete sich eine Beeinträchtigung der einen Geste durch die andere ab. Schliesslich schien eine der geeigneten Gesten für das Dimmen darin zu bestehen, dass man einfach die Hand nach oben oder nach unten bewegt (vgl. «Gestenumfrage» im Rechercheteil, Fig. tbd). Nach einer einfachen Implementation dieser Gesten, stellte sich jedoch heraus, dass ein Swipe (schnell) nach oben die Verstellung der Helligkeit über eine langsame Handbewegung nach oben gar nicht gross beeinflusst. Manchmal ist eben die Theorie nicht die Realität. Wie im Video ersichtlich ist, kann natürlich auch per Webinterface die Helligkeit reguliert werden.
+
++-----------------------+
+|                       |
+|                       |
++-----------------------+
+(Img: 56 User Tests H040)
+	
++-----------------------+
+|                       |
+|                       |
++-----------------------+
+(Img: 57 User Tests Koni51)
+	In den obigen Bildern sind Ausschnitte aus User-Tests zu sehen, bei welchem klar wurde, dass die Lautstärken-Regler-Geste, nicht nur vom Sounddesign her nicht ganz ausgereift war (siehe Kapitel «Sounddesign»), sondern auch sehr schlecht ausgeführt werden konnte. Die Geste bestand darin, dass man mit allen Fingern einen imaginären Drehknopf von etwa 4cm Durchmesser umfassen und dann die Hand drehen musste. Zum einen drehen viele Menschen einen Drehknopf mit drei anstatt mit fünf Fingern, zum anderen ist die Bewegung nicht sehr ergonomisch.
+
++-----------------------+
+|                       |
+|                       |
++-----------------------+
+(Img: 58 Skizze 22.4 Hand roll)
+	Skizze zur Volumenänderungs-Geste.
+
++-----------------------+
+|                       |
+|                       |
++-----------------------+
+(Img: 59 voluem problem video L195)
+	In einem weiteren User-Test stellte sich zum wiederholten Male heraus, dass die Lautstärken-Änderung eine schlechte Geste ist. Zumindest mit den technologischen Einschränkungen – schliesslich wäre das Drehen eines imaginären Drehknopfes eine schöne und sinnvolle Geste für das Verstellen der Lautstärke. Nach der Diskussionen zu dieser Thematik kamen mehrere Lösungsvorschläge auf.
+
+
+. - - - - - - - - - - - - - - - - - - - - - - .  
+. - - - - - - - - - - - - - - - - - - - - - - .   
+. - - - - - - - - - - - - - - - - - - - - - - . 
+
+Zitat: (Zitat zur Geste der Lautstärken-Regelung: ) «Es wäre einfacher die Hand zu heben oder zu senken, wie die Handbewegung eines Dirigentes.»
+
++-----------------------+
+|                       |
+|                       |
++-----------------------+
+(Img: 60 Lautstärke Alternativen Zeichnungen)
+	Skizzierte Lösungsansätze, die während User-Tests vorgeschlagen wurden. Alle Lösungen hatten jedoch wieder gemeinsam, dass sie sich mit anderen Gesten überschnitten. Wenn beispielsweise die Lautstärke von der Neigung der Handachse abhängig war, hiess das, dass bei einem Swipe mit geneigter Handachse auch die Lautstärke angepasst würde.
+
++-----------------------+
+|                       |
+|                       |
++-----------------------+
+(Img: 61 Koni51 Lautstärke Test)
+	In einer schnellen Umsetzung zeigte sich, dass sich das Heben und Senken der Hand zur Anpassung der Lautstärke sehr gut eignete. Es zeigte sich aber auch, dass die stetige Anpassung der Lautstärke mühsam sein konnte, vor allem weil bei anderen Gesten auch noch ständig das «Lautstärken-Klicken» ertönte.
+
++-----------------------+
+|                       |
+|                       |
++-----------------------+
+(Img: 62 Object Selection Video)
+	Das Video zeigt einen Prototypen, wobei nur eine statt drei Leap Motions genutzt würde und man das zu bedienende Objekt zuerst einmal auswählen müsste. Das Augenmerk möchte ich jedoch auf die Volumenänderung legen. Hier wurde nämlich versucht das in Fig. tbd beschriebene Problem zu lösen, dass die ständige Lautstärke-Änderung stört. Man muss, wie im zweiten Teil des Videos ersichtlich ist, die Hand für ein paar Sekunden still halten, und gelangt dann erst in den Modus, in welchem die Lautstärke durch die Lage der Hand angepasst werden kann. 
+
++-----------------------+
+|                       |
+|                       |
++-----------------------+
+(Img: 63 Lautstärke verstellen Video Link (noch zu filmen))
+	Im Gegensatz zum zuvor vorgeschlagenen «Lautstärke-Modus», in welchen man eintreten kann (sei das nun durch das Einnehmen einer «Drehknopf-haltendenden Handposition» oder durch das verharren der Hand für einige Sekunden), ist die Lautstärke-Regelung in diesem Video sehr viel einfacher zu verstehen und wird auch viel schneller rausgefunden. Dadurch, dass es keinen Extra-Modus für das Verstellen der Lautstärke gibt, ist die Geste um ein Vielfaches simpler. Das Entfernen des «Klick-Geräusches» trug zudem dazu bei, dass einem die Überschneidung mit anderen Gesten nicht mehr so stark und unangenehm auffällt. (Das «Klicken» ist ja sowieso unnötig, schliesslich hat man ja die direkte Referenz der Musiklautstärke).
+
+
++-----------------------+
+|                       |
+|                       |
++-----------------------+
+(Img: 64 Ausschalten Bild)
+	Manchmal gibt es Situationen, in welchen man gewisse zuerst logisch erscheinende Entscheide über den Haufen werfen muss. Beim Eintritt in das Interaktionsfeld der Leap wird ein Ton abgespielt, beim Austritt ebenfalls. Man würde meinen, dass dies immer so sein sollte, konsequent. Eine Ausnahme könnte aber sein, dass man nach dem Ausschalten des Radios den Austrittston nicht hören möchte. Man erwartet dann Ruhe, schliesslich hat man das System gerade eben ausgeschaltet und das Geräusch kann dann störend erscheinen. 
+
+
+
+
+
+
+
+
+
+
+[^1]: Joep Frens. «Designing for Rich Interaction: Integrating Form, Interaction, and Function». Eindhoven University of Technology. 2006. Designing for Rich Interaction
+
+[^2]: https://en.wikipedia.org/wiki/State_diagram
+
+
+
+
+
+
+# Schlusswort
+
+Die letzten drei Monate haben mir gezeigt, dass man in der Zeit sehr tief in ein Thema eintauchen kann. Ich bin zufrieden, wie sich das Projekt entwickelt hat, auch wenn ich manchmal schwierige Entscheidungen treffen musste – wie zum Beispiel das Streichen eines sehr grossen Bestandteiles meines Projektes: den Assistenten. Ich schätze es, dass mein Projekt letztendlich so viele verschiedene Bereiche des Interaction Design beinhaltet hat. Handwerkliche Arbeit, Programmieren, Filmen, Sounddesign und visuelle Kommunikation. Es war so Vieles dabei. Und nicht zuletzt die ganze Recherche- und Konzeptarbeit, die während des gesamten Projektes wichtig geblieben ist. Auch meine Dokumentation über die Zeit hinweg in der Form eines Blogs und das fleissige Füllen meiner Notizbücher hat sich sehr bewährt. Aus dieser Sicht bin ich mit dem Projekt zufrieden.
+
+Eine weitere Ebene der Evaluation besteht darin, dass der Prototyp möglichst gut funktioniert und den Besuchern der Ausstellung eine angenehme Erfahrung bietet. Zum jetzigen Zeitpunkt ist dies natürlich noch nicht klar, aber die vielen User-Tests, die zur ständigen Verbesserung antrieben, haben zumindest dafür gesorgt, dass der Prototyp viel an Qualität gewonnen hat. Auch dies bewirkt, dass ich das Projekt für mich als gelungen betrachten kann.
+
+Interessant wird es, wenn ich in ein paar Jahrzehnten auf diese Arbeit zurückblicke und die Situation mit der heutigen vergleiche. Werden gewisse Dinge, die ich in meinem Projekt modelliere eintreffen, oder werden die vielen unabsehbaren Faktoren die Entwicklungen rund um Gestensteuerung und um das Internet der Dinge in eine ganz andere Richtung treiben? Es bleibt spannend.
+
+
+
+
+
+Herzlichen Dank möchte ich an meine Mentoren Stefano Vanotti und Jürgen Späth richten, die mich während der Arbeit immer wieder mit guten und antreibenden Beiträgen vorantrieben. Dank geht auch an alle meine User-Test Probanden und die ganze IAD-Klasse, sowie alle IAD-Dozenten und Assistenten, die stets mit guten Gesprächen und Anmerkungen geholfen haben. Dank geht auch an meine Familie und Freunde, die ebenfalls wertvolle Inputs lieferten. Vor allem geht ein grosses Dankeschön auch an meinen Video-Darsteller Stefan Breit.
+Danke.
