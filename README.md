@@ -40,3 +40,9 @@ In the directory itself:
 $ npm install
 $ bower install
 
+
+
+## Mixed
+
+Concatenate all .txt files in the same directory:
+`$ *.txt > output.txt`
