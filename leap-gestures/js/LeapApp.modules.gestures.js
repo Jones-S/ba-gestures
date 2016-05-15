@@ -1,5 +1,5 @@
 (function(){
-
+    // TODO: refactor and delete unnecessary pieces of code
     function getFingerInfo(frame) {
         var name_map = ["thumb", "index", "middle", "ring", "pinky"];
         var object = {};
