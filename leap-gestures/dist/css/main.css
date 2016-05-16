@@ -89,7 +89,8 @@ p {
   transform-origin: 48% 70%; }
 
 .messages {
-  padding: 6%; }
+  padding: 6%;
+  padding-left: 32%; }
 
 .messages > p {
   font: 35px 'Fira Mono', Helvetica, Arial; }
