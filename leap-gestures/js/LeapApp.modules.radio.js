@@ -38,10 +38,10 @@
                 'nj_goodbye.mp3',
                 'paint_it.mp3',
                 'tribe_award.mp3',
-                'dire_sultan.wav',
                 'rhcp_cabron.wav',
                 'uh_lady.mp3',
-                'racon_steady.mp3'
+                'racon_steady.mp3',
+                'dire_sultan.wav'
             ];
         }
 
@@ -69,6 +69,7 @@
                 // otherwise the this in the function onEnd will refer to the Howl context
                 onend: uber.onEnd.bind(uber),
                 preload: true,
+                html5: true,
                 volume: uber.current_volume
             }));
         });
