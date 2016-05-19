@@ -12,7 +12,7 @@
     }
 
 
-    LEAPAPP.Radio = function() {
+    APP.Radio = function() {
 
         this.files = [
             'dire_sultan.wav',
