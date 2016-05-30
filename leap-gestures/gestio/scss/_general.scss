@@ -37,4 +37,7 @@ html {
 .dist-to-next-quad      { margin-bottom: 4 * $baseline-grid-unit; }
 
 
-
+.container {
+    width: 80%;
+    margin: 0 auto;
+}

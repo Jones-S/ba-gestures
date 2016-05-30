@@ -131,4 +131,8 @@ html {
 .dist-to-next-quad {
   margin-bottom: 2.4rem; }
 
+.container {
+  width: 80%;
+  margin: 0 auto; }
+
 /*# sourceMappingURL=maps/main.css.map */
