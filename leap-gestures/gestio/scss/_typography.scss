@@ -1,0 +1,112 @@
+html, body {
+    font-family: $font-family-base;
+    text-transform: none;
+    font-size: $font-size-base;    //10px
+    line-height: 2.4rem; //24px = baseline grid
+
+    // ligatures and kerning
+    -webkit-font-kerning:   normal;
+    -moz-font-kerning:      normal;
+    font-kerning:           normal;
+    -webkit-font-feature-settings:      "liga";
+    -moz-font-feature-settings:         "liga", "kern";
+    font-feature-settings:              "liga", "kern";
+
+}
+
+
+// http://thesassway.com/advanced/modular-css-typography
+// https://drewish.com/tools/vertical-rhythm/
+// define classes which can then be applied to the elements (modularity!)
+.h1, .h2, .h3, .h4, .h5, .h6 {
+    max-width: 30.0rem;
+    font-family: $font-family-base-medium;
+    color: $clr-1;
+}
+
+.h1 {
+    font-size: 5.0rem;
+    line-height: 5.4rem;
+    margin-top: 2.2rem;
+    margin-bottom: 2.0rem;
+
+    @include media(">phablet") {
+        font-size: 2.5rem;
+    }
+}
+
+.h2, .h3 {
+    font-size: 2.4rem;
+    line-height: 3.2rem;
+    margin-top: 2.4rem;
+    margin-bottom: 1.6rem;
+}
+.h4 {
+    font-size: 2.0rem;
+    line-height: 1.4em;
+    margin-top: 1.8rem;
+    margin-bottom: 1.64em;
+}
+
+
+// .h4 { font-size: 110%; }
+// .h5 { font-size: 100%; }
+
+// if necessary to mark text
+.quiet { color: $clr-quiet; }
+// .loud  { color: $clr-loud; }
+
+.italic { font-style: italic; }
+.bold   { font-weight: 700; }
+
+
+
+i, em { @extend .italic; }
+b, strong { @extend .bold; }
+
+h1, .h1 { @extend .h1; }
+h2, .h2 { @extend .h2; }
+h3, .h3 { @extend .h3; }
+h4, .h4 { @extend .h4; }
+
+
+
+a {
+    color: #000;
+    text-decoration: none;
+    &:hover {
+        color: $clr-2;
+    }
+}
+
+p {
+    // hyphenation
+    -webkit-hyphens: auto;
+       -moz-hyphens: auto;
+        -ms-hyphens: auto;
+            hyphens: auto;
+
+    font-size: 1.8rem; //18px
+    line-height: 2.4rem; // 1em = $base-font-size, because html/body font-size = $base-font-size -> 1.3333 = 24px
+    margin-top: 2.4rem;
+    margin-bottom: 2.4rem;
+    // http://webtypography.net/2.1.2 -> 33em for article with – in german 40em!
+    // our site has a smaller paragraph width
+    max-width: 30em;
+}
+
+.vertical-text {
+    display: inline-block;
+    -webkit-transform: rotate(-90deg);
+       -moz-transform: rotate(-90deg);
+        -ms-transform: rotate(-90deg);
+         -o-transform: rotate(-90deg);
+            transform: rotate(-90deg);
+
+    /* also accepts left, right, top, bottom coordinates; not required, but a good idea for styling */
+    -webkit-transform-origin: 48% 70%;
+       -moz-transform-origin: 48% 70%;
+        -ms-transform-origin: 48% 70%;
+         -o-transform-origin: 48% 70%;
+            transform-origin: 48% 70%;
+}

@@ -1,0 +1,21 @@
+{
+  "name": "gestio",
+  "homepage": "http://gestio.jonasscheiwiller.ch",
+  "authors": [
+    "Jones <jonas.scheiwiller@zhdk.ch>"
+  ],
+  "description": "Gestio – Web controls for gesture controlled objects.",
+  "main": "gulpfile.js",
+  "moduleType": [],
+  "keywords": [
+    "gestures",
+    "leap",
+    "motion",
+    "shiftr.io"
+  ],
+  "license": "MIT",
+  "dependencies": {
+    "jquery": "^2.2.4",
+    "include-media": "^1.4.4"
+  }
+}
