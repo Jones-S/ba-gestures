@@ -44,6 +44,8 @@ In the directory itself:
 `$ npm install`
 `$ bower install`
 
+Source Tree and Sublime on USB Stick.
+atlassian@js.ch/PW Blog
 
 
 ## Mixed
