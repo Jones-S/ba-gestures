@@ -46,6 +46,7 @@ In the directory itself:
 
 Source Tree and Sublime on USB Stick.
 atlassian@js.ch/PW Blog
+Skip Setup from sourcetree at beginning and click on `clone remote repositories`. Then enter credentials again.
 
 
 ## Mixed
