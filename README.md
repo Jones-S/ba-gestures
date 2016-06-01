@@ -25,22 +25,22 @@ PW: ARPANet but new name, all lowercase.
 ## Install Setup on other Macs
 
 Show hidden files
-defaults write com.apple.finder AppleShowAllFiles TRUE;killall Finder
+`defaults write com.apple.finder AppleShowAllFiles TRUE;killall Finder`
 
 Install Homebrew
-/usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+`$ /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"`
 
 Install Node
-curl "https://nodejs.org/dist/latest/node-${VERSION:-$(wget -qO- https://nodejs.org/dist/latest/ | sed -nE 's|.*>node-(.*)\.pkg</a>.*|\1|p')}.pkg" > "$HOME/Downloads/node-latest.pkg" && sudo installer -store -pkg "$HOME/Downloads/node-latest.pkg" -target "/"
+`$ curl "https://nodejs.org/dist/latest/node-${VERSION:-$(wget -qO- https://nodejs.org/dist/latest/ | sed -nE 's|.*>node-(.*)\.pkg</a>.*|\1|p')}.pkg" > "$HOME/Downloads/node-latest.pkg" && sudo installer -store -pkg "$HOME/Downloads/node-latest.pkg" -target "/"`
 
 Install bower globally
-$ sudo npm install -g bower
-$ sudo npm install --global gulp-cli
+`$ sudo npm install -g bower`
+`$ sudo npm install --global gulp-cli`
 
 In the directory itself:
 
-$ npm install
-$ bower install
+`$ npm install`
+`$ bower install`
 
 
 
