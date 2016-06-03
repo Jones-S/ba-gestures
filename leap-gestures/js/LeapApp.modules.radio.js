@@ -69,9 +69,12 @@
                 // otherwise the this in the function onEnd will refer to the Howl context
                 onend: uber.onEnd.bind(uber),
                 preload: true,
+                html5: true,
                 volume: uber.current_volume
             }));
         });
+
+
 
 
     };
@@ -86,11 +89,16 @@
 
         var uber = this;
         var song = uber.howler_bank[uber.current_track];
+
+        $(song).on('canplaythrough', function() {
+            alert("ok loaded");
+        });
         if (!song.playing()){
             // set the volume before playing
             song.volume(uber.current_volume);
             song.play();
         }
+
 
     };
 
