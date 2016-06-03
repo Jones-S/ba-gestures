@@ -227,8 +227,20 @@
 
     LEAPAPP.GestureChecker.prototype.checkForHandLeave = function(frame) {
         var uber = this;
+
         if (uber.controller.frame(1).hands && frame.hands.length < uber.controller.frame(1).hands.length) {
-            return true;
+            // check if last gesture was a collapse
+            var msg = {
+                exit: true,
+                short_after_collapse: false
+            };
+            // if last gesture is still collapse send a hint
+            if (uber.last_gesture == 'collapse') {
+                msg.short_after_collapse = true;
+            }
+
+            return msg;
+
         } else {
             return false;
         }
@@ -435,8 +447,14 @@
                 if (myLeapApp.debug) {
                     console.log("%c - - - - - - - GESTURE:                                    Collapse", 'background: #928000; color: #FFFEFF');
                 }
+                // set last gesture to collapse and start timer
+                uber.last_gesture = 'collapse';
+                // set/reset timer to erase last gesture var
+                uber.setTimer({ timeout_id: uber.timeouts.timeout_id_last_gesture, var: "last_gesture", duration: 1500 });
+
                 uber.last_collapse = hand.timeVisible;
                 return true;
+
             } else {
                 return false;
             }

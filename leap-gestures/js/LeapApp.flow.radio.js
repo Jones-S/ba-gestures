@@ -39,6 +39,8 @@ var RADIOFLOW = {
                 myLeapApp.sounder.play('start');
             }
             if (this.try(gesture_data, 'exit')) {
+                // check if shortly before there was a collapse gesture
+                // don't play the exit sound if that is the case
                 myLeapApp.sounder.play('exit');
             }
             if (this.try(gesture_data, 'swipe')) {
