@@ -19,9 +19,11 @@ var LAMPFLOW = {
         },
         onGestureCheck: function(gesture_data, data) {
             var uber = this;
+            console.log("checkinnn");
 
             if (this.try(gesture_data, 'start')) {
                 myLeapApp.sounder.play('start');
+                console.log("in");
             }
 
             if (this.try(gesture_data, 'exit')) {
