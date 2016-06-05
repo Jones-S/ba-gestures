@@ -746,8 +746,6 @@
             var last_hand = uber.last_hands_info[hand.id];
 
 
-
-
         }
 
         return false;
@@ -1071,7 +1069,7 @@
 
         // check only for radio
         if (myLeapApp.flow.name == 'radio') {
-            gestures.vol_adjust             = uber.volumeAdjustment(frame);
+            // gestures.vol_adjust             = uber.volumeAdjustment(frame);
             gestures.swipe                  = uber.checkSwipe(frame);
 
         }
