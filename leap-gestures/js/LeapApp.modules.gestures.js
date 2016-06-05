@@ -120,8 +120,8 @@
             rotation_grab:      false,
             rot_grab_timer:     false,
             new_hand:           false,
+            relatively_new_hand:false,
             grabbing:           false,
-            adjusting_vol:      false
         };
         this.counts = {
             dir_change_count:   0,   // counting direction change of cancel gesture
@@ -141,6 +141,9 @@
             grabbing_lf:        false, // grabbing flag at last frame
             duration:           0
         };
+
+        // save volume information at hand enter
+        this.volume_at_enter = 0.7;
 
         this.last_gesture   = ''; // saving the last gesture to prevent explosion gesture after thumb for example
     };
@@ -217,10 +220,12 @@
         // check if new hand entered the scene
         var new_hand = uber.saveNewHand(frame);
         if (new_hand) {
-            uber.flags.new_hand = true;
-            uber.setTimer({ timeout_id: uber.timeouts.timeout_id_new_hand, flag: "new_hand", duration: 800 });
+            uber.flags.relatively_new_hand = true; // keep value for a certain time
+            uber.flags.new_hand = true; // only true for the very frame the hand entered
+            uber.setTimer({ timeout_id: uber.timeouts.timeout_id_new_hand, flag: "relatively_new_hand", duration: 800 });
             return true;
         } else {
+            uber.flags.new_hand = false;
             return false;
         }
     };
@@ -266,7 +271,7 @@
 
         var uber = this;
         // exit function if hand just entered
-        if (uber.flags.new_hand && frame.hands.length === 1) {
+        if (uber.flags.relatively_new_hand && frame.hands.length === 1) {
             return false;
         }
 
@@ -338,7 +343,7 @@
     LEAPAPP.GestureChecker.prototype.checkForExplosion = function(frame) {
         var uber = this;
         // exit function if hand just entered
-        if (uber.flags.new_hand && frame.hands.length === 1) {
+        if (uber.flags.relatively_new_hand && frame.hands.length === 1) {
             return false;
         }
 
@@ -400,7 +405,7 @@
     LEAPAPP.GestureChecker.prototype.checkforCollapse = function(frame) {
         var uber = this;
         // exit function if hand just entered
-        if (uber.flags.new_hand && frame.hands.length === 1) {
+        if (uber.flags.relatively_new_hand && frame.hands.length === 1) {
             return false;
         }
 
@@ -466,7 +471,7 @@
     LEAPAPP.GestureChecker.prototype.checkSwipe = function(frame) {
         var uber = this;
         // exit function if hand just entered
-        if (uber.flags.new_hand && frame.hands.length === 1) {
+        if (uber.flags.relatively_new_hand && frame.hands.length === 1) {
             return false;
         }
         var swipeDirection = "";
@@ -519,7 +524,7 @@
 
         var uber = this;
         // exit function if hand just entered
-        if (uber.flags.new_hand && frame.hands.length === 1) {
+        if (uber.flags.relatively_new_hand && frame.hands.length === 1) {
             return false;
         }
 
@@ -605,7 +610,7 @@
     LEAPAPP.GestureChecker.prototype.checkThumbUpGesture = function(frame) {
         var uber = this;
         // exit function if hand just entered
-        if (uber.flags.new_hand && frame.hands.length === 1) {
+        if (uber.flags.relatively_new_hand && frame.hands.length === 1) {
             return false;
         }
 
@@ -679,7 +684,7 @@
     LEAPAPP.GestureChecker.prototype.checkOKGesture = function(frame) {
         var uber = this;
         // exit function if hand just entered
-        if (uber.flags.new_hand && frame.hands.length === 1) {
+        if (uber.flags.relatively_new_hand && frame.hands.length === 1) {
             return false;
         }
 
@@ -742,52 +747,19 @@
             // save last hand in a temp variable
             var last_hand = uber.last_hands_info[hand.id];
 
-            // hand is when held still (position not moving more than 1)in position in each direction
-            if (   (!uber.flags.adjusting_vol) // only check if flag is not true anyway
-                && (Math.abs(last_hand.palmPosition[0] - hand.palmPosition[0]) < 0.1)
-                && (Math.abs(last_hand.palmPosition[1] - hand.palmPosition[1]) < 0.1)
-                && (Math.abs(last_hand.palmPosition[2] - hand.palmPosition[2]) < 0.1)
-
-            ) {
-                // then add to the frame count
-                uber.counts.hand_still_frames++;
-
-                // checking for a minimum
-                // if (uber.counts.hand_still_frames > 35) {
-                    // set a flag for active volume adjustment
-                    uber.flags.adjusting_vol = true;
-
-                    if (myLeapApp.debug) {
-                        console.log("%c - - - - - - - GESTURE:                                    Volume Adjust Start", 'background: #C3EC25; color: #191A1A');
-                    }
-                // }
+            // if a new hand has entered the scene save current volume in a variable
+            if (uber.flags.new_hand) {
+                uber.volume_at_enter = myLeapApp.radio.current_volume;
             }
-            // else reset the counter
-            else {
-                uber.counts.hand_still_frames = 0;
+
+            else if (uber.checkForHandLeave(frame)) {
+                console.log("%c HAND LEFT", "background: #FDD187; color: #DA5C1B");
             }
 
         }
-        // if no hand then reset the count as well
-        if (frame.hands.length === 0 && uber.counts.hand_still_frames !== 0) {
-            uber.counts.hand_still_frames = 0;
 
-            // and if hand is out -> set flag to false
-            uber.flags.adjusting_vol = false;
-        }
-
-
-        // if flag of adjusting vol is true check for interruption
-        // and return
-        if (uber.flags.adjusting_vol) {
-            // reset will return true, if volume adjust is interrupted
-            if (uber.checkVolumeAdjustInterruption(frame)) {
-                // set flag to false
-                uber.flags.adjusting_vol = false;
-                return false;
-            } else {
-                return true;
-            }
+        if (true) {
+            return true;
         } else {
             return false;
         }
@@ -800,7 +772,7 @@
         uber.rotation_info.finish_rotation = false;
 
         // exit function if hand just entered
-        if (uber.flags.new_hand && frame.hands.length === 1) {
+        if (uber.flags.relatively_new_hand && frame.hands.length === 1) {
             return false;
         }
 
@@ -992,6 +964,7 @@
         var uber = this;
         for (var i = frame.hands.length - 1; i >= 0; i--) {
             var hand = frame.hands[i];
+            // if the hand id is not existent so far
             if (!uber.last_hands_info.hasOwnProperty(hand.id)) {
                 uber.last_hands_info[hand.id] = hand;
                 return true;
@@ -1013,38 +986,6 @@
         }
     };
 
-    // check if vol adjust is interrupted
-    LEAPAPP.GestureChecker.prototype.checkVolumeAdjustInterruption = function(frame) {
-        var uber = this;
-
-        for (var i = frame.hands.length - 1; i >= 0; i--) {
-            var hand = frame.hands[i];
-
-            // get finger info
-            var extended = uber.fingerInfo[hand.id].total_extended;
-
-            // save last hand in a temp variable
-            var last_hand = uber.last_hands_info[hand.id];
-            var diffx = 0;
-            var diffy = 0;
-
-            if ( (extended < 4) // if at least 2 fingers are bent
-              || ((diffx = Math.abs(last_hand.palmPosition[0] - hand.palmPosition[0])) > 6.0)
-              || ((diffy = Math.abs(last_hand.palmPosition[2] - hand.palmPosition[2])) > 6.0)
-
-            ) {
-                console.log("%c INTERRUPTED", "background: #FD6144; color: #B6DABA");
-                console.log("extended: ", extended, ", x pos: ", diffx, ", y pos: ", diffy );
-                return true;
-            }
-            else {
-                return false;
-            }
-        }
-
-        // if nothing was returned before -> no hands -> return false
-        return false;
-    };
 
 
 
@@ -1111,24 +1052,8 @@
 
         // check only for radio
         if (myLeapApp.flow.name == 'radio') {
-            // gestures.vol_adjust             = uber.checkVolAdjustGesture(frame);
+            gestures.vol_adjust             = uber.checkVolAdjustGesture(frame);
             gestures.swipe                  = uber.checkSwipe(frame);
-
-            // if adjusting vol flag is true -> then check if flag should be reset
-            if (uber.flags.adjusting_vol) {
-                // check other gestures
-                if (   (gestures.cancel)
-                    || (gestures.distinct_interaction)
-                    || (gestures.exit)
-                    || (gestures.off)
-                    || (gestures.on)
-                    || (gestures.ok)
-                    || (gestures.swipe)
-                    || (gestures.thumb_up)
-                ) {
-                    uber.flags.adjusting_vol = false;
-                }
-            }
         }
 
         // gestures.thumb_up               = uber.checkThumbUpGesture(frame);
