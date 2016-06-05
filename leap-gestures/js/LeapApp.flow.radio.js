@@ -12,20 +12,6 @@
 var RADIOFLOW = {
     name: 'radio',
     radio_on:           false,
-    timer_started:      false,
-    initial_count:      {
-                            on_off:     0,
-                            next_prev:  0,
-                            volume:     0
-                        },
-    // object to hold information which of the gestures were found without help
-    without_help:       {
-                            on_off:     false,
-                            next_prev:  false,
-                            volume:     false
-                        },
-
-
 
 
     doAlways: {
