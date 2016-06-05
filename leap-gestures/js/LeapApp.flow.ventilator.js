@@ -27,7 +27,7 @@ var VENTILATORFLOW = {
                             this.on_off_gesture = 'swipe';
                             console.log("this.on_off_gesture: ", this.on_off_gesture);
                         }
-                        myLeapApp.shiftr.publish('/venti', 'on');
+                        myLeapApp.shiftr.publish('/ventilator', 'on');
                         myLeapApp.sounder.play('on');
                         // TODO replace flow.on_off_count with uber.on_off_count > save it into segment
                         // TODO: on off count only on the gesture, which was saved first
@@ -41,7 +41,7 @@ var VENTILATORFLOW = {
                             // save first gesture
                             this.on_off_gesture = 'swipe';
                         }
-                        myLeapApp.shiftr.publish('/venti', 'off');
+                        myLeapApp.shiftr.publish('/ventilator', 'off');
                         myLeapApp.sounder.play('off');
                         myLeapApp.flow.on_off_count++;
                         this.flags.venti_on = false;
@@ -55,7 +55,7 @@ var VENTILATORFLOW = {
                         this.on_off_gesture = 'explode';
                         console.log("this.on_off_gesture: ", this.on_off_gesture);
                     }
-                    myLeapApp.shiftr.publish('/venti', 'on');
+                    myLeapApp.shiftr.publish('/ventilator', 'on');
                     myLeapApp.sounder.play('on');
                     myLeapApp.flow.on_off_count++;
                     this.flags.venti_on = true;
@@ -68,7 +68,7 @@ var VENTILATORFLOW = {
                         // save first gesture
                         this.on_off_gesture = 'explode';
                     }
-                    myLeapApp.shiftr.publish('/venti', 'off');
+                    myLeapApp.shiftr.publish('/ventilator', 'off');
                     myLeapApp.sounder.play('off');
                     myLeapApp.flow.on_off_count++;
                     this.flags.venti_on = false;
