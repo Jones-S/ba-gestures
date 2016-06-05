@@ -199,9 +199,21 @@
 
     LEAPAPP.Radio.prototype.setVolumeYAxis = function(mapped_volume) {
         var uber = this;
+        // check if difference between volumes is too big
+        if (Math.abs(uber.current_volume - mapped_volume) > 0.1) {
+            // and then fade
+            if (uber.current_volume - mapped_volume > 0) { // turn volume down
+                uber.current_volume -= 0.01;
+            } else {
+                uber.current_volume += 0.01;
+            }
+        } else {
+            // assign volume back to radio
+            uber.current_volume = mapped_volume;
+        }
 
-        // assign volume back to radio
-        uber.current_volume = mapped_volume;
+        console.log("uber.current_volume: ", uber.current_volume);
+
         uber.howler_bank[uber.current_track].volume(uber.current_volume);
 
     };

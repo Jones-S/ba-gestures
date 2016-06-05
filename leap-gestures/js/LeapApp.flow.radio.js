@@ -69,12 +69,9 @@ var RADIOFLOW = {
                 myLeapApp.radio.pause();
                 this.radio_on = false;
             }
+
             // only adjust volume if radio is on
             else if (this.radio_on) {
-
-                // if adjusting volume then map y-axis to volume
-                // TODO: set volume to current handposition when entering the interaction box
-
                 // check for hands first
                 if (!(this.try(gesture_data, 'exit')) && data.hands[0]) {
                     // y-Axis range 120mm – 420mm
@@ -83,7 +80,6 @@ var RADIOFLOW = {
                     this.volume = y_axis.map(120, 420, 0.1, 1.0);
                     this.volume = (this.volume < 0.1) ? 0.1 : this.volume; // 0.1 is minimum
                     this.volume = (this.volume > 1) ? 1 : this.volume; // 1 maximum
-                    console.log("%c this.volume: ", "background: #FDD187; color: #DA5C1B", this.volume);
                     // send volume to radio module to adjust volume
                     myLeapApp.radio.setVolumeYAxis(this.volume);
                 }
