@@ -70,13 +70,13 @@ var RADIOFLOW = {
                 this.radio_on = false;
             }
             // only adjust volume if radio is on
-            else if (this.radio_on && this.try(gesture_data, 'vol_adjust')) {
+            else if (this.radio_on) {
 
                 // if adjusting volume then map y-axis to volume
                 // TODO: set volume to current handposition when entering the interaction box
 
-                // check for hands first, because when hand left
-                if (!(this.try(gesture_data, 'exit'))) {
+                // check for hands first
+                if (!(this.try(gesture_data, 'exit')) && data.hands[0]) {
                     // y-Axis range 120mm – 420mm
                     // mapping this to volume (0.1 - 1.0)
                     var y_axis = data.hands[0].palmPosition[1];
