@@ -18,12 +18,12 @@ var VENTILATORFLOW = {
                 myLeapApp.sounder.play('exit');
             }
 
-            if(this.try(gesture_data, 'on') && uber.running == false) {
+            if(this.try(gesture_data, 'on') && uber.running === false) {
                 myLeapApp.shiftr.publish('/ventilator', 'on');
                 myLeapApp.sounder.play('on');
                 uber.running = true;
             }
-            if(this.try(gesture_data, 'off') && uber.running == true) {
+            if(this.try(gesture_data, 'off') && uber.running === true) {
                 myLeapApp.shiftr.publish('/ventilator', 'off');
                 myLeapApp.sounder.play('off');
                 uber.running = false;
