@@ -80,8 +80,12 @@ var RADIOFLOW = {
                 var y_pos = gesture_data.vol_adjust.actual_pos;
 
                 // y-Axis range 120mm – 420mm
-                // mapping this to volume (0.1 - 1.0)
-                this.volume = y_axis.map(120, 420, 0.1, 1.0);
+                if (y_pos >= uber.y_at_enter) {
+                    this.volume = y_pos.map(uber.y_at_enter, 420, uber.base_volume, 1.0);
+                } else {
+                    this.volume = y_pos.map(60, uber.y_at_enter, 0.1, uber.base_volume);
+                }
+
                 this.volume = (this.volume < 0.1) ? 0.1 : this.volume; // 0.1 is minimum
                 this.volume = (this.volume > 1) ? 1 : this.volume; // 1 maximum
                 console.log("%c this.volume: ", "background: #FDD187; color: #DA5C1B", this.volume);
