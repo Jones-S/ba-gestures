@@ -1116,6 +1116,22 @@
         if (myLeapApp.flow.name == 'radio') {
             gestures.vol_adjust             = uber.checkVolAdjustGesture(frame);
             gestures.swipe                  = uber.checkSwipe(frame);
+
+            // if adjusting vol flag is true -> then check if flag should be reset
+            if (uber.flags.adjusting_vol) {
+                // check other gestures
+                if (   (gestures.cancel)
+                    || (gestures.distinct_interaction)
+                    || (gestures.exit)
+                    || (gestures.off)
+                    || (gestures.on)
+                    || (gestures.ok)
+                    || (gestures.swipe)
+                    || (gestures.thumb_up)
+                ) {
+                    uber.flags.adjusting_vol = false;
+                }
+            }
         }
 
         // gestures.thumb_up               = uber.checkThumbUpGesture(frame);
@@ -1124,21 +1140,6 @@
         // gestures.rotation               = uber.checkRotationGesture(frame);
         // gestures.fast_moves             = uber.detectFastMovement(frame);
 
-        // if adjusting vol flag is true -> then check if flag should be reset
-        if (uber.flags.adjusting_vol) {
-            // check other gestures
-            if (   (gestures.cancel)
-                || (gestures.distinct_interaction)
-                || (gestures.exit)
-                || (gestures.off)
-                || (gestures.on)
-                || (gestures.ok)
-                || (gestures.swipe)
-                || (gestures.thumb_up)
-            ) {
-                uber.flags.adjusting_vol = false;
-            }
-        }
 
         // save hand to last hand object
         uber.saveLastHand(frame);
