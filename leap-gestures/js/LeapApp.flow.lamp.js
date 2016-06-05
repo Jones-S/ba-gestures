@@ -20,6 +20,14 @@ var LAMPFLOW = {
         onGestureCheck: function(gesture_data, data) {
             var uber = this;
 
+            if (this.try(gesture_data, 'start')) {
+                myLeapApp.sounder.play('start');
+            }
+
+            if (this.try(gesture_data, 'exit')) {
+                myLeapApp.sounder.play('exit');
+            }
+
             if(this.try(gesture_data, 'on') && uber.flags.lamp_on === false) {
                 myLeapApp.shiftr.publish('/lamp', 'on');
                 myLeapApp.sounder.play('on');
