@@ -5,11 +5,10 @@
 
 var LAMPFLOW = {
     name: 'lamp',
-    on_off_count: 0,    // save count and increase if on off
-    distinct_count: 0,
 
     doAlways: {
         onEnter: function() {
+            this.played_fns.on_enter =  true; // flag to say that onEnter was executed, so that onGestureCheck will execute
             this.flags = {
                 lamp_on: false,
             };
@@ -19,7 +18,6 @@ var LAMPFLOW = {
         },
         onGestureCheck: function(gesture_data, data) {
             var uber = this;
-            console.log("checkinnn");
 
             if (this.try(gesture_data, 'start')) {
                 myLeapApp.sounder.play('start');
