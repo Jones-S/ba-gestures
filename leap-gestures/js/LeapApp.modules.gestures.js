@@ -739,9 +739,6 @@
         for (var i = frame.hands.length -1; i >= 0; i--) {
             var hand = frame.hands[i];
 
-            var confidence = hand.confidence;
-            var min_duration = 100; // frames how long the hand has to be held still
-
             // save last hand in a temp variable
             var last_hand = uber.last_hands_info[hand.id];
 
@@ -1114,7 +1111,7 @@
 
         // check only for radio
         if (myLeapApp.flow.name == 'radio') {
-            gestures.vol_adjust             = uber.checkVolAdjustGesture(frame);
+            // gestures.vol_adjust             = uber.checkVolAdjustGesture(frame);
             gestures.swipe                  = uber.checkSwipe(frame);
 
             // if adjusting vol flag is true -> then check if flag should be reset

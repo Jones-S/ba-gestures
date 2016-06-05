@@ -18,8 +18,13 @@
             typewriter:         false,
             gesture_option:     true,
             music_folder:       'classics',
-            ext_sounds:         false
+            ext_sounds:         false // is set differently afterwards
         };
+
+        // only ventilator has internal sounds. other two send via shiftr.
+        if (flow == RADIOFLOW || flow == LAMPFLOW) {
+            controller_options.ext_sounds = true;
+        }
 
 
 
