@@ -27,7 +27,7 @@
         uber.intermediary   = new LEAPAPP.Mediator();
         uber.machine        = new LEAPAPP.StateMachine(uber.flow);
         uber.tracker        = new LEAPAPP.GestureChecker();
-        uber.typer          = new LEAPAPP.Typewriter();
+        // uber.typer          = new LEAPAPP.Typewriter();
         uber.painter        = new LEAPAPP.CSSPainter();
         uber.shiftr         = new LEAPAPP.Shiftr(uber.shiftr_info);
         uber.sounder        = new LEAPAPP.Sound();
