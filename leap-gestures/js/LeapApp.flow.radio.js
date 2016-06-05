@@ -10,7 +10,7 @@
  */
 
 var RADIOFLOW = {
-
+    name: 'radio',
     radio_on:           false,
     timer_started:      false,
     initial_count:      {

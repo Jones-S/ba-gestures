@@ -1,5 +1,5 @@
 var VENTILATORFLOW = {
-
+    name: 'ventilator',
     on_off_count: 0,    // save count and increase if on off
     distinct_count: 0,
 

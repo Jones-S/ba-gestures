@@ -41,7 +41,10 @@
 
 
         // reset certain states (like lamp state)
-        myLeapApp.shiftr.publish('/lamp', 'reset');
+        // only reset if lamp flow is chosen
+        if (uber.flow.name == 'lamp') {
+            myLeapApp.shiftr.publish('/lamp', 'reset');
+        }
 
 
         /**

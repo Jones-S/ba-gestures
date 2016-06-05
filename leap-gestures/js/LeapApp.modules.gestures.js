@@ -1103,18 +1103,25 @@
         var uber = this;
 
         // check for gestures and save it in the gesture objects
+
+        // check for all objects:
         gestures.start                  = uber.checkForNewHand(frame);
         gestures.interaction            = uber.checkForAnyInteraction(frame);
         gestures.distinct_interaction   = uber.checkForDistinctInteraction(frame);
         gestures.on                     = uber.checkForExplosion(frame);
         gestures.off                    = uber.checkforCollapse(frame);
-        gestures.swipe                  = uber.checkSwipe(frame);
-        gestures.thumb_up               = uber.checkThumbUpGesture(frame);
-        gestures.ok                     = uber.checkOKGesture(frame);
-        gestures.cancel                 = uber.checkCancelGesture(frame);
-        // gestures.rotation               = uber.checkRotationGesture(frame);
-        gestures.vol_adjust             = uber.checkVolAdjustGesture(frame);
         gestures.exit                   = uber.checkForHandLeave(frame);
+
+        // check only for radio
+        if (myLeapApp.flow.name == 'radio') {
+            gestures.vol_adjust             = uber.checkVolAdjustGesture(frame);
+            gestures.swipe                  = uber.checkSwipe(frame);
+        }
+
+        // gestures.thumb_up               = uber.checkThumbUpGesture(frame);
+        // gestures.ok                     = uber.checkOKGesture(frame);
+        // gestures.cancel                 = uber.checkCancelGesture(frame);
+        // gestures.rotation               = uber.checkRotationGesture(frame);
         // gestures.fast_moves             = uber.detectFastMovement(frame);
 
         // if adjusting vol flag is true -> then check if flag should be reset
