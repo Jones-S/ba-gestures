@@ -17,6 +17,7 @@ var RADIOFLOW = {
     doAlways: {
         onEnter: function() {
             this.played_fns.on_enter = true;
+            this.base_volume = 0.5;
         },
         onGestureCheck: function(gesture_data, data) {
             var uber = this;
@@ -70,10 +71,11 @@ var RADIOFLOW = {
                 this.radio_on = false;
             }
             // only adjust volume if radio is on
-            else if (this.radio_on) {
+            else if (this.radio_on && this.try(gesture_data, 'vol_adjust')) {
 
                 // if adjusting volume then map y-axis to volume
-                // TODO: set volume to current handposition when entering the interaction box
+                uber.base_volume = gesture_data.vol_adjust;
+                console.log("base_volume: ", uber.base_volume);
 
                 // check for hands first
                 if (!(this.try(gesture_data, 'exit')) && data.hands[0]) {

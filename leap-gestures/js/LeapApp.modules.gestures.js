@@ -143,7 +143,10 @@
         };
 
         // save volume information at hand enter
-        this.volume_at_enter = 0.7;
+        this.volume_info = {
+            volume_at_enter:    0,
+            y_at_enter:         0
+        };
 
         this.last_gesture   = ''; // saving the last gesture to prevent explosion gesture after thumb for example
     };
@@ -738,7 +741,7 @@
     };
 
 
-    LEAPAPP.GestureChecker.prototype.checkVolAdjustGesture = function(frame) {
+    LEAPAPP.GestureChecker.prototype.volumeAdjustment = function(frame) {
         var uber = this;
 
         for (var i = frame.hands.length -1; i >= 0; i--) {
@@ -749,21 +752,17 @@
 
             // if a new hand has entered the scene save current volume in a variable
             if (uber.flags.new_hand) {
-                uber.volume_at_enter = myLeapApp.radio.current_volume;
+                uber.volume_info.volume_at_enter = myLeapApp.radio.current_volume;
+                uber.volume_info.y_at_enter = hand.palmPosition[1];
             }
-
-            else if (uber.checkForHandLeave(frame)) {
-                console.log("%c HAND LEFT", "background: #FDD187; color: #DA5C1B");
-            }
+            // return the volume if a hand is inside
+            return uber.volume_info;
 
         }
 
-        if (true) {
-            return true;
-        } else {
-            return false;
-        }
+       return false;
     };
+
 
     LEAPAPP.GestureChecker.prototype.checkRotationGesture = function(frame) {
         var uber = this;
@@ -1052,7 +1051,7 @@
 
         // check only for radio
         if (myLeapApp.flow.name == 'radio') {
-            gestures.vol_adjust             = uber.checkVolAdjustGesture(frame);
+            gestures.vol_adjust             = uber.volumeAdjustment(frame);
             gestures.swipe                  = uber.checkSwipe(frame);
         }
 
