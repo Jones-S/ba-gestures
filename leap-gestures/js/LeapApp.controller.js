@@ -36,9 +36,6 @@
         // subscribe 'doAlways'-Segment to the publisher
         var new_segment     = new LEAPAPP.Segment(uber.flow.doAlways);
         new_segment.onEnter(); // execute onEnter to skip that (otherwise onGestureCheck won't be executed)
-        // execute onEnter of first segment
-        uber.machine.callNextSeg(uber.start_seg);
-
 
         // reset certain states (like lamp state)
         // only reset if lamp flow is chosen
