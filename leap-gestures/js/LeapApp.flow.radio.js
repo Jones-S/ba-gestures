@@ -18,6 +18,7 @@ var RADIOFLOW = {
         onEnter: function() {
             this.played_fns.on_enter = true;
             this.base_volume = 0.5;
+            this.y_at_enter = 0;
         },
         onGestureCheck: function(gesture_data, data) {
             var uber = this;
@@ -74,21 +75,18 @@ var RADIOFLOW = {
             else if (this.radio_on && this.try(gesture_data, 'vol_adjust')) {
 
                 // if adjusting volume then map y-axis to volume
-                uber.base_volume = gesture_data.vol_adjust;
-                console.log("base_volume: ", uber.base_volume);
+                uber.base_volume = gesture_data.vol_adjust.volume_at_enter;
+                uber.y_at_enter = gesture_data.vol_adjust.y_at_enter;
+                var y_pos = gesture_data.vol_adjust.actual_pos;
 
-                // check for hands first
-                if (!(this.try(gesture_data, 'exit')) && data.hands[0]) {
-                    // y-Axis range 120mm – 420mm
-                    // mapping this to volume (0.1 - 1.0)
-                    var y_axis = data.hands[0].palmPosition[1];
-                    this.volume = y_axis.map(120, 420, 0.1, 1.0);
-                    this.volume = (this.volume < 0.1) ? 0.1 : this.volume; // 0.1 is minimum
-                    this.volume = (this.volume > 1) ? 1 : this.volume; // 1 maximum
-                    console.log("%c this.volume: ", "background: #FDD187; color: #DA5C1B", this.volume);
-                    // send volume to radio module to adjust volume
-                    myLeapApp.radio.setVolumeYAxis(this.volume);
-                }
+                // y-Axis range 120mm – 420mm
+                // mapping this to volume (0.1 - 1.0)
+                this.volume = y_axis.map(120, 420, 0.1, 1.0);
+                this.volume = (this.volume < 0.1) ? 0.1 : this.volume; // 0.1 is minimum
+                this.volume = (this.volume > 1) ? 1 : this.volume; // 1 maximum
+                console.log("%c this.volume: ", "background: #FDD187; color: #DA5C1B", this.volume);
+                // send volume to radio module to adjust volume
+                myLeapApp.radio.setVolumeYAxis(this.volume);
 
             }
 

@@ -145,7 +145,8 @@
         // save volume information at hand enter
         this.volume_info = {
             volume_at_enter:    0,
-            y_at_enter:         0
+            y_at_enter:         0,
+            actual_pos:         0
         };
 
         this.last_gesture   = ''; // saving the last gesture to prevent explosion gesture after thumb for example
@@ -755,6 +756,9 @@
                 uber.volume_info.volume_at_enter = myLeapApp.radio.current_volume;
                 uber.volume_info.y_at_enter = hand.palmPosition[1];
             }
+            // set y-axis
+            uber.volume_info.actual_pos = hand.palmPosition[1];
+
             // return the volume if a hand is inside
             return uber.volume_info;
 
