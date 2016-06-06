@@ -14,7 +14,7 @@
             flow:               flow,
             start_seg:          'seg0',
             mqtt_uri:           'mqtt://e0b7ded5:04f776d89819bfdb@broker.shiftr.io',
-            client_id:          'jonas laptop lamp',
+            client_id:          'jonas laptop xxx',
             typewriter:         false,
             gesture_option:     true,
             music_folder:       'classics',
@@ -24,6 +24,17 @@
         // only ventilator has internal sounds. other two send via shiftr.
         if (flow == RADIOFLOW || flow == LAMPFLOW) {
             controller_options.ext_sounds = true;
+        }
+
+        // change shiftr name depending on flow
+        if (flow == RADIOFLOW){
+            controller_options.client_id = 'laptop radio';
+        }
+        else if (flow == LAMPFLOW) {
+            controller_options.client_id = 'laptop lamp';
+        }
+        else if (flow == VENTILATORFLOW) {
+            controller_options.client_id = 'laptop ventilator';
         }
 
 
