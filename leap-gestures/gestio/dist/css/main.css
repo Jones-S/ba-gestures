@@ -11,7 +11,7 @@ html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockq
   vertical-align: baseline; }
 
 html, body {
-  font-family: "Circular-Book", "Circular", "europa", "Futura", sans-serif;
+  font-family: "Work Sans", sans-serif;
   text-transform: none;
   font-size: 62.5%;
   line-height: 2.4rem;
@@ -24,11 +24,13 @@ html, body {
 
 h1, .h1, h2, .h2, h3, .h3, h4, .h4, .h5, .h6 {
   max-width: 30.0rem;
-  font-family: "Circular-Medium", "Circular", "europa", "Futura", sans-serif;
+  font-family: "Work Sans", sans-serif;
+  font-weight: 500;
   color: #EEEEEE; }
 
 h1, .h1 {
   font-size: 5.0rem;
+  font-weight: 500;
   line-height: 5.4rem;
   margin-top: 2.2rem;
   margin-bottom: 2.0rem; }
@@ -38,12 +40,14 @@ h1, .h1 {
 
 h2, .h2, h3, .h3 {
   font-size: 2.4rem;
+  font-weight: 500;
   line-height: 3.2rem;
   margin-top: 2.4rem;
   margin-bottom: 1.6rem; }
 
 h4, .h4 {
   font-size: 2.0rem;
+  font-weight: 500;
   line-height: 1.4em;
   margin-top: 1.8rem;
   margin-bottom: 1.64em; }
@@ -87,6 +91,10 @@ p {
   -ms-transform-origin: 48% 70%;
   -o-transform-origin: 48% 70%;
   transform-origin: 48% 70%; }
+
+.header__description p {
+  color: white;
+  margin: 0; }
 
 table {
   border-collapse: separate;
@@ -134,5 +142,23 @@ html {
 .container {
   width: 80%;
   margin: 0 auto; }
+
+header {
+  background-color: #1F1F1F;
+  padding: 2rem; }
+
+.header__logo-cont {
+  margin: 0;
+  width: 10.0rem;
+  float: left; }
+
+.header__description {
+  float: right;
+  max-width: 33%;
+  size: 2.0rem;
+  margin: 0; }
+
+.object {
+  heigth: 30.0rem; }
 
 /*# sourceMappingURL=maps/main.css.map */

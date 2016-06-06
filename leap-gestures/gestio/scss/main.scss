@@ -16,15 +16,14 @@ $clr-2:           #979797;
 $clr-quiet:       #E8EBEB;
 // $clr-loud:        #(hex for a loudColor);
 
-$font-family-base:          "Circular-Book", "Circular", "europa", "Futura", sans-serif;
-$font-family-base-bold:     "Circular-Bold", "Circular", "europa", "Futura", sans-serif;
-$font-family-base-medium:   "Circular-Medium", "Circular", "europa", "Futura", sans-serif;
+$font-family-base:          'Work Sans', sans-serif;
+
 
 // 16px (default) * 0.625 = 10px        -> base 10 to calc easier
 // to make something 50px wide use 5.0rem.
 $font-size-base:            62.5%;
 $baseline-grid-unit:        0.6rem; // = 6px is one unit of the baseline grid
-
+$size-gutter:               2.0rem; // margin left and right of the document
 
 // mixins
 

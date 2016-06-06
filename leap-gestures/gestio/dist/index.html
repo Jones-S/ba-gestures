@@ -9,6 +9,7 @@
     <meta name="robots" content="" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta property="og:image" content="img/thumbnail_website.jpg">
+    <link href='https://fonts.googleapis.com/css?family=Work+Sans:400,500' rel='stylesheet' type='text/css'>
     <!-- <script src="//use.typekit.net/xci3vba.js"></script> -->
     <!-- <script>try{Typekit.load();}catch(e){}</script> -->
     <!-- <link rel="stylesheet" type="text/css" href="css/main.css" /> -->
@@ -23,14 +24,35 @@
 
 </head>
 <body>
-    <header>
+    <header class="clearfix">
         <h1 class="header__logo-cont">
             <img src="img/gestio_logo.svg" alt="Gestio Logo"/>
         </h1>
-        <div>
-            <p>Service for remote control of objects at the degree show at ZHdK.</p>
+        <div class="header__description">
+            <p>Service for remote control of objects <br>at the degree show at ZHdK.</p>
         </div>
     </header>
+    <section class="object-list">
+        <article class="object object-radio">
+            <h2>Radio</h2>
+        </article>
+        <article class="object object-ventilator">
+            <h2>Ventilator</h2>
+        </article>
+        <article class="object object-lamp">
+            <h2>Lamp</h2>
+        </article>
+    </section>
+
+    <footer>
+        <div class="documentation-info">
+            Project Documentation<br>
+            can be found <a href="http://interaction.jonasscheiwiller.ch" title="project documentation">here</a>.
+        </div>
+        <div class="email">Want to know more?<br>
+        <a href="mailto:gestio@jonasscheiwiller.ch" title="Email to gestio@jonasscheiwiller.ch">gestio@jonasscheiwiller.ch</a>
+        </div>
+    </footer>
 
 
     <!-- <script>

@@ -41,3 +41,29 @@ html {
     width: 80%;
     margin: 0 auto;
 }
+
+header {
+    background-color: #1F1F1F;
+    padding: $size-gutter;
+}
+
+.header__logo-cont {
+    margin: 0;
+    width: 10.0rem;
+    float: left;
+}
+
+.header__description {
+    float: right;
+    max-width: 33%;
+    size: 2.0rem;
+    margin: 0;
+}
+
+.object {
+    heigth: 30.0rem;
+}
+
+
+
+

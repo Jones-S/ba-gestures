@@ -20,12 +20,14 @@ html, body {
 // define classes which can then be applied to the elements (modularity!)
 .h1, .h2, .h3, .h4, .h5, .h6 {
     max-width: 30.0rem;
-    font-family: $font-family-base-medium;
+    font-family: $font-family-base;
+    font-weight: 500;
     color: $clr-1;
 }
 
 .h1 {
     font-size: 5.0rem;
+    font-weight: 500;
     line-height: 5.4rem;
     margin-top: 2.2rem;
     margin-bottom: 2.0rem;
@@ -37,12 +39,14 @@ html, body {
 
 .h2, .h3 {
     font-size: 2.4rem;
+    font-weight: 500;
     line-height: 3.2rem;
     margin-top: 2.4rem;
     margin-bottom: 1.6rem;
 }
 .h4 {
     font-size: 2.0rem;
+    font-weight: 500;
     line-height: 1.4em;
     margin-top: 1.8rem;
     margin-bottom: 1.64em;
@@ -109,4 +113,9 @@ p {
         -ms-transform-origin: 48% 70%;
          -o-transform-origin: 48% 70%;
             transform-origin: 48% 70%;
+}
+
+.header__description p {
+    color: white;
+    margin: 0;
 }
