@@ -6,7 +6,10 @@ html {
 
 body {
     height: 100%;
-    border: 10px solid rgba(0,0,0,0);
+    background-color: #000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 //clearfix for floating elements -> http://css-tricks.com/all-about-floats/
@@ -45,7 +48,7 @@ body {
    ========================================================================== */
 
 body.any-interaction {
-    background-color: #DBF9FF;
+    background-color: #fff;
 }
 
 body.distinct-interaction {
@@ -101,5 +104,10 @@ body.fast-moves {
 
 #drawing {
     background-color: #000;
+}
+
+video {
+    width: 100%;
+    height: auto;
 }
 
