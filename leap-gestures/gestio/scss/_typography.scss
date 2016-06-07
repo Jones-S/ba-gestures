@@ -76,9 +76,9 @@ h4, .h4 { @extend .h4; }
 
 a {
     color: #000;
-    text-decoration: none;
+    text-decoration: underline;
     &:hover {
-        color: $clr-2;
+        color: $clr-loud;
     }
 }
 
@@ -122,6 +122,15 @@ p {
 .object__title { // h2
     font-size: 14.0rem;
     text-shadow: 0 0 4.0rem rgba(0, 0, 0, 0.7);
+    @include media("<tablet") { //
+        font-size: 9.0rem;
+    }
 }
 
 .invisible { display: none; }
+
+footer div, footer a {
+    font-size: 1.8rem;
+    line-height: 2.4rem;
+    color: #fff;
+}

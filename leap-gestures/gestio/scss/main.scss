@@ -12,9 +12,9 @@ $breakpoints: (phone: 320px, phablet: 567px, tablet: 868px, big-tablet: 1024px, 
 
 // colors
 $clr-1:           #fff;
-$clr-2:           #979797;
+$clr-2:           #1F1F1F;
 $clr-quiet:       #E8EBEB;
-// $clr-loud:        #(hex for a loudColor);
+$clr-loud:        #B2B2B2;
 
 $font-family-base:          'Work Sans', sans-serif;
 
@@ -23,7 +23,7 @@ $font-family-base:          'Work Sans', sans-serif;
 // to make something 50px wide use 5.0rem.
 $font-size-base:            62.5%;
 $baseline-grid-unit:        0.6rem; // = 6px is one unit of the baseline grid
-$size-gutter:               2.0rem; // margin left and right of the document
+$size-gutter:               4.0rem; // margin left and right of the document
 
 // mixins
 

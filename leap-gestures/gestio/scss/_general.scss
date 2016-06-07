@@ -43,22 +43,42 @@ html {
 }
 
 header {
-    background-color: #1F1F1F;
+    background-color: $clr-2;
     padding: $size-gutter;
+    padding-top: 0.5 * $size-gutter;
+    padding-bottom: 0.5 * $size-gutter;
+    display: flex;
+    justify-content: space-between;
+    flex-flow: row wrap;
+
 }
 
 .header__logo-cont {
+    width: 10.0rem;;
     margin: 0;
-    width: 10.0rem;
-    float: left;
+    @include media("<720px") { //
+        flex: 1 100%;
+        display: flex;
+        justify-content: center;
+        img {
+            width: 40%;
+        }
+    }
 }
 
 .header__description {
-    float: right;
-    max-width: 33%;
-    size: 2.0rem;
-    margin: 0;
+    text-align: right;
+    p {
+        max-width: none;
+    }
+    @include media("<720px") { //
+        flex: 1 100%;
+        text-align: center;
+        margin-bottom: 0.5 * $size-gutter;
+        font-size: 1.0rem;
+    }
 }
+
 
 .object {
     background-color: #000;
@@ -108,10 +128,32 @@ header {
     flex: 1 100%;
     justify-content: center;
     align-items: center;
+    text-decoration: none;
     &:hover {
-        background-color: rgba(0, 0, 0, 0.4);
+        background-color: rgba(255, 255, 255, 0.12);
     }
 }
+
+footer {
+    display: flex;
+    flex-flow: row wrap;
+    padding: $size-gutter;
+
+    background-color: $clr-2;
+}
+
+.footer__info {
+    // flex: amount of space (all 1 -> all equal |
+    flex: 1 auto;
+    @include media("<790px") { //
+        flex: 1 100%;
+        margin-bottom: $size-gutter;
+        &:last-of-type {
+            margin-bottom: 0;
+        }
+    }
+}
+
 
 
 

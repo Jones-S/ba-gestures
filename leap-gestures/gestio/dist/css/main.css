@@ -62,9 +62,9 @@ h4, .h4 {
 
 a {
   color: #000;
-  text-decoration: none; }
+  text-decoration: underline; }
   a:hover {
-    color: #979797; }
+    color: #B2B2B2; }
 
 p {
   -webkit-hyphens: auto;
@@ -98,9 +98,17 @@ p {
 .object__title {
   font-size: 14.0rem;
   text-shadow: 0 0 4rem rgba(0, 0, 0, 0.7); }
+  @media (max-width: 867px) {
+    .object__title {
+      font-size: 9.0rem; } }
 
 .invisible {
   display: none; }
+
+footer div, footer a {
+  font-size: 1.8rem;
+  line-height: 2.4rem;
+  color: #fff; }
 
 table {
   border-collapse: separate;
@@ -151,18 +159,34 @@ html {
 
 header {
   background-color: #1F1F1F;
-  padding: 2rem; }
+  padding: 4rem;
+  padding-top: 2rem;
+  padding-bottom: 2rem;
+  display: flex;
+  justify-content: space-between;
+  flex-flow: row wrap; }
 
 .header__logo-cont {
-  margin: 0;
   width: 10.0rem;
-  float: left; }
+  margin: 0; }
+  @media (max-width: 719px) {
+    .header__logo-cont {
+      flex: 1 100%;
+      display: flex;
+      justify-content: center; }
+      .header__logo-cont img {
+        width: 40%; } }
 
 .header__description {
-  float: right;
-  max-width: 33%;
-  size: 2.0rem;
-  margin: 0; }
+  text-align: right; }
+  .header__description p {
+    max-width: none; }
+  @media (max-width: 719px) {
+    .header__description {
+      flex: 1 100%;
+      text-align: center;
+      margin-bottom: 2rem;
+      font-size: 1.0rem; } }
 
 .object {
   background-color: #000;
@@ -198,8 +222,24 @@ header {
   display: flex;
   flex: 1 100%;
   justify-content: center;
-  align-items: center; }
+  align-items: center;
+  text-decoration: none; }
   .object__link:hover {
-    background-color: rgba(0, 0, 0, 0.4); }
+    background-color: rgba(255, 255, 255, 0.12); }
+
+footer {
+  display: flex;
+  flex-flow: row wrap;
+  padding: 4rem;
+  background-color: #1F1F1F; }
+
+.footer__info {
+  flex: 1 auto; }
+  @media (max-width: 789px) {
+    .footer__info {
+      flex: 1 100%;
+      margin-bottom: 4rem; }
+      .footer__info:last-of-type {
+        margin-bottom: 0; } }
 
 /*# sourceMappingURL=maps/main.css.map */
