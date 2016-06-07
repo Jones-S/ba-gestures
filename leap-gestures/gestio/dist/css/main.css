@@ -23,10 +23,9 @@ html, body {
   font-feature-settings: "liga", "kern"; }
 
 h1, .h1, h2, .h2, h3, .h3, h4, .h4, .h5, .h6 {
-  max-width: 30.0rem;
   font-family: "Work Sans", sans-serif;
   font-weight: 500;
-  color: #EEEEEE; }
+  color: #fff; }
 
 h1, .h1 {
   font-size: 5.0rem;
@@ -96,6 +95,13 @@ p {
   color: white;
   margin: 0; }
 
+.object__title {
+  font-size: 14.0rem;
+  text-shadow: 0 0 50px rgba(0, 0, 0, 0.4); }
+
+.invisible {
+  display: none; }
+
 table {
   border-collapse: separate;
   border-spacing: 0; }
@@ -159,6 +165,26 @@ header {
   margin: 0; }
 
 .object {
-  heigth: 30.0rem; }
+  background-color: #000;
+  min-height: 60.0rem;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: none; }
+
+.object-radio {
+  background-image: url(../img/radio@1x.jpg); }
+  @media only screen and (-webkit-min-device-pixel-ratio: 2), only screen and (min--moz-device-pixel-ratio: 2), only screen and (-o-min-device-pixel-ratio: 2 / 1), only screen and (min-device-pixel-ratio: 2), only screen and (min-resolution: 192dpi), only screen and (min-resolution: 2dppx) {
+    .object-radio {
+      background-image: url(../img/radio@2x.jpg); } }
+
+.object-ventilator {
+  background-image: url(../img/ventilator@1x.jpg); }
+
+.object-lamp {
+  background-image: url(../img/lamp@1x.jpg); }
 
 /*# sourceMappingURL=maps/main.css.map */

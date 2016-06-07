@@ -19,7 +19,6 @@ html, body {
 // https://drewish.com/tools/vertical-rhythm/
 // define classes which can then be applied to the elements (modularity!)
 .h1, .h2, .h3, .h4, .h5, .h6 {
-    max-width: 30.0rem;
     font-family: $font-family-base;
     font-weight: 500;
     color: $clr-1;
@@ -119,3 +118,10 @@ p {
     color: white;
     margin: 0;
 }
+
+.object__title { // h2
+    font-size: 14.0rem;
+    text-shadow: 0 0 50px rgba(0, 0, 0, 0.4);
+}
+
+.invisible { display: none; }

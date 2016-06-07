@@ -61,7 +61,37 @@ header {
 }
 
 .object {
-    heigth: 30.0rem;
+    background-color: #000;
+    min-height: 60.0rem;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: none;
+}
+
+.object-radio {
+    background-image: url(../img/radio@1x.jpg);
+
+    @media
+    only screen and (-webkit-min-device-pixel-ratio: 2),
+    only screen and (   min--moz-device-pixel-ratio: 2),
+    only screen and (     -o-min-device-pixel-ratio: 2/1),
+    only screen and (        min-device-pixel-ratio: 2),
+    only screen and (                min-resolution: 192dpi),
+    only screen and (                min-resolution: 2dppx) {
+        background-image: url(../img/radio@2x.jpg);
+    }
+}
+
+.object-ventilator {
+    background-image: url(../img/ventilator@1x.jpg);
+}
+
+.object-lamp {
+    background-image: url(../img/lamp@1x.jpg);
 }
 
 
