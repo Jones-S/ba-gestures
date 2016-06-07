@@ -97,7 +97,7 @@ p {
 
 .object__title {
   font-size: 14.0rem;
-  text-shadow: 0 0 50px rgba(0, 0, 0, 0.4); }
+  text-shadow: 0 0 4rem rgba(0, 0, 0, 0.7); }
 
 .invisible {
   display: none; }
@@ -172,7 +172,7 @@ header {
   background-position: center center;
   display: flex;
   justify-content: center;
-  align-items: center;
+  align-items: stretch;
   border: none; }
 
 .object-radio {
@@ -186,5 +186,11 @@ header {
 
 .object-lamp {
   background-image: url(../img/lamp@1x.jpg); }
+
+.object__link {
+  display: flex;
+  flex: 1 100%;
+  justify-content: center;
+  align-items: center; }
 
 /*# sourceMappingURL=maps/main.css.map */

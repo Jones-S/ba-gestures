@@ -68,7 +68,7 @@ header {
     background-position: center center;
     display: flex;
     justify-content: center;
-    align-items: center;
+    align-items: stretch;
     border: none;
 }
 
@@ -94,6 +94,13 @@ header {
     background-image: url(../img/lamp@1x.jpg);
 }
 
+
+.object__link {
+    display: flex;
+    flex: 1 100%;
+    justify-content: center;
+    align-items: center;
+}
 
 
 
