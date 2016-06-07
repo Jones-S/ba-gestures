@@ -1,20 +1,22 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE plist PUBLIC "-//Apple Computer//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
-<plist version="1.0">
-<dict>
-    <key>Label</key>
-    <string>js.leapmotion</string> <!-- org.mongodb.mongodb perhaps? -->
+    <?xml version="1.0" encoding="UTF-8"?>
+    <!DOCTYPE plist PUBLIC "-//Apple Computer//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+    <plist version="1.0">
+    <dict>
+        <key>Label</key>
+        <string>js.leapmotion</string> <!-- org.mongodb.mongodb perhaps? -->
 
-    <key>OnDemand</key>
-    <false/>
+        <key>OnDemand</key>
+        <false/>
 
-    <key>ProgramArguments</key>
-    <array>
+        <key>ProgramArguments</key>
+        <array>
             <string>open</string>
-            <string>/Applications/Utilities/Terminal.app</string>
-    </array>
-    
-    <key>LaunchOnlyOnce</key>
-    <true/>
-</dict>
-</plist>
+            <string>-a</string>
+            <string>Terminal</string>
+            <string>/path/to/yourscript</string>
+        </array>
+
+        <key>LaunchOnlyOnce</key>
+        <true/>
+    </dict>
+    </plist>
