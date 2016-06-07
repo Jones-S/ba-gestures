@@ -167,13 +167,20 @@ header {
 .object {
   background-color: #000;
   min-height: 60.0rem;
-  background-size: contain;
+  background-size: auto 100%;
   background-repeat: no-repeat;
   background-position: center center;
   display: flex;
   justify-content: center;
   align-items: stretch;
-  border: none; }
+  border: none;
+  -webkit-transition: background-size 0.35s;
+  -moz-transition: background-size 0.35s;
+  -ms-transition: background-size 0.35s;
+  -o-transition: background-size 0.35s;
+  transition: background-size 0.35s; }
+  .object:hover {
+    background-size: auto 110%; }
 
 .object-radio {
   background-image: url(../img/radio@1x.jpg); }
@@ -192,5 +199,7 @@ header {
   flex: 1 100%;
   justify-content: center;
   align-items: center; }
+  .object__link:hover {
+    background-color: rgba(0, 0, 0, 0.4); }
 
 /*# sourceMappingURL=maps/main.css.map */
