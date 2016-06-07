@@ -8,6 +8,7 @@ var browsersync = require('browser-sync');
 var sourcemaps = require('gulp-sourcemaps');
 var sass = require('gulp-sass');
 var plumber = require('gulp-plumber');
+var autoprefixer = require('gulp-autoprefixer');
 
 
 // Asset paths
@@ -111,29 +112,44 @@ gulp.task('default', ['sass', 'watch', 'browsersync']);
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 // production tasks
 
-// gulp.task('production-css', function(){
-//     return gulp.src('campusinterview/sass/*.scss')
-//         .pipe(plumber({
-//             errorHandler: onError
-//         }))
-//         .pipe(compass({
-//             style: 'compressed',
-//             comments: false,    // no effect ?!
-//             css: 'campusinterview/stylesheets',
-//             sass: 'campusinterview/sass',
-//         }))
-//         .pipe(cssnano())      //minifying removes line comments as well
-//         .pipe(gulp.dest('testcampusinterview/system/templates/frontend/default/css/production'))
-//         .pipe(notify({ message: 'Compass production task complete' }));
-// });
+gulp.task('production-css', function(){
+    return gulp.src(paths["sass"])
+        .pipe(plumber({
+            errorHandler: onError
+        }))
+        .pipe(sass())
+        .pipe(autoprefixer({
+            browsers: ['last 3 versions'],
+            cascade: false
+        }))
+        // .pipe(cssnano())      //minifying removes line comments as well
+        .pipe(gulp.dest(paths["css"]))
+        .pipe(notify({ message: 'css production task complete' }));
+});
 
-// gulp.task('production-js', function() {
-//     return gulp.src('testcampusinterview/system/templates/frontend/default/js/all.js')
-//         .pipe(uglify())
-//         .pipe(gulp.dest('testcampusinterview/system/templates/frontend/default/js/production'))
-//         .pipe(notify({ message: 'uglify js task complete' }));
-// });
+gulp.task('production-js', function() {
+    return gulp.src('testcampusinterview/system/templates/frontend/default/js/all.js')
+        .pipe(uglify())
+        .pipe(gulp.dest('testcampusinterview/system/templates/frontend/default/js/production'))
+        .pipe(notify({ message: 'uglify js task complete' }));
+});
 
-// gulp.task('production', ['production-js', 'production-css']);
+gulp.task('production', ['production-js', 'production-css']);
