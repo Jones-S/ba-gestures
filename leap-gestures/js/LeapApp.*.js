@@ -24,6 +24,20 @@ window.onerror = function(message, source, lineno, colno, error) {
     console.log("lineno: ", lineno);
     console.log("colno: ", colno);
     console.log("error: ", error);
+    // parameters: service_id, template_id, template_parameters
+    emailjs.send("gmail", "template_XCJQnjhk",{
+        name: "Gestio Error",
+        notes: message
+    })
+    .then(
+      function(response) {
+        console.log("SUCCESS", response);
+      },
+      function(error) {
+        console.log("FAILED", error);
+      }
+    );
+
     location.reload();
 };
 
