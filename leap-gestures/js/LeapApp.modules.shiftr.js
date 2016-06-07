@@ -31,6 +31,7 @@
             if (topic == '/radio') {
                 switch(message.toString()) {
                     case 'play':
+                        this.mustbeYou();
                         myLeapApp.radio.play();
                         myLeapApp.sounder.play('on');
                         break;

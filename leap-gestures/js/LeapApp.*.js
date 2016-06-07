@@ -16,6 +16,17 @@ LEAPAPP.segments = [];
 // one line function to add F12 pause script functionality
 $(window).keydown(function(e) { if (e.keyCode == 123) debugger; });
 
+// use with caution! reloads page on error
+window.onerror = function(message, source, lineno, colno, error) {
+    console.log("%c ERROR: - - - - - - - - - - - ", "background: #FDD187; color: #DA5C1B");
+    console.log("message: ", message);
+    console.log("source: ", source);
+    console.log("lineno: ", lineno);
+    console.log("colno: ", colno);
+    console.log("error: ", error);
+    location.reload();
+};
+
 
 // extend native prototypes
 Number.prototype.map = function (in_min, in_max, out_min, out_max) {
