@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
 
-open http://jonasscheiwiller.ch
+open http://interaction.jonasscheiwiller.ch
 cd ~/Documents/github/ba-gestures/leap-gestures 
 gulp
