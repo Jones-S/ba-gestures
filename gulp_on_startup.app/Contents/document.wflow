@@ -71,24 +71,6 @@ gulp</string>
 					<key>source</key>
 					<string></string>
 				</dict>
-				<key>ActionRuntimeParameters</key>
-				<dict>
-					<key>COMMAND_STRING</key>
-					<string>PATH=/usr/bin:/usr/local/bin export PATH
-cd /Users/itz/Documents/github/ba-gestures/leap-gestures
-ls
-gulp</string>
-					<key>CheckedForUserDefaultShell</key>
-					<true/>
-					<key>inputMethod</key>
-					<integer>0</integer>
-					<key>shell</key>
-					<string>/bin/bash</string>
-					<key>source</key>
-					<string></string>
-					<key>temporary items path</key>
-					<string>/var/folders/23/2jd4ny6s7fd0tjykyw11cqyh0000gn/T/9E52ACDE-A93C-4C6E-A711-D57A442EEC6C/1/com.apple.RunShellScript</string>
-				</dict>
 				<key>BundleIdentifier</key>
 				<string>com.apple.RunShellScript</string>
 				<key>CFBundleVersion</key>
@@ -189,12 +171,10 @@ gulp</string>
 						<string>4</string>
 					</dict>
 				</dict>
-				<key>conversionLabel</key>
-				<integer>0</integer>
 				<key>isViewVisible</key>
 				<true/>
 				<key>location</key>
-				<string>309.000000:365.000000</string>
+				<string>309.000000:185.000000</string>
 				<key>nibPath</key>
 				<string>/System/Library/Automator/Run Shell Script.action/Contents/Resources/German.lproj/main.nib</string>
 			</dict>
@@ -207,7 +187,7 @@ gulp</string>
 	<key>workflowMetaData</key>
 	<dict>
 		<key>workflowTypeIdentifier</key>
-		<string>com.apple.Automator.workflow</string>
+		<string>com.apple.Automator.application</string>
 	</dict>
 </dict>
 </plist>
