@@ -32,6 +32,7 @@ gulp.task('browsersync', function(cb) {
            baseDir:'./dist/'
         },
         browser: 'google chrome'
+        // browser: 'safe exam browser'
     }, cb);
    console.log("css injected");
 });
