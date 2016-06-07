@@ -19,26 +19,27 @@ $(window).keydown(function(e) { if (e.keyCode == 123) debugger; });
 // use with caution! reloads page on error
 window.onerror = function(message, source, lineno, colno, error) {
     console.log("%c ERROR: - - - - - - - - - - - ", "background: #FDD187; color: #DA5C1B");
-    console.log("message: ", message);
-    console.log("source: ", source);
-    console.log("lineno: ", lineno);
-    console.log("colno: ", colno);
-    console.log("error: ", error);
+
     // parameters: service_id, template_id, template_parameters
     emailjs.send("gmail", "template_XCJQnjhk",{
-        name: "Gestio Error",
-        notes: message
+        message: JSON.stringify(message, null, 4),
+        source: source,
+        lineno: lineno,
+        colno: colno,
+        error: error
     })
     .then(
       function(response) {
         console.log("SUCCESS", response);
+        location.reload(); // reload page in any case after error
+
       },
       function(error) {
         console.log("FAILED", error);
+        location.reload(); // reload page in any case after error
       }
     );
 
-    location.reload();
 };
 
 
