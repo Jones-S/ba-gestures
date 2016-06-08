@@ -5,8 +5,8 @@
      */
     $(function() { // Shorthand for $( document ).ready()
         // var flow = RADIOFLOW;
-        var flow = VENTILATORFLOW;
-        // var flow = LAMPFLOW;
+        // var flow = VENTILATORFLOW;
+        var flow = LAMPFLOW;
         // TODO: only check for explode and collapse and not for volume in lampflow .e.g
         // Set options for the leap app
         var controller_options = {
@@ -22,7 +22,7 @@
         };
 
         // only ventilator has internal sounds. other two send via shiftr.
-        if (flow == RADIOFLOW || flow == VENTILATORFLOW) {
+        if (flow == LAMPFLOW || flow == VENTILATORFLOW) {
             controller_options.ext_sounds = true;
         }
 
