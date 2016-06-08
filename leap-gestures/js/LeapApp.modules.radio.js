@@ -32,7 +32,7 @@
         } else if (myLeapApp.music_folder == 'classics') {
             this.files = [
                 'ec_layla.mp3',
-                'jh_blues.mp3',
+                // 'jh_blues.mp3',
                 'jjc_call_me.mp3',
                 'ad_he_wont.mp3',
                 'nj_goodbye.mp3',
@@ -69,7 +69,7 @@
                 // otherwise the this in the function onEnd will refer to the Howl context
                 onend: uber.onEnd.bind(uber),
                 preload: true,
-                html5: true,
+                // html5: true,
                 volume: uber.current_volume
             }));
         });
