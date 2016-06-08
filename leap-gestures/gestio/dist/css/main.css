@@ -840,14 +840,13 @@ header {
   justify-content: center;
   align-items: center;
   text-decoration: none; }
-  .object__link:hover {
-    background-color: rgba(255, 255, 255, 0.12); }
 
 .content {
   display: flex;
   flex-flow: row wrap; }
 
 .object-overview {
+  padding-top: 4rem;
   flex: 1 100%;
   background-image: url(../img/radio@1x.jpg);
   display: flex;
@@ -859,18 +858,17 @@ header {
   flex: 1 auto;
   display: flex;
   flex-direction: column;
-  background-color: #46D6FF;
   order: 1;
-  max-width: 3.0rem; }
-
-.object-overview__symmetry {
-  flex: 1 auto;
-  order: 3; }
+  max-width: 11rem;
+  padding-left: 4rem;
+  padding-top: 4rem; }
 
 .object-overview__title {
-  flex: 1 80%;
-  background-color: rgba(255, 98, 33, 0.3);
-  order: 2; }
+  flex: 3 auto;
+  order: 2;
+  text-align: center;
+  font-size: 9.0rem;
+  padding-right: 15rem; }
 
 .object-overview p {
   flex: 1 100%;
@@ -878,13 +876,35 @@ header {
   color: #fff;
   background-color: #63FF5E; }
 
-@media (max-width: 719px) {
-  object-overview__controls {
-    flex: 1 100%; }
-  .object-overview__symmetry {
-    display: none; }
-  .object-overview__title {
-    flex: 1 100%; } }
+button {
+  width: 5.5rem;
+  height: 5.5rem;
+  text-indent: -15000px;
+  background-position: center;
+  background-color: transparent;
+  background-repeat: no-repeat;
+  background-size: 5.0rem auto;
+  cursor: pointer;
+  border: none;
+  margin-bottom: 1.0rem; }
+
+.btn--play {
+  background-image: url("../img/icons/play@1x.png"); }
+
+.btn--pause {
+  background-image: url("../img/icons/pause@1x.png"); }
+
+.btn--next {
+  background-image: url("../img/icons/next_track@1x.png"); }
+
+.btn--prev {
+  background-image: url("../img/icons/prev_track@1x.png"); }
+
+.btn--vol-up {
+  background-image: url("../img/icons/volume_up@1x.png"); }
+
+.btn--vol-down {
+  background-image: url("../img/icons/volume_down@1x.png"); }
 
 footer {
   display: flex;
@@ -900,6 +920,27 @@ footer {
       margin-bottom: 4rem; }
       .footer__info:last-of-type {
         margin-bottom: 0; } }
+
+@media (max-width: 719px) {
+  .object-overview__controls {
+    flex: 1 100%;
+    order: 2;
+    padding: 0;
+    max-width: 100%;
+    width: 100%;
+    padding-top: 40.0rem;
+    flex-direction: row;
+    justify-content: center;
+    flex-wrap: wrap; }
+  .object-overview__title {
+    flex: 1 100%;
+    order: 1;
+    padding-right: 0; }
+  button {
+    width: 15.0rem;
+    height: 15.0rem;
+    background-size: 10.0rem;
+    flex: 1 33%; } }
 
 @media (max-width: 719px) {
   .logo-cont--detail-page {
