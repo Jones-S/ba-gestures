@@ -137,8 +137,62 @@ header {
     }
 }
 
+.content {
+    display: flex;
+    flex-flow: row wrap;
+}
+
+.object-overview { //section
+    flex: 1 100%;
+    background-image: url(../img/radio@1x.jpg);
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: center;
+    min-height: 80.0rem;
+}
+
+.object-overview__controls {
+    flex: 1 auto;
+    display: flex;
+    flex-direction: column;
+    background-color: #46D6FF;
+    order: 1;
+    max-width: 3.0rem;
+}
+
+.object-overview__symmetry {
+    flex: 1 auto;
+    order: 3;
+}
+
+.object-overview__title {
+    flex: 1 80%;
+    background-color: rgba(255, 98, 33, .3);
+    order: 2;
+
+}
 
 
+.object-overview p {
+    flex: 1 100%;
+    order: 4;
+    color: #fff;
+    background-color: #63FF5E;
+}
+
+@include media("<720px") { //
+    object-overview__controls {
+        flex: 1 100%;
+    }
+
+    .object-overview__symmetry {
+        display: none;
+    }
+
+    .object-overview__title {
+        flex: 1 100%;
+    }
+}
 
 
 
