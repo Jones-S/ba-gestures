@@ -12,11 +12,22 @@
     <!-- <script src="//use.typekit.net/xci3vba.js"></script> -->
     <!-- <script>try{Typekit.load();}catch(e){}</script> -->
     <!-- <link rel="stylesheet" type="text/css" href="css/main.css" /> -->
-    <link href='https://fonts.googleapis.com/css?family=Fira+Mono:400,700' rel='stylesheet' type='text/css'>
+    <!-- <link href='https://fonts.googleapis.com/css?family=Fira+Mono:400,700' rel='stylesheet' type='text/css'> -->
 
     <link rel="stylesheet" type="text/css" href="css/main.css" />
+
+    <!-- emailjs.com send email via javascript -->
+    <script type="text/javascript" src="https://cdn.emailjs.com/dist/email.min.js"></script>
+    <script type="text/javascript">
+       (function(){
+          emailjs.init("user_ncipaRg1upBV6Y9cAVQyS");
+       })();
+    </script>
+
     <script type="text/javascript" src="js/third_party.js"></script>
     <script type="text/javascript" src="js/all.js"></script>
+
+
 
     <!-- for dev purpose: basehold overlay (basehold.it/[gridsize=6px]/RGBA) -->
     <!-- <link rel="stylesheet" href="http://basehold.it/6/255/42/85/0.5"> -->
@@ -25,25 +36,9 @@
 
 </head>
 <body>
-    <!-- here a canvas is added if finger-draw option is set to true -->
-    <!-- <canvas id="drawing" width="300" height="300"></canvas> -->
-
-    <!--  <div class="">
-        <div class="object" id="radio">RADIO</div>
-        <div class="object" id="lamp">LAMP</div>
-        <div class="object" id="ventilator">VENTILATOR</div>
-    </div> -->
-    <ul class="leap-frame-info">
-        <li id="leap-info-1"></li>
-        <li id="leap-info-2"></li>
-        <li id="leap-info-3"></li>
-        <li id="leap-info-4"></li>
-        <li id="leap-info-5"></li>
-        <li id="leap-info-6"></li>
-        <li id="leap-info-7"></li>
-        <li id="leap-info-8"></li>
-    </ul>
-    <div id="messages" class="messages"></div>
+<!-- <video autoplay="autoplay" loop="loop" controls>
+        <source src="http://interaction.jonasscheiwiller.ch/files/gestio_konzeptvideo_v1-2.mp4" type="video/mp4"/>
+    </video> -->
 </body>
 </html>
 

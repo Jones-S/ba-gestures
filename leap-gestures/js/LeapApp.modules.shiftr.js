@@ -15,7 +15,10 @@
         this.client.on('connect', function() {
             console.log('client has connected!');
 
-            uber.client.subscribe('/radio');
+            // subscribe to radio channel if computer is controlling the radio
+            if (!myLeapApp.flow == RADIOFLOW) {
+                uber.client.subscribe('/radio');
+            }
             // only subscribe to sound channel, if the computer is not playing external sounds
             if (!myLeapApp.ext_sounds) {
                 uber.client.subscribe('/sound');
