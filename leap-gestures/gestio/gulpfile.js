@@ -29,9 +29,11 @@ function onError(err) {
 // browsersync task
 gulp.task('browsersync', function(cb) {
    return browsersync({
-       server: {
+        server: {
            baseDir:'./dist/'
-    } }, cb);
+        },
+        notify: false // to hide the "connected to browsersync" in the upper right corner
+     }, cb);
    console.log("css injected");
 });
 
