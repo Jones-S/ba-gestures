@@ -782,6 +782,9 @@ header {
   justify-content: space-between;
   flex-wrap: wrap; }
 
+.header--detail-page {
+  background-color: #000; }
+
 .header__logo-cont {
   margin: 0;
   flex: 1 10.0rem; }
