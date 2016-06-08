@@ -50,7 +50,6 @@ header {
     display: flex;
     justify-content: space-between;
     flex-wrap: wrap; // no line break even if flex objects are bigger than width
-
 }
 
 .header__logo-cont {
@@ -68,11 +67,6 @@ header {
     }
 }
 
-.logo-cont--detail-page {
-    img {
-        width: inherit;
-    }
-}
 
 .header__description {
     text-align: right;

@@ -1,14 +1,27 @@
 // everything which concerns the navigation. including typography etc.
+.logo-cont--detail-page {
+    @include media("<720px") { //
+        margin-bottom: 0;
+        line-height: 1.7rem;
+        flex: 1 50%;
+        text-align: start;
+        // background-color: #08FFB6;
+    }
+}
+
 nav {
     display: flex;
     align-items: center;
     justify-content: flex-end;
+    flex-wrap: wrap;
+    // background-color: #ADFF49;
 }
 
-.header__nav ul {
+.nav__list {
     list-style-type: none;
     display: flex;
     justify-content: flex-end;
+    // background-color: #FF8723;
 }
 
 .header__nav li a {
@@ -21,4 +34,61 @@ nav {
     display: none;
 }
 
+.hide-menu {
+    display: none;
+}
 
+
+@include media("<720px") {
+    header {
+        padding: 0;
+    }
+
+    .header__logo-cont {
+        padding: $size-gutter * 0.5;
+    }
+
+    nav {
+        order: 2;
+        flex: 1 100%;
+        text-align: center;
+    }
+
+
+    .header__nav li a {
+        margin-left: 0;
+    }
+
+    .nav__list {
+        display: none;
+        li {
+            padding: $size-gutter * 0.5;
+            border-top: 1px solid #fff;
+        }
+    }
+
+    .hamburger {
+        display: inline;
+        order: 1;
+        // background-color: #31AEFF;
+    }
+
+    .hide-menu {
+        display: none;
+    }
+
+    #menu:target .nav__list {
+        display: inline-block;
+        width: 100%;
+    }
+
+    #menu:target .menu {
+        display: none;
+    }
+
+    #menu:target .hide-menu {
+        display: inline;
+    }
+
+
+}

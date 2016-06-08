@@ -15,19 +15,19 @@
     <!-- <script>try{Typekit.load();}catch(e){}</script> -->
     <!-- <link rel="stylesheet" type="text/css" href="css/main.css" /> -->
     <link rel="stylesheet" type="text/css" href="css/main.css" />
-    <!-- <script type="text/javascript" src="js/all.js"></script> -->
-    <!-- <script type="text/javascript" src="js/third_party.js"></script> -->
+    <script type="text/javascript" src="js/third_party.js"></script>
+    <script type="text/javascript" src="js/all.js"></script>
     <!-- for dev purpose: basehold overlay (basehold.it/[gridsize=6px]/RGBA) -->
     <!-- <link rel="stylesheet" href="http://basehold.it/6/255/42/85/0.5"> -->
 </head>
 
 <body>
-    <header>
+    <header id="menu">
         <h1 class="header__logo-cont logo-cont--detail-page">
             <img src="img/gestio_logo.svg" alt="Gestio Logo"/>
         </h1>
-        <nav class="header__nav" id="menu">
-            <ul>
+        <nav class="header__nav">
+            <ul class="nav__list">
                 <li><a title="Go to Home" href="index.html">Home</a></li>
                 <li><a title="Radio Page" href="radio.html">Radio</a></li>
                 <li><a title="Ventilator Page" href="ventilator.html">Ventilator</a></li>
@@ -35,12 +35,17 @@
             </ul>
 <!--             <a class="show menu_btn" href="#menu">Menu</a>
             <a class="hide menu_btn" href="#hidemenu">Menu</a> -->
-            <a href="#menu" class="menu hamburger hamburger--spin-r">
-                <span class="hamburger-box">
-                <span class="hamburger-inner"></span>
-                </span>
-            </a>
         </nav>
+        <a href="#menu" class="menu hamburger hamburger--spin-r">
+            <span class="hamburger-box">
+                <span class="hamburger-inner"></span>
+            </span>
+        </a>
+        <a href="#hidemenu" class="hide-menu hamburger hamburger--spin-r">
+            <span class="hamburger-box">
+                <span class="hamburger-inner"></span>
+            </span>
+        </a>
     </header>
 
     <section class="object-overview">

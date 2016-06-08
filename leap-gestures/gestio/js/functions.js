@@ -4,4 +4,3 @@
 
     });
 }(jQuery));
-//# sourceMappingURL=maps/all.js.map
