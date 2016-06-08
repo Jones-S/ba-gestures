@@ -23,10 +23,10 @@
 
 <body>
     <header>
-        <h1 class="header__logo-cont">
+        <h1 class="header__logo-cont logo-cont--detail-page">
             <img src="img/gestio_logo.svg" alt="Gestio Logo"/>
         </h1>
-        <nav class="header__nav">
+        <nav class="header__nav" id="menu">
             <ul>
                 <li><a title="Go to Home" href="index.html">Home</a></li>
                 <li><a title="Radio Page" href="radio.html">Radio</a></li>
@@ -35,13 +35,26 @@
             </ul>
 <!--             <a class="show menu_btn" href="#menu">Menu</a>
             <a class="hide menu_btn" href="#hidemenu">Menu</a> -->
-            <a href="#menu" id="menu" class="menu hamburger hamburger--spin-r">
+            <a href="#menu" class="menu hamburger hamburger--spin-r">
                 <span class="hamburger-box">
                 <span class="hamburger-inner"></span>
                 </span>
             </a>
         </nav>
     </header>
+
+    <section class="object-overview">
+        <h1>Radio</h1>
+        <div class="object-overview__controls">
+            <button>Play</button>
+            <button>Pause</button>
+            <button>Next Track</button>
+            <button>Previous Track</button>
+            <button>Volume Up</button>
+            <button>Volume Down</button>
+        </div>
+    </section>
+
     <footer>
         <div class="footer__info">
             Project Documentation

@@ -1,4 +1,23 @@
-#menu:target .hamburger-box {
+// everything which concerns the navigation. including typography etc.
+nav {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+}
+
+.header__nav ul {
+    list-style-type: none;
+    display: flex;
+    justify-content: flex-end;
+}
+
+.header__nav li a {
+    color: $clr-1;
+    font-size: 1.8rem;
+    margin-left: $size-gutter;
+}
+
+.hamburger {
     display: none;
 }
 
