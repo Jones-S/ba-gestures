@@ -904,6 +904,24 @@ header {
 .control-hint {
   flex: 1 50%; }
 
+.control-hint--play {
+  background-image: url("../img/icons/play@1x.png"); }
+
+.control-hint--pause {
+  background-image: url("../img/icons/play@1x.png"); }
+
+.control-hint--next {
+  background-image: url("../img/icons/play@1x.png"); }
+
+.control-hint--prev {
+  background-image: url("../img/icons/play@1x.png"); }
+
+.control-hint--vol {
+  background-image: url("../img/icons/play@1x.png"); }
+
+.control-hint--vol {
+  background-image: url("../img/icons/play@1x.png"); }
+
 button {
   width: 5.5rem;
   height: 5.5rem;
@@ -928,10 +946,10 @@ button {
 .btn--prev {
   background-image: url("../img/icons/prev_track@1x.png"); }
 
-.btn--vol-up {
+.btn--volup {
   background-image: url("../img/icons/volume_up@1x.png"); }
 
-.btn--vol-down {
+.btn--voldown {
   background-image: url("../img/icons/volume_down@1x.png"); }
 
 footer {
