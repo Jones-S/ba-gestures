@@ -84,10 +84,7 @@ a {
 
 p {
     // hyphenation
-    -webkit-hyphens: auto;
-       -moz-hyphens: auto;
-        -ms-hyphens: auto;
-            hyphens: auto;
+    hyphens: auto;
 
     font-size: 1.8rem; //18px
     line-height: 2.4rem; // 1em = $base-font-size, because html/body font-size = $base-font-size -> 1.3333 = 24px
@@ -100,18 +97,10 @@ p {
 
 .vertical-text {
     display: inline-block;
-    -webkit-transform: rotate(-90deg);
-       -moz-transform: rotate(-90deg);
-        -ms-transform: rotate(-90deg);
-         -o-transform: rotate(-90deg);
-            transform: rotate(-90deg);
+    transform: rotate(-90deg);
 
     /* also accepts left, right, top, bottom coordinates; not required, but a good idea for styling */
-    -webkit-transform-origin: 48% 70%;
-       -moz-transform-origin: 48% 70%;
-        -ms-transform-origin: 48% 70%;
-         -o-transform-origin: 48% 70%;
-            transform-origin: 48% 70%;
+    transform-origin: 48% 70%;
 }
 
 .header__description p {
