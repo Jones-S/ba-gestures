@@ -6,6 +6,10 @@ body {
 
 }
 
+.body--detail-page {
+    background-color: #000;
+}
+
 //clearfix for floating elements -> http://css-tricks.com/all-about-floats/
 .clearfix:after {
   content: " ";
@@ -145,7 +149,8 @@ header {
 .object-overview { //section
     padding-top: $size-gutter;
     flex: 1 100%;
-    background-image: url(../img/radio@1x.jpg);
+    background: #000 url(../img/radio@1x.jpg) no-repeat;
+    background-size: contain;
     display: flex;
     flex-flow: row wrap;
     justify-content: center;
@@ -173,12 +178,45 @@ header {
 }
 
 
-.object-overview p {
+.object-overview__descr {
     flex: 1 100%;
     order: 4;
     color: #fff;
-    background-color: #63FF5E;
+    // background-color: rgba(99, 255, 94, 0.25);
+    text-align: center;
+
+    p {
+        max-width: 30em;
+        margin: 0 auto;
+    }
 }
+
+.controls-info {
+    text-align: center;
+    width: 100%;
+}
+
+.controls-info__descr {
+    color: #fff;
+    max-width: 30em;
+    margin: 0 auto;
+    padding: $size-gutter;
+}
+
+.controls-info__controls {
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: space-between;
+}
+
+.controls-info__controls h4 {
+    font-size: 3.0rem;
+}
+
+.control-hint {
+    flex: 1 50%;
+}
+
 
 
 
@@ -249,11 +287,10 @@ footer {
 @include media("<720px") { //
     .object-overview__controls {
         flex: 1 100%;
-        order: 2;
+        order: 3;
         padding: 0;
         max-width: 100%;
         width: 100%;
-        padding-top: 40.0rem;
         flex-direction: row;
         justify-content: center;
         flex-wrap: wrap;
@@ -263,7 +300,22 @@ footer {
         flex: 1 100%;
         order: 1;
         padding-right: 0;
+        font-size: 5.0rem;
+        padding-bottom: 50%;
+        margin: 0;
     }
+
+    .object-overview__descr {
+        order: 2;
+
+
+        p {
+            padding: $size-gutter;
+            font-size: 1.5rem;
+            line-height: 1.3em;
+        }
+    }
+
 
     button {
         width: 15.0rem;
