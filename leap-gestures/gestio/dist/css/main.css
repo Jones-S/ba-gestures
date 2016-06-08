@@ -882,9 +882,6 @@ nav {
 .hamburger {
   display: none; }
 
-.hide-menu {
-  display: none; }
-
 @media (max-width: 719px) {
   header {
     padding: 0; }
@@ -900,18 +897,14 @@ nav {
     display: none; }
     .nav__list li {
       padding: 2rem;
-      border-top: 1px solid #fff; }
+      border-top: 1px solid #fff;
+      border-top: 1px solid rgba(255, 255, 255, 0.4); }
   .hamburger {
     display: inline;
-    order: 1; }
-  .hide-menu {
-    display: none; }
-  #menu:target .nav__list {
+    order: 1;
+    margin-top: 0.6rem; }
+  .nav__list-active {
     display: inline-block;
-    width: 100%; }
-  #menu:target .menu {
-    display: none; }
-  #menu:target .hide-menu {
-    display: inline; } }
+    width: 100%; } }
 
 /*# sourceMappingURL=maps/main.css.map */
