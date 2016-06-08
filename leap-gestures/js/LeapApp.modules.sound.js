@@ -6,17 +6,17 @@
      */
     LEAPAPP.Sound = function() {
         // constructor
-        this.sound_on           = new Howl({ src: ['audio/mp3/on.mp3'], preload: true, volume: 0.65 });
-        this.sound_off          = new Howl({ src: ['audio/mp3/off.mp3'], preload: true, volume: 0.65 });
+        this.sound_on           = new Howl({ src: ['audio/mp3/on.mp3'], preload: true, volume: 1.0 });
+        this.sound_off          = new Howl({ src: ['audio/mp3/off.mp3'], preload: true, volume: 1.0 });
         this.sound_vol          = new Howl({ src: ['audio/wav/volume.wav'], preload: true, volume: 0.45 });
-        this.sound_dock_on      = new Howl({ src: ['audio/wav/vol_docking.wav'], preload: true, volume: 0.45 });
-        this.sound_dock_off     = new Howl({ src: ['audio/wav/vol_docking_off.wav'], preload: true, volume: 0.45 });
-        this.sound_cancel       = new Howl({ src: ['audio/wav/cancel.wav'], preload: true, volume: 0.65 });
-        this.sound_ok           = new Howl({ src: ['audio/wav/ok.wav'], preload: true, volume: 0.65 });
-        this.sound_next         = new Howl({ src: ['audio/wav/swipe_right.wav'], preload: true, volume: 0.65 });
-        this.sound_prev         = new Howl({ src: ['audio/wav/swipe_left.wav'], preload: true, volume: 0.65 });
-        this.sound_start        = new Howl({ src: ['audio/wav/hover_in.wav'], preload: true, volume: 0.65 });
-        this.sound_exit         = new Howl({ src: ['audio/wav/hover_out.wav'], preload: true, volume: 0.65 });
+        this.sound_dock_on      = new Howl({ src: ['audio/wav/vol_docking.wav'], preload: true, volume: 0.9 });
+        this.sound_dock_off     = new Howl({ src: ['audio/wav/vol_docking_off.wav'], preload: true, volume: 0.9 });
+        this.sound_cancel       = new Howl({ src: ['audio/wav/cancel.wav'], preload: true, volume: 1.0 });
+        this.sound_ok           = new Howl({ src: ['audio/wav/ok.wav'], preload: true, volume: 1.0 });
+        this.sound_next         = new Howl({ src: ['audio/wav/swipe_right.wav'], preload: true, volume: 1.0 });
+        this.sound_prev         = new Howl({ src: ['audio/wav/swipe_left.wav'], preload: true, volume: 1.0 });
+        this.sound_start        = new Howl({ src: ['audio/wav/hover_in.wav'], preload: true, volume: 1.0 });
+        this.sound_exit         = new Howl({ src: ['audio/wav/hover_out.wav'], preload: true, volume: 1.0 });
 
     };
 
