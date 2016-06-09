@@ -26,12 +26,12 @@ var LAMPFLOW = {
                 myLeapApp.sounder.play('exit');
             }
 
-            if(this.try(gesture_data, 'on') && uber.flags.lamp_on === false) {
+            if(this.try(gesture_data, 'on') && myLeapApp.flow.lamp_on === false) {
                 myLeapApp.shiftr.publish('/lamp', 'on');
                 myLeapApp.sounder.play('on');
                 myLeapApp.flow.lamp_on = true;
             }
-            else if(this.try(gesture_data, 'off') && uber.flags.lamp_on === true) {
+            else if(this.try(gesture_data, 'off') && myLeapApp.flow.lamp_on === true) {
                 myLeapApp.shiftr.publish('/lamp', 'off');
                 myLeapApp.sounder.play('off');
                 myLeapApp.flow.lamp_on = false;
