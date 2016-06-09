@@ -4,9 +4,9 @@
      * LEAPAPP = app for shorter compiling result
      */
     $(function() { // Shorthand for $( document ).ready()
-        // var flow = RADIOFLOW;
+        var flow = RADIOFLOW;
         // var flow = VENTILATORFLOW;
-        var flow = LAMPFLOW;
+        // var flow = LAMPFLOW;
         // TODO: only check for explode and collapse and not for volume in lampflow .e.g
         // Set options for the leap app
         var controller_options = {
