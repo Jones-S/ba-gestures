@@ -5,13 +5,11 @@
 
 var LAMPFLOW = {
     name: 'lamp',
+    lamp_on: false,
 
     doAlways: {
         onEnter: function() {
             this.played_fns.on_enter =  true; // flag to say that onEnter was executed, so that onGestureCheck will execute
-            this.flags = {
-                lamp_on: false,
-            };
             this.brightness = 100;
             this.brightness_publish_count = 0;
 
@@ -31,16 +29,16 @@ var LAMPFLOW = {
             if(this.try(gesture_data, 'on') && uber.flags.lamp_on === false) {
                 myLeapApp.shiftr.publish('/lamp', 'on');
                 myLeapApp.sounder.play('on');
-                this.flags.lamp_on = true;
+                myLeapApp.flow.lamp_on = true;
             }
             else if(this.try(gesture_data, 'off') && uber.flags.lamp_on === true) {
                 myLeapApp.shiftr.publish('/lamp', 'off');
                 myLeapApp.sounder.play('off');
-                this.flags.lamp_on = false;
+                myLeapApp.flow.lamp_on = false;
             }
 
             // if lamp is on check y axis for dimming
-            if (this.flags.lamp_on) {
+            if (myLeapApp.flow.lamp_on) {
                 // set current position of hand to current brightness
                 if (data.hands.length === 1) {
                     uber.brightness_publish_count++;

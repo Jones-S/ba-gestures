@@ -39,7 +39,7 @@ var RADIOFLOW = {
                         myLeapApp.radio.nextTrack();
                     }, 400);
                     // set radio on flag to on
-                    this.radio_on = true;
+                    myLeapApp.flow.radio_on = true;
                 }
                 else if(gesture_data.swipe == "left") {
                     myLeapApp.radio.pause();
@@ -47,13 +47,13 @@ var RADIOFLOW = {
                     setTimeout(function(){
                         myLeapApp.radio.previousTrack();
                     }, 400);
-                    this.radio_on = true;
+                    myLeapApp.flow.radio_on = true;
 
                 }
             }
             else if(this.try(gesture_data, 'on')) {
                 // myLeapApp.shiftr.publish('/radio', 'on');
-                if (!this.radio_on) {
+                if (!myLeapApp.flow.radio_on) {
                     myLeapApp.sounder.play('on');
                 }
                 console.log("start playing");
@@ -61,18 +61,18 @@ var RADIOFLOW = {
                 setTimeout(function(){
                     myLeapApp.radio.play();
                 }, 400);
-                this.radio_on = true;
+                myLeapApp.flow.radio_on = true;
 
             }
             else if(this.try(gesture_data, 'off')) {
-                if (this.radio_on) {
+                if (myLeapApp.flow.radio_on) {
                     myLeapApp.sounder.play('off');
                 }
                 myLeapApp.radio.pause();
-                this.radio_on = false;
+                myLeapApp.flow.radio_on = false;
             }
             // only adjust volume if radio is on
-            else if (this.radio_on && this.try(gesture_data, 'vol_adjust')) {
+            else if (myLeapApp.flow.radio_on && this.try(gesture_data, 'vol_adjust')) {
 
                 // if adjusting volume then map y-axis to volume
                 uber.base_volume = gesture_data.vol_adjust.volume_at_enter;

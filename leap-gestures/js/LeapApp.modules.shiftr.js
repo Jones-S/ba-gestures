@@ -19,6 +19,14 @@
             if (!myLeapApp.flow == RADIOFLOW) {
                 uber.client.subscribe('/radio');
             }
+            // subscribe to radio channel if computer is controlling the radio
+            if (!myLeapApp.flow == LAMPFLOW) {
+                uber.client.subscribe('/lamp');
+            }
+            // subscribe to radio channel if computer is controlling the radio
+            if (!myLeapApp.flow == VENTILATORFLOW) {
+                uber.client.subscribe('/ventilator');
+            }
             // only subscribe to sound channel, if the computer is not playing external sounds
             if (!myLeapApp.ext_sounds) {
                 uber.client.subscribe('/sound');
@@ -36,18 +44,22 @@
                     case 'play':
                         myLeapApp.radio.play();
                         myLeapApp.sounder.play('on');
+                        myLeapApp.flow.radio_on = true;
                         break;
                     case 'pause':
                         myLeapApp.radio.pause();
                         myLeapApp.sounder.play('off');
+                        myLeapApp.flow.radio_on = false;
                         break;
                     case 'next-track':
                         myLeapApp.sounder.play('next');
                         myLeapApp.radio.nextTrack();
+                        myLeapApp.flow.radio_on = true;
                         break;
                     case 'prev-track':
                         myLeapApp.radio.previousTrack();
                         myLeapApp.sounder.play('prev');
+                        myLeapApp.flow.radio_on = true;
                         break;
                     case 'vol-up':
                         myLeapApp.sounder.play('vol');
@@ -61,7 +73,34 @@
                         console.log("Unknown message: ", message);
 
                 }
-            } else if (topic == '/sound') {
+            }
+            else if (topic == '/lamp') {
+                switch(message.toString()) {
+                    case 'on':
+                        myLeapApp.flow.lamp_on = true;
+                        break;
+                    case 'off':
+                        myLeapApp.flow.lamp_on = false;
+                        break;
+                    default:
+                        console.log("Unknown message: ", message);
+
+                }
+            }
+            else if (topic == '/ventilator') {
+                switch(message.toString()) {
+                    case 'on':
+                        myLeapApp.flow.ventilator_on = true;
+                        break;
+                    case 'off':
+                        myLeapApp.flow.ventilator_on = false;
+                        break;
+                    default:
+                        console.log("Unknown message: ", message);
+
+                }
+            }
+            else if (topic == '/sound') {
                 switch(message.toString()) {
                 case 'on':
                     myLeapApp.sounder.play('on');
