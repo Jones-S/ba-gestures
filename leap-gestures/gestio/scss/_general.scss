@@ -157,6 +157,16 @@ header {
     min-height: 80.0rem;
 }
 
+.object-overview--ventilator {
+    background-image: url("../img/ventilator@1x.jpg");
+}
+
+.object-overview--lamp {
+    background-image: url("../img/lamp@1x.jpg");
+    background-size: 85% auto;
+    background-position: 0 25%;
+}
+
 .object-overview__controls {
     flex: 1 auto;
     display: flex;
@@ -175,6 +185,7 @@ header {
     text-align: center;
     font-size: 9.0rem;
     padding-right: 7.0rem + 2 * $size-gutter;
+    padding-bottom: 40.0rem;
 }
 
 
@@ -282,6 +293,28 @@ button {
     background-image: url("../img/icons/volume_down@1x.png");
 }
 
+.btn-venti--play {
+    background-image: url("../img/icons/wind_on@1x.png");
+}
+
+.btn-venti--pause {
+    background-image: url("../img/icons/wind_off@1x.png");
+}
+
+.btn-lamp--play {
+    background-image: url("../img/icons/lamp_on@1x.png");
+}
+.btn-lamp--pause {
+    background-image: url("../img/icons/lamp_off@1x.png");
+}
+
+.btn-lamp--brighter {
+    background-image: url("../img/icons/lamp_brighter@1x.png");
+}
+.btn-lamp--dim {
+    background-image: url("../img/icons/lamp_dim@1x.png");
+}
+
 
 
 
@@ -348,6 +381,11 @@ footer {
         background-size: 10.0rem;
         flex: 1 33%
     }
+
+    .btn-lamp {
+        margin: 0 7% 0 7%;
+    }
+
 }
 
 

@@ -50,31 +50,37 @@
 
 
 
+        /*Ventilator Buttons*/
+
+        $('#btn-venti--play').on( "click", function() {
+            client.publish('/ventilator', 'on');
+        });
+
+        $('#btn-venti--pause').on( "click", function() {
+            client.publish('/ventilator', 'off');
+        });
 
 
+        /*Lamp Buttons*/
 
 
-        // $('').on( "click", function() {
-        //     client.publish('/lamp', 'brighter');
-        //     console.log("lamp led-up");
-        // });
+        $('#btn-lamp--play').on( "click", function() {
+            client.publish('/lamp', 'on');
+        });
 
-        // $('').on( "click", function() {
-        //     client.publish('/lamp', 'lessbright');
-        //     console.log("lamp led-down");
-        // });
+        $('#btn-lamp--pause').on( "click", function() {
+            client.publish('/lamp', 'off');
+        });
 
-        // $('').on( "click", function() {
-        //     client.publish('/lamp', 'brightness-140');
-        // });
+        $('#btn-lamp--brighter').on( "click", function() {
+            client.publish('/lamp', 'brighter');
+        });
 
-        // $('').on( "click", function() {
-        //     client.publish('/lamp', 'brightness-40');
-        // });
+        $('#btn-lamp--dim').on( "click", function() {
+            client.publish('/lamp', 'lessbright');
+        });
 
-        // $('').on( "click", function() {
-        //     client.publish('/sound', 'on');
-        // });
+
 
 
     });

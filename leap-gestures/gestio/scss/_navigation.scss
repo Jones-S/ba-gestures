@@ -24,10 +24,14 @@ nav {
     // background-color: #FF8723;
 }
 
-.header__nav li a {
+.nav__item {
     color: $clr-1;
     font-size: 1.8rem;
     margin-left: $size-gutter;
+}
+
+.nav__active-item {
+    color: #828282;
 }
 
 .hamburger {

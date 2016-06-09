@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="utf-8">
-    <title>Gesti&#333; – Radio Control</title>
+    <title>Gesti&#333; – Ventilator Control</title>
     <meta name="author" content="Jonas Scheiwiller">
     <meta name="description" content="Description">
     <meta name="keywords" content="Keywords" />
@@ -30,10 +30,10 @@
         </h1>
         <nav class="header__nav">
             <ul class="nav__list">
-                <li><a title="Go to Home" href="index.html">Home</a></li>
-                <li><a title="Radio Page" href="radio.html">Radio</a></li>
-                <li><a title="Ventilator Page" href="ventilator.html">Ventilator</a></li>
-                <li><a title="Lamp Page" href="lamp.html">Lamp</a></li>
+                <li><a class="nav__item" title="Go to Home" href="index.html">Home</a></li>
+                <li><a class="nav__item" title="Radio Page" href="radio.html">Radio</a></li>
+                <li><a class="nav__item nav__active-item" title="Ventilator Page" href="ventilator.html">Ventilator</a></li>
+                <li><a class="nav__item" title="Lamp Page" href="lamp.html">Lamp</a></li>
             </ul>
 <!--             <a class="show menu_btn" href="#menu">Menu</a>
             <a class="hide menu_btn" href="#hidemenu">Menu</a> -->
@@ -46,18 +46,15 @@
     </header>
 
     <div class="content">
-        <section class="object-overview">
-            <h1 class="object-overview__title">Radio</h1>
+        <section class="object-overview object-overview--ventilator">
+            <h1 class="object-overview__title">Ventilator</h1>
             <div class="object-overview__controls">
-                <button type="button" class="btn--play" id="btn--play">Play</button>
-                <button type="button" class="btn--pause" id="btn--pause">Pause</button>
-                <button type="button" class="btn--next" id="btn--next">Next Track</button>
-                <button type="button" class="btn--prev" id="btn--prev">Previous Track</button>
-                <button type="button" class="btn--volup" id="btn--volup">Volume Up</button>
-                <button type="button" class="btn--voldown" id="btn--voldown">Volume Down</button>
+                <button type="button" class="btn-venti--play" id="btn-venti--play">Play</button>
+                <button type="button" class="btn-venti--pause" id="btn-venti--pause">Pause</button>
+
             </div>
             <div class="object-overview__descr">
-                <p>The radio has the most possible interactions. Six controls enable the user to play and pause, to select the track and control the volume.</p>
+                <p>The ventilator ist the most simple object and allows the user only to switch it on and off.</p>
             </div>
         </section>
 
