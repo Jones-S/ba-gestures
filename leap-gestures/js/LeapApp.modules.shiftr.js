@@ -18,6 +18,7 @@
             // subscribe to radio channel if computer is controlling the radio
             if (myLeapApp.flow == RADIOFLOW) {
                 uber.client.subscribe('/radio');
+                console.log("radio connected");
             }
             // subscribe to radio channel if computer is controlling the radio
             if (myLeapApp.flow == LAMPFLOW) {
@@ -40,6 +41,7 @@
 
             // receiving radio input
             if (topic == '/radio') {
+                console.log("incoming");
                 switch(message.toString()) {
                     case 'play':
                         myLeapApp.radio.play();
