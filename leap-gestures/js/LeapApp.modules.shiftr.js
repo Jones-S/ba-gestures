@@ -16,15 +16,15 @@
             console.log('client has connected!');
 
             // subscribe to radio channel if computer is controlling the radio
-            if (!myLeapApp.flow == RADIOFLOW) {
+            if (myLeapApp.flow == RADIOFLOW) {
                 uber.client.subscribe('/radio');
             }
             // subscribe to radio channel if computer is controlling the radio
-            if (!myLeapApp.flow == LAMPFLOW) {
+            if (myLeapApp.flow == LAMPFLOW) {
                 uber.client.subscribe('/lamp');
             }
             // subscribe to radio channel if computer is controlling the radio
-            if (!myLeapApp.flow == VENTILATORFLOW) {
+            if (myLeapApp.flow == VENTILATORFLOW) {
                 uber.client.subscribe('/ventilator');
             }
             // only subscribe to sound channel, if the computer is not playing external sounds
@@ -77,9 +77,11 @@
             else if (topic == '/lamp') {
                 switch(message.toString()) {
                     case 'on':
+                        myLeapApp.sounder.play('on');
                         myLeapApp.flow.lamp_on = true;
                         break;
                     case 'off':
+                        myLeapApp.sounder.play('off');
                         myLeapApp.flow.lamp_on = false;
                         break;
                     default:
@@ -90,9 +92,11 @@
             else if (topic == '/ventilator') {
                 switch(message.toString()) {
                     case 'on':
+                        myLeapApp.sounder.play('on');
                         myLeapApp.flow.ventilator_on = true;
                         break;
                     case 'off':
+                        myLeapApp.sounder.play('off');
                         myLeapApp.flow.ventilator_on = false;
                         break;
                     default:
