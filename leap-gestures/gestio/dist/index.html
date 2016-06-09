@@ -1,7 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-  <meta charset="utf-8">
+    <meta charset="utf-8">
     <title>Gesti&#333;</title>
     <meta name="author" content="Jonas Scheiwiller">
     <meta name="description" content="Description">
@@ -9,33 +10,58 @@
     <meta name="robots" content="" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta property="og:image" content="img/thumbnail_website.jpg">
+    <link href='https://fonts.googleapis.com/ css?family=Work+Sans:400,500' rel='stylesheet' type='text/css'>
     <!-- <script src="//use.typekit.net/xci3vba.js"></script> -->
     <!-- <script>try{Typekit.load();}catch(e){}</script> -->
     <!-- <link rel="stylesheet" type="text/css" href="css/main.css" /> -->
     <link rel="stylesheet" type="text/css" href="css/main.css" />
     <!-- <script type="text/javascript" src="js/all.js"></script> -->
     <!-- <script type="text/javascript" src="js/third_party.js"></script> -->
-
     <!-- for dev purpose: basehold overlay (basehold.it/[gridsize=6px]/RGBA) -->
     <!-- <link rel="stylesheet" href="http://basehold.it/6/255/42/85/0.5"> -->
-
-
-
 </head>
+
 <body>
     <header>
         <h1 class="header__logo-cont">
             <img src="img/gestio_logo.svg" alt="Gestio Logo"/>
         </h1>
-        <div>
-            <p>Service for remote control of objects at the degree show at ZHdK.</p>
+        <div class="header__description">
+            <p>Service for remote control of objects
+                <br>at the degree show at ZHdK.</p>
         </div>
     </header>
-
-
+    <section class="object-list">
+        <h1 class="invisible">Objects</h1>
+        <article class="object object-radio">
+            <a class="object__link" href="radio.html" title="Radio Control Page">
+                <h2 class="object__title">Radio</h2>
+            </a>
+        </article>
+        <article class="object object-ventilator">
+            <a class="object__link" href="ventilator.html" title="Ventilator Control Page">
+                <h2 class="object__title">Ventilator</h2>
+            </a>
+        </article>
+        <article class="object object-lamp">
+            <a class="object__link" href="lamp.html" title="Lamp Control Page">
+                <h2 class="object__title">Lamp</h2>
+            </a>
+        </article>
+    </section>
+    <footer>
+        <div class="footer__info">
+            Project Documentation
+            <br> can be found <a href="http://interaction.jonasscheiwiller.ch" title="project documentation">here</a>.
+        </div>
+        <div class="footer__info footer__info--email">Want to know more?
+            <br>
+            <a href="mailto:gestio@jonasscheiwiller.ch" title="Email to gestio@jonasscheiwiller.ch">gestio@jonasscheiwiller.ch</a>
+        </div>
+    </footer>
     <!-- <script>
       Google Analytics if needed
     </script> -->
 </body>
-</html>
 
+</html>

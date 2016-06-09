@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>Gesti&#333; – Lamp Control</title>
+    <meta name="author" content="Jonas Scheiwiller">
+    <meta name="description" content="Description">
+    <meta name="keywords" content="Keywords" />
+    <meta name="robots" content="" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta property="og:image" content="img/thumbnail_website.jpg">
+    <link href='https://fonts.googleapis.com/css?family=Work+Sans:400,500' rel='stylesheet' type='text/css'>
+    <!-- <script src="//use.typekit.net/xci3vba.js"></script> -->
+    <!-- <script>try{Typekit.load();}catch(e){}</script> -->
+    <!-- <link rel="stylesheet" type="text/css" href="css/main.css" /> -->
+    <link rel="stylesheet" type="text/css" href="css/main.css" />
+    <script src="https://assets.shiftr.io/js/mqtt-latest.js"></script>
+
+    <script type="text/javascript" src="js/third_party.js"></script>
+    <script type="text/javascript" src="js/all.js"></script>
+    <!-- for dev purpose: basehold overlay (basehold.it/[gridsize=6px]/RGBA) -->
+    <!-- <link rel="stylesheet" href="http://basehold.it/6/255/42/85/0.5"> -->
+</head>
+
+<body class="body--detail-page">
+    <header class="header--detail-page">
+        <h1 class="header__logo-cont logo-cont--detail-page">
+            <img src="img/gestio_logo.svg" alt="Gestio Logo"/>
+        </h1>
+        <nav class="header__nav">
+            <ul class="nav__list">
+                <li><a class="nav__item" title="Go to Home" href="index.html">Home</a></li>
+                <li><a class="nav__item" title="Radio Page" href="radio.html">Radio</a></li>
+                <li><a class="nav__item" title="Ventilator Page" href="ventilator.html">Ventilator</a></li>
+                <li><a class="nav__item nav__active-item" title="Lamp Page" href="lamp.html">Lamp</a></li>
+            </ul>
+<!--             <a class="show menu_btn" href="#menu">Menu</a>
+            <a class="hide menu_btn" href="#hidemenu">Menu</a> -->
+        </nav>
+        <a  id="btn--activate-menu" class="menu hamburger hamburger--spin-r">
+            <span class="hamburger-box">
+                <span class="hamburger-inner"></span>
+            </span>
+        </a>
+    </header>
+
+    <div class="content">
+        <section class="object-overview object-overview--lamp">
+            <h1 class="object-overview__title">Lamp</h1>
+            <div class="object-overview__controls">
+                <button type="button" class="btn-lamp btn-lamp--play" id="btn-lamp--play">Play</button>
+                <button type="button" class="btn-lamp btn-lamp--pause" id="btn-lamp--pause">Pause</button>
+                <button type="button" class="btn-lamp btn-lamp--brighter" id="btn-lamp--brighter">Play</button>
+                <button type="button" class="btn-lamp btn-lamp--dim" id="btn-lamp--dim">Pause</button>
+
+            </div>
+            <div class="object-overview__descr">
+                <p>The lamp controls include switching it on and off, but also allow to dim the light.</p>
+            </div>
+        </section>
+
+        <!-- <section class="controls-info">
+            <h2>Gesture Controls</h2>
+            <p class="controls-info__descr">In front of the device you can control it via gestures. Here is a little help list, which gesture controls what.</p>
+            <ul class="controls-info__controls">
+                <li class="control-hint control-hint--play">
+                    <h4>Play</h4>
+                    <p>Open your fist quickly.<br>
+                    <a href="http://www.vimeo.com">Example</a></p>
+                </li>
+                <li class="control-hint control-hint--pause">
+                    <h4>Pause</h4>
+                    <p>Open your fist quickly.<br>
+                    <a href="http://www.vimeo.com">Example</a></p>
+                </li>
+                <li class="control-hint control-hint--next">
+                    <h4>Next Track</h4>
+                    <p>Open your fist quickly.<br>
+                    <a href="http://www.vimeo.com">Example</a></p>
+                </li>
+                <li class="control-hint control-hint--prev">
+                    <h4>Previous Track</h4>
+                    <p>Open your fist quickly.<br>
+                    <a href="http://www.vimeo.com">Example</a></p>
+                </li>
+                <li class="control-hint control-hint--vol-up">
+                    <h4>Volume Up</h4>
+                    <p>Open your fist quickly.<br>
+                    <a href="http://www.vimeo.com">Example</a></p>
+                </li>
+                <li class="control-hint control-hint--vol-down">
+                    <h4>Volume Down</h4>
+                    <p>Open your fist quickly.<br>
+                    <a href="http://www.vimeo.com">Example</a></p>
+                </li>
+
+            </ul>
+        </section> -->
+    </div>
+
+    <footer>
+        <div class="footer__info">
+            Project Documentation
+            <br> can be found <a href="http://interaction.jonasscheiwiller.ch" title="project documentation">here</a>.
+        </div>
+        <div class="footer__info footer__info--email">Want to know more?
+            <br>
+            <a href="mailto:gestio@jonasscheiwiller.ch" title="Email to gestio@jonasscheiwiller.ch">gestio@jonasscheiwiller.ch</a>
+        </div>
+    </footer>
+    <!-- <script>
+      Google Analytics if needed
+    </script> -->
+</body>
+
+</html>

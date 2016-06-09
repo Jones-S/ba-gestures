@@ -6,6 +6,10 @@ body {
 
 }
 
+.body--detail-page {
+    background-color: #000;
+}
+
 //clearfix for floating elements -> http://css-tricks.com/all-about-floats/
 .clearfix:after {
   content: " ";
@@ -41,3 +45,350 @@ html {
     width: 80%;
     margin: 0 auto;
 }
+
+header {
+    background-color: $clr-2;
+    padding: $size-gutter;
+    padding-top: 0.5 * $size-gutter;
+    padding-bottom: 0.5 * $size-gutter;
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap; // no line break even if flex objects are bigger than width
+}
+
+.header--detail-page {
+    background-color: #000;
+}
+
+.header__logo-cont {
+    margin: 0;
+    flex: 1 10.0rem;
+    @include media("<720px") { //
+        flex: 1 100%;
+        text-align: center;
+        margin-bottom: 0.5 * $size-gutter;
+        font-size: 1.0rem;
+    }
+
+    img {
+        max-width: 10.0rem;
+    }
+}
+
+
+.header__description {
+    text-align: right;
+    flex: 3;
+    p {
+        max-width: none;
+    }
+    @include media("<720px") { //
+        flex: 1 100%;
+        text-align: center;
+        margin-bottom: 0.5 * $size-gutter;
+        font-size: 1.0rem;
+    }
+}
+
+
+.object {
+    background-color: #000;
+    min-height: 60.0rem;
+    background-size: auto 100%;
+    background-repeat: no-repeat;
+    background-position: center center;
+    display: flex;
+    justify-content: center;
+    align-items: stretch;
+    border: none;
+    transition: background-size 0.35s;
+    &:hover {
+        background-size: auto 110%;
+    }
+}
+
+.object-radio {
+    background-image: url(../img/radio@1x.jpg);
+
+    @media
+    only screen and (-webkit-min-device-pixel-ratio: 2),
+    only screen and (   min--moz-device-pixel-ratio: 2),
+    only screen and (     -o-min-device-pixel-ratio: 2/1),
+    only screen and (        min-device-pixel-ratio: 2),
+    only screen and (                min-resolution: 192dpi),
+    only screen and (                min-resolution: 2dppx) {
+        background-image: url(../img/radio@2x.jpg);
+    }
+}
+
+.object-ventilator {
+    background-image: url(../img/ventilator@1x.jpg);
+}
+
+.object-lamp {
+    background-image: url(../img/lamp@1x.jpg);
+}
+
+
+.object__link {
+    display: flex;
+    flex: 1 100%;
+    justify-content: center;
+    align-items: center;
+    text-decoration: none;
+    &:hover {
+        // background-color: rgba(255, 255, 255, 0.12);
+    }
+}
+
+.content {
+    display: flex;
+    flex-flow: row wrap;
+}
+
+.object-overview { //section
+    padding-top: $size-gutter;
+    flex: 1 100%;
+    background: #000 url(../img/radio@1x.jpg) no-repeat;
+    background-size: contain;
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: center;
+    min-height: 80.0rem;
+    background-position: center 0;
+}
+
+.object-overview--ventilator {
+    background-image: url("../img/ventilator@1x.jpg");
+    background-position: center 12%
+}
+
+.object-overview--lamp {
+    background-image: url("../img/lamp@1x.jpg");
+    background-size: 85% auto;
+    background-position: center 25%;
+}
+
+.object-overview__controls {
+    flex: 1 auto;
+    display: flex;
+    flex-direction: column;
+    // background-color: #46D6FF;
+    order: 1;
+    max-width: 7.0rem + $size-gutter;
+    padding-left: $size-gutter;
+    padding-top: $size-gutter;
+}
+
+.object-overview__title {
+    flex: 3 auto;
+    // background-color: rgba(255, 98, 33, .3);
+    order: 2;
+    text-align: center;
+    font-size: 9.0rem;
+    padding-right: 7.0rem + 2 * $size-gutter;
+    padding-bottom: 40.0rem;
+}
+
+
+.object-overview__descr {
+    flex: 1 100%;
+    order: 4;
+    color: #fff;
+    // background-color: rgba(99, 255, 94, 0.25);
+    text-align: center;
+
+    p {
+        max-width: 30em;
+        margin: 0 auto;
+    }
+}
+
+.controls-info {
+    text-align: center;
+    width: 100%;
+}
+
+.controls-info__descr {
+    color: #fff;
+    max-width: 30em;
+    margin: 0 auto;
+    padding: $size-gutter;
+}
+
+.controls-info__controls {
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: space-between;
+}
+
+.controls-info__controls h4 {
+    font-size: 3.0rem;
+}
+
+.control-hint {
+    flex: 1 50%;
+}
+
+.control-hint--play {
+    background-image: url("../img/icons/play@1x.png");
+}
+
+.control-hint--pause {
+    background-image: url("../img/icons/play@1x.png");
+}
+
+.control-hint--next {
+    background-image: url("../img/icons/play@1x.png");
+}
+
+.control-hint--prev {
+    background-image: url("../img/icons/play@1x.png");
+}
+
+.control-hint--vol {
+    background-image: url("../img/icons/play@1x.png");
+}
+
+.control-hint--vol {
+    background-image: url("../img/icons/play@1x.png");
+}
+
+
+
+
+
+button {
+    width: 5.5rem;
+    height: 5.5rem;
+    text-indent: -15000px;
+    background-position: center;
+    background-color: transparent;
+    background-repeat: no-repeat;
+    background-size: 5.0rem auto;
+    cursor: pointer;
+    border: none;
+    margin-bottom: 1.0rem;
+}
+
+.btn--play {
+    background-image: url("../img/icons/play@1x.png");
+}
+
+.btn--pause {
+    background-image: url("../img/icons/pause@1x.png");
+}
+
+.btn--next {
+    background-image: url("../img/icons/next_track@1x.png");
+}
+
+.btn--prev {
+    background-image: url("../img/icons/prev_track@1x.png");
+}
+
+.btn--volup {
+    background-image: url("../img/icons/volume_up@1x.png");
+}
+
+.btn--voldown {
+    background-image: url("../img/icons/volume_down@1x.png");
+}
+
+.btn-venti--play {
+    background-image: url("../img/icons/wind_on@1x.png");
+}
+
+.btn-venti--pause {
+    background-image: url("../img/icons/wind_off@1x.png");
+}
+
+.btn-lamp--play {
+    background-image: url("../img/icons/lamp_on@1x.png");
+}
+.btn-lamp--pause {
+    background-image: url("../img/icons/lamp_off@1x.png");
+}
+
+.btn-lamp--brighter {
+    background-image: url("../img/icons/lamp_brighter@1x.png");
+}
+.btn-lamp--dim {
+    background-image: url("../img/icons/lamp_dim@1x.png");
+}
+
+
+
+
+
+
+
+footer {
+    display: flex;
+    flex-flow: row wrap;
+    padding: $size-gutter;
+
+    background-color: $clr-2;
+}
+
+.footer__info {
+    // flex: amount of space (all 1 -> all equal |
+    flex: 1 auto;
+    @include media("<790px") { //
+        flex: 1 100%;
+        margin-bottom: $size-gutter;
+        &:last-of-type {
+            margin-bottom: 0;
+        }
+    }
+}
+
+
+@include media("<720px") { //
+    .object-overview__controls {
+        flex: 1 100%;
+        order: 3;
+        padding: 0;
+        max-width: 100%;
+        width: 100%;
+        flex-direction: row;
+        justify-content: center;
+        flex-wrap: wrap;
+        padding-bottom: 3.0rem;
+    }
+
+    .object-overview__title {
+        flex: 1 100%;
+        order: 1;
+        padding-right: 0;
+        font-size: 5.0rem;
+        padding-bottom: 50%;
+        margin: 0;
+    }
+
+    .object-overview__descr {
+        order: 2;
+
+
+        p {
+            padding: $size-gutter;
+            font-size: 1.5rem;
+            line-height: 1.3em;
+        }
+    }
+
+
+    button {
+        width: 15.0rem;
+        height: 15.0rem;
+        background-size: 10.0rem;
+        flex: 1 33%
+    }
+
+    .btn-lamp {
+        margin: 0 7% 0 7%;
+    }
+
+}
+
+

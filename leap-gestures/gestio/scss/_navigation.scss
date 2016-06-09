@@ -1,3 +1,84 @@
+// everything which concerns the navigation. including typography etc.
+.logo-cont--detail-page {
+    @include media("<720px") { //
+        margin-bottom: 0;
+        line-height: 1.7rem;
+        flex: 1 50%;
+        text-align: start;
+        // background-color: #08FFB6;
+    }
+}
+
 nav {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    flex-wrap: wrap;
+    // background-color: #ADFF49;
+}
+
+.nav__list {
+    list-style-type: none;
+    display: flex;
+    justify-content: flex-end;
+    // background-color: #FF8723;
+}
+
+.nav__item {
+    color: $clr-1;
+    font-size: 1.8rem;
+    margin-left: $size-gutter;
+}
+
+.nav__active-item {
+    color: #828282;
+}
+
+.hamburger {
+    display: none;
+}
+
+
+
+@include media("<720px") {
+    header {
+        padding: 0;
+    }
+
+    .header__logo-cont {
+        padding: $size-gutter * 0.5;
+    }
+
+    nav {
+        order: 2;
+        flex: 1 100%;
+        text-align: center;
+    }
+
+
+    .header__nav li a {
+        margin-left: 0;
+    }
+
+    .nav__list {
+        display: none;
+        li {
+            padding: $size-gutter * 0.5;
+            border-top: 1px solid #fff;
+            border-top: 1px solid rgba(255, 255, 255, 0.4);
+        }
+    }
+
+    .hamburger {
+        display: inline;
+        order: 1;
+        margin-top: 0.6rem;
+        // background-color: #31AEFF;
+    }
+
+    .nav__list-active {
+        display: inline-block;
+        width: 100%;
+    }
 
 }
