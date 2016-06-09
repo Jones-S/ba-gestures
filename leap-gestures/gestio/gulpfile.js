@@ -1,7 +1,6 @@
 // Load Node Modules/Plugins
 var gulp = require('gulp');
 var concat = require('gulp-concat');
-// var uglify = require('gulp-uglify');
 var notify = require('gulp-notify');
 var cssnano = require('gulp-cssnano');
 var browsersync = require('browser-sync');
@@ -9,6 +8,7 @@ var sourcemaps = require('gulp-sourcemaps');
 var sass = require('gulp-sass');
 var plumber = require('gulp-plumber');
 var autoprefixer = require('gulp-autoprefixer');
+var uglify = require('gulp-uglify');
 
 
 // Asset paths
@@ -82,6 +82,7 @@ gulp.task('concatthirdparty', function() {
             }))
         .pipe(sourcemaps.init())
         .pipe(concat('third_party.js'))
+        .pipe(uglify())
         .pipe(sourcemaps.write('maps'))
         .pipe(gulp.dest(paths['js_dist']))
         .pipe(notify({ message: 'Concat 3rdParty task complete' }))
@@ -142,16 +143,17 @@ gulp.task('production-css', function(){
             browsers: ['last 3 versions'],
             cascade: false
         }))
-        // .pipe(cssnano())      //minifying removes line comments as well
+        .pipe(cssnano())      //minifying removes line comments as well
         .pipe(gulp.dest(paths["css"]))
         .pipe(notify({ message: 'css production task complete' }));
 });
 
 gulp.task('production-js', function() {
-    return gulp.src('testcampusinterview/system/templates/frontend/default/js/all.js')
+    return gulp.src(paths['js'])
+        .pipe(concat('all.js'))
         .pipe(uglify())
-        .pipe(gulp.dest('testcampusinterview/system/templates/frontend/default/js/production'))
+        .pipe(gulp.dest(paths['js_dist']))
         .pipe(notify({ message: 'uglify js task complete' }));
 });
 
-gulp.task('production', ['production-js', 'production-css']);
+gulp.task('production', ['production-js', 'production-css', 'concatthirdparty']);

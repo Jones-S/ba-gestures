@@ -155,16 +155,18 @@ header {
     flex-flow: row wrap;
     justify-content: center;
     min-height: 80.0rem;
+    background-position: center 0;
 }
 
 .object-overview--ventilator {
     background-image: url("../img/ventilator@1x.jpg");
+    background-position: center 12%
 }
 
 .object-overview--lamp {
     background-image: url("../img/lamp@1x.jpg");
     background-size: 85% auto;
-    background-position: 0 25%;
+    background-position: center 25%;
 }
 
 .object-overview__controls {
@@ -352,6 +354,7 @@ footer {
         flex-direction: row;
         justify-content: center;
         flex-wrap: wrap;
+        padding-bottom: 3.0rem;
     }
 
     .object-overview__title {
