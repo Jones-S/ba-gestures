@@ -391,4 +391,25 @@ footer {
 
 }
 
+@include media("<450px") { //
+    .header__description {
+        font-size: 1.0rem;
+    }
+
+    .object__title {
+        font-size: 4.0rem;
+    }
+
+    .object {
+        background-size: contain;
+        min-height: 20.0rem;
+    }
+
+    .object-overview--radio {
+        background-position: center 15%;
+    }
+
+}
+
+
 
