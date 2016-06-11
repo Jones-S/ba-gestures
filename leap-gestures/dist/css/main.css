@@ -201,6 +201,7 @@ body.fast-moves {
 
 video {
   width: 100%;
-  height: auto; }
+  height: auto;
+  cursor: none; }
 
 /*# sourceMappingURL=maps/main.css.map */
