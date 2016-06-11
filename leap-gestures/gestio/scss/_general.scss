@@ -273,48 +273,156 @@ button {
 
 .btn--play {
     background-image: url("../img/icons/play@1x.png");
+    @media
+    only screen and (-webkit-min-device-pixel-ratio: 2),
+    only screen and (   min--moz-device-pixel-ratio: 2),
+    only screen and (     -o-min-device-pixel-ratio: 2/1),
+    only screen and (        min-device-pixel-ratio: 2),
+    only screen and (                min-resolution: 192dpi),
+    only screen and (                min-resolution: 2dppx) {
+        background-image: url(../img/icons/play@2x.png);
+    }
 }
 
 .btn--pause {
     background-image: url("../img/icons/pause@1x.png");
+    @media
+    only screen and (-webkit-min-device-pixel-ratio: 2),
+    only screen and (   min--moz-device-pixel-ratio: 2),
+    only screen and (     -o-min-device-pixel-ratio: 2/1),
+    only screen and (        min-device-pixel-ratio: 2),
+    only screen and (                min-resolution: 192dpi),
+    only screen and (                min-resolution: 2dppx) {
+        background-image: url(../img/icons/pause@2x.png);
+    }
 }
 
 .btn--next {
     background-image: url("../img/icons/next_track@1x.png");
+    @media
+    only screen and (-webkit-min-device-pixel-ratio: 2),
+    only screen and (   min--moz-device-pixel-ratio: 2),
+    only screen and (     -o-min-device-pixel-ratio: 2/1),
+    only screen and (        min-device-pixel-ratio: 2),
+    only screen and (                min-resolution: 192dpi),
+    only screen and (                min-resolution: 2dppx) {
+        background-image: url(../img/icons/next_track@2x.png);
+    }
 }
 
 .btn--prev {
     background-image: url("../img/icons/prev_track@1x.png");
+    @media
+    only screen and (-webkit-min-device-pixel-ratio: 2),
+    only screen and (   min--moz-device-pixel-ratio: 2),
+    only screen and (     -o-min-device-pixel-ratio: 2/1),
+    only screen and (        min-device-pixel-ratio: 2),
+    only screen and (                min-resolution: 192dpi),
+    only screen and (                min-resolution: 2dppx) {
+        background-image: url(../img/icons/prev_track@2x.png);
+    }
 }
 
 .btn--volup {
     background-image: url("../img/icons/volume_up@1x.png");
+    @media
+    only screen and (-webkit-min-device-pixel-ratio: 2),
+    only screen and (   min--moz-device-pixel-ratio: 2),
+    only screen and (     -o-min-device-pixel-ratio: 2/1),
+    only screen and (        min-device-pixel-ratio: 2),
+    only screen and (                min-resolution: 192dpi),
+    only screen and (                min-resolution: 2dppx) {
+        background-image: url(../img/icons/volume_up@2x.png);
+    }
 }
 
 .btn--voldown {
     background-image: url("../img/icons/volume_down@1x.png");
+    @media
+    only screen and (-webkit-min-device-pixel-ratio: 2),
+    only screen and (   min--moz-device-pixel-ratio: 2),
+    only screen and (     -o-min-device-pixel-ratio: 2/1),
+    only screen and (        min-device-pixel-ratio: 2),
+    only screen and (                min-resolution: 192dpi),
+    only screen and (                min-resolution: 2dppx) {
+        background-image: url(../img/icons/volume_down@2x.png);
+    }
 }
 
 .btn-venti--play {
     background-image: url("../img/icons/wind_on@1x.png");
+    @media
+    only screen and (-webkit-min-device-pixel-ratio: 2),
+    only screen and (   min--moz-device-pixel-ratio: 2),
+    only screen and (     -o-min-device-pixel-ratio: 2/1),
+    only screen and (        min-device-pixel-ratio: 2),
+    only screen and (                min-resolution: 192dpi),
+    only screen and (                min-resolution: 2dppx) {
+        background-image: url(../img/icons/wind_on@2x.png);
+    }
 }
 
 .btn-venti--pause {
     background-image: url("../img/icons/wind_off@1x.png");
+    @media
+    only screen and (-webkit-min-device-pixel-ratio: 2),
+    only screen and (   min--moz-device-pixel-ratio: 2),
+    only screen and (     -o-min-device-pixel-ratio: 2/1),
+    only screen and (        min-device-pixel-ratio: 2),
+    only screen and (                min-resolution: 192dpi),
+    only screen and (                min-resolution: 2dppx) {
+        background-image: url(../img/icons/wind_off@2x.png);
+    }
 }
 
 .btn-lamp--play {
     background-image: url("../img/icons/lamp_on@1x.png");
+    @media
+    only screen and (-webkit-min-device-pixel-ratio: 2),
+    only screen and (   min--moz-device-pixel-ratio: 2),
+    only screen and (     -o-min-device-pixel-ratio: 2/1),
+    only screen and (        min-device-pixel-ratio: 2),
+    only screen and (                min-resolution: 192dpi),
+    only screen and (                min-resolution: 2dppx) {
+        background-image: url(../img/icons/lamp_on@2x.png);
+    }
 }
 .btn-lamp--pause {
     background-image: url("../img/icons/lamp_off@1x.png");
+    @media
+    only screen and (-webkit-min-device-pixel-ratio: 2),
+    only screen and (   min--moz-device-pixel-ratio: 2),
+    only screen and (     -o-min-device-pixel-ratio: 2/1),
+    only screen and (        min-device-pixel-ratio: 2),
+    only screen and (                min-resolution: 192dpi),
+    only screen and (                min-resolution: 2dppx) {
+        background-image: url(../img/icons/lamp_off@2x.png);
+    }
 }
 
 .btn-lamp--brighter {
     background-image: url("../img/icons/lamp_brighter@1x.png");
+    @media
+    only screen and (-webkit-min-device-pixel-ratio: 2),
+    only screen and (   min--moz-device-pixel-ratio: 2),
+    only screen and (     -o-min-device-pixel-ratio: 2/1),
+    only screen and (        min-device-pixel-ratio: 2),
+    only screen and (                min-resolution: 192dpi),
+    only screen and (                min-resolution: 2dppx) {
+        background-image: url(../img/icons/lamp_brighter@2x.png);
+    }
 }
 .btn-lamp--dim {
     background-image: url("../img/icons/lamp_dim@1x.png");
+    @media
+    only screen and (-webkit-min-device-pixel-ratio: 2),
+    only screen and (   min--moz-device-pixel-ratio: 2),
+    only screen and (     -o-min-device-pixel-ratio: 2/1),
+    only screen and (        min-device-pixel-ratio: 2),
+    only screen and (                min-resolution: 192dpi),
+    only screen and (                min-resolution: 2dppx) {
+        background-image: url(../img/icons/lamp_dim@2x.png);
+    }
 }
 
 
@@ -349,6 +457,8 @@ footer {
         flex: 1 100%;
         order: 3;
         padding: 0;
+        padding-left: $size-gutter;
+        padding-right: $size-gutter;
         max-width: 100%;
         width: 100%;
         flex-direction: row;
@@ -382,7 +492,7 @@ footer {
         width: 15.0rem;
         height: 15.0rem;
         background-size: 10.0rem;
-        flex: 1 33%
+        flex: 1 40%
     }
 
     .btn-lamp {
